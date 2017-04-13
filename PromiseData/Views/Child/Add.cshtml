@@ -1,0 +1,44 @@
+﻿@model PromiseData.ViewModels.ChildFormViewModel
+@{
+    ViewBag.Title = "Add";
+}
+
+<h2>Add</h2>
+<form>
+    <div class="form-group">
+        @Html.LabelFor(m => m.LastName)
+        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control"})
+        @Html.LabelFor(m => m.OtherLastName)
+        @Html.TextBoxFor(m => m.OtherLastName, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.FirstName)
+        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.MiddleName)
+        @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control" })
+        @Html.LabelFor(m => m.OtherMiddleName)
+        @Html.TextBoxFor(m => m.OtherMiddleName, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Birthdate)
+        @Html.TextBoxFor(m => m.Birthdate, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.GenderID)
+        @Html.TextBoxFor(m => m.GenderID, new SelectList(Model.Genders, "Id", "Gender"))
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.RaceEthnicityID)
+        @Html.TextBoxFor(m => m.RaceEthnicityID, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.LanguageID)
+        @Html.TextBoxFor(m => m.LanguageID, new { @class = "form-control" })
+    </div>
+    <div class="form-group"></div>
+    <div class="form-group"></div>
+    <div class="form-group"></div>
+    <div class="form-group"></div>
+</form>
