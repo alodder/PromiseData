@@ -27,7 +27,7 @@
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.GenderID)
-        @Html.TextBoxFor(m => m.GenderID, new SelectList(Model.Genders, "Id", "Gender"))
+        @Html.DropDownListFor(m => m.GenderID, new SelectList(Model.Genders, "Code", "Description"))
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.RaceEthnicityID)
