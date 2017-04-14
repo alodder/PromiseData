@@ -11,14 +11,11 @@ namespace PromiseData.Models
         [Key]
         public int Code { get; set; }
 
-        [StringLength(12)]
-        public string Desc { get; set; }
-
         [StringLength(100)]
         public string Description { get; set; }
 
         public DateTime? Effective { get; set; }
 
-        public DateTime? End { get; set; }
+        public DateTime? EndDate { get; set; }
     }
 }

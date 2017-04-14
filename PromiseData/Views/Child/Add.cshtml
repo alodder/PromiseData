@@ -4,10 +4,11 @@
 }
 
 <h2>Add</h2>
-<form>
+@using (Html.BeginForm("Add", "Child"))
+{
     <div class="form-group">
         @Html.LabelFor(m => m.LastName)
-        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control"})
+        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
         @Html.LabelFor(m => m.OtherLastName)
         @Html.TextBoxFor(m => m.OtherLastName, new { @class = "form-control" })
     </div>
@@ -27,7 +28,7 @@
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.GenderID)
-        @Html.DropDownListFor(m => m.GenderID, new SelectList(Model.Genders, "Code", "Description"))
+        @Html.DropDownListFor(m => m.GenderID, new SelectList(Model.Genders, "Code", "Description"), new { @class = "form-control" })
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.RaceEthnicityID)
@@ -37,8 +38,5 @@
         @Html.LabelFor(m => m.LanguageID)
         @Html.TextBoxFor(m => m.LanguageID, new { @class = "form-control" })
     </div>
-    <div class="form-group"></div>
-    <div class="form-group"></div>
-    <div class="form-group"></div>
-    <div class="form-group"></div>
-</form>
+    <button type="submit" class="btn btn-primary">Save</button>
+}
