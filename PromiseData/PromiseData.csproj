@@ -197,14 +197,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201704122049524_InitialModel.cs" />
-    <Compile Include="Migrations\201704122049524_InitialModel.Designer.cs">
-      <DependentUpon>201704122049524_InitialModel.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Child.cs" />
+    <Compile Include="Models\RaceEthnicity.cs" />
+    <Compile Include="Models\Code_Language.cs" />
     <Compile Include="Models\Code_Gender.cs" />
     <Compile Include="Models\Facility.cs" />
     <Compile Include="Models\Classroom.cs" />
@@ -296,11 +294,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201704122049524_InitialModel.resx">
-      <DependentUpon>201704122049524_InitialModel.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

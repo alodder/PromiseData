@@ -32,11 +32,11 @@
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.RaceEthnicityID)
-        @Html.TextBoxFor(m => m.RaceEthnicityID, new { @class = "form-control" })
+        @Html.DropDownListFor(m => m.RaceEthnicityID, new SelectList(Model.RaceEthnicityList, "Id", "Description"), new { @class = "form-control" })
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.LanguageID)
-        @Html.TextBoxFor(m => m.LanguageID, new { @class = "form-control" })
+        @Html.DropDownListFor(m => m.GenderID, new SelectList(Model.Languages, "Code", "Description"), new { @class = "form-control" })
     </div>
     <button type="submit" class="btn btn-primary">Save</button>
 }

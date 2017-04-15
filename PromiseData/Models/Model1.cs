@@ -13,6 +13,8 @@ namespace PromiseData.Models
         }
 
         public virtual DbSet<Code_Gender> CodeGender { get; set; }
+        public virtual DbSet<RaceEthnicity> RaceEthnic { get; set; }
+        public virtual DbSet<Code_Language> CodeLanguage { get; set; }
         public virtual DbSet<Child> Children { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

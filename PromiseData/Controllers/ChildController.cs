@@ -20,7 +20,9 @@ namespace PromiseData.Controllers
         {
             var viewModel = new ChildFormViewModel
             {
-                Genders = _context.CodeGender.ToList()
+                Genders = _context.CodeGender.ToList(),
+                Languages = _context.CodeLanguage.ToList(),
+                RaceEthnicityList = _context.RaceEthnic.ToList()
             };
             return View(viewModel);
         }

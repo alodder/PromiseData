@@ -17,6 +17,8 @@ namespace PromiseData.ViewModels
         public int GenderID { get; set; }
         public IEnumerable<Code_Gender> Genders { get; set; }
         public String RaceEthnicityID { get; set; }
+        public IEnumerable<RaceEthnicity> RaceEthnicityList { get; set; }
         public int LanguageID { get; set; }
+        public IEnumerable<Code_Language> Languages { get; set; }
     }
 }
