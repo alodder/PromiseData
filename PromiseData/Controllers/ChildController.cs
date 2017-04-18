@@ -29,6 +29,7 @@ namespace PromiseData.Controllers
 
         [Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Add(ChildFormViewModel viewModel)
         {
             if (!ModelState.IsValid)

@@ -6,6 +6,7 @@
 <h2>Add - Enroll</h2>
 @using (Html.BeginForm("Add", "Child"))
 {
+    @Html.AntiForgeryToken()
     <div class="form-group">
         @Html.LabelFor(m => m.LastName)
         @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
