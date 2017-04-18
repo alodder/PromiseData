@@ -29,17 +29,26 @@ namespace PromiseData.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult Add(ChildFormViewModel viewmodel)
+        public ActionResult Add(ChildFormViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                viewModel.Genders = _context.CodeGender.ToList();
+                viewModel.Languages = _context.CodeLanguage.ToList();
+                viewModel.RaceEthnicityList = _context.RaceEthnic.ToList();
+                return View("Add", viewModel);
+            }
+                
+
             var child = new Child
             {
-                LastName = viewmodel.LastName,
-                OtherLastName = viewmodel.OtherLastName,
-                FirstName = viewmodel.FirstName,
-                MiddleName = viewmodel.MiddleName,
-                OtherMiddleName = viewmodel.OtherMiddleName,
-                Birthdate = (DateTime?)viewmodel.Birthdate,
-                Gender_ID = viewmodel.GenderID
+                LastName = viewModel.LastName,
+                OtherLastName = viewModel.OtherLastName,
+                FirstName = viewModel.FirstName,
+                MiddleName = viewModel.MiddleName,
+                OtherMiddleName = viewModel.OtherMiddleName,
+                Birthdate = DateTime.Parse(Convert.ToString(viewModel.Date)),
+            Gender_ID = viewModel.GenderID
             };
 
             _context.Children.Add(child);
