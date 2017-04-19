@@ -6,30 +6,31 @@
 <h2>Add - Enroll</h2>
 @using (Html.BeginForm("Add", "Child"))
 {
+    <p>Instructions to fill out this form</p>
     @Html.AntiForgeryToken()
     <div class="form-group">
         @Html.LabelFor(m => m.LastName)
-        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder="Lewis", autofocus="autofocus" })
         @Html.ValidationMessageFor(m => m.LastName)
         @Html.LabelFor(m => m.OtherLastName)
-        @Html.TextBoxFor(m => m.OtherLastName, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.OtherLastName, new { @class = "form-control", placeholder = "Clark" })
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.FirstName)
-        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "Meriwether" })
         @Html.ValidationMessageFor(m => m.FirstName)
         @Html.LabelFor(m => m.GenerationCodeID)
-        @Html.TextBoxFor(m => m.GenerationCodeID, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.GenerationCodeID, new { @class = "form-control", placeholder = "Jr." })
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.MiddleName)
-        @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control", placeholder = "William" })
         @Html.LabelFor(m => m.OtherMiddleName)
         @Html.TextBoxFor(m => m.OtherMiddleName, new { @class = "form-control" })
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Date)
-        @Html.TextBoxFor(m => m.Date, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.Date, new { @class = "form-control", placeholder = "1 Jan 2010" })
         @Html.ValidationMessageFor(m => m.Date)
     </div>
     <div class="form-group">

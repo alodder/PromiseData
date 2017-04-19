@@ -30,3 +30,18 @@ body {
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: 'Montserrat', sans-serif;
 }
+.navbar-inverse {
+    background-color: #d4e9ee;
+}
+.navbar-nav > li > a {
+    color: #009587;
+}
+
+@med .field-validation-error {
+    color: red;
+    font-weight: bold;
+    display: block;
+}
+ .field-validation-valid {
+     color: greenyellow;
+ }

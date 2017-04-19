@@ -34,6 +34,7 @@ namespace PromiseData.ViewModels
 
         [Required]
         [BirthDate]
+        [DisplayName("Date of Birth")]
         public string Date { get; set; }
 
         [Required]
