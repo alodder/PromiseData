@@ -1,27 +1,57 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
 namespace PromiseData.Models
 {
-    public class Classroom
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
+
+    [Table("Classroom")]
+    public partial class Classroom
     {
-        public int ClassroomId { get; set; }
-        public int FacilityId { get; set; }
-        public int ProgramId { get; set; }
-        public int ProgramSessionId { get; set; }
-        public String NewOrExpandedClass { get; set; }
-        public float SessionHours { get; set; }
-        public int SessionDays { get; set; }
-        public int SessionWeeks  { get; set; }
-        public int PPStudentCount { get; set; } //Calculated? max 50
-        public int NonPPStudentCount { get; set; } //
-        public int NonPPStudentParentsPayCount { get; set; } //
-        public int PPSlotsUnfilled { get; set; }  //max 50
-        public int ClassScoreEmotionalSupport { get; set; }
-        public int ClassScoreEmotionalOrganization { get; set; }
-        public int ClassScoreInstructionalSupport { get; set; }
-        //timestamp
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int ID { get; set; }
+
+        public int? Facility_ID { get; set; }
+
+        public int? Program_ID { get; set; }
+
+        public int? ProgramSessionType_ID { get; set; }
+
+        [StringLength(10)]
+        public string NewOrExpandedClass { get; set; }
+
+        public double? SessionHours { get; set; }
+
+        public int? SessionDays { get; set; }
+
+        public int? SessionWeeks { get; set; }
+
+        public int? PPStudents { get; set; }
+
+        public int? NonPPStudentsHSOPK { get; set; }
+
+        public int? NonPPStudentsThirdParty { get; set; }
+
+        public int? NonPPStudentsParentPay { get; set; }
+
+        public int? PPSlotsUnfilled { get; set; }
+
+        public int? CLASSScore_EmotionalSupport { get; set; }
+
+        public int? CLASSScore_ClassroomOrganization { get; set; }
+
+        public int? CLASSScore_InstructionalSupport { get; set; }
+
+        [Column(TypeName = "timestamp")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [MaxLength(8)]
+        public byte[] upsize_ts { get; set; }
+
+        public virtual Code_ProgramSessionType Code_ProgramSessionType { get; set; }
+
+        public virtual Facility Facility { get; set; }
+
+        public virtual Service Service { get; set; }
     }
 }

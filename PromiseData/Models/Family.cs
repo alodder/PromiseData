@@ -1,20 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
 namespace PromiseData.Models
 {
-    public class Family
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
+
+    [Table("Family")]
+    public partial class Family
     {
-        public int Id { get; set; }
-        public int HouseholdSize { get; set; }
-        public int ChildrenInHome { get; set; }
-        public int Income { get; set; }
-        public Boolean SNAP { get; set; }
-        public Boolean WIC { get; set; }
-        public Boolean TANF { get; set; }
-        public Boolean SSI { get; set; }
-        public int MonthlyCostAdjust { get; set; } //perhaps decimal type, database is int
+        public int ID { get; set; }
+
+        public int? HouseholdSize { get; set; }
+
+        public int? ChildrenInHome { get; set; }
+
+        [Column(TypeName = "money")]
+        public decimal? Income { get; set; }
+
+        public bool SNAP { get; set; }
+
+        public bool WIC { get; set; }
+
+        public bool TANF { get; set; }
+
+        public bool SSI { get; set; }
+
+        public int? MonthlyCostAdditionalServices { get; set; }
     }
 }

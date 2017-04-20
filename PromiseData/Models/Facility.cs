@@ -1,22 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
 namespace PromiseData.Models
 {
-    public class Facility
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
+
+    [Table("Facility")]
+    public partial class Facility
     {
-        public int Id { get; set; }
-        public String ProviderFacilityType { get; set; } // integer typeId
-        public String TurnoverNonPPStaff { get; set; }
-        public String TurnoverNonPPStaffReasons { get; set; }
-        public bool TransportationOffered { get; set; }
-        public int TransportationCount { get; set; }
-        public int[] AdditionalSupports { get; set; } // size 18, should be separate table/class
-        public DateTime MonitoringVisit1 { get; set; }
-        public String MonitoringResult1 { get; set; }
-        public DateTime MonitoringVisit2 { get; set; }
-        public String MonitoringResult2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Facility()
+        {
+            Classrooms = new HashSet<Classroom>();
+        }
+
+        public int ID { get; set; }
+
+        [StringLength(15)]
+        public string ProviderFacilityType { get; set; }
+
+        [StringLength(255)]
+        public string Turnover_NonPPStaff { get; set; }
+
+        [StringLength(255)]
+        public string TurnoverReasons_NonPPStaff { get; set; }
+
+        public bool Transportation_services_offered { get; set; }
+
+        public int? ChildrenReceivingTransportationServices { get; set; }
+
+        public int? AdditionalChildFamilySupports_ID { get; set; }
+
+        public DateTime? MonitoringVisit1Date { get; set; }
+
+        [StringLength(255)]
+        public string MonitoringVisit1Result { get; set; }
+
+        public DateTime? MonitoringVisit2Date { get; set; }
+
+        [StringLength(255)]
+        public string MonitoringVisit2Result { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Classroom> Classrooms { get; set; }
+
+        public virtual Code_AdditionalSupportTypes Code_AdditionalSupportTypes { get; set; }
     }
 }
