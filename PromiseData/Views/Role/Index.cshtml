@@ -1,0 +1,19 @@
+﻿@using PromiseData.Controllers
+@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@Html.ActionLink("Assign Role To User", "RegisterRole", "Account")
+
+<ul>
+    @foreach (var roleType in Model)
+    {
+        <li>
+            @roleType.Name
+        </li>
+    }
+    
+</ul>

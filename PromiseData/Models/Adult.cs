@@ -15,7 +15,7 @@ namespace PromiseData.Models
             AdultRaces = new HashSet<AdultRace>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ID { get; set; }
 
         public int? ELD_ID { get; set; }
@@ -31,7 +31,8 @@ namespace PromiseData.Models
 
         public int? Education_ID { get; set; }
 
-        public int? Employment { get; set; }
+        [StringLength(16)]
+        public String Employment { get; set; }
 
         public virtual Code_Education Code_Education { get; set; }
 

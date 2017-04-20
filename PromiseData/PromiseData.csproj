@@ -191,6 +191,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AddressController.cs" />
+    <Compile Include="Controllers\AdultController.cs" />
     <Compile Include="Controllers\ChildController.cs" />
     <Compile Include="Controllers\ClassroomController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -234,6 +236,7 @@
     <Compile Include="Models\Teacher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\AdultFormViewModel.cs" />
     <Compile Include="ViewModels\BirthDate.cs" />
     <Compile Include="ViewModels\ChildFormViewModel.cs" />
   </ItemGroup>
@@ -298,6 +301,10 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Child\Add.cshtml" />
     <Content Include="Views\Classroom\Index.cshtml" />
+    <Content Include="Views\Address\Index.cshtml" />
+    <Content Include="Views\Address\Details.cshtml" />
+    <Content Include="Views\Address\Create.cshtml" />
+    <Content Include="Views\Adult\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
