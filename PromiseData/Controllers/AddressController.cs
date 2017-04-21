@@ -18,7 +18,7 @@ namespace PromiseData.Controllers
 
         public ActionResult Create()
         {
-            var address = new Address();
+            
             return View();
         }
 
@@ -31,7 +31,8 @@ namespace PromiseData.Controllers
         // GET: Address
         public ActionResult Index()
         {
-            return View();
+            var viewModel = _context.Addresses;
+            return View(viewModel);
         }
     }
 }
