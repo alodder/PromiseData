@@ -9,11 +9,11 @@ namespace PromiseData.Controllers
 {
     public class ClassroomController : Controller
     {
-        private Model1 _context;
+        private ApplicationDbContext _context;
 
         public ClassroomController()
         {
-            _context = new Model1();
+            _context = new ApplicationDbContext();
         }
 
         // GET: Classroom

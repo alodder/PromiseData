@@ -8,11 +8,11 @@ namespace PromiseData.Controllers
 {
     public class ChildController : Controller
     {
-        private Model1 _context; 
+        private ApplicationDbContext _context; 
 
         public ChildController()
         {
-            _context = new Model1();
+            _context = new ApplicationDbContext();
         }
 
         [Authorize]

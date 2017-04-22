@@ -9,11 +9,11 @@ namespace PromiseData.Controllers
 {
     public class AddressController : Controller
     {
-        private Model1 _context;
+        private ApplicationDbContext _context;
 
         public AddressController()
         {
-            _context = new Model1();
+            _context = new ApplicationDbContext();
         }
 
         public ActionResult Create()

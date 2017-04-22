@@ -10,12 +10,12 @@ namespace PromiseData.Controllers
 {
     public class AdultController : Controller
     {
-        private Model1 _context;
+        private ApplicationDbContext _context;
         private List<String> types;
 
         public AdultController()
         {
-            _context = new Model1();
+            _context = new ApplicationDbContext();
 
             types = new List<string>();
             types.Add("Full-time");
