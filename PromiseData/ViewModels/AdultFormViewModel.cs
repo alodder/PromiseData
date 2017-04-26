@@ -16,6 +16,8 @@ namespace PromiseData.ViewModels
 
         public int AdultTypeID { get; set; }
 
+        public String AdultType { get; set; }
+
         public int Age { get; set; }
 
         [Required]

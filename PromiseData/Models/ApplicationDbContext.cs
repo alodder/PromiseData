@@ -113,5 +113,7 @@ namespace PromiseData.Models
 
             base.OnModelCreating(modelBuilder);
         }
+
+        public System.Data.Entity.DbSet<PromiseData.ViewModels.AdultFormViewModel> AdultFormViewModels { get; set; }
     }
 }

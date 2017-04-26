@@ -1,0 +1,242 @@
+﻿@model PromiseData.Models.Child
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Child</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ELD_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ELD_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SSID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SSID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MiddleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MiddleName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GenerationCode_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GenerationCode_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OtherNameType_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OtherNameType_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OtherLastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OtherLastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OtherFirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OtherFirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OtherMiddleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OtherMiddleName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Birthdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Birthdate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gender_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Homeless)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Homeless)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Migrant)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Migrant)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HeadStartEligibility)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HeadStartEligibility)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Language_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Language_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EnglishLanguageLearner)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EnglishLanguageLearner)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClassroomLanguage_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClassroomLanguage_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SchoolDistrictCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchoolDistrictCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ElementarySchoolCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ElementarySchoolCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PriorEarlyLearningMonths)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PriorEarlyLearningMonths)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Program_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Program_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SchoolDistrictCatchment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchoolDistrictCatchment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ElementarySchoolCatchment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ElementarySchoolCatchment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Parent_ProviderConsultations)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Parent_ProviderConsultations)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TransitionPlanConferenceDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TransitionPlanConferenceDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExitReason_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExitReason_ID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

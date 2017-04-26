@@ -4,6 +4,17 @@
 }
 <br/>
 <ul>
+    <li>@Html.ActionLink("Address", "Index", "Address")</li>
+    <li>@Html.ActionLink("Adult", "Index", "Adult")</li>
+    <li>@Html.ActionLink("Family", "Index", "Family")</li>
+    <li>@Html.ActionLink("Child", "Index", "Child")</li>
+    <li>@Html.ActionLink("Enrollment", "Index", "Address")</li>
+    <li>@Html.ActionLink("Screening", "Index", "Address")</li>
+    <li>@Html.ActionLink("Facility", "Index", "Address")</li>
+    <li>@Html.ActionLink("Teacher", "Index", "Address")</li>
+    <li>@Html.ActionLink("Services", "Index", "Address")</li>
+</ul>
+<ul>
     @foreach (var child in Model)
     {
         <li>@child.LastName, @child.FirstName</li>

@@ -309,6 +309,12 @@
     <Content Include="Views\Adult\Create.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Address\Delete.cshtml" />
+    <Content Include="Views\Adult\Index.cshtml" />
+    <Content Include="Views\Adult\Details.cshtml" />
+    <Content Include="Views\Adult\Delete.cshtml" />
+    <Content Include="Views\Child\Index.cshtml" />
+    <Content Include="Views\Child\Details.cshtml" />
+    <Content Include="Views\Child\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

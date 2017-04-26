@@ -1,0 +1,195 @@
+﻿@model IEnumerable<PromiseData.Models.Child>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ELD_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SSID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MiddleName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GenerationCode_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OtherNameType_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OtherLastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OtherFirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OtherMiddleName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Birthdate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gender_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Homeless)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Migrant)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HeadStartEligibility)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Language_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EnglishLanguageLearner)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClassroomLanguage_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SchoolDistrictCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ElementarySchoolCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PriorEarlyLearningMonths)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Program_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SchoolDistrictCatchment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ElementarySchoolCatchment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Parent_ProviderConsultations)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TransitionPlanConferenceDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExitReason_ID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ELD_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SSID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MiddleName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GenerationCode_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OtherNameType_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OtherLastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OtherFirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OtherMiddleName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Birthdate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Gender_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Homeless)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Migrant)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HeadStartEligibility)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Language_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EnglishLanguageLearner)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClassroomLanguage_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SchoolDistrictCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ElementarySchoolCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PriorEarlyLearningMonths)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Program_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SchoolDistrictCatchment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ElementarySchoolCatchment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Parent_ProviderConsultations)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TransitionPlanConferenceDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExitReason_ID)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

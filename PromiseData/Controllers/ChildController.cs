@@ -57,5 +57,37 @@ namespace PromiseData.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        [Authorize]
+        public ActionResult Details(int id)
+        {
+            var address = _context.Children.Single(a => a.ID == id);
+            return View(address);
+        }
+
+        [Authorize]
+        public ActionResult Delete(int id)
+        {
+            var child = _context.Children.Single(a => a.ID == id);
+            return View(child);
+        }
+
+        [Authorize]
+        [HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        public ActionResult ConfirmDelete(int id)
+        {
+            var child = _context.Children.Single(a => a.ID == id);
+            _context.Children.Remove(child);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Child");
+        }
+
+        // GET: Address
+        public ActionResult Index()
+        {
+            var viewModel = _context.Children;
+            return View(viewModel);
+        }
     }
 }
