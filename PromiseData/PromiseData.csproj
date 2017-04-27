@@ -241,6 +241,7 @@
     <Compile Include="ViewModels\AdultFormViewModel.cs" />
     <Compile Include="ViewModels\BirthDate.cs" />
     <Compile Include="ViewModels\ChildFormViewModel.cs" />
+    <Compile Include="ViewModels\ClassroomViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-flatly.css" />
@@ -315,6 +316,9 @@
     <Content Include="Views\Child\Index.cshtml" />
     <Content Include="Views\Child\Details.cshtml" />
     <Content Include="Views\Child\Delete.cshtml" />
+    <Content Include="Views\Classroom\Create.cshtml" />
+    <Content Include="Views\Classroom\Details.cshtml" />
+    <Content Include="Views\Classroom\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,146 @@
+﻿@model PromiseData.Models.Classroom
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Classroom</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Code_ProgramSessionType.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Code_ProgramSessionType.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Facility.ProviderFacilityType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Facility.ProviderFacilityType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Service.Early_Childhood_Services_Received)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Service.Early_Childhood_Services_Received)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NewOrExpandedClass)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NewOrExpandedClass)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SessionHours)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SessionHours)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SessionDays)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SessionDays)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SessionWeeks)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SessionWeeks)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PPStudents)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PPStudents)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NonPPStudentsHSOPK)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NonPPStudentsHSOPK)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NonPPStudentsThirdParty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NonPPStudentsThirdParty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NonPPStudentsParentPay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NonPPStudentsParentPay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PPSlotsUnfilled)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PPSlotsUnfilled)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CLASSScore_EmotionalSupport)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CLASSScore_EmotionalSupport)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CLASSScore_ClassroomOrganization)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CLASSScore_ClassroomOrganization)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CLASSScore_InstructionalSupport)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CLASSScore_InstructionalSupport)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.upsize_ts)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.upsize_ts)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
