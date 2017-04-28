@@ -44,6 +44,8 @@ namespace PromiseData.Models
         public virtual DbSet<Child_Services_Enrollment> Child_Services_Enrollment { get; set; }
         public virtual DbSet<ChildRace> ChildRaces { get; set; }
         public virtual DbSet<ChildScreening> ChildScreenings { get; set; }
+        public virtual DbSet<Teacher> Teachers { get; set; }
+        public virtual DbSet<TeacherClass> TeacherClasses { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -110,6 +112,14 @@ namespace PromiseData.Models
                 .WithRequired(e => e.Service)
                 .HasForeignKey(e => e.ServicesID)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Teacher>()
+                .Property(e => e.TeacherSalary)
+                .HasPrecision(19, 4);
+
+            modelBuilder.Entity<Teacher>()
+                .Property(e => e.TeacherSalary)
+                .HasPrecision(19, 4);
 
             base.OnModelCreating(modelBuilder);
         }

@@ -1,0 +1,123 @@
+﻿@model IEnumerable<PromiseData.ViewModels.TeacherViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ClassroomId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TeacherType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TeacherBirthdate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GenderId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RaceEthnicityIdentity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClassroomLanguages)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FluentLanguages)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TeacherSalary)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EducationID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CDA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DegreeField)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PDStep)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.YearsExperience)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReasonForLeaving)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClassroomId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TeacherType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TeacherBirthdate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GenderId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RaceEthnicityIdentity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClassroomLanguages)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FluentLanguages)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TeacherSalary)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EducationID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CDA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DegreeField)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PDStep)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.YearsExperience)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReasonForLeaving)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
