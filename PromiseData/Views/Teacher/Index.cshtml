@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PromiseData.ViewModels.TeacherViewModel
+﻿@model IEnumerable<PromiseData.Models.Teacher>
 
 @{
     ViewBag.Title = "Index";
@@ -12,22 +12,19 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ClassroomId)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.TeacherType)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.TeacherBirthdate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.GenderId)
+            @Html.DisplayNameFor(model => model.Gender_ID)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.RaceEthnicityIdentity)
+            @Html.DisplayNameFor(model => model.TeacherRaceEthnicity)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ClassroomLanguages)
+            @Html.DisplayNameFor(model => model.Languages_spoken_in_classroom)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FluentLanguages)
@@ -39,7 +36,7 @@
             @Html.DisplayNameFor(model => model.TeacherSalary)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EducationID)
+            @Html.DisplayNameFor(model => model.Education_ID)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CDA)
@@ -57,7 +54,7 @@
             @Html.DisplayNameFor(model => model.EndDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ReasonForLeaving)
+            @Html.DisplayNameFor(model => model.ReasonForleaving)
         </th>
         <th></th>
     </tr>
@@ -65,22 +62,19 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.ClassroomId)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.TeacherType)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.TeacherBirthdate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.GenderId)
+            @Html.DisplayFor(modelItem => item.Gender_ID)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.RaceEthnicityIdentity)
+            @Html.DisplayFor(modelItem => item.TeacherRaceEthnicity)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ClassroomLanguages)
+            @Html.DisplayFor(modelItem => item.Languages_spoken_in_classroom)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.FluentLanguages)
@@ -92,7 +86,7 @@
             @Html.DisplayFor(modelItem => item.TeacherSalary)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.EducationID)
+            @Html.DisplayFor(modelItem => item.Education_ID)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CDA)
@@ -110,12 +104,12 @@
             @Html.DisplayFor(modelItem => item.EndDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ReasonForLeaving)
+            @Html.DisplayFor(modelItem => item.ReasonForleaving)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
         </td>
     </tr>
 }

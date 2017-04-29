@@ -1,0 +1,87 @@
+﻿@model IEnumerable<PromiseData.Models.Facility>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Code_AdditionalSupportTypes.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProviderFacilityType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Turnover_NonPPStaff)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TurnoverReasons_NonPPStaff)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Transportation_services_offered)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChildrenReceivingTransportationServices)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MonitoringVisit1Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MonitoringVisit1Result)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MonitoringVisit2Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MonitoringVisit2Result)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Code_AdditionalSupportTypes.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProviderFacilityType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Turnover_NonPPStaff)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TurnoverReasons_NonPPStaff)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Transportation_services_offered)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChildrenReceivingTransportationServices)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MonitoringVisit1Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MonitoringVisit1Result)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MonitoringVisit2Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MonitoringVisit2Result)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
