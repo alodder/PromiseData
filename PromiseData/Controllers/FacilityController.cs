@@ -39,6 +39,38 @@ namespace PromiseData.Controllers
             return View(viewModel);
         }
 
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(FacilityViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                viewModel.FacilityTypes = this.FacilityTypes;
+                viewModel.SupportTypes = _context.Code_AdditionalSupportTypes.ToList();
+                return View("Create", viewModel);
+            }
+
+            var facility = new Facility
+            {
+                ProviderFacilityType = viewModel.ProviderFacilityType,
+                Turnover_NonPPStaff = viewModel.Turnover_NonPPStaff,
+                TurnoverReasons_NonPPStaff = viewModel.TurnoverReasons_NonPPStaff,
+                Transportation_services_offered = viewModel.Transportation_services_offered,
+                ChildrenReceivingTransportationServices = viewModel.ChildrenReceivingTransportationServices,
+                AdditionalChildFamilySupports_ID = viewModel.AdditionalChildFamilySupports_ID,
+                MonitoringVisit1Date = DateTime.Now,//DateTime.Parse(Convert.ToString(viewModel.MonitoringVisit1Date)),
+                MonitoringVisit1Result = viewModel.MonitoringVisit1Result,
+                MonitoringVisit2Date = DateTime.Now,//DateTime.Parse(Convert.ToString(viewModel.MonitoringVisit2Date)),
+                MonitoringVisit2Result = viewModel.MonitoringVisit2Result
+            };
+
+            _context.Facilities.Add(facility);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Facility");
+        }
+
         // GET: Facility
         public ActionResult Index()
         {
