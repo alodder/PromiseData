@@ -11,6 +11,9 @@ namespace PromiseData.Controllers
 {
     public class UserController : Controller
     {
+        /**
+         * could just call User.IsInRole("Admin")
+         */
         public Boolean isAdminUser()
         {
             if (User.Identity.IsAuthenticated)

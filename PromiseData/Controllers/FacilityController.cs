@@ -59,9 +59,9 @@ namespace PromiseData.Controllers
                 Transportation_services_offered = viewModel.Transportation_services_offered,
                 ChildrenReceivingTransportationServices = viewModel.ChildrenReceivingTransportationServices,
                 AdditionalChildFamilySupports_ID = viewModel.AdditionalChildFamilySupports_ID,
-                MonitoringVisit1Date = DateTime.Now,//DateTime.Parse(Convert.ToString(viewModel.MonitoringVisit1Date)),
+                MonitoringVisit1Date = DateTime.Parse(Convert.ToString(viewModel.MonitoringVisit1Date)),
                 MonitoringVisit1Result = viewModel.MonitoringVisit1Result,
-                MonitoringVisit2Date = DateTime.Now,//DateTime.Parse(Convert.ToString(viewModel.MonitoringVisit2Date)),
+                MonitoringVisit2Date = DateTime.Parse(Convert.ToString(viewModel.MonitoringVisit2Date)),
                 MonitoringVisit2Result = viewModel.MonitoringVisit2Result
             };
 
