@@ -330,6 +330,10 @@
     <Content Include="Views\Teacher\Create.cshtml" />
     <Content Include="Views\Facility\Index.cshtml" />
     <Content Include="Views\Facility\Create.cshtml" />
+    <Content Include="Views\Facility\Details.cshtml" />
+    <Content Include="Views\Facility\Delete.cshtml" />
+    <Content Include="Views\Address\Edit.cshtml" />
+    <Content Include="Views\Facility\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

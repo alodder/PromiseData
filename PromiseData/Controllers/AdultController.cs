@@ -23,6 +23,7 @@ namespace PromiseData.Controllers
             types.Add("None");
         }
 
+        [Authorize]
         public ActionResult Create()
         {
             var viewModel = new AdultFormViewModel
@@ -35,6 +36,7 @@ namespace PromiseData.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Create( AdultFormViewModel viewModel)
         {
             if (!ModelState.IsValid)
@@ -86,6 +88,7 @@ namespace PromiseData.Controllers
             return RedirectToAction("Index", "Adult");
         }
 
+        [Authorize]
         // GET: Adult
         public ActionResult Index()
         {

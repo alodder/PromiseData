@@ -32,5 +32,7 @@ namespace PromiseData.ViewModels
         public DateTime MonitoringVisit2Date { get; set; }
 
         public string MonitoringVisit2Result { get; set; }
+
+        public string Description { get; set; }
     }
 }

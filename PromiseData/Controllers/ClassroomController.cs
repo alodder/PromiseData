@@ -109,6 +109,7 @@ namespace PromiseData.Controllers
             return RedirectToAction("Index", "Classroom");
         }
 
+        [Authorize]
         // GET: Classroom
         public ActionResult Index()
         {

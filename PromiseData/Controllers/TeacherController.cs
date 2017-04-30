@@ -23,6 +23,8 @@ namespace PromiseData.Controllers
             types.Add("Support");
         }
 
+        [HttpGet]
+        [Authorize]
         public ActionResult Create()
         {
             var viewModel = new TeacherViewModel
@@ -36,6 +38,7 @@ namespace PromiseData.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Create( TeacherViewModel viewModel)
         {
             if (!ModelState.IsValid)
@@ -106,6 +109,7 @@ namespace PromiseData.Controllers
             return RedirectToAction("Index", "Teacher");
         }
 
+        [Authorize]
         // GET: Adult
         public ActionResult Index()
         {

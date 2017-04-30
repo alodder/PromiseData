@@ -83,6 +83,7 @@ namespace PromiseData.Controllers
             return RedirectToAction("Index", "Child");
         }
 
+        [Authorize]
         // GET: Address
         public ActionResult Index()
         {

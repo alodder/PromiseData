@@ -1,0 +1,104 @@
+﻿@model PromiseData.ViewModels.FacilityViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>FacilityViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ProviderFacilityType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProviderFacilityType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Turnover_NonPPStaff)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Turnover_NonPPStaff)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TurnoverReasons_NonPPStaff)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TurnoverReasons_NonPPStaff)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Transportation_services_offered)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Transportation_services_offered)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ChildrenReceivingTransportationServices)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChildrenReceivingTransportationServices)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdditionalChildFamilySupports_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdditionalChildFamilySupports_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MonitoringVisit1Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MonitoringVisit1Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MonitoringVisit1Result)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MonitoringVisit1Result)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MonitoringVisit2Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MonitoringVisit2Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MonitoringVisit2Result)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MonitoringVisit2Result)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

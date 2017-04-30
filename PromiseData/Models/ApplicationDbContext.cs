@@ -125,5 +125,9 @@ namespace PromiseData.Models
         }
 
         public System.Data.Entity.DbSet<PromiseData.ViewModels.AdultFormViewModel> AdultFormViewModels { get; set; }
+
+        public System.Data.Entity.DbSet<PromiseData.ViewModels.FacilityViewModel> FacilityViewModels { get; set; }
+
+        public System.Data.Entity.DbSet<PromiseData.ViewModels.AddressViewModel> AddressViewModels { get; set; }
     }
 }
