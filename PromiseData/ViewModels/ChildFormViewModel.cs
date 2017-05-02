@@ -22,6 +22,7 @@ namespace PromiseData.ViewModels
 
         [DisplayName("Suffix")]
         public int GenerationCodeID { get; set; }
+        public IEnumerable<Code_GenerationCode> Generations { get; set; }
 
         [DisplayName("Middle Name")]
         public String MiddleName { get; set; }

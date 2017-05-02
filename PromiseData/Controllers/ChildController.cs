@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using PromiseData.Models;
@@ -8,11 +9,18 @@ namespace PromiseData.Controllers
 {
     public class ChildController : Controller
     {
-        private ApplicationDbContext _context; 
+        private ApplicationDbContext _context;
+        private Dictionary<RaceEthnicity, bool> raceDictionary;
 
         public ChildController()
         {
             _context = new ApplicationDbContext();
+            raceDictionary = new Dictionary<RaceEthnicity, bool>();
+            var raceList = _context.RaceEthnic.ToList();
+            foreach (RaceEthnicity race in raceList)
+            {
+                raceDictionary.Add(race, false);
+            }
         }
 
         [Authorize]
@@ -22,7 +30,8 @@ namespace PromiseData.Controllers
             {
                 Genders = _context.CodeGender.ToList(),
                 Languages = _context.CodeLanguage.ToList(),
-                RaceEthnicityList = _context.RaceEthnic.ToList()
+                RaceEthnicityList = _context.RaceEthnic.ToList(),
+                Generations = _context.Code_GenerationCode.ToList()
             };
             return View(viewModel);
         }
@@ -37,6 +46,7 @@ namespace PromiseData.Controllers
                 viewModel.Genders = _context.CodeGender.ToList();
                 viewModel.Languages = _context.CodeLanguage.ToList();
                 viewModel.RaceEthnicityList = _context.RaceEthnic.ToList();
+                viewModel.Generations = _context.Code_GenerationCode.ToList();
                 return View("Add", viewModel);
             }
                 
@@ -49,7 +59,8 @@ namespace PromiseData.Controllers
                 MiddleName = viewModel.MiddleName,
                 OtherMiddleName = viewModel.OtherMiddleName,
                 Birthdate = DateTime.Parse(Convert.ToString(viewModel.Date)),
-            Gender_ID = viewModel.GenderID
+                GenerationCode_ID = viewModel.GenerationCodeID,
+                Gender_ID = viewModel.GenderID
             };
 
             _context.Children.Add(child);
@@ -81,6 +92,16 @@ namespace PromiseData.Controllers
             _context.Children.Remove(child);
             _context.SaveChanges();
             return RedirectToAction("Index", "Child");
+        }
+
+        [HttpGet]
+        public ActionResult Associate(int id)
+        {
+            var ChildRace = new ChildRaceViewModel
+            {
+                raceDictionary = this.raceDictionary
+            };
+            return View(ChildRace);
         }
 
         [Authorize]

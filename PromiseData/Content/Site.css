@@ -30,6 +30,13 @@ body {
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: 'Montserrat', sans-serif;
 }
+.form-group {
+    display:inline-grid;
+    margin: .5em;
+}
+.form-control {
+    
+}
 .navbar-inverse {
     background-color: #f5be29;
 }

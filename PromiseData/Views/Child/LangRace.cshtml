@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Language and Race";
+}
+
+<h2>Language and Race</h2>
+@using (Html.BeginForm("Add", "Child"))
+{
+    <p>Instructions to fill out this form</p>
+    @Html.AntiForgeryToken()
+    <fieldset>
+        <legend>Child's Race/Ethnicity:</legend>
+        <div class="form-group">
+            @Html.LabelFor(m => m.RaceEthnicityID)
+            @Html.DropDownListFor(m => m.RaceEthnicityID, new SelectList(Model.RaceEthnicityList, "Id", "Description"), new { @class = "form-control" })
+        </div>
+    </fieldset>
+    <fieldset>
+        <button type = "submit" class="btn btn-primary" > Save </button >
+    </fieldset>
+}
