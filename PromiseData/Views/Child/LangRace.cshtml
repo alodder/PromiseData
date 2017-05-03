@@ -1,21 +1,29 @@
-﻿
+﻿@model PromiseData.ViewModels.ChildFormViewModel
 @{
-    ViewBag.Title = "Language and Race";
+    ViewBag.Title = "LangRace";
 }
 
-<h2>Language and Race</h2>
-@using (Html.BeginForm("Add", "Child"))
+<h2>Language and Race/Ethnicity</h2>
+<h3>@Model.FirstName @Model.LastName</h3>
+
+@using (Html.BeginForm("LangRace", "Child", FormMethod.Post))
 {
-    <p>Instructions to fill out this form</p>
-    @Html.AntiForgeryToken()
-    <fieldset>
-        <legend>Child's Race/Ethnicity:</legend>
+    <div>
+        @foreach (var item in Model.RaceEthnicityList)
+        {
+            <div class="form-group">
+                @Html.Label(item.Id.ToString())
+                @Html.Label(Model.RaceDictionary[item.Id].ToString())
+                @Html.LabelFor(m => Model.RaceDictionary[item.Id], item.Description)
+                @Html.CheckBoxFor(m => Model.RaceDictionary[item.Id])
+            </div>
+        }
         <div class="form-group">
-            @Html.LabelFor(m => m.RaceEthnicityID)
-            @Html.DropDownListFor(m => m.RaceEthnicityID, new SelectList(Model.RaceEthnicityList, "Id", "Description"), new { @class = "form-control" })
+            @Html.LabelFor(m => m.FirstName)
+            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
         </div>
-    </fieldset>
-    <fieldset>
-        <button type = "submit" class="btn btn-primary" > Save </button >
-    </fieldset>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </div>
 }

@@ -8,48 +8,49 @@
 {
     <p>Instructions to fill out this form</p>
     @Html.AntiForgeryToken()
-    <fieldset>
-        <legend>Name:</legend>
-        <div class="form-group">
-            @Html.LabelFor(m => m.FirstName)
-            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "Meriwether" })
-            @Html.ValidationMessageFor(m => m.FirstName)
-            @Html.LabelFor(m => m.GenerationCodeID)
-            @Html.DropDownListFor(m => m.GenerationCodeID, new SelectList(Model.Generations, "Code", "Description"), new { @class = "form-control" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.LastName)
-            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Lewis", autofocus = "autofocus" })
-            @Html.ValidationMessageFor(m => m.LastName)
-            @Html.LabelFor(m => m.OtherLastName)
-            @Html.TextBoxFor(m => m.OtherLastName, new { @class = "form-control", placeholder = "Clark" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.MiddleName)
-            @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control", placeholder = "William" })
-            @Html.LabelFor(m => m.OtherMiddleName)
-            @Html.TextBoxFor(m => m.OtherMiddleName, new { @class = "form-control" })
-        </div>
-    </fieldset>
-    <fieldset>
-        <legend>Age/Gender:</legend>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Date)
-            @Html.TextBoxFor(m => m.Date, new { @class = "form-control", placeholder = "Jan 1 2010" })
-            @Html.ValidationMessageFor(m => m.Date)
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.GenderID)
-            @Html.DropDownListFor(m => m.GenderID, new SelectList(Model.Genders, "Code", "Description"), new { @class = "form-control" })
-        </div
-        <div class="form-group">
-            @Html.LabelFor(m => m.LanguageID)
-            @Html.DropDownListFor(m => m.GenderID, new SelectList(Model.Languages, "Code", "Description"), new { @class = "form-control" })
-        </div>
-    </fieldset>
-    <fieldset>
-    </fieldset>
+    <div class="form-horizontal">
+        <fieldset>
+            <legend>Name:</legend>
+            <div class="form-group">
+                @Html.LabelFor(m => m.FirstName)
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "Meriwether" })
+                @Html.ValidationMessageFor(m => m.FirstName)
+                @Html.LabelFor(m => m.GenerationCodeID)
+                @Html.DropDownListFor(m => m.GenerationCodeID, new SelectList(Model.Generations, "Code", "Description"), new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.LastName)
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Lewis", autofocus = "autofocus" })
+                @Html.ValidationMessageFor(m => m.LastName)
+                @Html.LabelFor(m => m.OtherLastName)
+                @Html.TextBoxFor(m => m.OtherLastName, new { @class = "form-control", placeholder = "Clark" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.MiddleName)
+                @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control", placeholder = "William" })
+                @Html.LabelFor(m => m.OtherMiddleName)
+                @Html.TextBoxFor(m => m.OtherMiddleName, new { @class = "form-control" })
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Age/Gender:</legend>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Date)
+                @Html.TextBoxFor(m => m.Date, new { @class = "form-control", placeholder = "Jan 1 2010" })
+                @Html.ValidationMessageFor(m => m.Date)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.GenderID)
+                @Html.DropDownListFor(m => m.GenderID, new SelectList(Model.Genders, "Code", "Description"), new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.LanguageID)
+                @Html.DropDownListFor(m => m.GenderID, new SelectList(Model.Languages, "Code", "Description"), new { @class = "form-control" })
+            </div>
+        </fieldset>
+        <fieldset></fieldset>
     <fieldset>
         <button type="submit" class="btn btn-primary">Save</button>
     </fieldset>
+        </div>
 }

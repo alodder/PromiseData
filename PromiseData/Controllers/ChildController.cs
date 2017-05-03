@@ -10,16 +10,16 @@ namespace PromiseData.Controllers
     public class ChildController : Controller
     {
         private ApplicationDbContext _context;
-        private Dictionary<RaceEthnicity, bool> raceDictionary;
+        private Dictionary<int, bool> RaceBoolDictionary;
 
         public ChildController()
         {
             _context = new ApplicationDbContext();
-            raceDictionary = new Dictionary<RaceEthnicity, bool>();
+            RaceBoolDictionary = new Dictionary<int, bool>();
             var raceList = _context.RaceEthnic.ToList();
             foreach (RaceEthnicity race in raceList)
             {
-                raceDictionary.Add(race, false);
+                RaceBoolDictionary.Add(race.Id, false);
             }
         }
 
@@ -66,14 +66,14 @@ namespace PromiseData.Controllers
             _context.Children.Add(child);
             _context.SaveChanges();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("LangRace", "Child");
         }
 
         [Authorize]
         public ActionResult Details(int id)
         {
-            var address = _context.Children.Single(a => a.ID == id);
-            return View(address);
+            var child = _context.Children.Single(a => a.ID == id);
+            return View(child);
         }
 
         [Authorize]
@@ -95,13 +95,41 @@ namespace PromiseData.Controllers
         }
 
         [HttpGet]
-        public ActionResult Associate(int id)
+        public ActionResult LangRace(int id)
         {
-            var ChildRace = new ChildRaceViewModel
+            var child = _context.Children.Single(a => a.ID == id);
+            var viewModel = new ChildFormViewModel
             {
-                raceDictionary = this.raceDictionary
+                ID = id,
+                FirstName = child.FirstName,
+                LastName = child.LastName,
+                Languages = _context.CodeLanguage.ToList(),
+                RaceEthnicityList = _context.RaceEthnic.ToList(),
+                RaceDictionary = RaceBoolDictionary
             };
-            return View(ChildRace);
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult LangRace(ChildFormViewModel viewModel)
+        {
+            foreach (var raceId in viewModel.RaceDictionary.Keys)
+            {
+                //var truth = false;
+                //viewModel.RaceDictionary.TryGetValue(raceId, out truth);
+                if (viewModel.RaceDictionary[raceId])
+                {
+                    var ChildRace = new ChildRace
+                    {
+                        ChildID = viewModel.ID,
+                        RaceID = raceId
+                    };
+                    _context.ChildRaces.Add(ChildRace);
+                }
+            }
+            
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Child");
         }
 
         [Authorize]

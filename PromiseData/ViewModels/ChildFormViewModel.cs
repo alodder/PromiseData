@@ -12,6 +12,10 @@ namespace PromiseData.ViewModels
 {
     public class ChildFormViewModel
     {
+        [DisplayName("RowID")]
+        [Required]
+        public int ID { get; set; }
+
         [DisplayName("Last Name")]
         [Required]
         public String LastName { get; set; }
@@ -48,6 +52,7 @@ namespace PromiseData.ViewModels
         public String RaceEthnicityID { get; set; }
 
         public IEnumerable<RaceEthnicity> RaceEthnicityList { get; set; }
+        public Dictionary<int, bool> RaceDictionary { get; set; }
 
         [DisplayName("First Language")]
         public int LanguageID { get; set; }

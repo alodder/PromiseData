@@ -13,7 +13,7 @@ namespace PromiseData.ViewModels
 
         public int RaceID { get; set; }
 
-        public Dictionary<RaceEthnicity, bool> raceDictionary;
+        public Dictionary<int, bool> RaceDictionary;
 
         /*public bool Mexican { get; set; }
         public bool CentralAmerican { get; set; }
