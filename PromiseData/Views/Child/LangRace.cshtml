@@ -9,21 +9,23 @@
 @using (Html.BeginForm("LangRace", "Child", FormMethod.Post))
 {
     <div>
-        @foreach (var item in Model.RaceEthnicityList)
+        
+        @{var i = 0; }
+        @foreach (KeyValuePair<int, bool> raceCheck in Model.RaceDictionary)
         {
             <div class="form-group">
-                @Html.Label(item.Id.ToString())
-                @Html.Label(Model.RaceDictionary[item.Id].ToString())
-                @Html.LabelFor(m => Model.RaceDictionary[item.Id], item.Description)
-                @Html.CheckBoxFor(m => Model.RaceDictionary[item.Id])
+                <input type="hidden" name="@String.Format("RaceDictionary[{0}].Key", i)" value="@raceCheck.Key" />
+                @Html.CheckBox(String.Format("RaceDictionary[{0}].Value", i), raceCheck.Value)
+                <label class="categoryLabel" for="@raceCheck.Key">@Model.RaceEthnicityList.Single(r => r.Id == raceCheck.Key).Description</label>
+                @{i++;}
             </div>
         }
-        <div class="form-group">
-            @Html.LabelFor(m => m.FirstName)
-            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">Save</button>
-        </div>
-    </div>
-}
+                <div class="form-group">
+                    @Html.LabelFor(m => m.FirstName)
+                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        }
