@@ -3,29 +3,31 @@
     ViewBag.Title = "LangRace";
 }
 
-<h2>Language and Race/Ethnicity</h2>
-<h3>@Model.FirstName @Model.LastName</h3>
+<h2>@Model.FirstName @Model.LastName</h2>
+<h3>Language and Race/Ethnicity</h3>
+<p>Select all that apply</p>
 
 @using (Html.BeginForm("LangRace", "Child", FormMethod.Post))
 {
     <div>
-        
+        <div class="form-group">
+            @Html.LabelFor(m => m.LanguageID)
+            @Html.DropDownListFor(m => m.GenderID, new SelectList(Model.Languages, "Code", "Description"), new { @class = "form-control" })
+        </div>
+
         @{var i = 0; }
         @foreach (KeyValuePair<int, bool> raceCheck in Model.RaceDictionary)
         {
             <div class="form-group">
-                <input type="hidden" name="@String.Format("RaceDictionary[{0}].Key", i)" value="@raceCheck.Key" />
+                <input type="hidden" name="@String.Format("RaceDictionary[{0}].Key", i)" value="@raceCheck.Key"/>
                 @Html.CheckBox(String.Format("RaceDictionary[{0}].Value", i), raceCheck.Value)
-                <label class="categoryLabel" for="@raceCheck.Key">@Model.RaceEthnicityList.Single(r => r.Id == raceCheck.Key).Description</label>
+                <label class="categoryLabel" for="@String.Format("RaceDictionary_{0}__Value", i)">@Model.RaceEthnicityList.Single(r => r.Id == raceCheck.Key).Description</label>
                 @{i++;}
             </div>
         }
-                <div class="form-group">
-                    @Html.LabelFor(m => m.FirstName)
-                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </div>
-            </div>
-        }
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+}

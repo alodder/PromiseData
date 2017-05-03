@@ -63,10 +63,10 @@ namespace PromiseData.Controllers
                 Gender_ID = viewModel.GenderID
             };
 
-            _context.Children.Add(child);
+            var returnChild = _context.Children.Add(child);
             _context.SaveChanges();
 
-            return RedirectToAction("LangRace", "Child");
+            return RedirectToAction("LangRace", new { id = returnChild.ID});
         }
 
         [Authorize]
