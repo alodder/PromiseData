@@ -46,5 +46,7 @@ namespace PromiseData.ViewModels
 
         public IEnumerable<RaceEthnicity> RaceEthnicityList { get; set; }
         public Dictionary<int, bool> RaceDictionary { get; set; }
+
+        public int familyId { get; set; }   
     }
 }

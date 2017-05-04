@@ -31,24 +31,22 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: 'Montserrat', sans-serif;
 }
 .form-group {
-    display :inline-block;
-    padding: 1em;
-          
+    
 }
 .form-control {
-    
+
 }
 .navbar-inverse {
     background-color: #f5be29;
+    /*background-color: goldenrod*/
 }
 .navbar-nav > li > a {
     color: #009587;
 }
 
-@med .field-validation-error {
+.field-validation-error {
     color: red;
     font-weight: bold;
-    display: block;
 }
  .field-validation-valid {
      color: greenyellow;

@@ -32,7 +32,7 @@ namespace PromiseData.Controllers
         }
 
         [Authorize]
-        public ActionResult Create()
+        public ActionResult Create(int familyId)
         {
             var viewModel = new AdultFormViewModel
             {

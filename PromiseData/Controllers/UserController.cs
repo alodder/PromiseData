@@ -45,7 +45,7 @@ namespace PromiseData.Controllers
 
                 ViewBag.displayMenu = "No";
 
-                if (isAdminUser())
+                if (User.IsInRole("Admin")) //isAdminUser()
                 {
                     ViewBag.displayMenu = "Yes";
                 }

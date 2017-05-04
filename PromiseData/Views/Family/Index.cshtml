@@ -1,0 +1,75 @@
+﻿@model IEnumerable<PromiseData.Models.Family>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Families</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.HouseholdSize)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChildrenInHome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Income)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SNAP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WIC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TANF)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SSI)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MonthlyCostAdditionalServices)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.HouseholdSize)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChildrenInHome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Income)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SNAP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WIC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TANF)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SSI)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MonthlyCostAdditionalServices)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

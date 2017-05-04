@@ -193,6 +193,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AddressController.cs" />
     <Compile Include="Controllers\FacilityController.cs" />
+    <Compile Include="Controllers\FamilyController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Controllers\AdultController.cs" />
     <Compile Include="Controllers\ChildController.cs" />
@@ -245,6 +246,7 @@
     <Compile Include="ViewModels\AddressViewModel.cs" />
     <Compile Include="ViewModels\ChildRaceViewModel.cs" />
     <Compile Include="ViewModels\FacilityViewModel.cs" />
+    <Compile Include="ViewModels\FamilyViewModel.cs" />
     <Compile Include="ViewModels\TeacherViewModel.cs" />
     <Compile Include="ViewModels\AdultFormViewModel.cs" />
     <Compile Include="ViewModels\BirthDate.cs" />
@@ -337,6 +339,8 @@
     <Content Include="Views\Facility\Edit.cshtml" />
     <Content Include="Views\Child\LangRace.cshtml" />
     <Content Include="Views\Adult\LangRace.cshtml" />
+    <Content Include="Views\Family\Create.cshtml" />
+    <Content Include="Views\Family\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
