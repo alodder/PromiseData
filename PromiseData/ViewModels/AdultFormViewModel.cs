@@ -12,6 +12,12 @@ namespace PromiseData.ViewModels
     {
         public int id { get; set; }
 
+        [DisplayName("First Name")]
+        public String NameFirst { get; set; }
+
+        [DisplayName("Last Name")]
+        public String NameLast { get; set; }
+
         public int ELDID { get; set; }
 
         public int AdultTypeID { get; set; }
@@ -37,5 +43,8 @@ namespace PromiseData.ViewModels
         public IEnumerable<Code_Education> EducationTypes { get; set; }
 
         public String Employment { get; set; }
+
+        public IEnumerable<RaceEthnicity> RaceEthnicityList { get; set; }
+        public Dictionary<int, bool> RaceDictionary { get; set; }
     }
 }

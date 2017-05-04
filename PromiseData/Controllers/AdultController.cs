@@ -12,6 +12,7 @@ namespace PromiseData.Controllers
     {
         private ApplicationDbContext _context;
         private List<String> types;
+        private Dictionary<int, bool> RaceBoolDictionary;
 
         public AdultController()
         {
@@ -21,6 +22,13 @@ namespace PromiseData.Controllers
             types.Add("Full-time");
             types.Add("Part-time");
             types.Add("None");
+
+            RaceBoolDictionary = new Dictionary<int, bool>();
+            var raceList = _context.RaceEthnic.ToList();
+            foreach (RaceEthnicity race in raceList)
+            {
+                RaceBoolDictionary.Add(race.Id, false);
+            }
         }
 
         [Authorize]
@@ -84,6 +92,41 @@ namespace PromiseData.Controllers
         {
             var adult = _context.Adults.Single(a => a.ID == id);
             _context.Adults.Remove(adult);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Adult");
+        }
+
+        [HttpGet]
+        public ActionResult LangRace(int id)
+        {
+            var adult = _context.Adults.Single(a => a.ID == id);
+            var viewModel = new AdultFormViewModel
+            {
+                id = id,
+                NameFirst = "Anon",
+                NameLast = "Jones",
+                RaceEthnicityList = _context.RaceEthnic.ToList(),
+                RaceDictionary = RaceBoolDictionary
+            };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult LangRace(AdultFormViewModel viewModel)
+        {
+            foreach (var raceId in viewModel.RaceDictionary.Keys)
+            {
+                if (viewModel.RaceDictionary[raceId])
+                {
+                    var adultRace = new AdultRace()
+                    {
+                        AdultID = viewModel.id,
+                        RaceID = raceId
+                    };
+                    _context.AdultRaces.Add(adultRace);
+                }
+            }
+
             _context.SaveChanges();
             return RedirectToAction("Index", "Adult");
         }

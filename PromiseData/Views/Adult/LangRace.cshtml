@@ -1,0 +1,33 @@
+﻿@model PromiseData.ViewModels.AdultFormViewModel
+@{
+    ViewBag.Title = "LangRace";
+}
+
+<h2>Adult - @Model.NameFirst @Model.NameLast</h2>
+<h3>Language and Race/Ethnicity</h3>
+<p>Select all that apply</p>
+
+@using (Html.BeginForm("LangRace", "Adult", FormMethod.Post))
+{
+    <div>
+        <!--<div class="form-group">
+            @@Html.LabelFor(m => m.LanguageID)
+            @@Html.DropDownListFor(m => m.GenderID, new SelectList(Model.Languages, "Code", "Description"), new { @@class = "form-control" })
+        </div>-->
+
+        @{var i = 0; }
+        @foreach (KeyValuePair<int, bool> raceCheck in Model.RaceDictionary)
+        {
+            <div class="form-group">
+                <input type="hidden" name="@String.Format("RaceDictionary[{0}].Key", i)" value="@raceCheck.Key"/>
+                @Html.CheckBox(String.Format("RaceDictionary[{0}].Value", i), raceCheck.Value)
+                <label class="categoryLabel" for="@String.Format("RaceDictionary_{0}__Value", i)">@Model.RaceEthnicityList.Single(r => r.Id == raceCheck.Key).Description</label>
+                @{i++;}
+            </div>
+        }
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+}

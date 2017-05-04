@@ -336,6 +336,7 @@
     <Content Include="Views\Address\Edit.cshtml" />
     <Content Include="Views\Facility\Edit.cshtml" />
     <Content Include="Views\Child\LangRace.cshtml" />
+    <Content Include="Views\Adult\LangRace.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

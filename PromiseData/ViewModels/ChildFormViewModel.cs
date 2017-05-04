@@ -31,7 +31,7 @@ namespace PromiseData.ViewModels
         [DisplayName("Middle Name")]
         public String MiddleName { get; set; }
 
-        [DisplayName("Middle Name")]
+        [DisplayName("2nd Middle Name")]
         public String OtherMiddleName { get; set; }
 
         [DisplayName("Other Last Name")]

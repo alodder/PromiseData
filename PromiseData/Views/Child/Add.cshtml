@@ -15,21 +15,27 @@
                 @Html.LabelFor(m => m.FirstName)
                 @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "Meriwether" })
                 @Html.ValidationMessageFor(m => m.FirstName)
-                @Html.LabelFor(m => m.GenerationCodeID)
-                @Html.DropDownListFor(m => m.GenerationCodeID, new SelectList(Model.Generations, "Code", "Description"), new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.MiddleName)
+                @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control", placeholder = "William" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.OtherMiddleName)
+                @Html.TextBoxFor(m => m.OtherMiddleName, new { @class = "form-control" })
             </div>
             <div class="form-group">
                 @Html.LabelFor(m => m.LastName)
                 @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Lewis", autofocus = "autofocus" })
                 @Html.ValidationMessageFor(m => m.LastName)
-                @Html.LabelFor(m => m.OtherLastName)
-                @Html.TextBoxFor(m => m.OtherLastName, new { @class = "form-control", placeholder = "Clark" })
             </div>
             <div class="form-group">
-                @Html.LabelFor(m => m.MiddleName)
-                @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control", placeholder = "William" })
-                @Html.LabelFor(m => m.OtherMiddleName)
-                @Html.TextBoxFor(m => m.OtherMiddleName, new { @class = "form-control" })
+                @Html.LabelFor(m => m.GenerationCodeID)
+                @Html.DropDownListFor(m => m.GenerationCodeID, new SelectList(Model.Generations, "Code", "Description"), new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.OtherLastName)
+                @Html.TextBoxFor(m => m.OtherLastName, new { @class = "form-control", placeholder = "Clark" })
             </div>
         </fieldset>
         <fieldset>

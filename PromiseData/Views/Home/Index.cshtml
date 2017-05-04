@@ -15,9 +15,3 @@
     <li>@Html.ActionLink("Teacher", "Index", "Teacher")</li>
     <li>@Html.ActionLink("Services", "Index", "Services")</li>
 </ul>
-<ul>
-    @foreach (var child in Model)
-    {
-        <li>@child.LastName, @child.FirstName</li>
-    }
-</ul>

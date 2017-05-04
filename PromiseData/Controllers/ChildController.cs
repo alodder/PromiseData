@@ -129,7 +129,7 @@ namespace PromiseData.Controllers
             }
             
             _context.SaveChanges();
-            return RedirectToAction("Index", "Child");
+            return RedirectToAction("Create", "Adult");
         }
 
         [Authorize]
