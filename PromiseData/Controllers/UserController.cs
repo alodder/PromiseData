@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using PromiseData.Models;
@@ -11,27 +12,17 @@ namespace PromiseData.Controllers
 {
     public class UserController : Controller
     {
-        /**
-         * could just call User.IsInRole("Admin")
-         */
-        public Boolean isAdminUser()
+        private ApplicationDbContext _context;
+
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult List()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                var user = User.Identity;
-                ApplicationDbContext context = new ApplicationDbContext();
-                var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
-                var s = UserManager.GetRoles(user.GetUserId());
-                if (s[0].ToString() == "Admin")
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            return false;
+            _context = new ApplicationDbContext();
+            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_context));
+            var userList = UserManager.Users.ToList();
+            
+            return View(userList);
         }
 
         // GET: User
@@ -43,12 +34,27 @@ namespace PromiseData.Controllers
                 var user = User.Identity;
                 ViewBag.Name = user.Name;
 
-                ViewBag.displayMenu = "No";
+                //ViewBag.displayMenu = false;
+                ViewBag.displayAdminMenu = false;
+                ViewBag.displayHubMenu = false;
+                ViewBag.displayProviderMenu = false;
 
-                if (User.IsInRole("Admin")) //isAdminUser()
+                if (User.IsInRole("Admin"))
                 {
-                    ViewBag.displayMenu = "Yes";
+                    ViewBag.displayAdminMenu = true;
+                    ViewBag.displayHubMenu = true;
+                    ViewBag.displayProviderMenu = true;
                 }
+                if (User.IsInRole("Hub"))
+                {
+                    ViewBag.displayHubMenu = true;
+                    ViewBag.displayProviderMenu = true;
+                }
+                if (User.IsInRole("Provider"))
+                {
+                    ViewBag.displayProviderMenu = true;
+                }
+
                 return View();
             }
             else
@@ -57,5 +63,7 @@ namespace PromiseData.Controllers
             }
             return View();
         }
+
+        
     }
 }

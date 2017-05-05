@@ -2,15 +2,38 @@
 @{
     ViewBag.Title = "Index";
 }
-
-@if (ViewBag.displayMenu == "Yes")
+<br/>
+<br/>
+@if (ViewBag.displayAdminMenu == true)
 {
-    <h4>Welcome Admin. Now you can create user Roles.</h4>
-    <p>
-        <li>@Html.ActionLink("Manage Role", "Index", "Role")</li>
-    </p>
+    <h4>Admin Controls:</h4>
+    <ul>
+        <li>@Html.ActionLink("Add User", "Index", "User")</li>
+        <li>@Html.ActionLink("Manage Users", "List", "User")</li>
+    </ul>
+}
+@if (ViewBag.displayHubMenu == true)
+{
+    <h4>Hub Controls:</h4>
+    <ul>
+        <li>@Html.ActionLink("Add Provider", "Index", "User")</li>
+        <li>@Html.ActionLink("Assign Provider", "Index", "User")</li>
+    </ul>
+}
+@if (ViewBag.displayProviderMenu == true)
+{
+    <h4>Provider Controls</h4>
+    <ul>
+        <li>@Html.ActionLink("Enroll Child", "Add", "Child")</li>
+        <li>@Html.ActionLink("View Child Details", "Index", "Child")</li>
+        <li>@Html.ActionLink("Add Classroom", "Create", "Classroom")</li>
+        <li>@Html.ActionLink("Add Teacher", "Create", "Teacher")</li>
+    </ul>
 }
 else
 {
     <p>  Welcome <strong>@ViewBag.Name</strong></p>
-}  
+    <p>@ViewBag.displayAdminMenu</p>
+    <p>@ViewBag.displayHubMenu</p>
+    <p>@ViewBag.displayProviderMenu</p>
+}
