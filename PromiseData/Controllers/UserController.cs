@@ -14,15 +14,28 @@ namespace PromiseData.Controllers
     {
         private ApplicationDbContext _context;
 
+        public UserController()
+        {
+            _context = new ApplicationDbContext();
+        }
 
         [Authorize(Roles = "Admin")]
         public ActionResult List()
         {
-            _context = new ApplicationDbContext();
+            //_context = new ApplicationDbContext();
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_context));
             var userList = UserManager.Users.ToList();
             
             return View(userList);
+        }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult Edit(String id)
+        {
+            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_context));
+            var user = UserManager.Users.Single(a => a.Id == id);
+
+            return View(user);
         }
 
         // GET: User
