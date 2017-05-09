@@ -1,0 +1,34 @@
+﻿@model PromiseData.ViewModels.UserRoleViewModel
+
+@{
+    ViewBag.Title = "AssignRoles";
+}
+
+<h2>Assign Role</h2>
+<h3>@Model.</h3>
+@if (ViewBag.Error == true)
+{
+    <p>@ViewBag.ErrorMessage</p>
+}
+else
+{
+    using (Html.BeginForm())
+    {
+        <div class="form-horizontal">
+            <div class="form-group">
+                <span class="col-md-2 control-label">
+                    @Model.UserName
+                </span>
+            </div>
+            <div class="form-group">
+                @Html.Label("User Role", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.ListBoxFor(model => model.CurrentRoles,
+                                    new MultiSelectList(Model.Roles, "Id", "Name", Model.CurrentRoles));
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    }
+}
+

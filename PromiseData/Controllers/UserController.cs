@@ -7,6 +7,7 @@ using System.Web.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using PromiseData.Models;
+using PromiseData.ViewModels;
 
 namespace PromiseData.Controllers
 {
@@ -36,6 +37,42 @@ namespace PromiseData.Controllers
             var user = UserManager.Users.Single(a => a.Id == id);
 
             return View(user);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public ActionResult AssignRole(string id)
+        {
+            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_context));
+            var userAndRole = new UserRoleViewModel();
+            var user = new ApplicationUser();
+            try
+            {
+                user = UserManager.Users.Single(a => a.Id == id);
+                userAndRole.UserName = user.UserName;
+                //new SelectList(Model.CountryList, "Value", "Text", Model.CountryList.SelectedValue)
+                userAndRole.CurrentRoles = user.Roles;
+                userAndRole.Id = user.Id;
+                userAndRole.Roles = _context.Roles.ToList().Where(u => !u.Name.Contains("Admin"));//admin can assign other admin?
+            } catch (Exception e)
+            {
+                ViewBag.Error = true;
+                ViewBag.ErrorMessage = e.ToString();
+            }
+            return View(userAndRole);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public ActionResult AssignRole(UserRoleViewModel userAndRole)
+        {
+            foreach (var role in userAndRole.CurrentRoles)
+            {
+                if(!Roles.IsUserInRole(userAndRole.UserName, role.RoleId))
+                    Roles.AddUserToRole(userAndRole.Id, role.RoleId);
+            }
+
+            return RedirectToAction("List", "User");
         }
 
         // GET: User
