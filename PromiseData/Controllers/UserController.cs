@@ -14,17 +14,21 @@ namespace PromiseData.Controllers
     public class UserController : Controller
     {
         private ApplicationDbContext _context;
+        private UserManager<ApplicationUser> UserManager;
+        private RoleManager<IdentityRole> RoleManager;
 
         public UserController()
         {
             _context = new ApplicationDbContext();
+            RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
+            UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_context));
         }
 
         [Authorize(Roles = "Admin")]
         public ActionResult List()
         {
             //_context = new ApplicationDbContext();
-            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_context));
+            //var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_context));
             var userList = UserManager.Users.ToList();
             
             return View(userList);
@@ -33,7 +37,7 @@ namespace PromiseData.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(String id)
         {
-            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_context));
+            //var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_context));
             var user = UserManager.Users.Single(a => a.Id == id);
 
             return View(user);
@@ -43,7 +47,7 @@ namespace PromiseData.Controllers
         [HttpGet]
         public ActionResult AssignRole(string id)
         {
-            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_context));
+            //var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_context));
             var userAndRole = new UserRoleViewModel();
             var user = new ApplicationUser();
             try
@@ -68,8 +72,7 @@ namespace PromiseData.Controllers
         {
             foreach (var role in userAndRole.CurrentRoles)
             {
-                if(!Roles.IsUserInRole(userAndRole.UserName, role.RoleId))
-                    Roles.AddUserToRole(userAndRole.Id, role.RoleId);
+                UserManager.AddToRole(userAndRole.Id, role.RoleId);
             }
 
             return RedirectToAction("List", "User");
