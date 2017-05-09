@@ -54,8 +54,10 @@ namespace PromiseData.Controllers
             {
                 user = UserManager.Users.Single(a => a.Id == id);
                 userAndRole.UserName = user.UserName;
+
                 //new SelectList(Model.CountryList, "Value", "Text", Model.CountryList.SelectedValue)
-                userAndRole.CurrentRoles = user.Roles;
+                //userAndRole.CurrentRoles = new SelectList(_context.Roles.ToList(), "Name", "Id");
+                userAndRole.CurrentRoles = _context.Roles;
                 userAndRole.Id = user.Id;
                 userAndRole.Roles = _context.Roles.ToList().Where(u => !u.Name.Contains("Admin"));//admin can assign other admin?
             } catch (Exception e)
@@ -70,9 +72,9 @@ namespace PromiseData.Controllers
         [HttpPost]
         public ActionResult AssignRole(UserRoleViewModel userAndRole)
         {
-            foreach (var role in userAndRole.CurrentRoles)
+            foreach (string roleid in userAndRole.SelectedRoleNames)
             {
-                UserManager.AddToRole(userAndRole.Id, role.RoleId);
+                UserManager.AddToRole(userAndRole.Id, roleid);
             }
 
             return RedirectToAction("List", "User");
