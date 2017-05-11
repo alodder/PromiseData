@@ -12,7 +12,9 @@ namespace PromiseData.ViewModels
 
         public String Id { get; set; }
 
-        public IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityRole> CurrentRoles { get; set; }
+        public IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityUserRole> CurrentRoles { get; set; }
+
+        public string[] RoleNames { get; set; }
 
         public string[] SelectedRoleNames { get; set; }
 

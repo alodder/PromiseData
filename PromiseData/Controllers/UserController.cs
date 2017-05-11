@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using PromiseData.Models;
 using PromiseData.ViewModels;
+using System.Threading.Tasks;
 
 namespace PromiseData.Controllers
 {
@@ -55,11 +56,17 @@ namespace PromiseData.Controllers
                 user = UserManager.Users.Single(a => a.Id == id);
                 userAndRole.UserName = user.UserName;
 
-                //new SelectList(Model.CountryList, "Value", "Text", Model.CountryList.SelectedValue)
-                //userAndRole.CurrentRoles = new SelectList(_context.Roles.ToList(), "Name", "Id");
-                userAndRole.CurrentRoles = _context.Roles;
                 userAndRole.Id = user.Id;
                 userAndRole.Roles = _context.Roles.ToList().Where(u => !u.Name.Contains("Admin"));//admin can assign other admin?
+
+                userAndRole.RoleNames = new String[user.Roles.ToArray().Length];
+
+                int i = 0;
+                foreach (IdentityUserRole role in user.Roles)
+                {
+                    userAndRole.RoleNames[i] = _context.Roles.Single(a => a.Id == role.RoleId).Name;
+                    i++;
+                }
             } catch (Exception e)
             {
                 ViewBag.Error = true;
@@ -68,16 +75,66 @@ namespace PromiseData.Controllers
             return View(userAndRole);
         }
 
+        /**
+         * remove all roles/ then add selected roles
+         */
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult AssignRole(UserRoleViewModel userAndRole)
         {
+            var user = UserManager.Users.Single(a => a.Id == userAndRole.Id);
+            foreach (IdentityUserRole role in user.Roles)
+            {
+                UserManager.RemoveFromRoleAsync(userAndRole.Id, role.RoleId);
+            }
             foreach (string roleid in userAndRole.SelectedRoleNames)
             {
-                UserManager.AddToRole(userAndRole.Id, roleid);
+                UserManager.AddToRoleAsync(userAndRole.Id, roleid);
             }
 
             return RedirectToAction("List", "User");
+        }
+
+        //
+        // GET: /User/CreateUser
+        [AllowAnonymous]
+        public ActionResult CreateUser()
+        {
+            ViewBag.Name = new SelectList(_context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
+            return View();
+        }
+
+        //
+        // POST: /User/CreateUser
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateUser(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    //Assign Role to user Here      
+                    await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);
+
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    return RedirectToAction("List", "User");
+                }
+                //AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
         }
 
         // GET: User

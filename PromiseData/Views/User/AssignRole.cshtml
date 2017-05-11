@@ -24,7 +24,7 @@ else
                 @Html.LabelFor(model => model.SelectedRoleNames, "User Roles", new { @class = "col-md-2 control-label" })
                 <div class="col-md-10">
                     @Html.ListBoxFor(model => model.SelectedRoleNames,
-                                    new MultiSelectList(Model.Roles, "Name", "Name", Model.CurrentRoles.Select(i => i.Name)));
+                                    new MultiSelectList(Model.Roles, "Name", "Name", Model.RoleNames))
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Save</button>
