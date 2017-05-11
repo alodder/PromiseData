@@ -3,34 +3,38 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Add Adult</h2>
+<h2>Add Parent/Guardian</h2>
 
 @using (Html.BeginForm("Create", "Adult"))
 {
-    <div class="form-group">
-        @Html.LabelFor(m => m.GenderID)
-        @Html.DropDownListFor(m => m.GenderID, new SelectList(Model.Genders, "Code", "Description"), new { @class = "form-control" })
+    <div class="form-horizontal bs-component">
+        <div class="row">
+            <div class="col-md-1">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Age)
+                    @Html.TextBoxFor(m => m.Age, new { @class = "form-control", placeholder = "25", autofocus = "autofocus" })
+                    @Html.ValidationMessageFor(m => m.Age)
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.GenderID)
+                    @Html.DropDownListFor(m => m.GenderID, new SelectList(Model.Genders, "Code", "Description"), new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.ResidentialTime)
+            @Html.DropDownListFor(m => m.ResidentialTime, new SelectList(Model.TimeTypes), new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Education_ID)
+            @Html.DropDownListFor(m => m.Education_ID, new SelectList(Model.EducationTypes, "Code", "Description"), new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Employment)
+            @Html.DropDownListFor(m => m.Employment, new SelectList(Model.TimeTypes), new { @class = "form-control" })
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Age)
-        @Html.TextBoxFor(m => m.Age, new {@class = "form-control", placeholder = "25", autofocus = "autofocus"})
-        @Html.ValidationMessageFor(m => m.Age)
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.GenderID)
-        @Html.DropDownListFor(m => m.GenderID, new SelectList(Model.Genders, "Code", "Description"), new {@class = "form-control"})
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ResidentialTime)
-        @Html.DropDownListFor(m => m.ResidentialTime, new SelectList(Model.TimeTypes), new { @class = "form-control" })
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Education_ID)
-        @Html.DropDownListFor(m => m.Education_ID, new SelectList(Model.EducationTypes, "Code", "Description"), new {@class = "form-control"})
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Employment)
-        @Html.DropDownListFor(m => m.Employment, new SelectList(Model.TimeTypes), new { @class = "form-control" })
-    </div>
-    <button type="submit" class="btn btn-primary">Save</button>
 }

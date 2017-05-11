@@ -8,55 +8,74 @@
 {
     <p>Instructions to fill out this form</p>
     @Html.AntiForgeryToken()
-    <div class="form-horizontal">
+    <div class="form-horizontal bs-component">
         <fieldset>
             <legend>Name:</legend>
-            <div class="form-group">
-                @Html.LabelFor(m => m.FirstName)
-                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "Meriwether" })
-                @Html.ValidationMessageFor(m => m.FirstName)
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.MiddleName)
-                @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control", placeholder = "William" })
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.OtherMiddleName)
-                @Html.TextBoxFor(m => m.OtherMiddleName, new { @class = "form-control" })
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.LastName)
-                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Lewis", autofocus = "autofocus" })
-                @Html.ValidationMessageFor(m => m.LastName)
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.GenerationCodeID)
-                @Html.DropDownListFor(m => m.GenerationCodeID, new SelectList(Model.Generations, "Code", "Description"), new { @class = "form-control" })
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.OtherLastName)
-                @Html.TextBoxFor(m => m.OtherLastName, new { @class = "form-control", placeholder = "Clark" })
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.FirstName)
+                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "Meriwether" })
+                        @Html.ValidationMessageFor(m => m.FirstName)
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.MiddleName)
+                        @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control", placeholder = "William" })
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.OtherMiddleName)
+                        @Html.TextBoxFor(m => m.OtherMiddleName, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.LastName)
+                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Lewis", autofocus = "autofocus" })
+                        @Html.ValidationMessageFor(m => m.LastName)
+                    </div>
+                </div>
+                <div class="col-lg-1">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.GenerationCodeID)
+                        @Html.DropDownListFor(m => m.GenerationCodeID, new SelectList(Model.Generations, "Code", "Description"), new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.OtherLastName)
+                        @Html.TextBoxFor(m => m.OtherLastName, new { @class = "form-control", placeholder = "Clark" })
+                    </div>
+                </div>
             </div>
         </fieldset>
         <fieldset>
             <legend>Age/Gender:</legend>
-            <div class="form-group">
-                @Html.LabelFor(m => m.Date)
-                @Html.TextBoxFor(m => m.Date, new { @class = "form-control", placeholder = "Jan 1 2010" })
-                @Html.ValidationMessageFor(m => m.Date)
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.GenderID)
-                @Html.DropDownListFor(m => m.GenderID, new SelectList(Model.Genders, "Code", "Description"), new { @class = "form-control" })
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Date)
+                        @Html.TextBoxFor(m => m.Date, new { @class = "form-control", placeholder = "Jan 1 2010" })
+                        @Html.ValidationMessageFor(m => m.Date)
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.GenderID)
+                        @Html.DropDownListFor(m => m.GenderID, new SelectList(Model.Genders, "Code", "Description"), new { @class = "form-control" })
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 @Html.LabelFor(m => m.LanguageID)
-                @Html.DropDownListFor(m => m.GenderID, new SelectList(Model.Languages, "Code", "Description"), new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.LanguageID, new SelectList(Model.Languages, "Code", "Description"), new { @class = "form-control" })
             </div>
         </fieldset>
-        <fieldset></fieldset>
-    <fieldset>
-        <button type="submit" class="btn btn-primary">Save</button>
-    </fieldset>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Save</button>
         </div>
+    </div>
 }

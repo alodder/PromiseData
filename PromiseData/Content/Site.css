@@ -20,25 +20,33 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    /*max-width: 280px;*/
 }
 
 /*Bootstrap.css overrides*/
 body {
     font-family: 'Montserrat', sans-serif;
+    margin-top:2em;
 }
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: 'Montserrat', sans-serif;
 }
 .form-group {
-    
+    padding:.2em;
 }
 .form-control {
 
 }
+.navbar-header {
+    
+}
 .navbar-inverse {
+    padding: .2em;
     background-color: #f5be29;
-    /*background-color: goldenrod*/
+
+}
+.navbar-nav {
+    margin-left:0em;
 }
 .navbar-nav > li > a {
     color: #009587;

@@ -31,8 +31,10 @@ namespace PromiseData.Controllers
             }
         }
 
+
+        //Take FamilyID passed from Child?
         [Authorize]
-        public ActionResult Create(int familyId)
+        public ActionResult Create()
         {
             var viewModel = new AdultFormViewModel
             {

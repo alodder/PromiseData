@@ -32,6 +32,7 @@ namespace PromiseData.ViewModels
 
         public IEnumerable<Code_Gender> Genders { get; set; }
 
+        [DisplayName("Time residing with child")]
         public String ResidentialTime { get; set; }
 
         public IEnumerable<String> TimeTypes { get; set; }
