@@ -18,11 +18,13 @@ namespace PromiseData.ViewModels
         public IEnumerable<Code_AddressType> AddressTypes { get; set; }
 
         [Required]
-        [DisplayName("Address")]
+        [DisplayName("Address Line 1")]
         public string Address1 { get; set; }
 
+        [DisplayName("Address Line 2")]
         public string Address2 { get; set; }
 
+        [DisplayName("Address Line 3")]
         public string Address3 { get; set; }
 
         [DisplayName("City")]
