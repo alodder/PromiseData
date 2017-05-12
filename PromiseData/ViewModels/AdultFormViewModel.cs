@@ -22,7 +22,10 @@ namespace PromiseData.ViewModels
 
         public int AdultTypeID { get; set; }
 
+        [DisplayName("Parent, Guardian, Foster Parent")]
         public String AdultType { get; set; }
+
+        public IEnumerable<String> ParentTypes { get; set; }
 
         public int Age { get; set; }
 

@@ -9,6 +9,22 @@
 {
     <div class="form-horizontal bs-component">
         <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.NameFirst)
+                    @Html.TextBoxFor(m => m.NameFirst, new { @class = "form-control", placeholder = "First", autofocus = "autofocus" })
+                    @Html.ValidationMessageFor(m => m.NameFirst)
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.NameLast)
+                    @Html.TextBoxFor(m => m.NameLast, new { @class = "form-control", placeholder = "Last", autofocus = "autofocus" })
+                    @Html.ValidationMessageFor(m => m.NameLast)
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-1">
                 <div class="form-group">
                     @Html.LabelFor(m => m.Age)
@@ -16,24 +32,41 @@
                     @Html.ValidationMessageFor(m => m.Age)
                 </div>
             </div>
-            <div class="col-md-1">
+            <div class="col-md-2">
                 <div class="form-group">
                     @Html.LabelFor(m => m.GenderID)
                     @Html.DropDownListFor(m => m.GenderID, new SelectList(Model.Genders, "Code", "Description"), new { @class = "form-control" })
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.ResidentialTime)
-            @Html.DropDownListFor(m => m.ResidentialTime, new SelectList(Model.TimeTypes), new { @class = "form-control" })
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.AdultType)
+                    @Html.DropDownListFor(m => m.AdultType, new SelectList(Model.ParentTypes), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.AdultType)
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ResidentialTime)
+                    @Html.DropDownListFor(m => m.ResidentialTime, new SelectList(Model.TimeTypes), new { @class = "form-control" })
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Education_ID)
-            @Html.DropDownListFor(m => m.Education_ID, new SelectList(Model.EducationTypes, "Code", "Description"), new { @class = "form-control" })
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Employment)
-            @Html.DropDownListFor(m => m.Employment, new SelectList(Model.TimeTypes), new { @class = "form-control" })
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Education_ID)
+                    @Html.DropDownListFor(m => m.Education_ID, new SelectList(Model.EducationTypes, "Code", "Description"), new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Employment)
+                    @Html.DropDownListFor(m => m.Employment, new SelectList(Model.TimeTypes), new { @class = "form-control" })
+                </div>
+            </div>
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
     </div>

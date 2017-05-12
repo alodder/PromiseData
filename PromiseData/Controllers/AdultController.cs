@@ -12,6 +12,7 @@ namespace PromiseData.Controllers
     {
         private ApplicationDbContext _context;
         private List<String> types;
+        private List<String> adultTypes;
         private Dictionary<int, bool> RaceBoolDictionary;
 
         public AdultController()
@@ -22,6 +23,12 @@ namespace PromiseData.Controllers
             types.Add("Full-time");
             types.Add("Part-time");
             types.Add("None");
+
+            adultTypes = new List<string>();
+            adultTypes.Add("Parent");
+            adultTypes.Add("Legal-Guardian");
+            adultTypes.Add("Foster Parent");
+            adultTypes.Add("Other");
 
             RaceBoolDictionary = new Dictionary<int, bool>();
             var raceList = _context.RaceEthnic.ToList();
@@ -38,6 +45,7 @@ namespace PromiseData.Controllers
         {
             var viewModel = new AdultFormViewModel
             {
+                ParentTypes = adultTypes,
                 Genders = _context.CodeGender.ToList(),
                 EducationTypes = _context.Code_Education.ToList(),
                 TimeTypes = types

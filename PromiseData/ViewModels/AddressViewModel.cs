@@ -12,6 +12,7 @@ namespace PromiseData.ViewModels
     {
         public int ID { get; set; }
 
+        [DisplayName("Address Type")]
         public int AddressType_ID { get; set; }
 
         public IEnumerable<Code_AddressType> AddressTypes { get; set; }
@@ -24,12 +25,15 @@ namespace PromiseData.ViewModels
 
         public string Address3 { get; set; }
 
+        [DisplayName("City")]
         public string City { get; set; }
 
+        [DisplayName("State")]
         public string State_ID { get; set; }
 
         public IEnumerable<LU_State> States { get; set; }
 
+        [DisplayName("Zip Code")]
         public string ZipCode { get; set; }
 
         [Required]
