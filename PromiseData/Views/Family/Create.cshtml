@@ -91,6 +91,81 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <table class="table table-striped table-condensed well">
+                    <thead>
+                        <tr>
+                            <th colspan="2" class="text-center">
+                                Income Worksheet
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>Documents examined for income verification:</th>
+                            <th>Amount ($)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row" class="text-right">
+                                Income Tax Form 1040 or 1040A
+                            </th>
+                            <td>
+                                <input type="number" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-right">
+                                W-2 Form
+                            </th>
+                            <td>
+                                <input type="number" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-right">
+                                Social Security
+                            </th>
+                            <td>
+                                <input type="number" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-right">
+                                Unemployment Compensation
+                            </th>
+                            <td>
+                                <input type="number" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-right">
+                                Paystubs or Vouchers
+                            </th>
+                            <td>
+                                <input type="number" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-right">
+                                Letter from Employers
+                            </th>
+                            <td>
+                                <input type="number" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-right">
+                                Other
+                            </th>
+                            <td>
+                                <input type="number" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
         <div class="form-group">
             @Html.LabelFor(model => model.Income, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
