@@ -97,7 +97,7 @@ namespace PromiseData.Controllers
 
         //
         // GET: /User/CreateUser
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         public ActionResult CreateUser()
         {
             ViewBag.Name = new SelectList(_context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
@@ -107,7 +107,7 @@ namespace PromiseData.Controllers
         //
         // POST: /User/CreateUser
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateUser(RegisterViewModel model)
         {

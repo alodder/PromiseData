@@ -64,8 +64,7 @@ namespace PromiseData.Models
 
     public class RegisterViewModel
     {
-        [Required]
-        [Display(Name = "UserRoles")]
+        [Display(Name = "User Role")]
         public string UserRoles { get; set; }
 
         [Required]

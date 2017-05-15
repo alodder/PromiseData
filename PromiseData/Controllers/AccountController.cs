@@ -37,7 +37,7 @@ namespace PromiseData.Controllers
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
             private set 
-            { 
+            {
                 _signInManager = value;
             }
         }
@@ -141,7 +141,7 @@ namespace PromiseData.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            ViewBag.Name = new SelectList(_context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
+            //ViewBag.Name = new SelectList(_context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
             return View();
         }
 
