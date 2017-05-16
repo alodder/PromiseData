@@ -347,6 +347,7 @@
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\AssignRole.cshtml" />
     <Content Include="Views\User\CreateUser.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
