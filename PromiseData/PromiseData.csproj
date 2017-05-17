@@ -223,6 +223,7 @@
     <Compile Include="Models\Code_ProgramSessionType.cs" />
     <Compile Include="Models\Code_ProgramType.cs" />
     <Compile Include="Models\ELD_ID.cs" />
+    <Compile Include="Models\FacilitySupport.cs" />
     <Compile Include="Models\Hub.cs" />
     <Compile Include="Models\LU_State.cs" />
     <Compile Include="Models\Model1.cs" />

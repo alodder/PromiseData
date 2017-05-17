@@ -1,7 +1,7 @@
 ﻿@model PromiseData.ViewModels.FacilityViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Add Facility";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -73,21 +73,32 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.AdditionalChildFamilySupports_ID, htmlAttributes: new { @class = "control-label col-md-6" })
-                    <div class="col-md-6">
-                        @Html.DropDownListFor(model => model.AdditionalChildFamilySupports_ID, new SelectList(Model.SupportTypes, "Code", "Description"), new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.AdditionalChildFamilySupports_ID, "", new { @class = "text-danger" })
-                    </div>
+
+        <h4>
+            Additional Family Supports
+        </h4>
+        <p>Select all that apply</p>
+        <div class="row col-lg-offset-1" >
+            @{var i = 0; }
+            @foreach (KeyValuePair<int, bool> supportCheck in Model.SupportDictionary)
+            {
+                <div class="form-group col-md-4">
+                    <input type="hidden" name="@String.Format("SupportDictionary[{0}].Key", i)" value="@supportCheck.Key" />
+                    @Html.CheckBox(String.Format("SupportDictionary[{0}].Value", i), supportCheck.Value)
+                    <label class="categoryLabel" for="@String.Format("SupportDictionary_{0}__Value", i)">@Model.SupportTypes.Single(r => r.Code == supportCheck.Key).Description</label>
+                    @{i++;}
                 </div>
-            </div>
+            }
         </div>
+
+        <br />
+        <h4>
+            Monitoring Visits
+        </h4>
         <div class="row">
             <div class="form-group">
-                @Html.LabelFor(model => model.MonitoringVisit1Date, htmlAttributes: new { @class = "control-label col-md-6" })
-                <div class="col-md-6">
+                @Html.LabelFor(model => model.MonitoringVisit1Date, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
                     @Html.TextBoxFor(model => model.MonitoringVisit1Date, new { @type = "date", htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.MonitoringVisit1Date, "", new { @class = "text-danger" })
                 </div>
@@ -95,8 +106,8 @@
         </div>
         <div class="row">
             <div class="form-group">
-                @Html.LabelFor(model => model.MonitoringVisit1Result, htmlAttributes: new { @class = "control-label col-md-6" })
-                <div class="col-md-6">
+                @Html.LabelFor(model => model.MonitoringVisit1Result, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
                     @Html.TextAreaFor(model => model.MonitoringVisit1Result, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.MonitoringVisit1Result, "", new { @class = "text-danger" })
                 </div>
@@ -104,30 +115,30 @@
         </div>
         <div class="row">
             <div class="form-group">
-                @Html.LabelFor(model => model.MonitoringVisit2Date, htmlAttributes: new { @class = "control-label col-md-6" })
-                <div class="col-md-6">
-                    @Html.TextBoxFor(model => model.MonitoringVisit2Date, new { @type = "date", htmlAttributes = new {@class = "form-control" } })
+                @Html.LabelFor(model => model.MonitoringVisit2Date, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    @Html.TextBoxFor(model => model.MonitoringVisit2Date, new { @type = "date", htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.MonitoringVisit2Date, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="form-group">
-                @Html.LabelFor(model => model.MonitoringVisit2Result, htmlAttributes: new { @class = "control-label col-md-6" })
-                <div class="col-md-6">
+                @Html.LabelFor(model => model.MonitoringVisit2Result, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
                     @Html.TextAreaFor(model => model.MonitoringVisit2Result, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.MonitoringVisit2Result, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-default" />
-                </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
             </div>
+        </div>
 
-            }
+    }
 
-            <div>
-                @Html.ActionLink("Back to List", "Index")
-            </div>
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>

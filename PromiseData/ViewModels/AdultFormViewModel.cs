@@ -49,6 +49,8 @@ namespace PromiseData.ViewModels
         public String Employment { get; set; }
 
         public IEnumerable<RaceEthnicity> RaceEthnicityList { get; set; }
+        
+        //dictionary for checkbox values
         public Dictionary<int, bool> RaceDictionary { get; set; }
 
         public int familyId { get; set; }   

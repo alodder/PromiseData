@@ -5,8 +5,6 @@ namespace PromiseData.Models
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        //public virtual DbSet<Code_Gender> CodeGender { get; set; }
-        //public virtual DbSet<Child> Children { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection")
@@ -36,6 +34,7 @@ namespace PromiseData.Models
         public virtual DbSet<Code_ProgramType> Code_ProgramType { get; set; }
         public virtual DbSet<ELD_ID> ELD_ID { get; set; }
         public virtual DbSet<Facility> Facilities { get; set; }
+        public virtual DbSet<FacilitySupport> FacilitySupports { get; set; }
         public virtual DbSet<Family> Families { get; set; }
         public virtual DbSet<LU_State> LU_State { get; set; }
         public virtual DbSet<Screening> Screenings { get; set; }
@@ -112,10 +111,6 @@ namespace PromiseData.Models
                 .WithRequired(e => e.Service)
                 .HasForeignKey(e => e.ServicesID)
                 .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Teacher>()
-                .Property(e => e.TeacherSalary)
-                .HasPrecision(19, 4);
 
             modelBuilder.Entity<Teacher>()
                 .Property(e => e.TeacherSalary)

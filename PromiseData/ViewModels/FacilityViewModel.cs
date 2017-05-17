@@ -33,6 +33,9 @@ namespace PromiseData.ViewModels
 
         [DisplayName("Additional Family Supports")]
         public IEnumerable<Code_AdditionalSupportTypes> SupportTypes { get; set; }
+        
+        //dictionary for checkbox values
+        public Dictionary<int, bool> SupportDictionary { get; set; }
 
         [DisplayName("Monitoring Visit Date #1")]
         public DateTime MonitoringVisit1Date { get; set; }

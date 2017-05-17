@@ -13,10 +13,12 @@ namespace PromiseData.Controllers
     {
         private ApplicationDbContext _context;
         private List<String> FacilityTypes;
+        private Dictionary<int, bool> SupportBoolDictionary;
 
         public FacilityController()
         {
             _context = new ApplicationDbContext();
+
             FacilityTypes = new List<string>();
             FacilityTypes.Add("Registered Family");
             FacilityTypes.Add("Certified Family");
@@ -26,6 +28,13 @@ namespace PromiseData.Controllers
             FacilityTypes.Add("Public School");
             FacilityTypes.Add("ESD");
             FacilityTypes.Add("CBO w/ preschool");
+
+            SupportBoolDictionary = new Dictionary<int, bool>();
+            var SupportList = _context.Code_AdditionalSupportTypes.ToList();
+            foreach (Code_AdditionalSupportTypes support in SupportList)
+            {
+                SupportBoolDictionary.Add(support.Code, false);
+            }
         }
 
         [Authorize]
@@ -35,7 +44,8 @@ namespace PromiseData.Controllers
             var viewModel = new FacilityViewModel
             {
                 FacilityTypes = this.FacilityTypes,
-                SupportTypes = _context.Code_AdditionalSupportTypes
+                SupportTypes = _context.Code_AdditionalSupportTypes,
+                SupportDictionary = SupportBoolDictionary
             };
             return View(viewModel);
         }
@@ -67,7 +77,21 @@ namespace PromiseData.Controllers
                 Description = viewModel.Description
             };
 
-            _context.Facilities.Add(facility);
+            var facilityId = _context.Facilities.Add(facility).ID;
+
+            foreach (var supportId in viewModel.SupportDictionary.Keys)
+            {
+                if (viewModel.SupportDictionary[supportId])
+                {
+                    var facilitySupport = new FacilitySupport()
+                    {
+                        FacilityID = facilityId,
+                        SupportTypesCode = supportId
+                    };
+                    _context.FacilitySupports.Add(facilitySupport);
+                }
+            }
+
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Facility");
