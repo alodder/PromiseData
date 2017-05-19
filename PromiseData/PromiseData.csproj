@@ -194,6 +194,7 @@
     <Compile Include="Controllers\AddressController.cs" />
     <Compile Include="Controllers\FacilityController.cs" />
     <Compile Include="Controllers\FamilyController.cs" />
+    <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Controllers\AdultController.cs" />
     <Compile Include="Controllers\ChildController.cs" />
@@ -349,6 +350,8 @@
     <Content Include="Views\User\AssignRole.cshtml" />
     <Content Include="Views\User\CreateUser.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
+    <Content Include="Views\Service\Index.cshtml" />
+    <Content Include="Views\Service\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

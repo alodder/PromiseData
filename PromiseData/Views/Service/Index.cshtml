@@ -1,0 +1,63 @@
+﻿@model IEnumerable<PromiseData.Models.Service>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Early_Childhood_Services_Received)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PP_Program_Enrollment_Year_Start_Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Expected_Annual_Attendance_Days)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Class_Session_Attendance_Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Class_Session_Attendance_Units)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PP_Exit_Date)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Early_Childhood_Services_Received)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PP_Program_Enrollment_Year_Start_Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Expected_Annual_Attendance_Days)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Class_Session_Attendance_Quantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Class_Session_Attendance_Units)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PP_Exit_Date)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
