@@ -14,55 +14,63 @@
         <h4>Service</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Early_Childhood_Services_Received, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Early_Childhood_Services_Received, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Early_Childhood_Services_Received, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.Early_Childhood_Services_Received, htmlAttributes: new { @class = "control-label col-md-9" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Early_Childhood_Services_Received, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Early_Childhood_Services_Received, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.PP_Program_Enrollment_Year_Start_Date, htmlAttributes: new { @class = "control-label col-md-9" })
+                <div class="col-md-3">
+                    @Html.TextBoxFor(model => model.PP_Program_Enrollment_Year_Start_Date, new { @type = "date", htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PP_Program_Enrollment_Year_Start_Date, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.Expected_Annual_Attendance_Days, htmlAttributes: new { @class = "control-label col-md-9" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Expected_Annual_Attendance_Days, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Expected_Annual_Attendance_Days, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.Class_Session_Attendance_Quantity, htmlAttributes: new { @class = "control-label col-md-9" })
+                <div class="col-md-3">
+                    @Html.EditorFor(model => model.Class_Session_Attendance_Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Class_Session_Attendance_Quantity, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PP_Program_Enrollment_Year_Start_Date, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.PP_Program_Enrollment_Year_Start_Date, new { @type = "date", htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PP_Program_Enrollment_Year_Start_Date, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Expected_Annual_Attendance_Days, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Expected_Annual_Attendance_Days, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Expected_Annual_Attendance_Days, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Class_Session_Attendance_Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Class_Session_Attendance_Quantity, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Class_Session_Attendance_Quantity, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Class_Session_Attendance_Units, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Class_Session_Attendance_Units, new SelectList(
+        <div class="row">
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.Class_Session_Attendance_Units, htmlAttributes: new { @class = "control-label col-md-9" })
+                <div class="col-md-3">
+                    @Html.DropDownListFor(model => model.Class_Session_Attendance_Units, new SelectList(
                     new List<SelectListItem> {
-                    new SelectListItem { Text="Hours", Value = "hours"},
-                    new SelectListItem { Text="Days", Value = "days"}
+                    new SelectListItem { Text="Days", Value = "days"},
+                    new SelectListItem { Text="Hours", Value = "hours"}
                 }, "Value", "Text"))
-                @Html.ValidationMessageFor(model => model.Class_Session_Attendance_Units, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.Class_Session_Attendance_Units, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PP_Exit_Date, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.PP_Exit_Date, new { @type = "date", htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PP_Exit_Date, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="form-group">
+                @Html.LabelFor(model => model.PP_Exit_Date, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.PP_Exit_Date, new { @type = "date", htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PP_Exit_Date, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 

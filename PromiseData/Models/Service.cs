@@ -23,7 +23,6 @@ namespace PromiseData.Models
         public string Early_Childhood_Services_Received { get; set; }
 
         [DisplayName("Enrollment Year Start Date")]
-        [StringLength(255)]
         public DateTime PP_Program_Enrollment_Year_Start_Date { get; set; }
 
         [DisplayName("Expected Annual Attendance Days")]
