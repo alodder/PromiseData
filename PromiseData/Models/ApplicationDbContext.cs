@@ -46,6 +46,9 @@ namespace PromiseData.Models
         public virtual DbSet<Teacher> Teachers { get; set; }
         public virtual DbSet<TeacherClass> TeacherClasses { get; set; }
 
+        public virtual DbSet<TeacherLanguageClassroom> TeacherLanguageClassrooms { get; set; }
+        public virtual DbSet<TeacherLanguageFluency> TeacherLanguageFluencies { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Adult>()

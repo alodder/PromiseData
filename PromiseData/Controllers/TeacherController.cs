@@ -12,6 +12,7 @@ namespace PromiseData.Controllers
     {
         private ApplicationDbContext _context;
         private List<String> types;
+        private Dictionary<int, bool> LangBoolDictionary;
 
         public TeacherController()
         {
@@ -21,6 +22,13 @@ namespace PromiseData.Controllers
             types.Add("Lead");
             types.Add("Assistant");
             types.Add("Support");
+
+            LangBoolDictionary = new Dictionary<int, bool>();
+            var langList = _context.CodeLanguage.ToList();
+            foreach (Code_Language language in langList)
+            {
+                LangBoolDictionary.Add(language.Code, false);
+            }
         }
 
         [HttpGet]
@@ -33,7 +41,10 @@ namespace PromiseData.Controllers
                 RaceEthnicityList = _context.RaceEthnic.ToList(),
                 EducationTypes = _context.Code_Education.ToList(),
                 Classrooms = _context.Classrooms,
-                TeacherTypes = types
+                TeacherTypes = types,
+                Languages = _context.CodeLanguage.ToList(),
+                ClassroomLanguages = LangBoolDictionary, 
+                FluentLanguages = LangBoolDictionary
             };
             return View(viewModel);
         }

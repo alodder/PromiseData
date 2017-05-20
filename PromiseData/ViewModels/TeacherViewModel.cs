@@ -39,7 +39,7 @@ namespace PromiseData.ViewModels
         public Dictionary<int, bool> RaceDictionary { get; set; }
 
         //List of possible languages
-        public IEnumerable<Code_Education> Languages { get; set; }
+        public IEnumerable<Code_Language> Languages { get; set; }
 
         [DisplayName("Classroom Languages")]
         //dictionary for checkbox values
