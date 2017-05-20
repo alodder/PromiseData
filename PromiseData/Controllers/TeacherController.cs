@@ -88,13 +88,36 @@ namespace PromiseData.Controllers
 
             _context.Teachers.Add( teacher);
 
+            //Associate teacher and Classroom in TeacherClass table - many to many?
             var teacherClass = new TeacherClass
             {
                 TeacherID = viewModel.Id,
                 ClassID = viewModel.ClassroomId
             };
             _context.TeacherClasses.Add(teacherClass);
-            
+
+            //Add languages to TeacherLanguageClassroom table
+            foreach (var languageId in viewModel.ClassroomLanguages.Keys)
+            {
+                if (viewModel.ClassroomLanguages[languageId])
+                    _context.TeacherLanguageClassrooms.Add(new TeacherLanguageClassroom
+                    {
+                        TeacherID = viewModel.Id,
+                        LanguageID = languageId
+                    });
+            }
+
+            //Add languages to TeacherLanguageFluency table
+            foreach (var languageId in viewModel.FluentLanguages.Keys)
+            {
+                if (viewModel.FluentLanguages[languageId])
+                    _context.TeacherLanguageFluencies.Add(new TeacherLanguageFluency
+                    {
+                        TeacherID = viewModel.Id,
+                        LanguageCode = languageId
+                    });
+            }
+
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Teacher");
