@@ -12,42 +12,71 @@ namespace PromiseData.ViewModels
     {
         public int Id { get; set; }
 
+        [DisplayName("Teacher Id Number")]
         public String TeacherIDNumber { get; set; }
 
+        [DisplayName("Classroom")]
         public int ClassroomId { get; set; }   //? Classroom w/PP Students 1: Teacher ID Number
         public IEnumerable<Classroom> Classrooms { get; set; }
 
+        [DisplayName("Teacher Role")]
         public String TeacherType { get; set; }
         public IEnumerable<String> TeacherTypes { get; set; }
 
+        [DisplayName("Birthday")]
         public DateTime TeacherBirthdate { get; set; }
 
+        [DisplayName("Teacher Sex")]
         public int GenderId { get; set; }
         public IEnumerable<Code_Gender> Genders { get; set; }
 
+        [DisplayName("Teacher Race/Ethnicity")]
         public int RaceEthnicityIdentity { get; set; }
 
-        public String ClassroomLanguages { get; set; }
+        public IEnumerable<RaceEthnicity> RaceEthnicityList { get; set; }
 
-        public String FluentLanguages { get; set; }
+        //dictionary for checkbox values
+        public Dictionary<int, bool> RaceDictionary { get; set; }
 
+        //List of possible languages
+        public IEnumerable<Code_Education> Languages { get; set; }
+
+        [DisplayName("Classroom Languages")]
+        //dictionary for checkbox values
+        public Dictionary<int, bool> ClassroomLanguages { get; set; }
+
+        [DisplayName("Fluent Languages")]
+        //dictionary for checkbox values
+        public Dictionary<int, bool> FluentLanguages { get; set; }
+
+        [DisplayName("Start Date")]
         public DateTime StartDate { get; set; }
 
+        [DisplayName("Salary")]
         public Decimal TeacherSalary { get; set; }
 
+        [DisplayName("Education")]
         public int EducationID { get; set; }
         public IEnumerable<Code_Education> EducationTypes { get; set; }
 
+        [DisplayName("CDA")]
         public bool CDA { get; set; }
 
+        [DisplayName("Degree Field")]
         public String DegreeField { get; set; }
+        [DisplayName("Other")]
+        public String OtherField { get; set; }
 
+        [DisplayName("PD Step?")]
         public int PDStep { get; set; }  //?
 
+        [DisplayName("Yeasrs Experience")]
         public int YearsExperience { get; set; }
 
+        [DisplayName("End Date")]
         public DateTime EndDate { get; set; }
 
+        [DisplayName("Reason of Leaving")]
         public String ReasonForLeaving { get; set; }
     }
 }

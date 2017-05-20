@@ -55,10 +55,10 @@
                 @Html.LabelFor(model => model.Class_Session_Attendance_Units, htmlAttributes: new { @class = "control-label col-md-9" })
                 <div class="col-md-3">
                     @Html.DropDownListFor(model => model.Class_Session_Attendance_Units, new SelectList(
-                    new List<SelectListItem> {
-                    new SelectListItem { Text="Days", Value = "days"},
-                    new SelectListItem { Text="Hours", Value = "hours"}
-                }, "Value", "Text"))
+                        new List<SelectListItem> {
+                        new SelectListItem { Text="Days", Value = "days"},
+                        new SelectListItem { Text="Hours", Value = "hours"}
+                    }, "Value", "Text"))
                     @Html.ValidationMessageFor(model => model.Class_Session_Attendance_Units, "", new { @class = "text-danger" })
                 </div>
             </div>

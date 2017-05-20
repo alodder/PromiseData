@@ -30,6 +30,7 @@ namespace PromiseData.Controllers
             var viewModel = new TeacherViewModel
             {
                 Genders = _context.CodeGender.ToList(),
+                RaceEthnicityList = _context.RaceEthnic.ToList(),
                 EducationTypes = _context.Code_Education.ToList(),
                 Classrooms = _context.Classrooms,
                 TeacherTypes = types
@@ -56,8 +57,8 @@ namespace PromiseData.Controllers
                 TeacherIDNumber = viewModel.TeacherIDNumber,
                 TeacherType = viewModel.TeacherType,
                 TeacherBirthdate = viewModel.TeacherBirthdate,
-                Languages_spoken_in_classroom = viewModel.ClassroomLanguages,
-                FluentLanguages = viewModel.FluentLanguages,
+                //Languages_spoken_in_classroom = viewModel.ClassroomLanguages,
+                //FluentLanguages = viewModel.FluentLanguages,
                 StartDate = viewModel.StartDate,
                 TeacherSalary = viewModel.TeacherSalary,
                 Education_ID = viewModel.EducationID,
@@ -70,6 +71,10 @@ namespace PromiseData.Controllers
                 TeacherRaceEthnicity = viewModel.RaceEthnicityIdentity,
                 Gender_ID = viewModel.GenderId
             };
+
+            if (viewModel.DegreeField.Equals("Other"))
+                teacher.DegreeField = viewModel.OtherField;
+
             _context.Teachers.Add( teacher);
 
             var teacherClass = new TeacherClass
