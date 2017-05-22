@@ -58,7 +58,7 @@
                         new List<SelectListItem> {
                         new SelectListItem { Text="Days", Value = "days"},
                         new SelectListItem { Text="Hours", Value = "hours"}
-                    }, "Value", "Text"))
+                    }, "Value", "Text"), new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Class_Session_Attendance_Units, "", new { @class = "text-danger" })
                 </div>
             </div>

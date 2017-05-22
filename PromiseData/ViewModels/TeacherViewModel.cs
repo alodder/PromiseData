@@ -12,7 +12,7 @@ namespace PromiseData.ViewModels
     {
         public int Id { get; set; }
 
-        [DisplayName("Teacher Id Number")]
+        [DisplayName("Teacher ID Number")]
         public String TeacherIDNumber { get; set; }
 
         [DisplayName("Classroom")]
