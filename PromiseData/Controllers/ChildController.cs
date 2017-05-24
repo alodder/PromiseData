@@ -24,6 +24,7 @@ namespace PromiseData.Controllers
         }
 
         [Authorize]
+        [HttpGet]
         public ActionResult Add()
         {
             var viewModel = new ChildFormViewModel
@@ -60,6 +61,7 @@ namespace PromiseData.Controllers
                 OtherMiddleName = viewModel.OtherMiddleName,
                 Birthdate = DateTime.Parse(Convert.ToString(viewModel.Date)),
                 GenerationCode_ID = viewModel.GenerationCodeID,
+                Language_ID = viewModel.LanguageID,
                 Gender_ID = viewModel.GenderID
             };
 

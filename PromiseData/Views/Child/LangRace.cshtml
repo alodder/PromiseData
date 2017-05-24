@@ -4,16 +4,10 @@
 }
 
 <h2>@Model.FirstName @Model.LastName</h2>
-<h3>Primary Language</h3>
 
 @using (Html.BeginForm("LangRace", "Child", FormMethod.Post))
 {
     <div class="form-horizontal bs-component">
-        <div class="form-group">
-            @Html.LabelFor(m => m.LanguageID)
-            @Html.DropDownListFor(m => m.GenderID, new SelectList(Model.Languages, "Code", "Description"), new { @class = "form-control" })
-        </div>
-
         <h3>Race/Ethnicity</h3>
         <p>Select all that apply</p>
         <div class="row">
