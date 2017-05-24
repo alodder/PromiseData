@@ -1,9 +1,9 @@
 using System.Data.Entity;
-using Microsoft.AspNet.Identity.EntityFramework;
+//using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace PromiseData.Models
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : DbContext
     {
 
         public ApplicationDbContext()
@@ -39,6 +39,7 @@ namespace PromiseData.Models
         public virtual DbSet<LU_State> LU_State { get; set; }
         public virtual DbSet<Screening> Screenings { get; set; }
         public virtual DbSet<Service> Services { get; set; }
+
         public virtual DbSet<AdultRace> AdultRaces { get; set; }
         public virtual DbSet<Child_Services_Enrollment> Child_Services_Enrollment { get; set; }
         public virtual DbSet<ChildRace> ChildRaces { get; set; }

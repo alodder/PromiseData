@@ -14,14 +14,14 @@ namespace PromiseData.Controllers
 {
     public class UserController : Controller
     {
-        private ApplicationDbContext _context;
+        private IdentityStoreDbContext _context;
         private UserManager<ApplicationUser> UserManager;
         private RoleManager<IdentityRole> RoleManager;
 
         public UserController()
         {
-            _context = new ApplicationDbContext();
-            RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
+            _context = new IdentityStoreDbContext();
+            RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new IdentityStoreDbContext()));
             UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_context));
         }
 

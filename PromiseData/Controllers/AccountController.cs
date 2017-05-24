@@ -17,11 +17,11 @@ namespace PromiseData.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private ApplicationDbContext _context;
+        private IdentityStoreDbContext _context;
 
         public AccountController()
         {
-            _context = new ApplicationDbContext();
+            _context = new IdentityStoreDbContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )

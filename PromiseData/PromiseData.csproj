@@ -227,7 +227,7 @@
     <Compile Include="Models\FacilitySupport.cs" />
     <Compile Include="Models\Hub.cs" />
     <Compile Include="Models\LU_State.cs" />
-    <Compile Include="Models\Model1.cs" />
+    <Compile Include="Models\IdentityStoreDbContext.cs" />
     <Compile Include="Models\Model2.cs" />
     <Compile Include="Models\Model3.cs" />
     <Compile Include="Models\Model4.cs" />
