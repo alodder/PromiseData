@@ -10,6 +10,7 @@ namespace PromiseData.Controllers
     {
 
         // GET: Institution
+        [HttpGet]
         public ActionResult Create()
         {
             return View();

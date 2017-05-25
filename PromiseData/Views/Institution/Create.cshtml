@@ -1,0 +1,203 @@
+﻿@model PromiseData.Models.Institution
+@{
+    ViewBag.Title = "Add";
+}
+
+<h2>Add - Add an Institution</h2>
+@using (Html.BeginForm("Create", "Institution"))
+{
+    <p>Instructions to fill out this form</p>
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal bs-component">
+        <fieldset>
+            <legend>$Provider or $HUB:</legend>
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.LegalName)
+                        @Html.TextBoxFor(m => m.LegalName, new { @class = "form-control", placeholder = "Marion Moose Club" })
+                        @Html.ValidationMessageFor(m => m.LegalName)
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Region)
+                        @Html.TextBoxFor(m => m.Region, new { @class = "form-control", placeholder = "Moose County" })
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.BackboneOrg)
+                        @Html.TextBoxFor(m => m.BackboneOrg, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.WebAddress)
+                        @Html.TextBoxFor(m => m.WebAddress, new { @class = "form-control", placeholder = "Lewis", autofocus = "autofocus" })
+                        @Html.ValidationMessageFor(m => m.WebAddress)
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-offset-1 col-lg-3">
+                        <h3>Director:</h3>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ContactAgent.AgentName)
+                            @Html.TextBoxFor(m => m.ContactAgent.AgentName, new { @class = "form-control", placeholder = "Lewis", autofocus = "autofocus" })
+                            @Html.ValidationMessageFor(m => m.ContactAgent.AgentName)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ContactAgent.AgentTitle)
+                            @Html.TextBoxFor(m => m.ContactAgent.AgentTitle, new { @class = "form-control", placeholder = "Lewis", autofocus = "autofocus" })
+                            @Html.ValidationMessageFor(m => m.ContactAgent.AgentTitle)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ContactAgent.AgentPhone)
+                            @Html.TextBoxFor(m => m.ContactAgent.AgentPhone, new { @class = "form-control", placeholder = "Lewis", autofocus = "autofocus" })
+                            @Html.ValidationMessageFor(m => m.ContactAgent.AgentPhone)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ContactAgent.AgentEmail)
+                            @Html.TextBoxFor(m => m.ContactAgent.AgentEmail, new { @class = "form-control", placeholder = "Lewis", autofocus = "autofocus" })
+                            @Html.ValidationMessageFor(m => m.ContactAgent.AgentEmail)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ContactAgent.AgentFax)
+                            @Html.TextBoxFor(m => m.ContactAgent.AgentFax, new { @class = "form-control", placeholder = "Lewis", autofocus = "autofocus" })
+                            @Html.ValidationMessageFor(m => m.ContactAgent.AgentFax)
+                        </div>
+                    </div>
+
+                    <div class="col-lg-offset-1 col-lg-3">
+                        <h3>Contact:</h3>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ContactAgent1.AgentName)
+                            @Html.TextBoxFor(m => m.ContactAgent1.AgentName, new { @class = "form-control", placeholder = "Lewis", autofocus = "autofocus" })
+                            @Html.ValidationMessageFor(m => m.ContactAgent1.AgentName)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ContactAgent1.AgentTitle)
+                            @Html.TextBoxFor(m => m.ContactAgent1.AgentTitle, new { @class = "form-control", placeholder = "Lewis", autofocus = "autofocus" })
+                            @Html.ValidationMessageFor(m => m.ContactAgent1.AgentTitle)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ContactAgent1.AgentPhone)
+                            @Html.TextBoxFor(m => m.ContactAgent1.AgentPhone, new { @class = "form-control", placeholder = "Lewis", autofocus = "autofocus" })
+                            @Html.ValidationMessageFor(m => m.ContactAgent1.AgentPhone)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ContactAgent1.AgentEmail)
+                            @Html.TextBoxFor(m => m.ContactAgent1.AgentEmail, new { @class = "form-control", placeholder = "Lewis", autofocus = "autofocus" })
+                            @Html.ValidationMessageFor(m => m.ContactAgent1.AgentEmail)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ContactAgent1.AgentFax)
+                            @Html.TextBoxFor(m => m.ContactAgent1.AgentFax, new { @class = "form-control", placeholder = "Lewis", autofocus = "autofocus" })
+                            @Html.ValidationMessageFor(m => m.ContactAgent1.AgentFax)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-offset-1 col-lg-3">
+                        <h3>Location:</h3>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.AddressPhysical.Address1)
+                            @Html.TextBoxFor(m => m.AddressPhysical.Address1, new { @class = "form-control", placeholder = "1234 Easy St.", autofocus = "autofocus" })
+                            @Html.ValidationMessageFor(m => m.AddressPhysical.Address1)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.AddressPhysical.Address2)
+                            @Html.TextBoxFor(m => m.AddressPhysical.Address2, new { @class = "form-control", placeholder = "Suite 101"})
+                            @Html.ValidationMessageFor(m => m.AddressPhysical.Address2)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.AddressPhysical.Address3)
+                            @Html.TextBoxFor(m => m.AddressPhysical.Address3, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.AddressPhysical.Address3)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.AddressPhysical.City)
+                            @Html.TextBoxFor(m => m.AddressPhysical.City, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.AddressPhysical.City)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.AddressPhysical.State_ID)
+                            @Html.TextBoxFor(m => m.AddressPhysical.State_ID, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.AddressPhysical.State_ID)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.AddressPhysical.ZipCode)
+                            @Html.TextBoxFor(m => m.AddressPhysical.ZipCode, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.AddressPhysical.ZipCode)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.AddressPhysical.County)
+                            @Html.TextBoxFor(m => m.AddressPhysical.County, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.AddressPhysical.County)
+                        </div>
+                    </div>
+                    <div class="col-lg-offset-1 col-lg-3">
+                        <h3>Mailing Address:</h3>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.AddressMail.Address1)
+                            @Html.TextBoxFor(m => m.AddressMail.Address1, new { @class = "form-control", placeholder = "1234 Easy St.", autofocus = "autofocus" })
+                            @Html.ValidationMessageFor(m => m.AddressMail.Address1)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.AddressMail.Address2)
+                            @Html.TextBoxFor(m => m.AddressMail.Address2, new { @class = "form-control", placeholder = "Suite 101" })
+                            @Html.ValidationMessageFor(m => m.AddressMail.Address2)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.AddressMail.Address3)
+                            @Html.TextBoxFor(m => m.AddressMail.Address3, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.AddressMail.Address3)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.AddressMail.City)
+                            @Html.TextBoxFor(m => m.AddressMail.City, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.AddressMail.City)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.AddressMail.State_ID)
+                            @Html.TextBoxFor(m => m.AddressMail.State_ID, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.AddressMail.State_ID)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.AddressMail.ZipCode)
+                            @Html.TextBoxFor(m => m.AddressMail.ZipCode, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.AddressMail.ZipCode)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.AddressMail.County)
+                            @Html.TextBoxFor(m => m.AddressMail.County, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.AddressMail.County)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.isProvider)
+                            @Html.CheckBoxFor(m => m.isProvider, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.isHub)
+                            @Html.CheckBoxFor(m => m.isHub, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </fieldset>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+}
