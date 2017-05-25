@@ -1,4 +1,4 @@
-﻿@model PromiseData.Models.Institution
+﻿@model PromiseData.ViewModels.InstitutionViewModel
 @{
     ViewBag.Title = "Add";
 }
@@ -45,6 +45,35 @@
                     <div class="col-lg-offset-1 col-lg-3">
                         <h3>Director:</h3>
                         <div class="form-group">
+                            @Html.LabelFor(m => m.DirectorAgent.AgentName)
+                            @Html.TextBoxFor(m => m.DirectorAgent.AgentName, new { @class = "form-control", placeholder = "Lewis", autofocus = "autofocus" })
+                            @Html.ValidationMessageFor(m => m.DirectorAgent.AgentName)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.DirectorAgent.AgentTitle)
+                            @Html.TextBoxFor(m => m.DirectorAgent.AgentTitle, new { @class = "form-control", placeholder = "Lewis", autofocus = "autofocus" })
+                            @Html.ValidationMessageFor(m => m.DirectorAgent.AgentTitle)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.DirectorAgent.AgentPhone)
+                            @Html.TextBoxFor(m => m.DirectorAgent.AgentPhone, new { @class = "form-control", placeholder = "Lewis", autofocus = "autofocus" })
+                            @Html.ValidationMessageFor(m => m.DirectorAgent.AgentPhone)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.DirectorAgent.AgentEmail)
+                            @Html.TextBoxFor(m => m.DirectorAgent.AgentEmail, new { @class = "form-control", placeholder = "Lewis", autofocus = "autofocus" })
+                            @Html.ValidationMessageFor(m => m.DirectorAgent.AgentEmail)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.DirectorAgent.AgentFax)
+                            @Html.TextBoxFor(m => m.DirectorAgent.AgentFax, new { @class = "form-control", placeholder = "Lewis", autofocus = "autofocus" })
+                            @Html.ValidationMessageFor(m => m.DirectorAgent.AgentFax)
+                        </div>
+                    </div>
+
+                    <div class="col-lg-offset-1 col-lg-3">
+                        <h3>Contact:</h3>
+                        <div class="form-group">
                             @Html.LabelFor(m => m.ContactAgent.AgentName)
                             @Html.TextBoxFor(m => m.ContactAgent.AgentName, new { @class = "form-control", placeholder = "Lewis", autofocus = "autofocus" })
                             @Html.ValidationMessageFor(m => m.ContactAgent.AgentName)
@@ -68,35 +97,6 @@
                             @Html.LabelFor(m => m.ContactAgent.AgentFax)
                             @Html.TextBoxFor(m => m.ContactAgent.AgentFax, new { @class = "form-control", placeholder = "Lewis", autofocus = "autofocus" })
                             @Html.ValidationMessageFor(m => m.ContactAgent.AgentFax)
-                        </div>
-                    </div>
-
-                    <div class="col-lg-offset-1 col-lg-3">
-                        <h3>Contact:</h3>
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.ContactAgent1.AgentName)
-                            @Html.TextBoxFor(m => m.ContactAgent1.AgentName, new { @class = "form-control", placeholder = "Lewis", autofocus = "autofocus" })
-                            @Html.ValidationMessageFor(m => m.ContactAgent1.AgentName)
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.ContactAgent1.AgentTitle)
-                            @Html.TextBoxFor(m => m.ContactAgent1.AgentTitle, new { @class = "form-control", placeholder = "Lewis", autofocus = "autofocus" })
-                            @Html.ValidationMessageFor(m => m.ContactAgent1.AgentTitle)
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.ContactAgent1.AgentPhone)
-                            @Html.TextBoxFor(m => m.ContactAgent1.AgentPhone, new { @class = "form-control", placeholder = "Lewis", autofocus = "autofocus" })
-                            @Html.ValidationMessageFor(m => m.ContactAgent1.AgentPhone)
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.ContactAgent1.AgentEmail)
-                            @Html.TextBoxFor(m => m.ContactAgent1.AgentEmail, new { @class = "form-control", placeholder = "Lewis", autofocus = "autofocus" })
-                            @Html.ValidationMessageFor(m => m.ContactAgent1.AgentEmail)
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.ContactAgent1.AgentFax)
-                            @Html.TextBoxFor(m => m.ContactAgent1.AgentFax, new { @class = "form-control", placeholder = "Lewis", autofocus = "autofocus" })
-                            @Html.ValidationMessageFor(m => m.ContactAgent1.AgentFax)
                         </div>
                     </div>
                 </div>
@@ -176,6 +176,19 @@
                             @Html.LabelFor(m => m.AddressMail.County)
                             @Html.TextBoxFor(m => m.AddressMail.County, new { @class = "form-control" })
                             @Html.ValidationMessageFor(m => m.AddressMail.County)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ActiveDate)
+                            @Html.EditorFor(m => m.ActiveDate, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.EndDate)
+                            @Html.EditorFor(m => m.EndDate, new { @class = "form-control" })
                         </div>
                     </div>
                 </div>

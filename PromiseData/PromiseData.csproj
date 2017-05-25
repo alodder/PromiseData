@@ -256,6 +256,7 @@
     <Compile Include="ViewModels\ChildRaceViewModel.cs" />
     <Compile Include="ViewModels\FacilityViewModel.cs" />
     <Compile Include="ViewModels\FamilyViewModel.cs" />
+    <Compile Include="ViewModels\InstitutionViewModel.cs" />
     <Compile Include="ViewModels\TeacherViewModel.cs" />
     <Compile Include="ViewModels\AdultFormViewModel.cs" />
     <Compile Include="ViewModels\BirthDate.cs" />
