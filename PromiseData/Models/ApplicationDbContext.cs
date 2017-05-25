@@ -50,6 +50,9 @@ namespace PromiseData.Models
         public virtual DbSet<TeacherLanguageClassroom> TeacherLanguageClassrooms { get; set; }
         public virtual DbSet<TeacherLanguageFluency> TeacherLanguageFluencies { get; set; }
 
+        public virtual DbSet<ContactAgent> ContactAgents { get; set; }
+        public virtual DbSet<Institution> Institutions { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Adult>()
@@ -119,6 +122,16 @@ namespace PromiseData.Models
             modelBuilder.Entity<Teacher>()
                 .Property(e => e.TeacherSalary)
                 .HasPrecision(19, 4);
+
+            modelBuilder.Entity<ContactAgent>()
+                .HasMany(e => e.Institutions)
+                .WithOptional(e => e.ContactAgent)
+                .HasForeignKey(e => e.DirectorAgentId);
+
+            modelBuilder.Entity<ContactAgent>()
+                .HasMany(e => e.Institutions1)
+                .WithOptional(e => e.ContactAgent1)
+                .HasForeignKey(e => e.ContactAgentId);
 
             base.OnModelCreating(modelBuilder);
         }
