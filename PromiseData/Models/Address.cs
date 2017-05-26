@@ -9,6 +9,13 @@ namespace PromiseData.Models
     [Table("Address")]
     public partial class Address
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Address()
+        {
+            Institutions = new HashSet<Institution>();
+            Institutions1 = new HashSet<Institution>();
+        }
+
         public int ID { get; set; }
 
         public int? AddressType_ID { get; set; }
@@ -37,5 +44,11 @@ namespace PromiseData.Models
         public virtual Code_AddressType Code_AddressType { get; set; }
 
         public virtual LU_State LU_State { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Institution> Institutions { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Institution> Institutions1 { get; set; }
     }
 }

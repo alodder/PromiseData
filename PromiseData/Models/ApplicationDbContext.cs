@@ -123,15 +123,25 @@ namespace PromiseData.Models
                 .Property(e => e.TeacherSalary)
                 .HasPrecision(19, 4);
 
-            /*modelBuilder.Entity<ContactAgent>()
+            modelBuilder.Entity<Address>()
+                .HasMany(e => e.Institutions)
+                .WithOptional(e => e.Address)
+                .HasForeignKey(e => e.MailingAddressId);
+
+            modelBuilder.Entity<Address>()
+                .HasMany(e => e.Institutions1)
+                .WithOptional(e => e.Address1)
+                .HasForeignKey(e => e.MailingAddressId);
+
+            modelBuilder.Entity<ContactAgent>()
                 .HasMany(e => e.Institutions)
                 .WithOptional(e => e.ContactAgent)
                 .HasForeignKey(e => e.ContactAgentId);
 
             modelBuilder.Entity<ContactAgent>()
                 .HasMany(e => e.Institutions1)
-                .WithOptional(e => e.DirectorAgent)
-                .HasForeignKey(e => e.DirectorAgentId);*/
+                .WithOptional(e => e.ContactAgent1)
+                .HasForeignKey(e => e.DirectorAgentId);
 
             base.OnModelCreating(modelBuilder);
         }
@@ -143,5 +153,7 @@ namespace PromiseData.Models
         public System.Data.Entity.DbSet<PromiseData.ViewModels.AddressViewModel> AddressViewModels { get; set; }
 
         public System.Data.Entity.DbSet<PromiseData.ViewModels.FamilyViewModel> FamilyViewModels { get; set; }
+
+        public System.Data.Entity.DbSet<PromiseData.ViewModels.InstitutionViewModel> InstitutionViewModels { get; set; }
     }
 }

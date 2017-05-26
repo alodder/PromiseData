@@ -67,7 +67,8 @@ namespace PromiseData.Controllers
         // GET: Institution
         public ActionResult Index()
         {
-            return View();
+            var viewModel = _context.Institutions.ToList();
+            return View(viewModel);
         }
     }
 }

@@ -1,0 +1,104 @@
+﻿@model IEnumerable<PromiseData.Models.Institution>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="form-group">
+    @Html.Label("search", "Institution Number: ")
+    @Html.TextBox("search")
+    <button type="submit" class="btn btn-primary">Search</button>
+</div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LegalName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Region)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BackboneOrg)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WebAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DirectorAgentId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContactAgentId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LocationAddressId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MailingAddressId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActiveDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isHub)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isProvider)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LegalName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Region)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BackboneOrg)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WebAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DirectorAgentId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ContactAgentId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LocationAddressId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MailingAddressId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActiveDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isHub)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isProvider)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -231,6 +231,7 @@
     <Compile Include="Models\Institution.cs" />
     <Compile Include="Models\LU_State.cs" />
     <Compile Include="Models\IdentityStoreDbContext.cs" />
+    <Compile Include="Models\Model1.cs" />
     <Compile Include="Models\Model2.cs" />
     <Compile Include="Models\Model3.cs" />
     <Compile Include="Models\Model4.cs" />
@@ -361,6 +362,7 @@
     <Content Include="Views\Service\Index.cshtml" />
     <Content Include="Views\Service\Create.cshtml" />
     <Content Include="Views\Institution\Create.cshtml" />
+    <Content Include="Views\Institution\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
