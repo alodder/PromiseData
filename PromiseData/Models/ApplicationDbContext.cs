@@ -123,15 +123,15 @@ namespace PromiseData.Models
                 .Property(e => e.TeacherSalary)
                 .HasPrecision(19, 4);
 
-            modelBuilder.Entity<ContactAgent>()
+            /*modelBuilder.Entity<ContactAgent>()
                 .HasMany(e => e.Institutions)
                 .WithOptional(e => e.ContactAgent)
-                .HasForeignKey(e => e.DirectorAgentId);
+                .HasForeignKey(e => e.ContactAgentId);
 
             modelBuilder.Entity<ContactAgent>()
                 .HasMany(e => e.Institutions1)
-                .WithOptional(e => e.ContactAgent1)
-                .HasForeignKey(e => e.ContactAgentId);
+                .WithOptional(e => e.DirectorAgent)
+                .HasForeignKey(e => e.DirectorAgentId);*/
 
             base.OnModelCreating(modelBuilder);
         }

@@ -41,9 +41,9 @@ namespace PromiseData.Models
 
         public bool isProvider { get; set; }
 
-        public virtual ContactAgent ContactAgent { get; set; }
+        public virtual ContactAgent DirectorAgent { get; set; }
 
-        public virtual ContactAgent ContactAgent1 { get; set; }
+        public virtual ContactAgent ContactAgent { get; set; }
 
         public virtual Address AddressMail { get; set; }
 

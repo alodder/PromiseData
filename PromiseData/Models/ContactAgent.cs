@@ -2,7 +2,6 @@ namespace PromiseData.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -19,24 +18,19 @@ namespace PromiseData.Models
         [Key]
         public int AgentId { get; set; }
 
-        [DisplayName("Name")]
         [Required]
         [StringLength(50)]
         public string AgentName { get; set; }
 
-        [DisplayName("Title")]
         [StringLength(50)]
         public string AgentTitle { get; set; }
 
-        [DisplayName("Phone Number")]
         [StringLength(15)]
         public string AgentPhone { get; set; }
 
-        [DisplayName("Email")]
         [StringLength(50)]
         public string AgentEmail { get; set; }
 
-        [DisplayName("Fax Number")]
         [StringLength(15)]
         public string AgentFax { get; set; }
 

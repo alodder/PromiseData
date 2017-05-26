@@ -29,10 +29,18 @@ namespace PromiseData.Controllers
         [HttpPost]
         public ActionResult Create(InstitutionViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("Create", viewModel);
+            }
+
             var ViewModel = new InstitutionViewModel();
 
             viewModel.DirectorAgent = _context.ContactAgents.Add(viewModel.DirectorAgent);
-            viewModel.ContactAgent = _context.ContactAgents.Add(viewModel.DirectorAgent);
+            viewModel.ContactAgent = _context.ContactAgents.Add(viewModel.ContactAgent);
+
+            viewModel.AddressPhysical = _context.Addresses.Add(viewModel.AddressPhysical);
+            //viewModel.AddressMail = _context.Addresses.Add(viewModel.AddressMail);
 
             var institute = new Institution {
                 LegalName = viewModel.LegalName,
@@ -41,8 +49,8 @@ namespace PromiseData.Controllers
                 WebAddress = viewModel.WebAddress,
                 DirectorAgentId = viewModel.DirectorAgent.AgentId,
                 ContactAgentId = viewModel.ContactAgent.AgentId,
-                LocationAddressId = 0,
-                MailingAddressId = 0,
+                LocationAddressId = viewModel.AddressPhysical.ID,
+                MailingAddressId = null,
                 ActiveDate = viewModel.ActiveDate,
                 EndDate = viewModel.EndDate,
                 isHub = viewModel.isHub,
