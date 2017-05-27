@@ -2,6 +2,7 @@ namespace PromiseData.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -13,22 +14,30 @@ namespace PromiseData.Models
 
         [Required]
         [StringLength(50)]
+        [DisplayName("Name")]
         public string LegalName { get; set; }
 
+        [DisplayName("Region")]
         [StringLength(50)]
         public string Region { get; set; }
 
         [StringLength(50)]
+        [DisplayName("Organization")]
         public string BackboneOrg { get; set; }
 
+        [DisplayName("Web Address")]
         public string WebAddress { get; set; }
 
+        [DisplayName("Director")]
         public int? DirectorAgentId { get; set; }
 
+        [DisplayName("Contact")]
         public int? ContactAgentId { get; set; }
 
+        [DisplayName("Location")]
         public int? LocationAddressId { get; set; }
 
+        [DisplayName("Mailing Address")]
         public int? MailingAddressId { get; set; }
 
         [Column(TypeName = "date")]

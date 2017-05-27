@@ -14,6 +14,11 @@
     @Html.TextBox("search")
     <button type="submit" class="btn btn-primary">Search</button>
 </div>
+<div class="form-group">
+    <button type="submit" class="btn btn-primary">List Hubs</button>
+    <button type="submit" class="btn btn-primary">List Providers</button>
+    <button type="submit" class="btn btn-primary">Show All</button>
+</div>
 <table class="table">
     <tr>
         <th>
@@ -70,16 +75,16 @@
             @Html.DisplayFor(modelItem => item.WebAddress)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DirectorAgentId)
+            @Html.DisplayFor(modelItem => item.ContactAgent.AgentName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ContactAgentId)
+            @Html.DisplayFor(modelItem => item.ContactAgent1.AgentName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.LocationAddressId)
+            @Html.DisplayFor(modelItem => item.Address.City)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.MailingAddressId)
+            @Html.DisplayFor(modelItem => item.Address1.City)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ActiveDate)
