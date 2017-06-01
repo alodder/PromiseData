@@ -19,14 +19,17 @@ namespace PromiseData.Controllers
 
         // GET: Institution
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             var ViewModel = new InstitutionViewModel();
+            ViewModel.States = _context.LU_State.ToList();
             return View(ViewModel);
         }
 
         // GET: Institution
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(InstitutionViewModel viewModel)
         {
             if (!ModelState.IsValid)
@@ -40,7 +43,7 @@ namespace PromiseData.Controllers
             viewModel.ContactAgent = _context.ContactAgents.Add(viewModel.ContactAgent);
 
             viewModel.AddressPhysical = _context.Addresses.Add(viewModel.AddressPhysical);
-            //viewModel.AddressMail = _context.Addresses.Add(viewModel.AddressMail);
+            viewModel.AddressMail = _context.Addresses.Add(viewModel.AddressMail);
 
             var institute = new Institution {
                 LegalName = viewModel.LegalName,
