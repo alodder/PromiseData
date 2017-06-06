@@ -24,19 +24,19 @@ namespace PromiseData
 
 
             // In Startup iam creating first Admin Role and creating a default Admin User    
-            if (!roleManager.RoleExists("Admin"))
+            if (!roleManager.RoleExists("System Administrator"))
             {
 
                 // first we create Admin rool   
                 var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
-                role.Name = "Admin";
+                role.Name = "System Administrator";
                 roleManager.Create(role);
 
                 //Here we create a Admin super user who will maintain the website                  
 
                 var user = new ApplicationUser();
-                user.UserName = "admin@email.com";
-                user.Email = "admin@email.com";
+                user.UserName = "systemadmin@email.com";
+                user.Email = "systemadmin@email.com";
 
                 string userPWD = "P@ssw0rd";
 
@@ -45,12 +45,21 @@ namespace PromiseData
                 //Add default User to Role Admin   
                 if (chkUser.Succeeded)
                 {
-                    var result1 = UserManager.AddToRole(user.Id, "Admin");
+                    var result1 = UserManager.AddToRole(user.Id, "System Administrator");
 
                 }
             }
 
-            // creating Creating Manager role    
+            // creating Creating Administrator role    
+            if (!roleManager.RoleExists("Administrator"))
+            {
+                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                role.Name = "Administrator";
+                roleManager.Create(role);
+
+            }
+
+            // creating Creating Hub role    
             if (!roleManager.RoleExists("Hub"))
             {
                 var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
@@ -59,13 +68,20 @@ namespace PromiseData
 
             }
 
-            // creating Creating Employee role    
+            // creating Creating Hub role    
             if (!roleManager.RoleExists("Provider"))
             {
                 var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
                 role.Name = "Provider";
                 roleManager.Create(role);
+            }
 
+            // creating Creating View role    
+            if (!roleManager.RoleExists("View"))
+            {
+                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                role.Name = "View";
+                roleManager.Create(role);
             }
         }
     }
