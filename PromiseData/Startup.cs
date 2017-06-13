@@ -37,6 +37,7 @@ namespace PromiseData
                 var user = new ApplicationUser();
                 user.UserName = "systemadmin@email.com";
                 user.Email = "systemadmin@email.com";
+                user.Name = "System Administrator";
 
                 string userPWD = "P@ssw0rd";
 
