@@ -151,7 +151,13 @@ namespace PromiseData.Controllers
                 ViewBag.displayHubMenu = false;
                 ViewBag.displayProviderMenu = false;
 
-                if (User.IsInRole("Admin"))
+                if (User.IsInRole("System Administrator"))
+                {
+                    ViewBag.displayAdminMenu = true;
+                    ViewBag.displayHubMenu = true;
+                    ViewBag.displayProviderMenu = true;
+                }
+                if (User.IsInRole("Administrator"))
                 {
                     ViewBag.displayAdminMenu = true;
                     ViewBag.displayHubMenu = true;

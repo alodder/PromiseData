@@ -19,7 +19,7 @@ namespace PromiseData.Controllers
 
         // GET: Institution
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrator, System Administrator")]
         public ActionResult Create()
         {
             var ViewModel = new InstitutionViewModel();
@@ -29,7 +29,7 @@ namespace PromiseData.Controllers
 
         // GET: Institution
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrator, System Administrator")]
         public ActionResult Create(InstitutionViewModel viewModel)
         {
             if (!ModelState.IsValid)
