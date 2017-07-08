@@ -25,7 +25,7 @@ namespace PromiseData.Controllers
             UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_context));
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "System Administrator, Administrator")]
         public ActionResult List()
         {
             //_context = new ApplicationDbContext();
@@ -35,7 +35,7 @@ namespace PromiseData.Controllers
             return View(userList);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "System Administrator, Administrator")]
         public ActionResult Edit(String id)
         {
             //var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_context));
@@ -44,7 +44,7 @@ namespace PromiseData.Controllers
             return View(user);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "System Administrator, Administrator")]
         [HttpGet]
         public ActionResult AssignRole(string id)
         {
@@ -78,7 +78,7 @@ namespace PromiseData.Controllers
         /**
          * remove all roles/ then add selected roles
          */
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "System Administrator, Administrator")]
         [HttpPost]
         public ActionResult AssignRole(UserRoleViewModel userAndRole)
         {
@@ -95,9 +95,41 @@ namespace PromiseData.Controllers
             return RedirectToAction("List", "User");
         }
 
+        [Authorize(Roles = "System Administrator, Administrator")]
+        [HttpGet]
+        public ActionResult AssignInstitution(string id)
+        {
+            //var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_context));
+            var userAndRole = new UserRoleViewModel();
+            var user = new ApplicationUser();
+            try
+            {
+                user = UserManager.Users.Single(a => a.Id == id);
+                userAndRole.UserName = user.UserName;
+
+                userAndRole.Id = user.Id;
+                userAndRole.Roles = _context.Roles.ToList().Where(u => !u.Name.Contains("Admin"));//admin can assign other admin?
+
+                userAndRole.RoleNames = new String[user.Roles.ToArray().Length];
+
+                int i = 0;
+                foreach (IdentityUserRole role in user.Roles)
+                {
+                    userAndRole.RoleNames[i] = _context.Roles.Single(a => a.Id == role.RoleId).Name;
+                    i++;
+                }
+            }
+            catch (Exception e)
+            {
+                ViewBag.Error = true;
+                ViewBag.ErrorMessage = e.ToString();
+            }
+            return View(userAndRole);
+        }
+
         //
         // GET: /User/CreateUser
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "System Administrator, Administrator")]
         public ActionResult CreateUser()
         {
             ViewBag.Name = new SelectList(_context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
@@ -107,7 +139,7 @@ namespace PromiseData.Controllers
         //
         // POST: /User/CreateUser
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "System Administrator, Administrator")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateUser(RegisterViewModel model)
         {
