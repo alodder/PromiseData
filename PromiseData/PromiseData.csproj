@@ -229,6 +229,7 @@
     <Compile Include="Models\FacilitySupport.cs" />
     <Compile Include="Models\Hub.cs" />
     <Compile Include="Models\Institution.cs" />
+    <Compile Include="Models\InstitutionUser.cs" />
     <Compile Include="Models\LU_State.cs" />
     <Compile Include="Models\IdentityStoreDbContext.cs" />
     <Compile Include="Models\Model1.cs" />
@@ -263,6 +264,7 @@
     <Compile Include="ViewModels\BirthDate.cs" />
     <Compile Include="ViewModels\ChildFormViewModel.cs" />
     <Compile Include="ViewModels\ClassroomViewModel.cs" />
+    <Compile Include="ViewModels\UserInstitutionViewModel.cs" />
     <Compile Include="ViewModels\UserRoleViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
