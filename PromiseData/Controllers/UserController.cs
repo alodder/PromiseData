@@ -100,15 +100,14 @@ namespace PromiseData.Controllers
         public ActionResult AssignInstitution(string id)
         {
             //var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_context));
-            var userAndRole = new UserRoleViewModel();
+            var userAndInstitution = new InstitutionUser();
             var user = new ApplicationUser();
             try
             {
                 user = UserManager.Users.Single(a => a.Id == id);
-                userAndRole.UserName = user.UserName;
 
-                userAndRole.Id = user.Id;
-                userAndRole.Roles = _context.Roles.ToList().Where(u => !u.Name.Contains("Admin"));//admin can assign other admin?
+                userAndInstitution.UserID = user.Id;
+                userAndInstitution.InstitutionID = _context.Roles.ToList().Where(u => !u.Name.Contains("Admin"));//admin can assign other admin?
 
                 userAndRole.RoleNames = new String[user.Roles.ToArray().Length];
 
@@ -124,7 +123,7 @@ namespace PromiseData.Controllers
                 ViewBag.Error = true;
                 ViewBag.ErrorMessage = e.ToString();
             }
-            return View(userAndRole);
+            return View(userAndInstitution);
         }
 
         //

@@ -53,12 +53,10 @@ namespace PromiseData.Models
         public virtual DbSet<ContactAgent> ContactAgents { get; set; }
         public virtual DbSet<Institution> Institutions { get; set; }
 
-        public virtual DbSet<AdultRace> UserInstitutions { get; set; }
+        public virtual DbSet<InstitutionUser> InstitutionUsers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-
-
             modelBuilder.Entity<Adult>()
                 .HasMany(e => e.AdultRaces)
                 .WithRequired(e => e.Adult)

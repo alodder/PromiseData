@@ -12,12 +12,12 @@ namespace PromiseData.ViewModels
 
         public String Id { get; set; }
 
-        public IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityUserRole> CurrentRoles { get; set; }
+        public PromiseData.Models.Institution CurrentInstitution { get; set; }
 
-        public string[] RoleNames { get; set; }
+        public string[] ListInstitutionNames { get; set; }
 
-        public string[] SelectedRoleNames { get; set; }
+        public string[] ListSelectedInstitutionNames { get; set; }
 
-        public IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityRole> Roles { get; set; }
+        public IEnumerable<PromiseData.Models.Institution> Roles { get; set; }
     }
 }

@@ -12,12 +12,13 @@ namespace PromiseData.Models
         [Key]
         [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int INstitutionID { get; set; }
+        public int InstitutionID { get; set; }
 
         [Key]
         [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int UserID { get; set; }
+        [StringLength(128)]
+        public String UserID { get; set; }
 
         public virtual Institution Institution { get; set; }
     }
