@@ -14,12 +14,16 @@ namespace PromiseData.Controllers
 {
     public class UserController : Controller
     {
+        private ApplicationDbContext App_context;
+
         private IdentityStoreDbContext _context;
         private UserManager<ApplicationUser> UserManager;
         private RoleManager<IdentityRole> RoleManager;
 
         public UserController()
         {
+            App_context = new ApplicationDbContext();
+
             _context = new IdentityStoreDbContext();
             RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new IdentityStoreDbContext()));
             UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_context));
@@ -100,21 +104,26 @@ namespace PromiseData.Controllers
         public ActionResult AssignInstitution(string id)
         {
             //var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_context));
-            var userAndInstitution = new InstitutionUser();
+            var userAndInstitution = new UserInstitutionViewModel();
             var user = new ApplicationUser();
             try
             {
                 user = UserManager.Users.Single(a => a.Id == id);
 
-                userAndInstitution.UserID = user.Id;
-                userAndInstitution.InstitutionID = _context.Roles.ToList().Where(u => !u.Name.Contains("Admin"));//admin can assign other admin?
+                userAndInstitution.User = user;
+                //Institution where user claim matches id
+                //userAndInstitution.Institution = App_context.Institutions.Where(i => i.Id == ).Single();
 
-                userAndRole.RoleNames = new String[user.Roles.ToArray().Length];
+                userAndInstitution.UserName = user.Name;
+                userAndInstitution.UserId = user.Id;
+                userAndInstitution.Institutions = App_context.Institutions.ToList();
+
+                userAndInstitution.ListInstitutionNames = new String[userAndInstitution.Institutions.ToArray().Length];
 
                 int i = 0;
-                foreach (IdentityUserRole role in user.Roles)
+                foreach (Institution institution in userAndInstitution.Institutions)
                 {
-                    userAndRole.RoleNames[i] = _context.Roles.Single(a => a.Id == role.RoleId).Name;
+                    userAndInstitution.ListInstitutionNames[i] = institution.LegalName;
                     i++;
                 }
             }
