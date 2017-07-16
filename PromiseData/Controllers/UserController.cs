@@ -86,15 +86,21 @@ namespace PromiseData.Controllers
         [HttpPost]
         public ActionResult AssignRole(UserRoleViewModel userAndRole)
         {
-            var user = UserManager.Users.Single(a => a.Id == userAndRole.Id);
-            foreach (IdentityUserRole role in user.Roles)
+            var user = UserManager.FindById( userAndRole.Id); //UserManager.Users.Single(a => a.Id == userAndRole.Id);
+            
+            /*foreach (IdentityUserRole role in user.Roles)
             {
                 UserManager.RemoveFromRoleAsync(userAndRole.Id, role.RoleId);
-            }
-            foreach (string roleid in userAndRole.SelectedRoleNames)
+            }*/
+            UserManager.RemoveFromRoles(user.Id, UserManager.GetRoles(user.Id).ToArray());
+            //UserManager.UpdateAsync(user);
+            UserManager.AddToRoles(userAndRole.Id, userAndRole.SelectedRoleNames);
+            /*foreach (string roleid in userAndRole.SelectedRoleNames)
             {
-                UserManager.AddToRoleAsync(userAndRole.Id, roleid);
-            }
+                UserManager.AddToRole(user.Id, roleid);
+            }*/
+
+            UserManager.Update(user);
 
             return RedirectToAction("List", "User");
         }
@@ -153,7 +159,7 @@ namespace PromiseData.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Name = model.Name };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
