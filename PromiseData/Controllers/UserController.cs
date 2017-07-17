@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using PromiseData.Models;
 using PromiseData.ViewModels;
 using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace PromiseData.Controllers
 {
@@ -139,6 +140,28 @@ namespace PromiseData.Controllers
                 ViewBag.ErrorMessage = e.ToString();
             }
             return View(userAndInstitution);
+        }
+
+        /**
+         * remove Institution/ then add selected institution
+         */
+        [Authorize(Roles = "System Administrator, Administrator")]
+        [HttpPost]
+        public ActionResult AssignInstitution(UserInstitutionViewModel userAndInstitution)
+        {
+            var user = UserManager.FindById(userAndInstitution.UserId); //UserManager.Users.Single(a => a.Id == userAndRole.Id);
+
+            /*foreach(Claim c in user.Claims)
+            {
+                UserManager.RemoveClaim(user.Id, c);
+            }*/
+
+            UserManager.AddClaim(user.Id, new System.Security.Claims.Claim("Institution", userAndInstitution.InstitutionId));
+
+
+            UserManager.Update(user);
+
+            return RedirectToAction("List", "User");
         }
 
         //
