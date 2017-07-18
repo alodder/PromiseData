@@ -149,19 +149,24 @@ namespace PromiseData.Controllers
         [HttpPost]
         public ActionResult AssignInstitution(UserInstitutionViewModel userAndInstitution)
         {
-            var user = UserManager.FindById(userAndInstitution.UserId); //UserManager.Users.Single(a => a.Id == userAndRole.Id);
-
-            /*foreach(Claim c in user.Claims)
+            if (userAndInstitution != null)
             {
-                UserManager.RemoveClaim(user.Id, c);
-            }*/
+                var user = UserManager.FindById(userAndInstitution.UserId); //UserManager.Users.Single(a => a.Id == userAndRole.Id);
 
-            UserManager.AddClaim(user.Id, new System.Security.Claims.Claim("Institution", userAndInstitution.InstitutionId));
+                /*foreach(Claim c in user.Claims)
+                {
+                    UserManager.RemoveClaim(user.Id, c);
+                }*/
+
+                UserManager.AddClaim(user.Id, new System.Security.Claims.Claim("Institution", userAndInstitution.InstitutionId));
 
 
-            UserManager.Update(user);
+                UserManager.Update(user);
+                return RedirectToAction("List", "User");
+            }
 
-            return RedirectToAction("List", "User");
+            // If we got this far, something failed, redisplay form
+            return View(userAndInstitution);
         }
 
         //
