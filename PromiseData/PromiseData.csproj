@@ -365,6 +365,7 @@
     <Content Include="Views\Service\Create.cshtml" />
     <Content Include="Views\Institution\Create.cshtml" />
     <Content Include="Views\Institution\Index.cshtml" />
+    <Content Include="Views\User\AssignInstitution.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
