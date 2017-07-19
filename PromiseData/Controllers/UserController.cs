@@ -116,6 +116,7 @@ namespace PromiseData.Controllers
             try
             {
                 user = UserManager.Users.Single(a => a.Id == id);
+                var identity = User.Identity as ClaimsIdentity;
 
                 var claim = (from c in user.Claims
                              where c.ClaimType == "Institution"
@@ -157,12 +158,13 @@ namespace PromiseData.Controllers
             if (userAndInstitution != null)
             {
                 var user = UserManager.FindById(userAndInstitution.UserId); //UserManager.Users.Single(a => a.Id == userAndRole.Id);
+                ClaimsIdentity identity = UserManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
 
-                var claims = (from c in user.Claims
-                             where c.ClaimType == "Institution"
+                var claims = (from c in identity.Claims
+                             where c.Type == "Institution"
                              select c);
 
-                foreach (IdentityUserClaim claim in claims)
+                foreach (Claim claim in claims)
                 {
                     UserManager.RemoveClaim(user.Id, claim);
                 }
