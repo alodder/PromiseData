@@ -117,11 +117,16 @@ namespace PromiseData.Controllers
             {
                 user = UserManager.Users.Single(a => a.Id == id);
 
-                userAndInstitution.User = user;
-                //Institution where user claim matches id
-                //userAndInstitution.Institution = App_context.Institutions.Where(i => i.Id == ).Single();
+                var claim = (from c in user.Claims
+                             where c.ClaimType == "Institution"
+                             select c).Single();
 
-                userAndInstitution.UserName = user.Name;
+                userAndInstitution.User = user;
+
+                //Institution where user claim matches id
+                userAndInstitution.InstitutionId = claim.ClaimValue;
+
+                userAndInstitution.UserName = user.UserName;
                 userAndInstitution.UserId = user.Id;
                 userAndInstitution.Institutions = App_context.Institutions.ToList();
 
@@ -153,12 +158,16 @@ namespace PromiseData.Controllers
             {
                 var user = UserManager.FindById(userAndInstitution.UserId); //UserManager.Users.Single(a => a.Id == userAndRole.Id);
 
-                /*foreach(Claim c in user.Claims)
-                {
-                    UserManager.RemoveClaim(user.Id, c);
-                }*/
+                var claims = (from c in user.Claims
+                             where c.ClaimType == "Institution"
+                             select c);
 
-                UserManager.AddClaim(user.Id, new System.Security.Claims.Claim("Institution", userAndInstitution.InstitutionId));
+                foreach (IdentityUserClaim claim in claims)
+                {
+                    UserManager.RemoveClaim(user.Id, claim);
+                }
+
+                UserManager.AddClaim(user.Id, new Claim("Institution", userAndInstitution.InstitutionId));
 
 
                 UserManager.Update(user);
