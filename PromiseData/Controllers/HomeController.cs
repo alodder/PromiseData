@@ -19,8 +19,45 @@ namespace PromiseData.Controllers
 
         public ActionResult Index()
         {
-            var students = _context.Children;
-            return View( students);
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = User.Identity;
+                ViewBag.Name = user.Name;
+
+                //ViewBag.displayMenu = false;
+                ViewBag.displayAdminMenu = false;
+                ViewBag.displayHubMenu = false;
+                ViewBag.displayProviderMenu = false;
+
+                if (User.IsInRole("System Administrator"))
+                {
+                    ViewBag.displayAdminMenu = true;
+                    ViewBag.displayHubMenu = true;
+                    ViewBag.displayProviderMenu = true;
+                }
+                if (User.IsInRole("Administrator"))
+                {
+                    ViewBag.displayAdminMenu = true;
+                    ViewBag.displayHubMenu = true;
+                    ViewBag.displayProviderMenu = true;
+                }
+                if (User.IsInRole("Hub"))
+                {
+                    ViewBag.displayHubMenu = true;
+                    ViewBag.displayProviderMenu = true;
+                }
+                if (User.IsInRole("Provider"))
+                {
+                    ViewBag.displayProviderMenu = true;
+                }
+
+                return View();
+            }
+            else
+            {
+                ViewBag.Name = "Not Logged In";
+            }
+            return View();
         }
 
         public ActionResult About()

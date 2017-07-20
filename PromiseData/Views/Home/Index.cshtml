@@ -1,17 +1,95 @@
-﻿@model IEnumerable<PromiseData.Models.Child>
+﻿
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Index";
 }
-<br/>
-<ul>
-    <li>@Html.ActionLink("Address", "Index", "Address")</li>
-    <li>@Html.ActionLink("Adult", "Index", "Adult")</li>
-    <li>@Html.ActionLink("Family", "Index", "Family")</li>
-    <li>@Html.ActionLink("Child", "Index", "Child")</li>
-    <li>@Html.ActionLink("Classroom", "Index", "Classroom")</li>
-    <li>@Html.ActionLink("Enrollment", "Index", "Enrollment")</li>
-    <li>@Html.ActionLink("Screening", "Index", "Screening")</li>
-    <li>@Html.ActionLink("Facility", "Index", "Facility")</li>
-    <li>@Html.ActionLink("Teacher", "Index", "Teacher")</li>
-    <li>@Html.ActionLink("Services", "Index", "Service")</li>
-</ul>
+<br />
+<br />
+<div class="row">
+    @if (ViewBag.displayAdminMenu == true)
+    {
+        <h4>Admin Controls:</h4>
+        <div class="row">
+            <div class="col-md-4">
+                <ul>
+                    <li>@Html.ActionLink("Add User", "CreateUser", "User")</li>
+                    <li>@Html.ActionLink("Manage Users", "List", "User")</li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <ul>
+                    <li>@Html.ActionLink("Add Hub", "List", "User")</li>
+                    <li>@Html.ActionLink("Manage Hub", "List", "User")</li>
+                    <li>@Html.ActionLink("Assign User to Hub", "List", "User")</li>
+                </ul>
+            </div>
+        </div>
+    }
+    @if (ViewBag.displayHubMenu == true)
+    {
+        <h4>Hub Controls:</h4>
+        <div class="row">
+            <div class="col-md-4">
+                <ul>
+                    <li>@Html.ActionLink("Add Provider", "Index", "User")</li>
+                    <li>@Html.ActionLink("Assign Provider", "Index", "User")</li>
+                    <li>@Html.ActionLink("Add Facility", "Index", "User")</li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <ul>
+                    <li>@Html.ActionLink("Review Biennium Report", "Index", "User")</li>
+                </ul>
+            </div>
+        </div>
+    }
+    @if (ViewBag.displayProviderMenu == true)
+    {
+        <h4>Provider Controls</h4>
+        <div class="row">
+            <div class="col-md-4">
+
+                <ul>
+                    <li>@Html.ActionLink("Enroll Child", "Add", "Child")</li>
+                    <li>@Html.ActionLink("View Child Details", "Index", "Child")</li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <ul>
+                    <li>@Html.ActionLink("Add Classroom", "Create", "Classroom")</li>
+                    <li>@Html.ActionLink("View Classrooms", "List", "Classroom")</li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <ul>
+                    <li>@Html.ActionLink("View Teachers", "List", "Teacher")</li>
+                    <li>@Html.ActionLink("Add Teacher", "Create", "Teacher")</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                @Html.Label("searchstring", "Search", htmlAttributes: new { @class = "control-label col-md-1" })
+                <div class="col-md-4">
+                    @Html.Editor("searchstring", new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+
+                <div class="col-md-2">
+                    @Html.DropDownList("scope", new SelectList(
+                        new List<SelectListItem> {
+                        new SelectListItem { Text="All", Value = "All"},
+                        new SelectListItem { Text="Open", Value = "Open"},
+                        new SelectListItem { Text="Closed", Value = "Closed"}
+                    }, "Value", "Text"), new { @class = "form-control" })
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </div>
+    }
+    else
+    {
+        <p>  Welcome <strong>@ViewBag.Name</strong></p>
+        <p>@ViewBag.displayAdminMenu</p>
+        <p>@ViewBag.displayHubMenu</p>
+        <p>@ViewBag.displayProviderMenu</p>
+    }
+</div>

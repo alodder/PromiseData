@@ -117,10 +117,14 @@ namespace PromiseData.Controllers
             {
                 user = UserManager.Users.Single(a => a.Id == id);
                 var identity = User.Identity as ClaimsIdentity;
+                IdentityUserClaim claim = new IdentityUserClaim();
 
-                var claim = (from c in user.Claims
-                             where c.ClaimType == "Institution"
-                             select c).Single();
+                if (user.Claims.Any())
+                {
+                    claim = (from c in user.Claims
+                                 where c.ClaimType == "Institution"
+                                 select c).Single();
+                }
 
                 userAndInstitution.User = user;
 
