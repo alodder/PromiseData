@@ -50,6 +50,7 @@ namespace PromiseData.ViewModels
         public Dictionary<int, bool> FluentLanguages { get; set; }
 
         [DisplayName("Start Date")]
+        [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
 
         [DisplayName("Salary")]
@@ -70,13 +71,14 @@ namespace PromiseData.ViewModels
         [DisplayName("PD Step?")]
         public int PDStep { get; set; }  //?
 
-        [DisplayName("Yeasrs Experience")]
+        [DisplayName("Years Experience")]
         public int YearsExperience { get; set; }
 
         [DisplayName("End Date")]
+        [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
 
-        [DisplayName("Reason of Leaving")]
+        [DisplayName("Reason for Leaving")]
         public String ReasonForLeaving { get; set; }
     }
 }
