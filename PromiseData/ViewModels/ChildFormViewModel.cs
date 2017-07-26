@@ -43,6 +43,11 @@ namespace PromiseData.ViewModels
         [DisplayName("Date of Birth")]
         public string Date { get; set; }
 
+        public DateTime DateTime
+        {
+            get { return DateTime.Parse(Convert.ToString(Date));  }
+        }
+
         [Required]
         [DisplayName("Sex")]
         public int GenderID { get; set; }

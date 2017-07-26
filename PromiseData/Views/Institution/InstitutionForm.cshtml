@@ -1,9 +1,9 @@
 ﻿@model PromiseData.ViewModels.InstitutionViewModel
 @{
-    ViewBag.Title = "Add";
+    ViewBag.Title = @Model.Heading;
 }
 
-<h2>Add - Add an Institution</h2>
+<h2>@Model.Heading</h2>
 @using (Html.BeginForm("Create", "Institution"))
 {
     <p>Instructions to fill out this form</p>

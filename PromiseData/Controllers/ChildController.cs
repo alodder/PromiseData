@@ -59,7 +59,7 @@ namespace PromiseData.Controllers
                 FirstName = viewModel.FirstName,
                 MiddleName = viewModel.MiddleName,
                 OtherMiddleName = viewModel.OtherMiddleName,
-                Birthdate = DateTime.Parse(Convert.ToString(viewModel.Date)),
+                Birthdate = viewModel.DateTime,
                 GenerationCode_ID = viewModel.GenerationCodeID,
                 Language_ID = viewModel.LanguageID,
                 Gender_ID = viewModel.GenderID

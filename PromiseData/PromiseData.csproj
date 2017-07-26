@@ -363,7 +363,7 @@
     <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
     <Content Include="Views\Service\Index.cshtml" />
     <Content Include="Views\Service\Create.cshtml" />
-    <Content Include="Views\Institution\Create.cshtml" />
+    <Content Include="Views\Institution\InstitutionForm.cshtml" />
     <Content Include="Views\Institution\Index.cshtml" />
     <Content Include="Views\User\AssignInstitution.cshtml" />
   </ItemGroup>

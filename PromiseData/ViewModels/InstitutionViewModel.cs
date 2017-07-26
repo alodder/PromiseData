@@ -12,6 +12,11 @@ namespace PromiseData.ViewModels
         public int Id { get; set; }
 
         [Required]
+
+        public string Heading { get; set; }
+
+        public string SearchTerm { get; set; }
+
         public string LegalName { get; set; }
 
         public string Region { get; set; }
