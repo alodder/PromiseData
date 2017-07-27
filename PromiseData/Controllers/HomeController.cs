@@ -17,6 +17,7 @@ namespace PromiseData.Controllers
             _context = new ApplicationDbContext();
         }
 
+        [Authorize]
         public ActionResult Index()
         {
             if (User.Identity.IsAuthenticated)

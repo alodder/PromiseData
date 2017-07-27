@@ -111,7 +111,7 @@ namespace PromiseData.Controllers
         [HttpPost]
         public ActionResult Search(InstitutionViewModel viewModel)
         {
-            return RedirectToAction("Index", "Institutions", new { query = viewModel.SearchTerm});
+            return RedirectToAction("Index", "Institution", new { query = viewModel.SearchTerm});
         }
 
         public ActionResult FilterHubs(string query = null)
@@ -132,12 +132,14 @@ namespace PromiseData.Controllers
             var viewModel = _context.Institutions.ToList();
             if(!String.IsNullOrWhiteSpace(query))
             {
-                viewModel = viewModel.Where(i => i.LegalName.Contains(query) ||
-                                                i.BackboneOrg.Contains(query) ||
-                                                i.ContactAgent.AgentName.Contains(query) ||
-                                                i.ContactAgent1.AgentName.Contains(query) ||
-                                                i.Address.City.Contains(query) ||
-                                                i.Id == int.Parse(query)).ToList();
+                var blurb = viewModel.Where(i => i.LegalName.Contains(query) ||
+                                            i.BackboneOrg.Contains(query) ||
+                                            i.ContactAgent.AgentName.Contains(query) ||
+                                            i.ContactAgent1.AgentName.Contains(query) ||
+                                            i.Address.City.Contains(query) ||
+                                            i.Id == int.Parse(query));
+                if(blurb.Count() > 0) 
+                    viewModel = blurb.ToList();
             }
             
             return View(viewModel);

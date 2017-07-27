@@ -10,22 +10,23 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 
-@using (Html.BeginForm("Search", "Index"))
+@using (Html.BeginForm("Search", "Institution")) {
 <div class="form-group">
     
     @Html.Label("search", "Institution Number: ")
     <div class="input-group">
-        @Html.TextBox("SearchTerm", new { @class = "form-control" })
+        @Html.TextBox("SearchTerm", "", new { @class = "form-control" })
         <span class="input-group-addon">
             <i class="glyphicon glyphicon-search"></i>
         </span>
         <button type="submit" class="btn btn-primary">Search</button>
     </div>
 </div>
+}
 <div class="form-group">
-    <button type="submit" class="btn btn-primary">List Hubs</button>
-    <button type="submit" class="btn btn-primary">List Providers</button>
-    <button type="submit" class="btn btn-primary">Show All</button>
+    @Html.ActionLink("List Hubs", "FilterHubs", new { @role = "button" }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("List Providers", "FilterProviders", new { @role = "button" }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Show All", "Index", new { role = "button" }, new { @class = "btn btn-primary" })
 </div>
 <table class="table">
     <tr>

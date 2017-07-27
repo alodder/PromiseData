@@ -58,7 +58,7 @@
                 <div class="col-lg-2">
                     <div class="form-group">
                         @Html.LabelFor(m => m.Date)
-                        @Html.TextBoxFor(m => m.Date, new { @class = "form-control", placeholder = "Jan 1 2010" })
+                        @Html.TextBoxFor(m => m.Date, new { @class = "form-control", placeholder = "2010-01-01 ", type="date" })
                         @Html.ValidationMessageFor(m => m.Date)
                     </div>
                 </div>
