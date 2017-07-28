@@ -46,8 +46,10 @@ namespace PromiseData.Models
         [Column(TypeName = "date")]
         public DateTime? EndDate { get; set; }
 
+        [DisplayName("Hub")]
         public bool isHub { get; set; }
 
+        [DisplayName("Provider")]
         public bool isProvider { get; set; }
 
         public virtual Address Address { get; set; }

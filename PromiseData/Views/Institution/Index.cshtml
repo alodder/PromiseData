@@ -104,10 +104,16 @@
             @Html.DisplayFor(modelItem => item.EndDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.isHub)
+            @if (item.isHub)
+            {
+                @Html.DisplayFor(modelItem => item.isHub, new { @class="info"})
+            }
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.isProvider)
+        <td class="success">
+            @if (item.isProvider)
+            {
+                @Html.DisplayFor(modelItem => item.isProvider)
+            }
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
