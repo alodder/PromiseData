@@ -55,7 +55,7 @@ namespace PromiseData.Controllers
                 DirectorAgentId = viewModel.DirectorAgent.AgentId,
                 ContactAgentId = viewModel.ContactAgent.AgentId,
                 LocationAddressId = viewModel.AddressPhysical.ID,
-                MailingAddressId = null,
+                MailingAddressId = viewModel.AddressMail.ID,
                 ActiveDate = viewModel.ActiveDate,
                 EndDate = viewModel.EndDate,
                 isHub = viewModel.isHub,

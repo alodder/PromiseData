@@ -1,33 +1,29 @@
 ﻿@model IEnumerable<PromiseData.Models.Institution>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Preschool Promise Hubs and Providers";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", new { @role = "button" }, new { @class = "btn btn-success" })
 </p>
 
 @using (Html.BeginForm("Search", "Institution")) {
 <div class="form-group">
-    
     @Html.Label("search", "Institution Number: ")
-    <div class="input-group">
+    <div class="input-group col-md-6">
         @Html.TextBox("SearchTerm", "", new { @class = "form-control" })
-        <span class="input-group-addon">
-            <i class="glyphicon glyphicon-search"></i>
-        </span>
-        <button type="submit" class="btn btn-primary">Search</button>
+        <span class="input-group-btn">
+    @*<i class="glyphicon glyphicon-search"></i>*@
+            <button type="submit" class="btn btn-default glyphicon glyphicon-search"></button>
+    </span>
+    @*<button type="submit" class="btn btn-primary">Search</button>*@
     </div>
 </div>
 }
-<div class="form-group">
-    @Html.ActionLink("List Hubs", "FilterHubs", new { @role = "button" }, new { @class = "btn btn-primary" })
-    @Html.ActionLink("List Providers", "FilterProviders", new { @role = "button" }, new { @class = "btn btn-primary" })
-    @Html.ActionLink("Show All", "Index", new { role = "button" }, new { @class = "btn btn-primary" })
-</div>
+
 <table class="table">
     <tr>
         <th>
@@ -61,14 +57,14 @@
             @Html.DisplayNameFor(model => model.EndDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.isHub)
-            <button type="submit" class="btn btn-primary">Show Hubs</button>
+            @Html.ActionLink("List Hubs", "FilterHubs", new { @role = "button" }, new { @class = "btn btn-primary" })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.isProvider)
-            <button type="submit" class="btn btn-primary">Show Providers</button>
+            @Html.ActionLink("List Providers", "FilterProviders", new { @role = "button" }, new { @class = "btn btn-primary" })
         </th>
-        <th></th>
+        <th>
+            @Html.ActionLink("Show All", "Index", new { role = "button" }, new { @class = "btn btn-primary" })
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -106,13 +102,13 @@
         <td>
             @if (item.isHub)
             {
-                @Html.DisplayFor(modelItem => item.isHub, new { @class="info"})
+                <div class="label label-default">Hub</div>
             }
         </td>
-        <td class="success">
+        <td>
             @if (item.isProvider)
             {
-                @Html.DisplayFor(modelItem => item.isProvider)
+                <div class="label label-info">Provider</div>
             }
         </td>
         <td>
