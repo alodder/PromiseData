@@ -36,10 +36,9 @@ namespace PromiseData.Controllers
         {
             if (!ModelState.IsValid)
             {
+                viewModel.States = _context.LU_State.ToList();
                 return View("InstitutionForm", viewModel);
             }
-
-            var ViewModel = new InstitutionViewModel();
 
             viewModel.DirectorAgent = _context.ContactAgents.Add(viewModel.DirectorAgent);
             viewModel.ContactAgent = _context.ContactAgents.Add(viewModel.ContactAgent);

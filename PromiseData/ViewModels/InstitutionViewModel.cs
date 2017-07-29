@@ -40,7 +40,6 @@ namespace PromiseData.ViewModels
         [DisplayName("Mailing Address")]
         public int? MailingAddressId { get; set; }
 
-
         public DateTime ActiveDate { get; set; }
 
         public DateTime? EndDate { get; set; }
