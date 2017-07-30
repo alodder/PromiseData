@@ -41,7 +41,11 @@ namespace PromiseData.Controllers
             }
 
             viewModel.DirectorAgent = _context.ContactAgents.Add(viewModel.DirectorAgent);
+            /*if (viewModel.DirectorAgent.AgentId == 0)
+                viewModel.DirectorAgent = null;*/
             viewModel.ContactAgent = _context.ContactAgents.Add(viewModel.ContactAgent);
+            /*if (viewModel.ContactAgent.AgentId == 0)
+                viewModel.ContactAgent = null;*/
 
             viewModel.AddressPhysical = _context.Addresses.Add(viewModel.AddressPhysical);
             viewModel.AddressMail = _context.Addresses.Add(viewModel.AddressMail);
@@ -51,15 +55,21 @@ namespace PromiseData.Controllers
                 Region = viewModel.Region,
                 BackboneOrg = viewModel.BackboneOrg,
                 WebAddress = viewModel.WebAddress,
-                DirectorAgentId = viewModel.DirectorAgent.AgentId,
-                ContactAgentId = viewModel.ContactAgent.AgentId,
-                LocationAddressId = viewModel.AddressPhysical.ID,
-                MailingAddressId = viewModel.AddressMail.ID,
                 ActiveDate = viewModel.ActiveDate,
                 EndDate = viewModel.EndDate,
                 isHub = viewModel.isHub,
                 isProvider = viewModel.isProvider
             };
+
+            if (viewModel.ContactAgent.AgentId != 0)
+                institute.ContactAgentId = viewModel.ContactAgent.AgentId;
+            if (viewModel.DirectorAgent.AgentId != 0)
+                institute.DirectorAgentId = viewModel.ContactAgent.AgentId;
+
+            if (viewModel.AddressPhysical.ID != 0)
+                institute.LocationAddressId = viewModel.AddressPhysical.ID;
+            if (viewModel.AddressMail.ID != 0)
+                institute.MailingAddressId = viewModel.AddressMail.ID;
 
             _context.Institutions.Add(institute);
 
@@ -105,6 +115,20 @@ namespace PromiseData.Controllers
             viewModel.States = _context.LU_State.ToList();
 
             return View("InstitutionForm", viewModel);
+        }
+
+        //POST: Institution update/edit
+        [HttpPost]
+        [Authorize(Roles = "Administrator, System Administrator")]
+        public ActionResult Edit(InstitutionViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                viewModel.States = _context.LU_State.ToList();
+                return View("InstitutionForm", viewModel);
+            }
+
+            return RedirectToAction("Index", "Institution");
         }
 
         [HttpPost]
