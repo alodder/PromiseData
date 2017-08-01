@@ -191,6 +191,41 @@ namespace PromiseData.Controllers
             return View("Index", viewModel);
         }
 
+        //GET: Institution Details
+        public ActionResult Details(int id)
+        {
+            var viewModel = new InstitutionViewModel();
+
+            var institution = _context.Institutions.SingleOrDefault(i => i.Id == id);
+            viewModel.DirectorAgentId = institution.DirectorAgentId;
+            viewModel.ContactAgentId = institution.ContactAgentId;
+            viewModel.LocationAddressId = institution.LocationAddressId;
+            viewModel.MailingAddressId = institution.MailingAddressId;
+
+            viewModel.DirectorAgent = _context.ContactAgents.SingleOrDefault(d => d.AgentId == institution.DirectorAgentId);
+            viewModel.ContactAgent = _context.ContactAgents.SingleOrDefault(d => d.AgentId == institution.ContactAgentId);
+            viewModel.AddressPhysical = _context.Addresses.SingleOrDefault(d => d.ID == institution.LocationAddressId);
+            viewModel.AddressMail = _context.Addresses.SingleOrDefault(d => d.ID == institution.MailingAddressId);
+
+            viewModel.Id = institution.Id;
+            viewModel.LegalName = institution.LegalName;
+            viewModel.Region = institution.Region;
+            viewModel.BackboneOrg = institution.BackboneOrg;
+            viewModel.WebAddress = institution.WebAddress;
+            viewModel.ActiveDate = institution.ActiveDate;
+            viewModel.EndDate = institution.EndDate;
+
+            viewModel.isProvider = institution.isProvider;
+            viewModel.isHub = institution.isHub;
+
+            if (institution.isHub)
+            {
+                viewModel.Providers = _context.Institutions.Where(i => i.parentHubId == id).ToList();
+            }
+
+            return View( viewModel);
+        }
+
         // GET: Institution
         public ActionResult Index(string query = null)
         {

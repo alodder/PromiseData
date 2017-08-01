@@ -76,6 +76,11 @@ namespace PromiseData.ViewModels
         [DisplayName("Provider")]
         public bool isProvider { get; set; }
 
+        [DisplayName("Parent Hub")]
+        public int parentHubId { get; set; }
+
+        public IEnumerable<Institution> Providers { get; set; }
+
         public IEnumerable<LU_State> States { get; set; }
 
         public virtual ContactAgent DirectorAgent { get; set; }

@@ -1,0 +1,286 @@
+﻿@model PromiseData.ViewModels.InstitutionViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>
+        @Html.DisplayFor(model => model.LegalName)
+        <div>
+            @if (@Model.isHub)
+            {
+                <div class="label label-default">Hub</div>
+            }
+
+            @if (@Model.isProvider)
+            {
+                <div class="label label-info">Provider</div>
+            }
+        </div>
+    </h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.LegalName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LegalName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Region)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Region)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BackboneOrg)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BackboneOrg)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WebAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WebAddress)
+        </dd>
+    </dl>
+
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                @Html.LabelFor(model => model.DirectorAgentId)
+            </div>
+            <dl class="panel-body dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.DirectorAgentId)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.DirectorAgent.AgentName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.DirectorAgent.AgentTitle)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.DirectorAgent.AgentTitle)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.DirectorAgent.AgentEmail)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.DirectorAgent.AgentEmail)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.DirectorAgent.AgentPhone)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.DirectorAgent.AgentPhone)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.DirectorAgent.AgentFax)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.DirectorAgent.AgentFax)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">@Html.LabelFor(model => model.ContactAgent)</div>
+            <dl class="panel-body dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.ContactAgentId)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ContactAgent.AgentName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ContactAgent.AgentTitle)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ContactAgent.AgentTitle)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ContactAgent.AgentEmail)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ContactAgent.AgentEmail)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ContactAgent.AgentPhone)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ContactAgent.AgentPhone)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ContactAgent.AgentFax)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ContactAgent.AgentFax)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="col-md-6 ">
+        <div class="panel panel-default">
+            <div class="panel-heading">@Html.LabelFor(model => model.LocationAddressId)</div>
+            <div class="panel-body">
+                @Html.DisplayFor(model => model.AddressPhysical.Address1)<br />
+                @Html.DisplayFor(model => model.AddressPhysical.Address2)<br />
+                @Html.DisplayFor(model => model.AddressPhysical.Address3)<br />
+                @Html.DisplayFor(model => model.AddressPhysical.City)
+                @Html.DisplayFor(model => model.AddressPhysical.LU_State.Abbreviation)<br />
+                @Html.DisplayFor(model => model.AddressPhysical.ZipCode)<br />
+                @Html.DisplayFor(model => model.AddressPhysical.County)
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 ">
+        <div class="panel panel-default">
+            <div class="panel-heading">@Html.LabelFor(model => model.MailingAddressId)</div>
+            <div class="panel-body">
+                @Html.DisplayFor(model => model.AddressMail.Address1)<br />
+                @Html.DisplayFor(model => model.AddressMail.Address2)<br />
+                @Html.DisplayFor(model => model.AddressMail.Address3)<br />
+                @Html.DisplayFor(model => model.AddressMail.City)
+                @Html.DisplayFor(model => model.AddressMail.LU_State.Abbreviation)<br />
+                @Html.DisplayFor(model => model.AddressMail.ZipCode)<br />
+                @Html.DisplayFor(model => model.AddressMail.County)
+            </div>
+        </div>
+    </div>
+    <div>
+        <div>
+            @Html.DisplayNameFor(model => model.ActiveDate)
+        </div>
+
+        <div>
+            @Model.ActiveDate.ToShortDateString()
+        </div>
+        <div>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </div>
+
+        <div>
+            @Html.DisplayFor(model => model.EndDate)
+        </div>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+@if (Model.isHub)
+{
+
+    <h3>@Model.LegalName Providers</h3>
+    <table class="table table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LegalName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Region)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BackboneOrg)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WebAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DirectorAgentId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ContactAgentId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LocationAddressId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MailingAddressId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActiveDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th>
+                
+            </th>
+            <th>
+                
+            </th>
+            <th>
+                
+            </th>
+        </tr>
+
+        @foreach (var item in Model.Providers)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LegalName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Region)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BackboneOrg)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WebAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContactAgent1.AgentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContactAgent.AgentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address1.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ActiveDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @if (item.isHub)
+                    {
+                        <div class="label label-default">Hub</div>
+                    }
+                </td>
+                <td>
+                    @if (item.isProvider)
+                    {
+                        <div class="label label-info">Provider</div>
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+
+    </table>
+}

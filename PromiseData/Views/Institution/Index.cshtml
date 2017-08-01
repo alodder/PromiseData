@@ -24,7 +24,7 @@
 </div>
 }
 
-<table class="table">
+<table class="table table-hover">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.LegalName)
@@ -94,7 +94,7 @@
             @Html.DisplayFor(modelItem => item.Address1.City)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ActiveDate)
+            @item.ActiveDate.ToShortDateString()
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.EndDate)
