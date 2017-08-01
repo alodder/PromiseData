@@ -12,8 +12,11 @@ namespace PromiseData.ViewModels
     {
         public int ID { get; set; }
 
+        public string Heading { get; set; }
+
         [DisplayName("Provider Facility Type")]
         public string ProviderFacilityType { get; set; }
+
         public List<String> FacilityTypes { get; set; }
 
         [DisplayName("Turnover - Non-PPStaff")]
