@@ -60,11 +60,13 @@ namespace PromiseData.ViewModels
 
         [DataType(DataType.Date)]
         [DisplayName("Date Active")]
-        [DisplayFormat(DataFormatString = "{0:D}")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime ActiveDate { get; set; }
 
+        public String ActiveDateString { get; set; }
+
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:d}")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DisplayName("Date Ended")]
         public DateTime? EndDate { get; set; }
 
@@ -83,5 +85,6 @@ namespace PromiseData.ViewModels
         public virtual Address AddressMail { get; set; }
 
         public virtual Address AddressPhysical { get; set; }
+
     }
 }

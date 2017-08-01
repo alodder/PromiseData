@@ -50,12 +50,13 @@ namespace PromiseData.Controllers
             viewModel.AddressPhysical = _context.Addresses.Add(viewModel.AddressPhysical);
             viewModel.AddressMail = _context.Addresses.Add(viewModel.AddressMail);
 
+
             var institute = new Institution {
                 LegalName = viewModel.LegalName,
                 Region = viewModel.Region,
                 BackboneOrg = viewModel.BackboneOrg,
                 WebAddress = viewModel.WebAddress,
-                ActiveDate = viewModel.ActiveDate,
+                ActiveDate = DateTime.Parse( viewModel.ActiveDateString),
                 EndDate = viewModel.EndDate,
                 isHub = viewModel.isHub,
                 isProvider = viewModel.isProvider
@@ -135,6 +136,7 @@ namespace PromiseData.Controllers
             institution.WebAddress = viewModel.WebAddress;
             institution.isHub = viewModel.isHub;
             institution.isProvider = viewModel.isProvider;
+            institution.ActiveDate = viewModel.ActiveDate;
 
             var director = _context.ContactAgents.Single(i => i.AgentId == institution.DirectorAgentId);
             director.AgentName = viewModel.DirectorAgent.AgentName;
