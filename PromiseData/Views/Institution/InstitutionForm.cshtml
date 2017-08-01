@@ -4,10 +4,11 @@
 }
 
 <h2>@Model.Heading</h2>
-@using (Html.BeginForm("Create", "Institution"))
+@using (Html.BeginForm(Model.Action, "Institution"))
 {
     <p>Instructions to fill out this form</p>
     @Html.AntiForgeryToken()
+    @Html.HiddenFor( m => m.Id)
     <div class="form-horizontal bs-component">
         <fieldset>
             <legend>Provider or HUB:</legend>
@@ -46,6 +47,7 @@
                 <div class="row">
                     <div class="col-lg-3">
                         <h3>Director:</h3>
+                        @Html.HiddenFor(m=>m.DirectorAgentId)
                         <div class="form-group">
                             @Html.LabelFor(m => m.DirectorAgent.AgentName)
                             @Html.TextBoxFor(m => m.DirectorAgent.AgentName, new { @class = "form-control", placeholder = "Lewis", autofocus = "autofocus" })
@@ -75,6 +77,7 @@
 
                     <div class="col-lg-offset-1 col-lg-3">
                         <h3>Contact:</h3>
+                        @Html.HiddenFor(m=>m.ContactAgentId)
                         <div class="form-group">
                             @Html.LabelFor(m => m.ContactAgent.AgentName)
                             @Html.TextBoxFor(m => m.ContactAgent.AgentName, new { @class = "form-control", placeholder = "Lewis", autofocus = "autofocus" })
@@ -105,6 +108,7 @@
                 <div class="row">
                     <div class="col-lg-3">
                         <h3>Location:</h3>
+                        @Html.HiddenFor(m => m.LocationAddressId)
                         @Html.HiddenFor(m => m.AddressPhysical.AddressType_ID, 0)
                         <div class="form-group">
                             @Html.LabelFor(m => m.AddressPhysical.Address1)
@@ -144,6 +148,7 @@
                     </div>
                     <div class="col-lg-offset-1 col-lg-3">
                         <h3>Mailing Address:</h3>
+                        @Html.HiddenFor(m => m.MailingAddressId)
                         @Html.HiddenFor(m => m.AddressMail.AddressType_ID, 0)
                         <div class="form-group">
                             @Html.LabelFor(m => m.AddressMail.Address1)
@@ -186,12 +191,13 @@
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="form-group">
+                            <span>@Model.ActiveDate</span>
                             @Html.LabelFor(m => m.ActiveDate)
-                            @Html.EditorFor(m => m.ActiveDate, new { @class = "form-control" })
+                            @Html.EditorFor(m => m.ActiveDate, "Birthdate", new { @class = "form-control", type = "date" })
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(m => m.EndDate)
-                            @Html.EditorFor(m => m.EndDate, new { @class = "form-control" })
+                            @Html.EditorFor(m => m.EndDate, new { @class = "form-control", type = "date" })
                         </div>
                     </div>
                 </div>

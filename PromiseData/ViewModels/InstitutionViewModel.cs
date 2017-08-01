@@ -1,16 +1,34 @@
-﻿using PromiseData.Models;
+﻿using PromiseData.Controllers;
+using PromiseData.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
+using System.Web.Mvc;
 
 namespace PromiseData.ViewModels
 {
     public class InstitutionViewModel
     {
         public int Id { get; set; }
+
+        public String Action
+        {
+            get
+            {
+                Expression<Func<InstitutionController, ActionResult>> update = 
+                    (c => c.Update(this));
+                Expression<Func<InstitutionController, ActionResult>> create =
+                    (c => c.Create(this));
+
+                var action = (Id != 0) ? update : create;
+                return (action.Body as MethodCallExpression).Method.Name;
+            }
+
+        }
 
         public string Heading { get; set; }
 
@@ -40,8 +58,14 @@ namespace PromiseData.ViewModels
         [DisplayName("Mailing Address")]
         public int? MailingAddressId { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayName("Date Active")]
+        [DisplayFormat(DataFormatString = "{0:D}")]
         public DateTime ActiveDate { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:d}")]
+        [DisplayName("Date Ended")]
         public DateTime? EndDate { get; set; }
 
         [DisplayName("Hub")]

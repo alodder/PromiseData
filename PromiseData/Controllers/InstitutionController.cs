@@ -120,13 +120,53 @@ namespace PromiseData.Controllers
         //POST: Institution update/edit
         [HttpPost]
         [Authorize(Roles = "Administrator, System Administrator")]
-        public ActionResult Edit(InstitutionViewModel viewModel)
+        public ActionResult Update(InstitutionViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
                 viewModel.States = _context.LU_State.ToList();
                 return View("InstitutionForm", viewModel);
             }
+
+            var institution = _context.Institutions.Single(i => i.Id == viewModel.Id);
+            institution.LegalName = viewModel.LegalName;
+            institution.Region = viewModel.Region;
+            institution.BackboneOrg = viewModel.BackboneOrg;
+            institution.WebAddress = viewModel.WebAddress;
+            institution.isHub = viewModel.isHub;
+            institution.isProvider = viewModel.isProvider;
+
+            var director = _context.ContactAgents.Single(i => i.AgentId == institution.DirectorAgentId);
+            director.AgentName = viewModel.DirectorAgent.AgentName;
+            director.AgentTitle = viewModel.DirectorAgent.AgentTitle;
+            director.AgentEmail = viewModel.DirectorAgent.AgentEmail;
+            director.AgentPhone = viewModel.DirectorAgent.AgentPhone;
+            director.AgentFax = viewModel.DirectorAgent.AgentFax;
+
+            var contact = _context.ContactAgents.Single(i => i.AgentId == institution.ContactAgentId);
+            contact.AgentName = viewModel.ContactAgent.AgentName;
+            contact.AgentTitle = viewModel.ContactAgent.AgentTitle;
+            contact.AgentEmail = viewModel.ContactAgent.AgentEmail;
+            contact.AgentPhone = viewModel.ContactAgent.AgentPhone;
+            contact.AgentFax = viewModel.ContactAgent.AgentFax;
+
+            var location = _context.Addresses.Single(i => i.ID == institution.LocationAddressId);
+            location.Address1 = viewModel.AddressPhysical.Address1;
+            location.Address2 = viewModel.AddressPhysical.Address2;
+            location.Address3 = viewModel.AddressPhysical.Address3;
+            location.City = viewModel.AddressPhysical.City;
+            location.State_ID = viewModel.AddressPhysical.State_ID;
+            location.ZipCode = viewModel.AddressPhysical.ZipCode;
+
+            var mailing = _context.Addresses.Single(i => i.ID == institution.MailingAddressId);
+            mailing.Address1 = viewModel.AddressMail.Address1;
+            mailing.Address2 = viewModel.AddressMail.Address2;
+            mailing.Address3 = viewModel.AddressMail.Address3;
+            mailing.City = viewModel.AddressMail.City;
+            mailing.State_ID = viewModel.AddressMail.State_ID;
+            mailing.ZipCode = viewModel.AddressMail.ZipCode;
+
+            _context.SaveChanges();
 
             return RedirectToAction("Index", "Institution");
         }
