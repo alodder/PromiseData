@@ -17,7 +17,7 @@
                     <div class="row">
                         <div class="form-group">
                             @Html.LabelFor(m => m.LegalName)
-                            @Html.TextBoxFor(m => m.LegalName, new { @class = "form-control", placeholder = "Marion Moose Club" })
+                            @Html.TextBoxFor(m => m.LegalName, new { @class = "form-control", placeholder = "Marion Moose Club", autofocus = "autofocus" })
                             @Html.ValidationMessageFor(m => m.LegalName)
                         </div>
                     </div>
@@ -38,7 +38,7 @@
                     <div class="row">
                         <div class="form-group">
                             @Html.LabelFor(m => m.WebAddress)
-                            @Html.TextBoxFor(m => m.WebAddress, new { @class = "form-control", placeholder = "marionmooseclub.org", autofocus = "autofocus" })
+                            @Html.TextBoxFor(m => m.WebAddress, new { @class = "form-control", placeholder = "marionmooseclub.org"})
                             @Html.ValidationMessageFor(m => m.WebAddress)
                         </div>
                     </div>

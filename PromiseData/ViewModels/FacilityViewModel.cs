@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using PromiseData.Models;
 using System.ComponentModel;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Web;
+using System.Web.Mvc;
+using PromiseData.Models;
+using PromiseData.Controllers;
 
 namespace PromiseData.ViewModels
 {
@@ -11,6 +14,21 @@ namespace PromiseData.ViewModels
     public class FacilityViewModel
     {
         public int ID { get; set; }
+
+        public String Action
+        {
+            get
+            {
+                Expression<Func<FacilityController, ActionResult>> update =
+                    (c => c.Update(this));
+                Expression<Func<FacilityController, ActionResult>> create =
+                    (c => c.Create(this));
+
+                var action = (ID != 0) ? update : create;
+                return (action.Body as MethodCallExpression).Method.Name;
+            }
+
+        }
 
         public string Heading { get; set; }
 

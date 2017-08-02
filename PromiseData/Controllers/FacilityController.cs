@@ -43,6 +43,7 @@ namespace PromiseData.Controllers
         {
             var viewModel = new FacilityViewModel
             {
+                Heading = "New Site",
                 FacilityTypes = this.FacilityTypes,
                 SupportTypes = _context.Code_AdditionalSupportTypes,
                 SupportDictionary = SupportBoolDictionary
@@ -126,6 +127,7 @@ namespace PromiseData.Controllers
             var viewModel = new FacilityViewModel
             {
                 ID = facility.ID,
+                Heading = "Update Site",
                 ProviderFacilityType = facility.ProviderFacilityType,
                 Turnover_NonPPStaff = facility.Turnover_NonPPStaff,
                 TurnoverReasons_NonPPStaff = facility.TurnoverReasons_NonPPStaff,
@@ -136,14 +138,18 @@ namespace PromiseData.Controllers
                 MonitoringVisit1Result = facility.MonitoringVisit1Result,
                 MonitoringVisit2Date = DateTime.Parse(Convert.ToString(facility.MonitoringVisit2Date)),
                 MonitoringVisit2Result = facility.MonitoringVisit2Result,
-                Description = facility.Description
+                Description = facility.Description,
+                FacilityTypes = this.FacilityTypes,
+                SupportTypes = _context.Code_AdditionalSupportTypes,
+                SupportDictionary = SupportBoolDictionary
             };
-            return View(viewModel);
+
+            return View("Create", viewModel);
         }
 
         [Authorize]
         [HttpPost]
-        public ActionResult Edit(FacilityViewModel viewModel)
+        public ActionResult Update(FacilityViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {

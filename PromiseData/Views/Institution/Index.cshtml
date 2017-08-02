@@ -48,13 +48,7 @@
             @Html.DisplayNameFor(model => model.LocationAddressId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MailingAddressId)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.ActiveDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EndDate)
         </th>
         <th>
             @Html.ActionLink("List Hubs", "FilterHubs", new { @role = "button" }, new { @class = "btn btn-primary" })
@@ -91,13 +85,7 @@
             @Html.DisplayFor(modelItem => item.Address.City)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Address1.City)
-        </td>
-        <td>
             @item.ActiveDate.ToShortDateString()
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EndDate)
         </td>
         <td>
             @if (item.isHub)
