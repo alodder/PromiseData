@@ -13,6 +13,10 @@ namespace PromiseData.ViewModels
 
     public class FacilityViewModel
     {
+        public Boolean CanView { get; set; }
+        public Boolean CanEdit { get; set; }
+        public Boolean CanDelete { get; set; }
+
         public int ID { get; set; }
 
         public String Action

@@ -6,17 +6,28 @@ using System.Web;
 using System.Web.Mvc;
 using PromiseData.Models;
 using PromiseData.ViewModels;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace PromiseData.Controllers
 {
     public class FacilityController : Controller
     {
+        private IdentityStoreDbContext _IdentityContext;
+        private UserManager<ApplicationUser> UserManager;
+        private RoleManager<IdentityRole> RoleManager;
+
+
         private ApplicationDbContext _context;
         private List<String> FacilityTypes;
         private Dictionary<int, bool> SupportBoolDictionary;
 
         public FacilityController()
         {
+            _IdentityContext = new IdentityStoreDbContext();
+            RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new IdentityStoreDbContext()));
+            UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_IdentityContext));
+
             _context = new ApplicationDbContext();
 
             FacilityTypes = new List<string>();
@@ -48,7 +59,7 @@ namespace PromiseData.Controllers
                 SupportTypes = _context.Code_AdditionalSupportTypes,
                 SupportDictionary = SupportBoolDictionary
             };
-            return View(viewModel);
+            return View("FacilityForm", viewModel);
         }
 
         [Authorize]
@@ -60,7 +71,7 @@ namespace PromiseData.Controllers
             {
                 viewModel.FacilityTypes = this.FacilityTypes;
                 viewModel.SupportTypes = _context.Code_AdditionalSupportTypes.ToList();
-                return View("Create", viewModel);
+                return View("FacilityForm", viewModel);
             }
 
             var facility = new Facility
@@ -144,7 +155,7 @@ namespace PromiseData.Controllers
                 SupportDictionary = SupportBoolDictionary
             };
 
-            return View("Create", viewModel);
+            return View("FacilityForm", viewModel);
         }
 
         [Authorize]
@@ -155,7 +166,7 @@ namespace PromiseData.Controllers
             {
                 viewModel.FacilityTypes = this.FacilityTypes;
                 viewModel.SupportTypes = _context.Code_AdditionalSupportTypes.ToList();
-                return View("Create", viewModel);
+                return View("FacilityForm", viewModel);
             }
 
             var facility = new Facility
@@ -216,6 +227,7 @@ namespace PromiseData.Controllers
         public ActionResult Index()
         {
             var viewModel = _context.Facilities;
+
             return View( viewModel);
         }
     }
