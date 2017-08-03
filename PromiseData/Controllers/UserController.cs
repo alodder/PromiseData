@@ -57,13 +57,45 @@ namespace PromiseData.Controllers
             return View( userListViewModel);
         }
 
+        [HttpGet]
+        [Authorize(Roles = "System Administrator, Administrator")]
+        public ActionResult Details(String id)
+        {
+            var userViewModel = new UserFormViewModel();
+            var user = UserManager.Users.Single(a => a.Id == id);
+            userViewModel.User = user;
+
+            return View( userViewModel);
+        }
+
+        [HttpGet]
         [Authorize(Roles = "System Administrator, Administrator")]
         public ActionResult Edit(String id)
         {
-            //var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_context));
+            var userViewModel = new UserFormViewModel();
             var user = UserManager.Users.Single(a => a.Id == id);
+            userViewModel.User = user;
 
-            return View(user);
+            return View(userViewModel);
+        }
+        
+        [HttpPost]
+        [Authorize(Roles = "System Administrator, Administrator")]
+        public ActionResult Edit(UserFormViewModel userViewModel)
+        {
+            //var user = UserManager.Users.Single(a => a.Id == id);
+            //userViewModel.User = user;
+
+            var user = UserManager.FindById( userViewModel.User.Id);
+
+            user.Name = userViewModel.User.Name;
+            user.UserName = userViewModel.User.UserName;
+            user.PhoneNumber = userViewModel.User.PhoneNumber;
+            user.LockoutEnabled = userViewModel.User.LockoutEnabled;
+
+            UserManager.Update( user);
+
+            return View( userViewModel);
         }
 
         [Authorize(Roles = "System Administrator, Administrator")]
@@ -137,7 +169,7 @@ namespace PromiseData.Controllers
         public ActionResult AssignInstitution(string id)
         {
             //var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_context));
-            var userAndInstitution = new UserInstitutionViewModel();
+            var userAndInstitution = new UserFormViewModel();
             var user = new ApplicationUser();
             try
             {
@@ -183,7 +215,7 @@ namespace PromiseData.Controllers
          */
         [Authorize(Roles = "System Administrator, Administrator")]
         [HttpPost]
-        public ActionResult AssignInstitution(UserInstitutionViewModel userAndInstitution)
+        public ActionResult AssignInstitution(UserFormViewModel userAndInstitution)
         {
             if (userAndInstitution != null)
             {
@@ -201,8 +233,8 @@ namespace PromiseData.Controllers
 
                 UserManager.AddClaim(user.Id, new Claim("Institution", userAndInstitution.InstitutionId));
 
-
                 UserManager.Update(user);
+
                 return RedirectToAction("List", "User");
             }
 

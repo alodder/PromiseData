@@ -4,10 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PromiseData.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace PromiseData.ViewModels
 {
-    public class UserInstitutionViewModel
+    public class UserFormViewModel
     {
         public ApplicationUser User { get; set; }
 
@@ -21,6 +22,14 @@ namespace PromiseData.ViewModels
 
         public string[] ListInstitutionNames { get; set; }
 
-        public IEnumerable<PromiseData.Models.Institution> Institutions { get; set; }
+        public IEnumerable<Institution> Institutions { get; set; }
+
+        public IEnumerable<IdentityUserRole> CurrentRoles { get; set; }
+
+        public string[] RoleNames { get; set; }
+
+        public string[] SelectedRoleNames { get; set; }
+
+        public IEnumerable<IdentityRole> Roles { get; set; }
     }
 }
