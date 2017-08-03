@@ -1,10 +1,7 @@
-﻿@model IEnumerable<PromiseData.Models.Institution>
+﻿@model PromiseData.ViewModels.InstitutionsViewModel
 
-@{
-    ViewBag.Title = "Preschool Promise Hubs and Providers";
-}
-
-<h2>@ViewBag.Title</h2>
+<h2>@Model.Heading
+    </h2>
 
 <p>
     @Html.ActionLink("Create New", "Create", new { @role = "button" }, new { @class = "btn btn-success" })
@@ -14,12 +11,10 @@
 <div class="form-group">
     @Html.Label("search", "Institution Number: ")
     <div class="input-group col-md-6">
-        @Html.TextBox("SearchTerm", "", new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control", placeholder = "Lookup provider or hub" })
         <span class="input-group-btn">
-    @*<i class="glyphicon glyphicon-search"></i>*@
             <button type="submit" class="btn btn-default glyphicon glyphicon-search"></button>
-    </span>
-    @*<button type="submit" class="btn btn-primary">Search</button>*@
+        </span>
     </div>
 </div>
 }
@@ -27,28 +22,36 @@
 <table class="table table-hover">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.LegalName)
+            @*@Html.DisplayName(PromiseData.Models.Institution.LegalName)*@
+            Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Region)
+            @*@Html.DisplayNameFor(model => model.Institutions.)*@
+            Region
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.BackboneOrg)
+            @*@Html.DisplayNameFor(model => model.BackboneOrg)*@
+            Organization
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.WebAddress)
+            @*@Html.DisplayNameFor(model => model.WebAddress)*@
+            Web Address
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DirectorAgentId)
+            @*@Html.DisplayNameFor(model => model.DirectorAgentId)*@
+            Director
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ContactAgentId)
+            @*@Html.DisplayNameFor(model => model.ContactAgentId)*@
+            Contact
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LocationAddressId)
+            @*@Html.DisplayNameFor(model => model.LocationAddressId)*@
+            Location
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ActiveDate)
+            @*@Html.DisplayNameFor(model => model.ActiveDate)*@
+            Active date
         </th>
         <th>
             @Html.ActionLink("List Hubs", "FilterHubs", new { @role = "button" }, new { @class = "btn btn-primary" })
@@ -61,7 +64,7 @@
         </th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model.Institutions) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.LegalName)

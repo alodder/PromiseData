@@ -11,9 +11,15 @@ using System.Web.Mvc;
 
 namespace PromiseData.ViewModels
 {
-    public class InstitutionViewModel
+    public class InstitutionFormViewModel
     {
         public int Id { get; set; }
+
+        public Boolean CanView { get; set; }
+
+        public Boolean CanEdit { get; set; }
+
+        public Boolean CanDelete { get; set; }
 
         public String Action
         {
@@ -29,6 +35,7 @@ namespace PromiseData.ViewModels
             }
 
         }
+
 
         public string Heading { get; set; }
 
@@ -62,8 +69,6 @@ namespace PromiseData.ViewModels
         [DisplayName("Date Active")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime ActiveDate { get; set; }
-
-        public String ActiveDateString { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]

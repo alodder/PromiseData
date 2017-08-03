@@ -258,7 +258,8 @@
     <Compile Include="ViewModels\ChildRaceViewModel.cs" />
     <Compile Include="ViewModels\FacilityViewModel.cs" />
     <Compile Include="ViewModels\FamilyViewModel.cs" />
-    <Compile Include="ViewModels\InstitutionViewModel.cs" />
+    <Compile Include="ViewModels\InstitutionFormViewModel.cs" />
+    <Compile Include="ViewModels\InstitutionsViewModel.cs" />
     <Compile Include="ViewModels\TeacherViewModel.cs" />
     <Compile Include="ViewModels\AdultFormViewModel.cs" />
     <Compile Include="ViewModels\BirthDate.cs" />
@@ -273,7 +274,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\logo\Preschool-Promise-Final-Logo-Horiz-Color-04-350x90.png" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Models\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\app\app.js" />
@@ -374,13 +375,13 @@
     <Folder Include="Views\Gender\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Models\fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Models\fonts\glyphicons-halflings-regular.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Models\fonts\glyphicons-halflings-regular.eot" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

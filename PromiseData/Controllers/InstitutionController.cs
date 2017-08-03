@@ -22,7 +22,7 @@ namespace PromiseData.Controllers
         [Authorize(Roles = "Administrator, System Administrator")]
         public ActionResult Create()
         {
-            var ViewModel = new InstitutionViewModel();
+            var ViewModel = new InstitutionFormViewModel();
             ViewModel.States = _context.LU_State.ToList();
             ViewModel.Heading = "Add Institution";
 
@@ -32,7 +32,7 @@ namespace PromiseData.Controllers
         // POST: Institution
         [HttpPost]
         [Authorize(Roles = "Administrator, System Administrator")]
-        public ActionResult Create(InstitutionViewModel viewModel)
+        public ActionResult Create(InstitutionFormViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -56,7 +56,7 @@ namespace PromiseData.Controllers
                 Region = viewModel.Region,
                 BackboneOrg = viewModel.BackboneOrg,
                 WebAddress = viewModel.WebAddress,
-                ActiveDate = DateTime.Parse( viewModel.ActiveDateString),
+                ActiveDate = viewModel.ActiveDate,
                 EndDate = viewModel.EndDate,
                 isHub = viewModel.isHub,
                 isProvider = viewModel.isProvider
@@ -92,7 +92,7 @@ namespace PromiseData.Controllers
             var mailingAddress = _context.Addresses.SingleOrDefault(c => c.ID == institution.MailingAddressId);
             var locationAddress = _context.Addresses.SingleOrDefault(c => c.ID == institution.LocationAddressId);
 
-            var viewModel = new InstitutionViewModel {
+            var viewModel = new InstitutionFormViewModel {
                 Heading = "Edit Institution",
                 Id = institution.Id,
                 LegalName = institution.LegalName,
@@ -121,7 +121,7 @@ namespace PromiseData.Controllers
         //POST: Institution update/edit
         [HttpPost]
         [Authorize(Roles = "Administrator, System Administrator")]
-        public ActionResult Update(InstitutionViewModel viewModel)
+        public ActionResult Update(InstitutionFormViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -174,7 +174,7 @@ namespace PromiseData.Controllers
         }
 
         [HttpPost]
-        public ActionResult Search(InstitutionViewModel viewModel)
+        public ActionResult Search(InstitutionFormViewModel viewModel)
         {
             return RedirectToAction("Index", "Institution", new { query = viewModel.SearchTerm});
         }
@@ -194,7 +194,7 @@ namespace PromiseData.Controllers
         //GET: Institution Details
         public ActionResult Details(int id)
         {
-            var viewModel = new InstitutionViewModel();
+            var viewModel = new InstitutionFormViewModel();
 
             var institution = _context.Institutions.SingleOrDefault(i => i.Id == id);
             viewModel.DirectorAgentId = institution.DirectorAgentId;
@@ -228,21 +228,19 @@ namespace PromiseData.Controllers
 
         // GET: Institution
         public ActionResult Index(string query = null)
-        {
-            var viewModel = _context.Institutions.ToList();
+        { 
+            var viewModel = new InstitutionsViewModel();
+            viewModel.Institutions = _context.Institutions.ToList();
             if(!String.IsNullOrWhiteSpace(query))
             {
-                var blurb = viewModel.Where(i => i.LegalName.Contains(query) ||
-                                            i.BackboneOrg.Contains(query) ||
-                                            i.ContactAgent.AgentName.Contains(query) ||
-                                            i.ContactAgent1.AgentName.Contains(query) ||
-                                            i.Address.City.Contains(query) ||
-                                            i.Id == int.Parse(query));
-                if(blurb.Count() > 0) 
-                    viewModel = blurb.ToList();
+                var blurb = viewModel.Institutions.Where(i => 
+                                            i.LegalName.Contains(query) ||
+                                            i.Address.City.Contains(query));
+                
+                viewModel.Institutions = blurb.ToList();
             }
             
-            return View(viewModel);
+            return View( viewModel);
         }
     }
 }

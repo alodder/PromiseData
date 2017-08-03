@@ -156,6 +156,6 @@ namespace PromiseData.Models
 
         public System.Data.Entity.DbSet<PromiseData.ViewModels.FamilyViewModel> FamilyViewModels { get; set; }
 
-        public System.Data.Entity.DbSet<PromiseData.ViewModels.InstitutionViewModel> InstitutionViewModels { get; set; }
+        public System.Data.Entity.DbSet<PromiseData.ViewModels.InstitutionFormViewModel> InstitutionViewModels { get; set; }
     }
 }
