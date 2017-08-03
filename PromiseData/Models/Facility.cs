@@ -56,6 +56,9 @@ namespace PromiseData.Models
         [StringLength(255)]
         public string Description { get; set; }
 
+        [DisplayName("Parent Provider")]
+        public int ProviderID { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Classroom> Classrooms { get; set; }
 

@@ -9,7 +9,7 @@
 
 @using (Html.BeginForm("Search", "Institution")) {
 <div class="form-group">
-    @Html.Label("search", "Institution Number: ")
+    @Html.Label("search", "Institution Lookup: ")
     <div class="input-group col-md-6">
         @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control", placeholder = "Lookup provider or hub" })
         <span class="input-group-btn">

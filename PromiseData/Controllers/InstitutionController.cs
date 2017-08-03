@@ -235,7 +235,10 @@ namespace PromiseData.Controllers
             {
                 var blurb = viewModel.Institutions.Where(i => 
                                             i.LegalName.Contains(query) ||
-                                            i.Address.City.Contains(query));
+                                            (i.BackboneOrg ?? "").Contains(query) ||
+                                            (i.Region ?? "").Contains(query) ||
+                                            (i.ContactAgent1.AgentName ?? "").Contains(query) ||
+                                            (i.Address.City ?? "").Contains(query));
                 
                 viewModel.Institutions = blurb.ToList();
             }
