@@ -30,14 +30,31 @@ namespace PromiseData.Controllers
             UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_context));
         }
 
-        [Authorize(Roles = "System Administrator, Administrator")]
-        public ActionResult List()
+        [HttpPost]
+        [Authorize]
+        public ActionResult Search(UsersAdminViewModel viewModel)
         {
-            //_context = new ApplicationDbContext();
-            //var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_context));
-            var userList = UserManager.Users.ToList();
-            
-            return View(userList);
+            return RedirectToAction("List", "User", new { query = viewModel.SearchTerm });
+        }
+
+        [Authorize(Roles = "System Administrator, Administrator")]
+        public ActionResult List(string query = null)
+        {
+
+            UsersAdminViewModel userListViewModel = new UsersAdminViewModel();
+            userListViewModel.Users = UserManager.Users.ToList();
+            if (!String.IsNullOrWhiteSpace(query))
+            {
+                var blurb = userListViewModel.Users.Where(i =>
+                                            i.UserName.Contains(query) ||
+                                            (i.Name ?? "").Contains(query) ||
+                                            (i.PhoneNumber ?? "").Contains(query) ||
+                                            (i.Email ?? "").Contains(query));
+
+                userListViewModel.Users = blurb.ToList();
+            }
+
+            return View( userListViewModel);
         }
 
         [Authorize(Roles = "System Administrator, Administrator")]
@@ -62,7 +79,16 @@ namespace PromiseData.Controllers
                 userAndRole.UserName = user.UserName;
 
                 userAndRole.Id = user.Id;
-                userAndRole.Roles = _context.Roles.ToList().Where(u => !u.Name.Contains("Admin"));//admin can assign other admin?
+                if(User.IsInRole("System Administrator"))
+                {
+                    //System Administrator can assign users to all roles including System Administrator
+                    userAndRole.Roles = _context.Roles.ToList();//.Where(u => !u.Name.Contains("System"));
+                }
+                else
+                {
+                    //Administrator can assign non-admin roles: View, Provider, Hub
+                    userAndRole.Roles = _context.Roles.ToList().Where(u => !u.Name.Contains("Admin"));
+                }
 
                 userAndRole.RoleNames = new String[user.Roles.ToArray().Length];
 
@@ -189,7 +215,16 @@ namespace PromiseData.Controllers
         [Authorize(Roles = "System Administrator, Administrator")]
         public ActionResult CreateUser()
         {
-            ViewBag.Name = new SelectList(_context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
+            if (User.IsInRole("System Administrator"))
+            {
+                //System Administrator can assign users to all roles including System Administrator
+                ViewBag.Roles = new SelectList(_context.Roles.ToList(), "Name", "Name");//.Where(u => !u.Name.Contains("System"));
+            }
+            else
+            {
+                //Administrator can assign non-admin roles: View, Provider, Hub
+                ViewBag.Roles = new SelectList(_context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
+            }
             return View();
         }
 

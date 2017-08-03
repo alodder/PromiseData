@@ -267,6 +267,7 @@
     <Compile Include="ViewModels\ClassroomViewModel.cs" />
     <Compile Include="ViewModels\UserInstitutionViewModel.cs" />
     <Compile Include="ViewModels\UserRoleViewModel.cs" />
+    <Compile Include="ViewModels\UsersAdminViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-flatly.css" />

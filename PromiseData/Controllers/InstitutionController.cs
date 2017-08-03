@@ -174,17 +174,20 @@ namespace PromiseData.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Search(InstitutionFormViewModel viewModel)
         {
             return RedirectToAction("Index", "Institution", new { query = viewModel.SearchTerm});
         }
 
+        [Authorize]
         public ActionResult FilterHubs(string query = null)
         {
             var viewModel = _context.Institutions.ToList().Where(c => c.isHub == true);
             return View("Index", viewModel);
         }
 
+        [Authorize]
         public ActionResult FilterProviders(string query = null)
         {
             var viewModel = _context.Institutions.ToList().Where(c => c.isProvider == true);
@@ -192,9 +195,17 @@ namespace PromiseData.Controllers
         }
 
         //GET: Institution Details
+        [Authorize]
         public ActionResult Details(int id)
         {
             var viewModel = new InstitutionFormViewModel();
+
+            if (User.IsInRole("Administrator") || User.IsInRole("System Administrator"))
+            {
+                viewModel.CanEdit = true;
+                viewModel.CanDelete = true;
+            }
+                
 
             var institution = _context.Institutions.SingleOrDefault(i => i.Id == id);
             viewModel.DirectorAgentId = institution.DirectorAgentId;
@@ -242,7 +253,14 @@ namespace PromiseData.Controllers
                 
                 viewModel.Institutions = blurb.ToList();
             }
-            
+
+            if (User.IsInRole("Administrator") || User.IsInRole("System Administrator"))
+            {
+                viewModel.CanAdd = true;
+                viewModel.CanEdit = true;
+                viewModel.CanDelete = true;
+            }
+
             return View( viewModel);
         }
     }
