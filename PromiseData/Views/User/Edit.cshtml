@@ -1,20 +1,18 @@
 ﻿@model PromiseData.ViewModels.UserFormViewModel
 
-@{
-    ViewBag.Title = "Edit";
-}
-
 <h2>Edit</h2>
 
 @using (Html.BeginForm("ChangePassword", "User"))
 {
     <div class="form-group">
-        @Html.Hidden("userId", Model.UserId)
+        @Html.HiddenFor(model => model.User.Id)
         <div class="input-group">
-            <button type="submit" class="btn btn-danger">Change User's Password <i class="glyphicon glyphicon-retweet"></i></button>
+            <input type="submit" value="Change User's Password" class="btn btn-danger">
         </div>
     </div>
 }
+
+@Html.ActionLink("Change Password", "ChangePassword", new { id = Model.UserId })
 
 @using (Html.BeginForm("Edit", "User"))
 {

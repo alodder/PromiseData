@@ -369,7 +369,7 @@
     <Content Include="Views\Institution\Index.cshtml" />
     <Content Include="Views\User\AssignInstitution.cshtml" />
     <Content Include="Views\Institution\Details.cshtml" />
-    <Content Include="Views\User\ChangePasswordView.cshtml" />
+    <Content Include="Views\User\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

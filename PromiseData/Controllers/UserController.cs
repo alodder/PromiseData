@@ -262,13 +262,37 @@ namespace PromiseData.Controllers
 
         //
         // GET: /Account/ResetPassword
+        [HttpGet]
         [AllowAnonymous]
-        public ActionResult ChangePassword(string userId)
+        public ActionResult ChangePassword(String id)
         {
             var changePasswordModel = new ResetPasswordViewModel();
-            var user = UserManager.FindById( userId);
+            var user = UserManager.FindById( id);
+            //var user = UserManager.Users.Single(a => a.Id == id);
             changePasswordModel.Email = user.Email;
             return View(changePasswordModel);
+        }
+
+        //
+        // POST: /Account/ResetPassword
+        //Should be async?
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult ChangePassword(ResetPasswordViewModel changePasswordModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(changePasswordModel);
+            }
+            //var user = UserManager.FindById( userId);
+            var user = UserManager.Users.Single(a => a.Email == changePasswordModel.Email);
+            UserManager.RemovePassword(user.Id);
+            var result = UserManager.AddPassword( user.Id, changePasswordModel.Password);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("List", "User");
+            }
+            return View();
         }
 
         //
