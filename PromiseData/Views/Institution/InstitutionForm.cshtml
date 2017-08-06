@@ -1,4 +1,4 @@
-﻿@model PromiseData.ViewModels.InstitutionViewModel
+﻿@model PromiseData.ViewModels.InstitutionFormViewModel
 @{
     ViewBag.Title = @Model.Heading;
 }
@@ -106,7 +106,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                         <h3>Location:</h3>
                         @Html.HiddenFor(m => m.LocationAddressId)
                         @Html.HiddenFor(m => m.AddressPhysical.AddressType_ID, 0)
@@ -146,44 +146,48 @@
                             @Html.ValidationMessageFor(m => m.AddressPhysical.County)
                         </div>
                     </div>
-                    <div class="col-lg-offset-1 col-lg-3">
+                    <div class="col-lg-offset-1 col-lg-4">
                         <h3>Mailing Address:</h3>
                         @Html.HiddenFor(m => m.MailingAddressId)
                         @Html.HiddenFor(m => m.AddressMail.AddressType_ID, 0)
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.AddressMail.Address1)
-                            @Html.TextBoxFor(m => m.AddressMail.Address1, new { @class = "form-control", placeholder = "1234 Easy St.", autofocus = "autofocus" })
-                            @Html.ValidationMessageFor(m => m.AddressMail.Address1)
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.AddressMail.Address2)
-                            @Html.TextBoxFor(m => m.AddressMail.Address2, new { @class = "form-control", placeholder = "Suite 101" })
-                            @Html.ValidationMessageFor(m => m.AddressMail.Address2)
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.AddressMail.Address3)
-                            @Html.TextBoxFor(m => m.AddressMail.Address3, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.AddressMail.Address3)
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.AddressMail.City)
-                            @Html.TextBoxFor(m => m.AddressMail.City, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.AddressMail.City)
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.AddressMail.State_ID)
-                            @Html.DropDownListFor(m => m.AddressMail.State_ID, new SelectList(Model.States, "ID", "Abbreviation"), new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.AddressMail.State_ID)
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.AddressMail.ZipCode)
-                            @Html.TextBoxFor(m => m.AddressMail.ZipCode, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.AddressMail.ZipCode)
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.AddressMail.County)
-                            @Html.TextBoxFor(m => m.AddressMail.County, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.AddressMail.County)
+                        @Html.Label("mailAddressSame", "Mailing Address same as Location")
+                        <input id="mailAddressSame" type="checkbox" />
+                        <div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.AddressMail.Address1)
+                                @Html.TextBoxFor(m => m.AddressMail.Address1, new { @class = "form-control", placeholder = "1234 Easy St.", autofocus = "autofocus" })
+                                @Html.ValidationMessageFor(m => m.AddressMail.Address1)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.AddressMail.Address2)
+                                @Html.TextBoxFor(m => m.AddressMail.Address2, new { @class = "form-control", placeholder = "Suite 101" })
+                                @Html.ValidationMessageFor(m => m.AddressMail.Address2)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.AddressMail.Address3)
+                                @Html.TextBoxFor(m => m.AddressMail.Address3, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.AddressMail.Address3)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.AddressMail.City)
+                                @Html.TextBoxFor(m => m.AddressMail.City, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.AddressMail.City)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.AddressMail.State_ID)
+                                @Html.DropDownListFor(m => m.AddressMail.State_ID, new SelectList(Model.States, "ID", "Abbreviation"), new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.AddressMail.State_ID)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.AddressMail.ZipCode)
+                                @Html.TextBoxFor(m => m.AddressMail.ZipCode, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.AddressMail.ZipCode)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.AddressMail.County)
+                                @Html.TextBoxFor(m => m.AddressMail.County, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.AddressMail.County)
+                            </div>
                         </div>
                     </div>
                 </div>

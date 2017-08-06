@@ -216,10 +216,20 @@
                 @Html.DisplayNameFor(model => model.MailingAddressId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ActiveDate)
+                  @Html.DisplayNameFor(model => model.ActiveDate)              
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EndDate)
+                <div class="nav nav-pills">
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Show All</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Active</a><br />
+                            <a class="dropdown-item" href="#">Inactive</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Show All</a>
+                        </div>
+                    </div>
+                </div>
             </th>
             <th>
                 
@@ -260,10 +270,10 @@
                     @Html.DisplayFor(modelItem => item.Address1.City)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ActiveDate)
+                    @item.ActiveDate.ToShortDateString()
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.EndDate)
+                    @item.EndDate.ToString()
                 </td>
                 <td>
                     @if (item.isHub)
@@ -279,7 +289,7 @@
                 </td>
                 <td>
                     @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |*@
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })
                     @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
                 </td>
             </tr>

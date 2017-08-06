@@ -6,7 +6,17 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("ChangePassword", "User"))
+{
+    <div class="form-group">
+        @Html.Hidden("userId", Model.UserId)
+        <div class="input-group">
+            <button type="submit" class="btn btn-danger">Change User's Password <i class="glyphicon glyphicon-retweet"></i></button>
+        </div>
+    </div>
+}
+
+@using (Html.BeginForm("Edit", "User"))
 {
     @Html.AntiForgeryToken()
     
@@ -49,10 +59,6 @@
                     @Html.ValidationMessageFor(model => model.User.EmailConfirmed, "", new { @class = "text-danger" })
                 </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.ActionLink("Change Password", "List", "User", new { @class = "btn btn-danger disabled" })
         </div>
 
         <div class="form-group">
