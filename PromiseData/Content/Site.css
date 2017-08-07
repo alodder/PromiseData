@@ -43,7 +43,8 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .navbar-inverse {
     padding: .2em;
     background-color: #f5be29;
-
+    background-color: #D4E9EE;
+    background-color: #EBF3F9;
 }
 .navbar-inverse a {
     color: #18bc9c;
@@ -51,10 +52,13 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .navbar-nav {
     margin-left:0em;
 }
+.navbar-inverse .navbar-nav a {
+    margin-left: 0em;
+    color: #009587;
+}
 .navbar-nav > li > a {
     color: #009587;
 }
-
 .field-validation-error {
     color: red;
     font-weight: bold;
