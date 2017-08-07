@@ -2,17 +2,7 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm("ChangePassword", "User"))
-{
-    <div class="form-group">
-        @Html.HiddenFor(model => model.User.Id)
-        <div class="input-group">
-            <input type="submit" value="Change User's Password" class="btn btn-danger">
-        </div>
-    </div>
-}
-
-@Html.ActionLink("Change Password", "ChangePassword", new { id = Model.UserId })
+@Html.ActionLink("Change User's Password", "ChangePassword", "User", new { @id = Model.User.Id }, new { @class = "btn btn-danger" })
 
 @using (Html.BeginForm("Edit", "User"))
 {
