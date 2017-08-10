@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,6 +11,7 @@ namespace PromiseData.ViewModels
     {
         public String UserName { get; set; }
 
+        [Key]
         public String Id { get; set; }
 
         public IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityUserRole> CurrentRoles { get; set; }

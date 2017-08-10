@@ -265,7 +265,7 @@
     <Compile Include="ViewModels\BirthDate.cs" />
     <Compile Include="ViewModels\ChildFormViewModel.cs" />
     <Compile Include="ViewModels\ClassroomViewModel.cs" />
-    <Compile Include="ViewModels\UserInstitutionViewModel.cs" />
+    <Compile Include="ViewModels\UserFormViewModel.cs" />
     <Compile Include="ViewModels\UserRoleViewModel.cs" />
     <Compile Include="ViewModels\UsersAdminViewModel.cs" />
   </ItemGroup>
@@ -371,6 +371,7 @@
     <Content Include="Views\User\AssignInstitution.cshtml" />
     <Content Include="Views\Institution\Details.cshtml" />
     <Content Include="Views\User\ChangePassword.cshtml" />
+    <Content Include="Views\User\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

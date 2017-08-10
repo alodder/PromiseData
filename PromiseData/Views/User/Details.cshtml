@@ -1,0 +1,41 @@
+﻿@model PromiseData.ViewModels.UserFormViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<h3>@Model.UserName</h3>
+
+<hr />
+<div>
+    <div>
+        @Html.DisplayNameFor(m => m.User.Name):
+        @Html.DisplayFor(m => m.User.Name)
+    </div>
+    <div>
+        @if (Model.Institution.isHub)
+        {
+            <span class="label label-warning">
+                @Html.DisplayNameFor(m => m.Institution.isHub)
+            </span>
+        }
+        @if (Model.Institution.isProvider)
+        {
+            <span class="label label-info">
+                @Html.DisplayNameFor(m => m.Institution.isProvider)
+            </span>
+        }
+        @Html.DisplayNameFor(m => m.Institution.LegalName):
+        @Html.DisplayFor(m => m.Institution.LegalName)
+        @Html.DisplayNameFor(m => m.UserId):
+        @Html.DisplayFor(m => m.UserId)
+        @foreach(var roll in Model.CurrentRoles)
+        {
+            //
+        }
+    </div>
+</div>
+
+

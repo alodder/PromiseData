@@ -63,7 +63,26 @@ namespace PromiseData.Controllers
         {
             var userViewModel = new UserFormViewModel();
             var user = UserManager.Users.Single(a => a.Id == id);
+
+            var identity = User.Identity as ClaimsIdentity;
+            IdentityUserClaim claim = new IdentityUserClaim();
+
+            if (user.Claims.Any())
+            {
+                claim = (from c in user.Claims
+                         where c.ClaimType == "Institution"
+                         select c).Single();
+                int institutionId;
+                int.TryParse(claim.ClaimValue, out institutionId);
+                userViewModel.Institution = App_context.Institutions.Single(a => a.Id == institutionId);
+            }
+
             userViewModel.User = user;
+            userViewModel.UserName = user.UserName;
+            userViewModel.UserId = user.Id;
+            userViewModel.InstitutionId = userViewModel.Institution.Id.ToString();
+            userViewModel.CurrentRoles = user.Roles;
+            userViewModel.Roles = _context.Roles.ToList();
 
             return View( userViewModel);
         }
@@ -103,14 +122,14 @@ namespace PromiseData.Controllers
         public ActionResult AssignRole(string id)
         {
             //var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_context));
-            var userAndRole = new UserRoleViewModel();
+            var userAndRole = new UserFormViewModel();
             var user = new ApplicationUser();
             try
             {
                 user = UserManager.Users.Single(a => a.Id == id);
                 userAndRole.UserName = user.UserName;
 
-                userAndRole.Id = user.Id;
+                userAndRole.UserId = user.Id;
                 if(User.IsInRole("System Administrator"))
                 {
                     //System Administrator can assign users to all roles including System Administrator
@@ -143,9 +162,9 @@ namespace PromiseData.Controllers
          */
         [Authorize(Roles = "System Administrator, Administrator")]
         [HttpPost]
-        public ActionResult AssignRole(UserRoleViewModel userAndRole)
+        public ActionResult AssignRole(UserFormViewModel userAndRole)
         {
-            var user = UserManager.FindById( userAndRole.Id); //UserManager.Users.Single(a => a.Id == userAndRole.Id);
+            var user = UserManager.FindById( userAndRole.UserId); //UserManager.Users.Single(a => a.Id == userAndRole.Id);
             
             /*foreach (IdentityUserRole role in user.Roles)
             {
@@ -153,7 +172,7 @@ namespace PromiseData.Controllers
             }*/
             UserManager.RemoveFromRoles(user.Id, UserManager.GetRoles(user.Id).ToArray());
             //UserManager.UpdateAsync(user);
-            UserManager.AddToRoles(userAndRole.Id, userAndRole.SelectedRoleNames);
+            UserManager.AddToRoles(userAndRole.UserId, userAndRole.SelectedRoleNames);
             /*foreach (string roleid in userAndRole.SelectedRoleNames)
             {
                 UserManager.AddToRole(user.Id, roleid);

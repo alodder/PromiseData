@@ -36,20 +36,20 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .form-control {
 
 }
-/*.navbar-inverse {
+.navbar-default {
+    /*background-color: #D4E9EE;
+    background-color: #EBF3F9;*/
     background-color: #f5be29;
-    background-color: #D4E9EE;
-    background-color: #EBF3F9;
-}*/
+}
 /*.navbar-inverse a {
     color: #18bc9c;
 }
 */
-/*
+    /*
 .navbar-inverse .navbar-nav li a {
     color: #009587;
 }*/
-.field-validation-error {
+    .field-validation-error {
     color: red;
     font-weight: bold;
 }

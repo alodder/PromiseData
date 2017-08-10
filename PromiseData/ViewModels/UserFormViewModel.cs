@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using PromiseData.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.ComponentModel.DataAnnotations;
 
 namespace PromiseData.ViewModels
 {
@@ -16,6 +17,7 @@ namespace PromiseData.ViewModels
 
         public String UserName { get; set; }
 
+        [Key]
         public String UserId { get; set; }
 
         public String InstitutionId { get; set; }
