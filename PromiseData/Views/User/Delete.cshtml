@@ -1,0 +1,27 @@
+﻿@model PromiseData.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+
+<div class="panel panel-danger">
+    <div class="panel-heading">
+        <h3 class="panel-title">Delete @Model.UserName</h3>
+    </div>
+    <p>@Model.Id</p>
+    <p>@Model.Name</p>
+    <p>@Model.UserName</p>
+    <p>@Model.Email</p>
+    <p>@Model.PhoneNumber</p>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+}
