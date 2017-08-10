@@ -9,32 +9,62 @@
 <h3>@Model.UserName</h3>
 
 <hr />
-<div>
-    <div>
-        @Html.DisplayNameFor(m => m.User.Name):
-        @Html.DisplayFor(m => m.User.Name)
+<div class="">
+    <div class="col-md-5 panel panel-default">
+        <h4>User:</h4>
+
+        <div>
+            @Html.DisplayNameFor(m => m.UserId):
+            @Html.DisplayFor(m => m.UserId)
+        </div>
+        <div>
+            @Html.DisplayNameFor(m => m.User.Name):
+            @Html.DisplayFor(m => m.User.Name)
+        </div>
+        <div>
+            @Html.DisplayNameFor(m => m.User.Email):
+            @Html.DisplayFor(m => m.User.Email)
+        </div>
+        <div>
+            @Html.DisplayNameFor(m => m.User.PhoneNumber):
+            @Html.DisplayFor(m => m.User.PhoneNumber)
+        </div>
     </div>
-    <div>
+    <div class="col-md-offset-1 col-md-6 panel panel-default">
+
+        @Html.DisplayNameFor(m => m.Institution.LegalName):
+        @Html.DisplayFor(m => m.Institution.LegalName)
         @if (Model.Institution.isHub)
         {
-            <span class="label label-warning">
+            <div class="label label-warning">
                 @Html.DisplayNameFor(m => m.Institution.isHub)
-            </span>
+            </div>
         }
         @if (Model.Institution.isProvider)
         {
-            <span class="label label-info">
+            <div class="label label-info">
                 @Html.DisplayNameFor(m => m.Institution.isProvider)
-            </span>
+            </div>
         }
-        @Html.DisplayNameFor(m => m.Institution.LegalName):
-        @Html.DisplayFor(m => m.Institution.LegalName)
-        @Html.DisplayNameFor(m => m.UserId):
-        @Html.DisplayFor(m => m.UserId)
-        @foreach(var roll in Model.CurrentRoles)
-        {
-            //
-        }
+        <div>
+            @Html.DisplayFor(m => m.Institution.Address.County)
+        </div>
+        <div>
+            @Html.DisplayFor(m => m.Institution.Address.City),
+            @Html.DisplayFor(m => m.Institution.Address.LU_State.Abbreviation)
+        </div>
+
+        <div class="list-group">
+            <div class="list-group-item active">
+                User Roles:
+            </div>
+            @foreach (var roll in Model.CurrentRoles)
+            {
+                <div class="list-group-item">
+                    @Model.Roles.Single(m => m.Id == roll.RoleId).Name
+                </div>
+            }
+        </div>
     </div>
 </div>
 
