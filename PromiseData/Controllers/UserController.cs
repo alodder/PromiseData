@@ -10,6 +10,7 @@ using PromiseData.Models;
 using PromiseData.ViewModels;
 using System.Threading.Tasks;
 using System.Security.Claims;
+using System.Net;
 
 namespace PromiseData.Controllers
 {
@@ -379,6 +380,58 @@ namespace PromiseData.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult Delete(string id)
+        {
+            var user = UserManager.FindById( id);
+            return View( user);
+        }
+
+        [Authorize]
+        [HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        public ActionResult ConfirmDelete(string id)
+        {
+            if (ModelState.IsValid)
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                var user = UserManager.FindById( id);
+                var logins = user.Logins;
+                var rolesForUser = UserManager.GetRoles( id);
+
+                using (var transaction = _context.Database.BeginTransaction())
+                {
+                    foreach (var login in logins.ToList())
+                    {
+                        UserManager.RemoveLogin(login.UserId, new UserLoginInfo(login.LoginProvider, login.ProviderKey));
+                    }
+
+                    if (rolesForUser.Count() > 0)
+                    {
+                        foreach (var item in rolesForUser.ToList())
+                        {
+                            // item should be the name of the role
+                            var result = UserManager.RemoveFromRole(user.Id, item);
+                        }
+                    }
+
+                    UserManager.Delete(user);
+                    transaction.Commit();
+                }
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         // GET: User
