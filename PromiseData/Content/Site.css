@@ -41,10 +41,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     background-color: #EBF3F9;*/
     background-color: #f5be29;
 }
-/*.navbar-inverse a {
-    color: #18bc9c;
-}
-*/
+    .navbar-default .navbar-nav > li > a {
+        color: #000;
+    }
+
     /*
 .navbar-inverse .navbar-nav li a {
     color: #009587;
