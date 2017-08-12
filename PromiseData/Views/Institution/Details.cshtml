@@ -185,6 +185,10 @@
     @Html.ActionLink("Back to List", "Index")
 </p>
 
+
+@*
+    Table of Hub's Providers
+*@
 @if (Model.isHub)
 {
 
@@ -271,6 +275,114 @@
                 </td>
                 <td>
                     @item.ActiveDate.ToShortDateString()
+                </td>
+                <td>
+                    @item.EndDate.ToString()
+                </td>
+                <td>
+                    @if (item.isHub)
+                    {
+                        <div class="label label-default">Hub</div>
+                    }
+                </td>
+                <td>
+                    @if (item.isProvider)
+                    {
+                        <div class="label label-info">Provider</div>
+                    }
+                </td>
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |*@
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+                    @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+
+
+@*
+    Table of Provider's Sites
+*@
+@if (Model.isHub)
+{
+
+    <h3>@Model.LegalName Providers</h3>
+    <table class="table table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LegalName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Region)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BackboneOrg)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WebAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DirectorAgentId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ContactAgentId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LocationAddressId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MailingAddressId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActiveDate)
+            </th>
+
+            <th>
+            </th>
+            
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+        </tr>
+
+        @foreach (var item in Model.Sites)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProviderFacilityType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Turnover_NonPPStaff)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TurnoverReasons_NonPPStaff)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Transportation_services_offered)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ChildrenReceivingTransportationServices)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AdditionalChildFamilySupports_ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MonitoringVisit1Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MonitoringVisit2Date)
                 </td>
                 <td>
                     @item.EndDate.ToString()

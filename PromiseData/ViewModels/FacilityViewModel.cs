@@ -76,5 +76,7 @@ namespace PromiseData.ViewModels
 
         [DisplayName("Description")]
         public string Description { get; set; }
+
+        public IEnumerable<Classroom> Classrooms { get; set; }
     }
 }

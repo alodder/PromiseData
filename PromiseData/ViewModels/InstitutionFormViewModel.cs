@@ -86,6 +86,8 @@ namespace PromiseData.ViewModels
 
         public IEnumerable<Institution> Providers { get; set; }
 
+        public IEnumerable<Facility> Sites { get; set; }
+
         public IEnumerable<LU_State> States { get; set; }
 
         public virtual ContactAgent DirectorAgent { get; set; }

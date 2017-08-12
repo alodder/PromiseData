@@ -229,9 +229,16 @@ namespace PromiseData.Controllers
             viewModel.isProvider = institution.isProvider;
             viewModel.isHub = institution.isHub;
 
+            //Populate Hub with children
             if (institution.isHub)
             {
                 viewModel.Providers = _context.Institutions.Where(i => i.parentHubId == id).ToList();
+            }
+
+            //Populate Provider with children (Facilities/Sites)
+            if (institution.isHub)
+            {
+                viewModel.Sites = _context.Facilities.Where(i => i.ProviderID == id).ToList();
             }
 
             return View( viewModel);
