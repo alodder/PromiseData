@@ -306,10 +306,10 @@
 @*
     Table of Provider's Sites
 *@
-@if (Model.isHub)
+@if (Model.isProvider)
 {
 
-    <h3>@Model.LegalName Providers</h3>
+    <h3>@Model.LegalName Sites</h3>
     <table class="table table-hover">
         <tr>
             <th>
@@ -354,7 +354,7 @@
             </th>
         </tr>
 
-        @foreach (var item in Model.Sites)
+        @foreach (var site in Model.Sites)
         {
             <tr>
                 <td>
@@ -385,23 +385,17 @@
                     @Html.DisplayFor(modelItem => item.MonitoringVisit2Date)
                 </td>
                 <td>
-                    @item.EndDate.ToString()
+                    @item.Turnover_NonPPStaff.ToString()
                 </td>
                 <td>
-                    @if (item.isHub)
-                    {
-                        <div class="label label-default">Hub</div>
-                    }
+                    
                 </td>
                 <td>
-                    @if (item.isProvider)
-                    {
-                        <div class="label label-info">Provider</div>
-                    }
+                    
                 </td>
                 <td>
                     @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |*@
-                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+                    @*@Html.ActionLink("Details", "Details", new { id = item.Id })*@
                     @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
                 </td>
             </tr>

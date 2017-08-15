@@ -236,7 +236,7 @@ namespace PromiseData.Controllers
             }
 
             //Populate Provider with children (Facilities/Sites)
-            if (institution.isHub)
+            if (institution.isProvider)
             {
                 viewModel.Sites = _context.Facilities.Where(i => i.ProviderID == id).ToList();
             }
