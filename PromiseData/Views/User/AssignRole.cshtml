@@ -1,7 +1,7 @@
 ﻿@model PromiseData.ViewModels.UserFormViewModel
 
 @{
-    ViewBag.Title = "AssignRole";
+    ViewBag.Title = "Assign Role";
 }
 
 <h2>Assign Role</h2>
@@ -19,6 +19,8 @@ else
                 <span class="col-md-2 control-label">
                     @Model.UserName
                 </span>
+                @Html.HiddenFor(m=> m.UserName)
+                @Html.HiddenFor(m => m.UserId)
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.SelectedRoleNames, "User Roles", new { @class = "col-md-2 control-label" })

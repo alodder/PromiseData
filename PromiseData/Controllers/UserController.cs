@@ -38,11 +38,14 @@ namespace PromiseData.Controllers
             return RedirectToAction("List", "User", new { query = viewModel.SearchTerm });
         }
 
+        [HttpGet]
         [Authorize(Roles = "System Administrator, Administrator")]
         public ActionResult List(string query = null)
         {
-
             UsersAdminViewModel userListViewModel = new UsersAdminViewModel();
+
+            userListViewModel = UserRoleCheck( userListViewModel);
+
             userListViewModel.Users = UserManager.Users.ToList();
             if (!String.IsNullOrWhiteSpace(query))
             {
@@ -438,6 +441,7 @@ namespace PromiseData.Controllers
         [Authorize]
         public ActionResult Index()
         {
+            var viewModel = new UsersAdminViewModel();
             if (User.Identity.IsAuthenticated)
             {
                 var user = User.Identity;
@@ -450,23 +454,32 @@ namespace PromiseData.Controllers
 
                 if (User.IsInRole("System Administrator"))
                 {
+                    viewModel.CanAdd = true;
+                    viewModel.CanDelete = true;
+                    viewModel.CanView = true;
                     ViewBag.displayAdminMenu = true;
                     ViewBag.displayHubMenu = true;
                     ViewBag.displayProviderMenu = true;
                 }
                 if (User.IsInRole("Administrator"))
                 {
+                    viewModel.CanAdd = true;
+                    viewModel.CanDelete = true;
+                    viewModel.CanView = true;
                     ViewBag.displayAdminMenu = true;
                     ViewBag.displayHubMenu = true;
                     ViewBag.displayProviderMenu = true;
                 }
                 if (User.IsInRole("Hub"))
                 {
+                    viewModel.CanAdd = true;
+                    viewModel.CanView = true;
                     ViewBag.displayHubMenu = true;
                     ViewBag.displayProviderMenu = true;
                 }
                 if (User.IsInRole("Provider"))
                 {
+                    viewModel.CanView = true;
                     ViewBag.displayProviderMenu = true;
                 }
 
@@ -476,9 +489,36 @@ namespace PromiseData.Controllers
             {
                 ViewBag.Name = "Not Logged In";
             }
-            return View();
+            return View( viewModel);
         }
 
-        
+        private UsersAdminViewModel UserRoleCheck(UsersAdminViewModel viewModel)
+        {
+            if (User.IsInRole("System Administrator"))
+            {
+                viewModel.CanAdd = true;
+                viewModel.CanDelete = true;
+                viewModel.CanView = true;
+            }
+            if (User.IsInRole("Administrator"))
+            {
+                viewModel.CanAdd = true;
+                viewModel.CanDelete = true;
+                viewModel.CanView = true;
+            }
+            if (User.IsInRole("Hub"))
+            {
+                viewModel.CanAdd = true;
+                viewModel.CanView = true;
+            }
+            if (User.IsInRole("Provider"))
+            {
+                viewModel.CanView = true;
+            }
+
+            return viewModel;
+        }
+
+
     }
 }

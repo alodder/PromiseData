@@ -1,8 +1,11 @@
-﻿using PromiseData.Models;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using PromiseData.Models;
 using PromiseData.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 
@@ -11,10 +14,12 @@ namespace PromiseData.Controllers
     public class InstitutionController : Controller
     {
         private ApplicationDbContext _context;
+        //private UserManager<ApplicationUser> UserManager;
 
         public InstitutionController()
         {
             _context = new ApplicationDbContext();
+            //UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_context));
         }
 
         // GET: Institution
@@ -185,6 +190,15 @@ namespace PromiseData.Controllers
         {
             var viewModel = new InstitutionsViewModel();
             viewModel.Institutions = _context.Institutions.ToList().Where(c => c.isHub == true);
+
+            if (User.IsInRole("System Administrator") || User.IsInRole("Administrator"))
+            {
+                viewModel.CanAdd = true;
+                viewModel.CanEdit = true;
+                viewModel.CanDelete = true;
+                viewModel.CanView = true;
+            }
+            
             return View("Index", viewModel);
         }
 
@@ -193,6 +207,15 @@ namespace PromiseData.Controllers
         {
             var viewModel = new InstitutionsViewModel();
             viewModel.Institutions = _context.Institutions.ToList().Where(c => c.isProvider == true);
+
+            if (User.IsInRole("System Administrator") || User.IsInRole("Administrator"))
+            {
+                viewModel.CanAdd = true;
+                viewModel.CanEdit = true;
+                viewModel.CanDelete = true;
+                viewModel.CanView = true;
+            }
+
             return View("Index", viewModel);
         }
 
@@ -202,12 +225,7 @@ namespace PromiseData.Controllers
         {
             var viewModel = new InstitutionFormViewModel();
 
-            if (User.IsInRole("Administrator") || User.IsInRole("System Administrator"))
-            {
-                viewModel.CanEdit = true;
-                viewModel.CanDelete = true;
-            }
-                
+            viewModel = UserRoleCheck(viewModel);                
 
             var institution = _context.Institutions.SingleOrDefault(i => i.Id == id);
             viewModel.DirectorAgentId = institution.DirectorAgentId;
@@ -250,8 +268,19 @@ namespace PromiseData.Controllers
         public ActionResult Index(string query = null)
         { 
             var viewModel = new InstitutionsViewModel();
+
+            //var user = UserManager.FindById( userAndInstitution.UserId); //UserManager.Users.Single(a => a.Id == userAndRole.Id);
+            ClaimsIdentity identity = (ClaimsIdentity)User.Identity;// UserManager.CreateIdentity(User, DefaultAuthenticationTypes.ApplicationCookie);
+
+            var claims = (from c in identity.Claims
+                          where c.Type == "Institution"
+                          select c);
+
             viewModel.Institutions = _context.Institutions.ToList();
-            if(!String.IsNullOrWhiteSpace(query))
+
+            viewModel.Institutions = viewModel.Institutions.Where(i => i.Id == Int32.Parse( claims.SingleOrDefault().Value));
+
+            if (!String.IsNullOrWhiteSpace(query))
             {
                 var blurb = viewModel.Institutions.Where(i => 
                                             i.LegalName.Contains(query) ||
@@ -272,5 +301,33 @@ namespace PromiseData.Controllers
 
             return View( viewModel);
         }
+
+        private InstitutionFormViewModel UserRoleCheck(InstitutionFormViewModel viewModel)
+        {
+            if (User.IsInRole("System Administrator"))
+            {
+                viewModel.CanEdit = true;
+                viewModel.CanDelete = true;
+                viewModel.CanView = true;
+            }
+            if (User.IsInRole("Administrator"))
+            {
+                viewModel.CanEdit = true;
+                viewModel.CanDelete = true;
+                viewModel.CanView = true;
+            }
+            if (User.IsInRole("Hub"))
+            {
+                viewModel.CanEdit = true;
+                viewModel.CanView = true;
+            }
+            if (User.IsInRole("Provider"))
+            {
+                viewModel.CanView = true;
+            }
+
+            return viewModel;
+        }
+
     }
 }
