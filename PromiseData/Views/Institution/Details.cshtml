@@ -358,34 +358,34 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Description)
+                    @Html.DisplayFor(modelItem => site.Description)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ProviderFacilityType)
+                    @Html.DisplayFor(modelItem => site.ProviderFacilityType)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Turnover_NonPPStaff)
+                    @Html.DisplayFor(modelItem => site.Turnover_NonPPStaff)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TurnoverReasons_NonPPStaff)
+                    @Html.DisplayFor(modelItem => site.TurnoverReasons_NonPPStaff)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Transportation_services_offered)
+                    @Html.DisplayFor(modelItem => site.Transportation_services_offered)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ChildrenReceivingTransportationServices)
+                    @Html.DisplayFor(modelItem => site.ChildrenReceivingTransportationServices)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.AdditionalChildFamilySupports_ID)
+                    @Html.DisplayFor(modelItem => site.AdditionalChildFamilySupports_ID)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.MonitoringVisit1Date)
+                    @Html.DisplayFor(modelItem => site.MonitoringVisit1Date)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.MonitoringVisit2Date)
+                    @Html.DisplayFor(modelItem => site.MonitoringVisit2Date)
                 </td>
                 <td>
-                    @item.Turnover_NonPPStaff.ToString()
+                    @Html.DisplayFor(modelItem => site.Turnover_NonPPStaff)
                 </td>
                 <td>
                     
@@ -395,7 +395,7 @@
                 </td>
                 <td>
                     @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |*@
-                    @*@Html.ActionLink("Details", "Details", new { id = item.Id })*@
+                    @Html.ActionLink("Details", "Details", "Facility", new { id = site.ID }, null)
                     @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
                 </td>
             </tr>
