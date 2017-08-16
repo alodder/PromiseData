@@ -183,14 +183,16 @@ namespace PromiseData.Controllers
         [Authorize]
         public ActionResult FilterHubs(string query = null)
         {
-            var viewModel = _context.Institutions.ToList().Where(c => c.isHub == true);
+            var viewModel = new InstitutionsViewModel();
+            viewModel.Institutions = _context.Institutions.ToList().Where(c => c.isHub == true);
             return View("Index", viewModel);
         }
 
         [Authorize]
         public ActionResult FilterProviders(string query = null)
         {
-            var viewModel = _context.Institutions.ToList().Where(c => c.isProvider == true);
+            var viewModel = new InstitutionsViewModel();
+            viewModel.Institutions = _context.Institutions.ToList().Where(c => c.isProvider == true);
             return View("Index", viewModel);
         }
 
