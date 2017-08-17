@@ -121,9 +121,9 @@ namespace PromiseData.Controllers
                 Transportation_services_offered = facility.Transportation_services_offered,
                 ChildrenReceivingTransportationServices = facility.ChildrenReceivingTransportationServices.GetValueOrDefault(),
                 AdditionalChildFamilySupports_ID = facility.AdditionalChildFamilySupports_ID.GetValueOrDefault(),
-                MonitoringVisit1Date = DateTime.Parse(Convert.ToString(facility.MonitoringVisit1Date)),
+                MonitoringVisit1Date = facility.MonitoringVisit1Date,
                 MonitoringVisit1Result = facility.MonitoringVisit1Result,
-                MonitoringVisit2Date = DateTime.Parse(Convert.ToString(facility.MonitoringVisit2Date)),
+                MonitoringVisit2Date = facility.MonitoringVisit2Date,
                 MonitoringVisit2Result = facility.MonitoringVisit2Result,
                 Description = facility.Description
             };
@@ -145,9 +145,9 @@ namespace PromiseData.Controllers
                 Transportation_services_offered = facility.Transportation_services_offered,
                 ChildrenReceivingTransportationServices = facility.ChildrenReceivingTransportationServices.GetValueOrDefault(),
                 AdditionalChildFamilySupports_ID = facility.AdditionalChildFamilySupports_ID.GetValueOrDefault(),
-                MonitoringVisit1Date = DateTime.Parse(Convert.ToString(facility.MonitoringVisit1Date)),
+                MonitoringVisit1Date = facility.MonitoringVisit1Date,
                 MonitoringVisit1Result = facility.MonitoringVisit1Result,
-                MonitoringVisit2Date = DateTime.Parse(Convert.ToString(facility.MonitoringVisit2Date)),
+                MonitoringVisit2Date = facility.MonitoringVisit2Date,
                 MonitoringVisit2Result = facility.MonitoringVisit2Result,
                 Description = facility.Description,
                 FacilityTypes = this.FacilityTypes,
@@ -169,22 +169,34 @@ namespace PromiseData.Controllers
                 return View("FacilityForm", viewModel);
             }
 
-            var facility = new Facility
+            var facility = _context.Facilities.Single(i => i.ID == viewModel.ID);
+            facility.ProviderFacilityType = viewModel.ProviderFacilityType;
+            facility.Turnover_NonPPStaff = viewModel.Turnover_NonPPStaff;
+            facility.TurnoverReasons_NonPPStaff = viewModel.TurnoverReasons_NonPPStaff;
+            facility.Transportation_services_offered = viewModel.Transportation_services_offered;
+            facility.ChildrenReceivingTransportationServices = viewModel.ChildrenReceivingTransportationServices;
+            facility.AdditionalChildFamilySupports_ID = viewModel.AdditionalChildFamilySupports_ID;
+            facility.MonitoringVisit1Date = viewModel.MonitoringVisit1Date;
+            facility.MonitoringVisit1Result = viewModel.MonitoringVisit1Result;
+            facility.MonitoringVisit2Date = viewModel.MonitoringVisit2Date;
+            facility.MonitoringVisit2Result = viewModel.MonitoringVisit2Result;
+            facility.Description = viewModel.Description;
+
+            _context.FacilitySupports.RemoveRange(_context.FacilitySupports.Where(x => x.FacilityID == facility.ID));
+
+            foreach (var supportId in viewModel.SupportDictionary.Keys)
             {
-                ID = viewModel.ID,
-                ProviderFacilityType = viewModel.ProviderFacilityType,
-                Turnover_NonPPStaff = viewModel.Turnover_NonPPStaff,
-                TurnoverReasons_NonPPStaff = viewModel.TurnoverReasons_NonPPStaff,
-                Transportation_services_offered = viewModel.Transportation_services_offered,
-                ChildrenReceivingTransportationServices = viewModel.ChildrenReceivingTransportationServices,
-                AdditionalChildFamilySupports_ID = viewModel.AdditionalChildFamilySupports_ID,
-                MonitoringVisit1Date = DateTime.Parse(Convert.ToString(viewModel.MonitoringVisit1Date)),
-                MonitoringVisit1Result = viewModel.MonitoringVisit1Result,
-                MonitoringVisit2Date = DateTime.Parse(Convert.ToString(viewModel.MonitoringVisit2Date)),
-                MonitoringVisit2Result = viewModel.MonitoringVisit2Result,
-                Description = viewModel.Description
-            };
-            TryUpdateModel(facility);
+                if (viewModel.SupportDictionary[supportId])
+                {
+                    var facilitySupport = new FacilitySupport()
+                    {
+                        FacilityID = facility.ID,
+                        SupportTypesCode = supportId
+                    };
+                    _context.FacilitySupports.Add(facilitySupport);
+                }
+            }
+
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Facility");

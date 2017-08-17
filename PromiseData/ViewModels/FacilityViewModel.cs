@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using PromiseData.Models;
 using PromiseData.Controllers;
+using System.ComponentModel.DataAnnotations;
 
 namespace PromiseData.ViewModels
 {
@@ -62,14 +63,18 @@ namespace PromiseData.ViewModels
         //dictionary for checkbox values
         public Dictionary<int, bool> SupportDictionary { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DisplayName("Monitoring Visit Date #1")]
-        public DateTime MonitoringVisit1Date { get; set; }
+        public DateTime? MonitoringVisit1Date { get; set; }
 
         [DisplayName("Monitoring Visit Result #1")]
         public string MonitoringVisit1Result { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DisplayName("Monitoring Visit Date #2")]
-        public DateTime MonitoringVisit2Date { get; set; }
+        public DateTime? MonitoringVisit2Date { get; set; }
 
         [DisplayName("Monitoring Visit Result #2")]
         public string MonitoringVisit2Result { get; set; }

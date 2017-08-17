@@ -39,6 +39,8 @@ namespace PromiseData.Models
         [DisplayName("Additional Family Supports")]
         public int? AdditionalChildFamilySupports_ID { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DisplayName("Monitoring Visit Date #1")]
         public DateTime? MonitoringVisit1Date { get; set; }
 
@@ -46,6 +48,8 @@ namespace PromiseData.Models
         [StringLength(255)]
         public string MonitoringVisit1Result { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DisplayName("Monitoring Visit Date #2")]
         public DateTime? MonitoringVisit2Date { get; set; }
 

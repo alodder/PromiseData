@@ -278,7 +278,10 @@ namespace PromiseData.Controllers
 
             viewModel.Institutions = _context.Institutions.ToList();
 
-            viewModel.Institutions = viewModel.Institutions.Where(i => i.Id == Int32.Parse( claims.FirstOrDefault().Value));
+            if(!(User.IsInRole("System Administrator") || User.IsInRole("Administrator")))
+            {
+                viewModel.Institutions = viewModel.Institutions.Where(i => i.Id == Int32.Parse( claims.FirstOrDefault().Value));
+            }
 
             if (!String.IsNullOrWhiteSpace(query))
             {

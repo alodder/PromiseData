@@ -4,11 +4,12 @@
     ViewBag.Title = "Index";
 }
 
-<h2>PSP Facility</h2>
+<h2>Provider Sites</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", new { @role = "button" }, new { @class = "btn btn-success" })
 </p>
+
 <table class="table">
     <tr>
         <th>
@@ -65,13 +66,18 @@
             @Html.DisplayFor(modelItem => item.ChildrenReceivingTransportationServices)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.MonitoringVisit1Date)
+            @if(item.MonitoringVisit1Date != null) { 
+                @item.MonitoringVisit1Date.Value.ToShortDateString()
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.MonitoringVisit1Result)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.MonitoringVisit2Date)
+            @if (item.MonitoringVisit2Date != null)
+            {
+                @item.MonitoringVisit2Date.Value.ToShortDateString()
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.MonitoringVisit2Result)
