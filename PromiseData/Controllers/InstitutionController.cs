@@ -278,7 +278,7 @@ namespace PromiseData.Controllers
 
             viewModel.Institutions = _context.Institutions.ToList();
 
-            viewModel.Institutions = viewModel.Institutions.Where(i => i.Id == Int32.Parse( claims.SingleOrDefault().Value));
+            viewModel.Institutions = viewModel.Institutions.Where(i => i.Id == Int32.Parse( claims.FirstOrDefault().Value));
 
             if (!String.IsNullOrWhiteSpace(query))
             {
