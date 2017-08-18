@@ -16,6 +16,13 @@
                 <div class="col-lg-4">
                     <div class="row">
                         <div class="form-group">
+                            @Html.LabelFor(m => m.LicenseNumber)
+                            @Html.TextBoxFor(m => m.LicenseNumber, new { @class = "form-control", placeholder = "Marion Moose Club", autofocus = "autofocus" })
+                            @Html.ValidationMessageFor(m => m.LicenseNumber)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
                             @Html.LabelFor(m => m.LegalName)
                             @Html.TextBoxFor(m => m.LegalName, new { @class = "form-control", placeholder = "Marion Moose Club", autofocus = "autofocus" })
                             @Html.ValidationMessageFor(m => m.LegalName)

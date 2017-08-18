@@ -55,6 +55,9 @@ namespace PromiseData.Models
         [DisplayName("Parent Hub")]
         public int? parentHubId { get; set; }
 
+        [DisplayName("License #")]
+        public string LicenseNumber { get; set; }
+
         public virtual Address Address { get; set; }
 
         public virtual Address Address1 { get; set; }

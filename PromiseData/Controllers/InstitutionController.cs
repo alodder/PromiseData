@@ -57,6 +57,7 @@ namespace PromiseData.Controllers
 
 
             var institute = new Institution {
+                LicenseNumber = viewModel.LicenseNumber,
                 LegalName = viewModel.LegalName,
                 Region = viewModel.Region,
                 BackboneOrg = viewModel.BackboneOrg,
@@ -100,6 +101,7 @@ namespace PromiseData.Controllers
             var viewModel = new InstitutionFormViewModel {
                 Heading = "Edit Institution",
                 Id = institution.Id,
+                LicenseNumber = institution.LicenseNumber,
                 LegalName = institution.LegalName,
                 Region = institution.Region, 
                 BackboneOrg = institution.BackboneOrg,
@@ -135,6 +137,7 @@ namespace PromiseData.Controllers
             }
 
             var institution = _context.Institutions.Single(i => i.Id == viewModel.Id);
+            institution.LicenseNumber = viewModel.LicenseNumber;
             institution.LegalName = viewModel.LegalName;
             institution.Region = viewModel.Region;
             institution.BackboneOrg = viewModel.BackboneOrg;
@@ -239,6 +242,7 @@ namespace PromiseData.Controllers
             viewModel.AddressMail = _context.Addresses.SingleOrDefault(d => d.ID == institution.MailingAddressId);
 
             viewModel.Id = institution.Id;
+            viewModel.LicenseNumber = institution.LicenseNumber;
             viewModel.LegalName = institution.LegalName;
             viewModel.Region = institution.Region;
             viewModel.BackboneOrg = institution.BackboneOrg;
@@ -290,7 +294,8 @@ namespace PromiseData.Controllers
                                             (i.BackboneOrg ?? "").Contains(query) ||
                                             (i.Region ?? "").Contains(query) ||
                                             (i.ContactAgent1.AgentName ?? "").Contains(query) ||
-                                            (i.Address.City ?? "").Contains(query));
+                                            (i.Address.City ?? "").Contains(query) ||
+                                            (i.LicenseNumber).Contains(query));
                 
                 viewModel.Institutions = blurb.ToList();
             }

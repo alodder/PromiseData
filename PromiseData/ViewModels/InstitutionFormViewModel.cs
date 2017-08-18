@@ -84,6 +84,9 @@ namespace PromiseData.ViewModels
         [DisplayName("Parent Hub")]
         public int parentHubId { get; set; }
 
+        [DisplayName("License #")]
+        public string LicenseNumber { get; set; }
+
         public IEnumerable<Institution> Providers { get; set; }
 
         public IEnumerable<Facility> Sites { get; set; }
