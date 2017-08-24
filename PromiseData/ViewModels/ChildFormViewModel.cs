@@ -37,16 +37,10 @@ namespace PromiseData.ViewModels
         [DisplayName("Other Last Name")]
         public String OtherLastName { get; set; }
 
-        [Required]
-        [BirthDate]
         [DataType(DataType.Date)]
         [DisplayName("Date of Birth")]
-        public string Date { get; set; }
-
-        public DateTime DateTime
-        {
-            get { return DateTime.Parse(Convert.ToString(Date));  }
-        }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime Date { get; set; }
 
         [Required]
         [DisplayName("Sex")]
