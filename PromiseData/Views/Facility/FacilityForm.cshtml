@@ -8,6 +8,7 @@
     @Html.AntiForgeryToken()
         <h4>Facility</h4>
         @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.ProviderId)
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 

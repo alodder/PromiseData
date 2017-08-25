@@ -50,14 +50,15 @@ namespace PromiseData.Controllers
 
         [Authorize]
         [HttpGet]
-        public ActionResult Create()
+        public ActionResult Create( int id)
         {
             var viewModel = new FacilityViewModel
             {
                 Heading = "New Site",
                 FacilityTypes = this.FacilityTypes,
                 SupportTypes = _context.Code_AdditionalSupportTypes,
-                SupportDictionary = SupportBoolDictionary
+                SupportDictionary = SupportBoolDictionary,
+                ProviderId = id
             };
             return View("FacilityForm", viewModel);
         }
@@ -82,11 +83,12 @@ namespace PromiseData.Controllers
                 Transportation_services_offered = viewModel.Transportation_services_offered,
                 ChildrenReceivingTransportationServices = viewModel.ChildrenReceivingTransportationServices,
                 AdditionalChildFamilySupports_ID = viewModel.AdditionalChildFamilySupports_ID,
-                MonitoringVisit1Date = DateTime.Parse(Convert.ToString(viewModel.MonitoringVisit1Date)),
+                MonitoringVisit1Date = viewModel.MonitoringVisit1Date,
                 MonitoringVisit1Result = viewModel.MonitoringVisit1Result,
-                MonitoringVisit2Date = DateTime.Parse(Convert.ToString(viewModel.MonitoringVisit2Date)),
+                MonitoringVisit2Date = viewModel.MonitoringVisit2Date,
                 MonitoringVisit2Result = viewModel.MonitoringVisit2Result,
-                Description = viewModel.Description
+                Description = viewModel.Description,
+                ProviderID = viewModel.ProviderId
             };
 
             var facilityId = _context.Facilities.Add(facility).ID;
@@ -215,9 +217,9 @@ namespace PromiseData.Controllers
                 Transportation_services_offered = facility.Transportation_services_offered,
                 ChildrenReceivingTransportationServices = facility.ChildrenReceivingTransportationServices.GetValueOrDefault(),
                 AdditionalChildFamilySupports_ID = facility.AdditionalChildFamilySupports_ID.GetValueOrDefault(),
-                MonitoringVisit1Date = DateTime.Parse(Convert.ToString(facility.MonitoringVisit1Date)),
+                MonitoringVisit1Date = facility.MonitoringVisit1Date,
                 MonitoringVisit1Result = facility.MonitoringVisit1Result,
-                MonitoringVisit2Date = DateTime.Parse(Convert.ToString(facility.MonitoringVisit2Date)),
+                MonitoringVisit2Date = facility.MonitoringVisit2Date,
                 MonitoringVisit2Result = facility.MonitoringVisit2Result
             };
             return View(viewModel);

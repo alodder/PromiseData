@@ -311,6 +311,13 @@
 *@
 @if (Model.isProvider)
 {
+    <p>
+        @if (Model.CanEdit)
+        {
+            @Html.ActionLink("Add Site", "Create", "Facility", new { id = Model.Id }, new { @class = "btn btn-success" })
+        }
+    </p>
+
 
     <h3>@Model.LegalName Sites</h3>
     <table class="table table-hover">
