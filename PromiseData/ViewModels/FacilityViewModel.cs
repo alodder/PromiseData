@@ -79,6 +79,7 @@ namespace PromiseData.ViewModels
         [DisplayName("Monitoring Visit Result #2")]
         public string MonitoringVisit2Result { get; set; }
 
+        [Required]
         [DisplayName("Description")]
         public string Description { get; set; }
 

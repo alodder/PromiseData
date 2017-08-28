@@ -104,3 +104,105 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+
+@*
+    Table of Site's Classes
+*@
+<p>
+    @if (Model.CanEdit)
+    {
+        @Html.ActionLink("Add Site", "Create", "Facility", new { id = Model.Id }, new { @class = "btn btn-success" })
+    }
+</p>
+
+
+<h3>@Model.Description Classrooms</h3>
+<table class="table table-hover">
+    <tr>
+        <th>
+            Name:
+        </th>
+        <th>
+            x
+        </th>
+        <th>
+            x
+        </th>
+        <th>
+           x
+        </th>
+        <th>
+            x
+        </th>
+        <th>
+            x
+        </th>
+        <th>
+            x
+        </th>
+        <th>
+            x
+        </th>
+        <th>
+            x
+        </th>
+
+        <th>
+        </th>
+
+        <th>
+
+        </th>
+        <th>
+
+        </th>
+        <th>
+
+        </th>
+    </tr>
+
+    @foreach (var classroom in Model.Classrooms)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => classroom.ProgramSessionType_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => site.ProviderFacilityType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => site.Turnover_NonPPStaff)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => site.TurnoverReasons_NonPPStaff)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => site.Transportation_services_offered)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => site.ChildrenReceivingTransportationServices)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => site.AdditionalChildFamilySupports_ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => site.MonitoringVisit1Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => site.MonitoringVisit2Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => site.Turnover_NonPPStaff)
+            </td>
+            <td></td>
+            <td></td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |*@
+                @Html.ActionLink("Details", "Details", "Facility", new { id = site.ID }, null)
+                @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+            </td>
+        </tr>
+    }
+
+</table>
