@@ -129,6 +129,9 @@ namespace PromiseData.Controllers
                 MonitoringVisit2Result = facility.MonitoringVisit2Result,
                 Description = facility.Description
             };
+
+            viewModel.Classrooms = _context.Classrooms.Where(c => c.ID == id).ToList();
+
             return View(viewModel);
         }
 

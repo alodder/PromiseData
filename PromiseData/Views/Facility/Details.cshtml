@@ -112,7 +112,7 @@
 <p>
     @if (Model.CanEdit)
     {
-        @Html.ActionLink("Add Site", "Create", "Facility", new { id = Model.Id }, new { @class = "btn btn-success" })
+        @Html.ActionLink("Add Classroom", "Create", "Classroom", new { id = Model.ID }, new { @class = "btn btn-success" })
     }
 </p>
 
@@ -160,46 +160,56 @@
         <th>
 
         </th>
+        <th>
+
+        </th>
     </tr>
 
     @foreach (var classroom in Model.Classrooms)
     {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => classroom.Program_ID)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => classroom.ProgramSessionType_ID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => site.ProviderFacilityType)
+                @Html.DisplayFor(modelItem => classroom.NewOrExpandedClass)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => site.Turnover_NonPPStaff)
+                @Html.DisplayFor(modelItem => classroom.SessionHours)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => site.TurnoverReasons_NonPPStaff)
+                @Html.DisplayFor(modelItem => classroom.SessionDays)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => site.Transportation_services_offered)
+                @Html.DisplayFor(modelItem => classroom.SessionWeeks)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => site.ChildrenReceivingTransportationServices)
+                @Html.DisplayFor(modelItem => classroom.PPStudents)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => site.AdditionalChildFamilySupports_ID)
+                @Html.DisplayFor(modelItem => classroom.NonPPStudentsHSOPK)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => site.MonitoringVisit1Date)
+                @Html.DisplayFor(modelItem => classroom.NonPPStudentsThirdParty)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => site.MonitoringVisit2Date)
+                @Html.DisplayFor(modelItem => classroom.PPSlotsUnfilled)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => site.Turnover_NonPPStaff)
+                @Html.DisplayFor(modelItem => classroom.CLASSScore_ClassroomOrganization)
             </td>
-            <td></td>
-            <td></td>
+            <td>
+                @Html.DisplayFor(modelItem => classroom.CLASSScore_EmotionalSupport)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => classroom.CLASSScore_InstructionalSupport)
+            </td>
             <td>
                 @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |*@
-                @Html.ActionLink("Details", "Details", "Facility", new { id = site.ID }, null)
+                @Html.ActionLink("Details", "Details", "Classroom", new { id = classroom.ID }, null)
                 @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
             </td>
         </tr>
