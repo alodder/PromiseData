@@ -83,8 +83,10 @@ namespace PromiseData.ViewModels
         [DisplayName("Description")]
         public string Description { get; set; }
 
-        [DisplayName("Provider")]
         public int ProviderId { get; set; }
+
+        [DisplayName("Provider")]
+        public Institution Provider { get; set; }
 
         public IEnumerable<Classroom> Classrooms { get; set; }
     }

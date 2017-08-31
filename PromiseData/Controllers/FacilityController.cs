@@ -8,6 +8,7 @@ using PromiseData.Models;
 using PromiseData.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Security.Claims;
 
 namespace PromiseData.Controllers
 {
@@ -131,6 +132,32 @@ namespace PromiseData.Controllers
             };
 
             viewModel.Classrooms = _context.Classrooms.Where(c => c.ID == id).ToList();
+            viewModel.Provider = _context.Institutions.Single(i => i.Id == facility.ProviderID);
+
+            /**
+             * Set user access to controls
+             **/
+            if (User.IsInRole("System Administrator") || User.IsInRole("Administrator"))
+            {
+                viewModel.CanEdit = true;
+                viewModel.CanView = true;
+            }
+            //int institutionId;
+
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            if (User.IsInRole("Hub") 
+                && ( identity.Claims.Any(
+                    t => t.Type == "Institution" && t.Value == viewModel.Provider.parentHubId.ToString())))
+            {
+                viewModel.CanEdit = true;
+                viewModel.CanView = true;
+            }
+            if (User.IsInRole("Provider") && identity.Claims.Any(t => t.Type == "Institution" && t.Value == viewModel.Provider.Id.ToString()))
+            {
+                viewModel.CanEdit = true;
+                viewModel.CanView = true;
+            }
 
             return View(viewModel);
         }
