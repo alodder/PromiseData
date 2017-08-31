@@ -17,10 +17,8 @@
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    /*max-width: 280px;*/
+input, select, textarea {
+    /*max-width: 100%;*/
 }
 
 /*Bootstrap.css overrides*/
@@ -35,6 +33,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 .form-control {
 
+}
+.navbar {
+    margin-bottom: 0px;
 }
 .navbar-default {
     /*background-color: #D4E9EE;

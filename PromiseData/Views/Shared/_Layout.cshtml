@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
+        <div class="container-fluid">
             <div class="navbar-header">
                 <img src="~/Content/logo/Preschool-Promise-Final-Logo-Horiz-Color-04-350x90.png" height="60px" alt="Preschool Promise Data"/>
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -46,69 +46,71 @@
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @if (User.Identity.IsAuthenticated)
-        {
-            <nav class="navbar navbar-inverse">
-                <div class="container-fluid">
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav">
-                            <li class="active">
-                                @Html.ActionLink("Home", "Index", "Home")
-                                <span class="sr-only">(current)</span>
-                            </li>
-                            @if (User.IsInRole("Administrator") || User.IsInRole("System Administrator"))
-                            {
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Admin <span class="caret"></span></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li>@Html.ActionLink("Manage Users", "List", "User")</li>
-                                        <li>@Html.ActionLink("Manage Hubs/Providers", "Index", "Institution")</li>
-                                        <li class="divider"></li>
-                                        <li><a href="#">Separated link</a></li>
-                                    </ul>
-                                </li>
-                            }
-                            @if (User.IsInRole("Hub"))
-                            {
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hub <span class="caret"></span></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li>@Html.ActionLink("Manage Providers", "Index", "Institution")</li>
-                                        <li>@Html.ActionLink("Manage Sites", "Index", "Facility")</li>
-                                        <li class="divider"></li>
-                                        <li><a href="#">Review Report</a></li>
-                                        <li class="divider"></li>
-                                        <li><a href="#">One more separated link</a></li>
-                                    </ul>
-                                </li>
-                            }
-                            @if (User.IsInRole("Provider"))
-                            {
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Provider <span class="caret"></span></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li>@Html.ActionLink("Manage Sites", "Index", "Facility")</li>
-                                        <li>@Html.ActionLink("Manage Classes", "Index", "Classroom")</li>
-                                        <li class="divider"></li>
-                                        <li><a href="#">Review Report</a></li>
-                                    </ul>
-                                </li>
-                            }
-
-                        </ul>
-                        <form class="navbar-form navbar-right" role="search">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search">
-                            </div>
-                            <button type="submit" class="btn btn-default">Submit</button>
-                        </form>
-                    </div>
-                </div>
-            </nav>
-        }
         
+    </div>
+    
+    @if (User.Identity.IsAuthenticated)
+    {
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active">
+                            @Html.ActionLink("Home", "Index", "Home")
+                            <span class="sr-only">(current)</span>
+                        </li>
+                        @if (User.IsInRole("Administrator") || User.IsInRole("System Administrator"))
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Admin <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>@Html.ActionLink("Manage Users", "List", "User")</li>
+                                    <li>@Html.ActionLink("Manage Hubs/Providers", "Index", "Institution")</li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Separated link</a></li>
+                                </ul>
+                            </li>
+                        }
+                        @if (User.IsInRole("Hub"))
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hub <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>@Html.ActionLink("Manage Providers", "Index", "Institution")</li>
+                                    <li>@Html.ActionLink("Manage Sites", "Index", "Facility")</li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Review Report</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">One more separated link</a></li>
+                                </ul>
+                            </li>
+                        }
+                        @if (User.IsInRole("Provider"))
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Provider <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>@Html.ActionLink("Manage Sites", "Index", "Facility")</li>
+                                    <li>@Html.ActionLink("Manage Classes", "Index", "Classroom")</li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Review Report</a></li>
+                                </ul>
+                            </li>
+                        }
+
+                    </ul>
+                    <form class="navbar-form navbar-right" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    }
+
+    <div class="container body-content">        
         @RenderBody()
         <hr />
         <footer>
