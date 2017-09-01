@@ -4,7 +4,7 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Site</h2>
+<h2>Site Details</h2>
 
 <div>
     <ul class="breadcrumb">
@@ -18,74 +18,39 @@
 
     <ul class="list-group">
         <li class="list-group-item">
-            <span class="badge">14</span>
-            Turnover
+            <span class="badge">@Html.DisplayFor(model => model.ProviderFacilityType)</span>
+            @Html.DisplayNameFor(model => model.ProviderFacilityType)
         </li>
         <li class="list-group-item">
-            <span class="list-group-item-heading">Turnover Reasons</span>
-            <p>---</p>
+            <span class="badge">@Html.DisplayFor(model => model.Turnover_NonPPStaff)</span>
+            @Html.DisplayNameFor(model => model.Turnover_NonPPStaff)
+        </li>
+        <li class="list-group-item">
+            <span class="list-group-item-heading">@Html.DisplayNameFor(model => model.TurnoverReasons_NonPPStaff)</span>
+            <p>@Html.DisplayFor(model => model.TurnoverReasons_NonPPStaff)</p>
         </li>
         <li class="list-group-item">
             <span class="badge"><i class="glyphicon glyphicon-ban-circle"></i></span>
             Trasnportation Services offered
         </li>
         <li class="list-group-item">
-            <span class="badge">1</span>
-            Morbi leo risus
+            <span class="badge">@Html.DisplayFor(model => model.ChildrenReceivingTransportationServices)</span>
+            @Html.DisplayNameFor(model => model.ChildrenReceivingTransportationServices)
         </li>
     </ul>
 
     <hr />
+    <ul class="list-group">
+        @foreach (var FacilitySupport in Model.Supports)
+        {
+            <li class="list-group-item">
+                @FacilitySupport.SupportTypesCode
+            </li>
+        }
+    </ul>
+    <hr />
 
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ProviderFacilityType)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProviderFacilityType)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Turnover_NonPPStaff)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Turnover_NonPPStaff)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TurnoverReasons_NonPPStaff)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TurnoverReasons_NonPPStaff)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Transportation_services_offered)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Transportation_services_offered)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ChildrenReceivingTransportationServices)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ChildrenReceivingTransportationServices)
-        </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.AdditionalChildFamilySupports_ID)
         </dt>

@@ -133,6 +133,7 @@ namespace PromiseData.Controllers
 
             viewModel.Classrooms = _context.Classrooms.Where(c => c.ID == id).ToList();
             viewModel.Provider = _context.Institutions.Single(i => i.Id == facility.ProviderID);
+            viewModel.Supports = _context.FacilitySupports.Where(s => s.FacilityID == facility.ID).ToList();
 
             /**
              * Set user access to controls
