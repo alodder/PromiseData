@@ -49,5 +49,7 @@
 
         [StringLength(255)]
         public string ReasonForleaving { get; set; }
+
+        public virtual ICollection<Classroom> Classrooms { get; set; }
     }
 }

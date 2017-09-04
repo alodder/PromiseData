@@ -66,10 +66,16 @@ namespace PromiseData.Models
                 .Property(e => e.upsize_ts)
                 .IsFixedLength();
 
+            modelBuilder.Entity<Classroom>()
+                .HasMany(e => e.Teachers)
+                .WithMany(e => e.Classrooms)
+                .Map(m => m.ToTable("TeacherClass").MapLeftKey("ClassID").MapRightKey("TeacherID"));
+
             modelBuilder.Entity<Code_AdditionalSupportTypes>()
                 .HasMany(e => e.Facilities)
                 .WithOptional(e => e.Code_AdditionalSupportTypes)
                 .HasForeignKey(e => e.AdditionalChildFamilySupports_ID);
+
 
             modelBuilder.Entity<Code_AddressType>()
                 .HasMany(e => e.Addresses)
