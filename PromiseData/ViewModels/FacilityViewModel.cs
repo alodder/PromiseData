@@ -90,6 +90,10 @@ namespace PromiseData.ViewModels
 
         public IEnumerable<FacilitySupport> Supports { get; set; }
 
+        public IEnumerable<FacilitySupport> SupportsList { get; set; }
+
+        public string[] SelectedSupports { get; set; }
+
         public IEnumerable<Classroom> Classrooms { get; set; }
     }
 }
