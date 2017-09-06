@@ -41,6 +41,9 @@ namespace PromiseData.Models
         [DisplayName("Fax")]
         public string AgentFax { get; set; }
 
+        [DisplayName("Institution")]
+        public int? InstitutionId { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Institution> Institutions { get; set; }
 
