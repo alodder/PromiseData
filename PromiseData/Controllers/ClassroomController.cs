@@ -19,13 +19,14 @@ namespace PromiseData.Controllers
 
         [Authorize]
         [HttpGet]
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
             var viewModel = new ClassroomViewModel
             {
                 Facilities = _context.Facilities,
                 SessionTypes = _context.Code_ProgramSessionType,
-                Services = _context.Services
+                Services = _context.Services,
+                Facility_ID = id
             };
             return View(viewModel);
         }

@@ -88,9 +88,11 @@ namespace PromiseData.ViewModels
         [DisplayName("Provider")]
         public Institution Provider { get; set; }
 
-        public IEnumerable<FacilitySupport> Supports { get; set; }
+        public IEnumerable<Code_AdditionalSupportTypes> Supports { get; set; }
 
-        public IEnumerable<FacilitySupport> SupportsList { get; set; }
+        public IEnumerable<Code_AdditionalSupportTypes> SupportsList { get; set; }
+
+        public string[] SupportsCodeList { get; set; }
 
         public string[] SelectedSupports { get; set; }
 

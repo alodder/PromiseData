@@ -61,6 +61,21 @@ namespace PromiseData.Controllers
                 SupportDictionary = SupportBoolDictionary,
                 ProviderId = id
             };
+
+            viewModel.SupportsList = _context.Code_AdditionalSupportTypes.ToList();
+
+            var facilitySupports = _context.FacilitySupports.Select(s => s.SupportTypesCode).ToList();
+            //viewModel.Supports = _context.Code_AdditionalSupportTypes.Where( support => facilitySupports.Contains( support.Code));
+
+            //viewModel.SupportsCodeList = new String[viewModel.Supports.ToArray().Length];
+
+            /*int i = 0;
+            foreach (FacilitySupport fSupport in viewModel.Supports)
+            {
+                viewModel.SupportsCodeList[i] = viewModel.Supports.Single(a => a.SupportTypesCode == role.RoleId).Name;
+                i++;
+            }*/
+
             return View("FacilityForm", viewModel);
         }
 
@@ -131,9 +146,10 @@ namespace PromiseData.Controllers
                 Description = facility.Description
             };
 
-            viewModel.Classrooms = _context.Classrooms.Where(c => c.ID == id).ToList();
+            viewModel.Classrooms = _context.Classrooms.Where(c => c.Facility_ID == id).ToList();
             viewModel.Provider = _context.Institutions.Single(i => i.Id == facility.ProviderID);
-            viewModel.Supports = _context.FacilitySupports.Where(s => s.FacilityID == facility.ID).ToList();
+            var facilitySupports = _context.FacilitySupports.Where(s=> s.FacilityID == id).Select(s => s.SupportTypesCode).ToList();
+            viewModel.Supports = _context.Code_AdditionalSupportTypes.Where(support => facilitySupports.Contains(support.Code)).ToList();
 
             /**
              * Set user access to controls
@@ -187,6 +203,14 @@ namespace PromiseData.Controllers
                 SupportTypes = _context.Code_AdditionalSupportTypes,
                 SupportDictionary = SupportBoolDictionary
             };
+
+            viewModel.SupportsList = _context.Code_AdditionalSupportTypes.ToList();
+
+            viewModel.Classrooms = _context.Classrooms.Where(c => c.ID == id).ToList();
+            viewModel.Provider = _context.Institutions.Single(i => i.Id == facility.ProviderID);
+
+            var facilitySupports = _context.FacilitySupports.Where(s => s.FacilityID == id).Select(s => s.SupportTypesCode).ToList();
+            viewModel.Supports = _context.Code_AdditionalSupportTypes.Where(support => facilitySupports.Contains(support.Code)).ToList();
 
             return View("FacilityForm", viewModel);
         }

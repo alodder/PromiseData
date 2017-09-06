@@ -41,24 +41,14 @@
 
     <hr />
     <ul class="list-group">
-        @foreach (var FacilitySupport in Model.Supports)
+        @foreach (var Support in Model.Supports)
         {
             <li class="list-group-item">
-                @FacilitySupport.SupportTypesCode
+                @Support.Description
             </li>
         }
     </ul>
     <hr />
-
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.AdditionalChildFamilySupports_ID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AdditionalChildFamilySupports_ID)
-        </dd>
-    </dl>
 
     <div class="panel panel-default">
         <div class="panel-heading">@Html.DisplayNameFor(model => model.MonitoringVisit1Date)</div>

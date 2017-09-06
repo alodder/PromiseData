@@ -9,7 +9,7 @@ namespace PromiseData.Models
     [Table("Classroom")]
     public partial class Classroom
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ID { get; set; }
 
         public int? Facility_ID { get; set; }

@@ -24,14 +24,15 @@
         </div>
 
         <fieldset class="row">
-            <div class="form-group col-md-4">
-                @Html.LabelFor(model => model.Program_ID, htmlAttributes: new { @class = "control-label col-md-6" })
-                <div class="col-md-6">
-                    @Html.DropDownListFor(model => model.Program_ID, new SelectList(Model.Services, "Code", "Description"), new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Program_ID, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
+            @*
+    <div class="form-group col-md-4">
+        @Html.LabelFor(model => model.Program_ID, htmlAttributes: new { @class = "control-label col-md-6" })
+        <div class="col-md-6">
+            @Html.DropDownListFor(model => model.Program_ID, new SelectList(Model.Services, "Code", "Description"), new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Program_ID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+            *@
             <div class="form-group col-md-4">
                 @Html.LabelFor(model => model.ProgramSessionType_ID, htmlAttributes: new { @class = "control-label col-md-6" })
                 <div class="col-md-6">

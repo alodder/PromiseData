@@ -89,10 +89,12 @@
             }
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Supports, "User Roles", new { @class = "col-md-2 control-label" })
+                @*
+    @Html.LabelFor(model => model.Supports, "Facility Supports", new { @class = "col-md-2 control-label" })
+                *@
                 <div class="col-md-10">
                     @Html.ListBoxFor(model => model.SelectedSupports,
-                                    new MultiSelectList(Model.SupportsList, "code", "Description", Model.Supports))
+                                    new MultiSelectList(Model.SupportsList, "Code", "Description", Model.Supports))
                 </div>
             </div>
         </div>
