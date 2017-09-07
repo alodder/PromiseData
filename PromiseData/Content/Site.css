@@ -58,3 +58,8 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
  .field-validation-valid {
      color: greenyellow;
  }
+
+.cell-url {
+    max-width: 12em;
+    word-wrap: break-word;
+}

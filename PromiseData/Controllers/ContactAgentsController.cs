@@ -39,10 +39,10 @@ namespace PromiseData.Controllers
         // GET: ContactAgents/Create
         public ActionResult Create(int? id)
         {
-            if (id == null)
+            /*if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            }*/
             ViewBag.InstitutionId = id;
             return View();
         }

@@ -290,13 +290,13 @@ namespace PromiseData.Controllers
 
             if (!String.IsNullOrWhiteSpace(query))
             {
+                var querylow = query.ToLower();
                 var blurb = viewModel.Institutions.Where(i => 
-                                            i.LegalName.Contains(query) ||
-                                            (i.BackboneOrg ?? "").Contains(query) ||
-                                            (i.Region ?? "").Contains(query) ||
-                                            (i.ContactAgent1.AgentName ?? "").Contains(query) ||
-                                            (i.Address.City ?? "").Contains(query) ||
-                                            (i.LicenseNumber).Contains(query));
+                                            (i.LegalName.ToLower() ?? "").Contains(querylow) ||
+                                            (i.BackboneOrg ?? "").Contains(querylow) ||
+                                            (i.Region ?? "").Contains(querylow) ||
+                                            (i.LicenseNumber ?? "").Contains(querylow)
+                                            );
                 
                 viewModel.Institutions = blurb.ToList();
             }

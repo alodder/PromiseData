@@ -68,6 +68,20 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.DirectorAgentId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DirectorAgent.AgentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactAgentId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ContactAgent.AgentName)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.ActiveDate)
         </dt>
 
@@ -113,90 +127,7 @@
         </div>
     </div>
 
-    <div class="col-lg-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                @Html.LabelFor(model => model.DirectorAgentId)
-            </div>
-            <dl class="panel-body dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => model.DirectorAgentId)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.DirectorAgent.AgentName)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.DirectorAgent.AgentTitle)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.DirectorAgent.AgentTitle)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.DirectorAgent.AgentEmail)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.DirectorAgent.AgentEmail)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.DirectorAgent.AgentPhone)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.DirectorAgent.AgentPhone)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.DirectorAgent.AgentFax)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.DirectorAgent.AgentFax)
-                </dd>
-            </dl>
-        </div>
-    </div>
-    <div class="col-lg-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">@Html.LabelFor(model => model.ContactAgent)</div>
-            <dl class="panel-body dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => model.ContactAgentId)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.ContactAgent.AgentName)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.ContactAgent.AgentTitle)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.ContactAgent.AgentTitle)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.ContactAgent.AgentEmail)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.ContactAgent.AgentEmail)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.ContactAgent.AgentPhone)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.ContactAgent.AgentPhone)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.ContactAgent.AgentFax)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.ContactAgent.AgentFax)
-                </dd>
-            </dl>
-        </div>
-    </div>
-
     <hr />
-    <p>
-        @if (Model.CanEdit)
-            {
-            @Html.ActionLink("Add Agent", "Create", "ContactAgents", new { id = Model.Id }, new { @class = "btn btn-success" })
-        }
-    </p>
 
     @*
         Table of Agents
@@ -205,64 +136,69 @@
     {
 
         <h3>@Model.LegalName Agents</h3>
-        <table class="table table-hover">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.DirectorAgent.AgentName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DirectorAgent.AgentTitle)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DirectorAgent.AgentEmail)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DirectorAgent.AgentPhone)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DirectorAgent.AgentFax)
-                </th>
-
-                <th>
-
-                </th>
-                <th>
-
-                </th>
-                <th>
-
-                </th>
-            </tr>
-
-            @foreach (var agent in Model.Agents)
+        <p>
+            @if (Model.CanEdit)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => agent.AgentName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => agent.AgentTitle)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => agent.AgentEmail)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => agent.AgentPhone)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => agent.AgentFax)
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |*@
-                        @Html.ActionLink("Details", "Details", "ContactAgents", new { id = agent.AgentId }, null)
-                        @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
-                    </td>
-                </tr>
+                @Html.ActionLink("Add Agent", "Create", "ContactAgents", new { id = Model.Id }, new { @class = "btn btn-success" })
+            }
+        </p>
+
+
+        foreach (var agent in Model.Agents)
+        {
+
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">@Html.DisplayFor(modelItem => agent.AgentTitle)</div>
+                        <dl class="panel-body dl-horizontal">
+                            <dt>
+                                @Html.DisplayNameFor(modelItem => agent.AgentName)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(modelItem => agent.AgentName)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(modelItem => agent.AgentTitle)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(modelItem => agent.AgentTitle)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(modelItem => agent.AgentEmail)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(modelItem => agent.AgentEmail)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(odelItem => agent.AgentPhone)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(odelItem => agent.AgentPhone)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(odelItem => agent.AgentFax)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(modelItem => agent.AgentFax)
+                            </dd>
+                        </dl>
+                        <p class="text-right">
+                            @if (Model.CanEdit)
+                            {
+                                @Html.ActionLink("Edit", "Edit", "ContactAgents", new { id = agent.AgentId }, null)
+                                @Html.Raw(" | ")
+                                @Html.ActionLink("Details", "Details", "ContactAgents", new { id = agent.AgentId }, null)
+                                @Html.Raw(" | ")
+                                @Html.ActionLink("Delete", "Delete", "ContactAgents", new { id = agent.AgentId }, null)
+                            }
+                        </p>
+                    </div>
+                </div>
+
+                    
+
             }
 
-        </table>
     }
 </div>
 
@@ -339,7 +275,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.BackboneOrg)
                 </td>
-                <td>
+                <td class="cell-url">
                     @Html.DisplayFor(modelItem => item.WebAddress)
                 </td>
                 <td>
