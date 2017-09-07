@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using PromiseData.Models;
 using PromiseData.ViewModels;
+using System.Net;
 
 namespace PromiseData.Controllers
 {
@@ -72,16 +73,33 @@ namespace PromiseData.Controllers
         }
 
         [Authorize]
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             var child = _context.Children.Single(a => a.ID == id);
+            if (child == null)
+            {
+                return HttpNotFound();
+            }
+            
             return View(child);
         }
 
         [Authorize]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             var child = _context.Children.Single(a => a.ID == id);
+            if (child == null)
+            {
+                return HttpNotFound();
+            }
             return View(child);
         }
 
@@ -99,7 +117,15 @@ namespace PromiseData.Controllers
         [HttpGet]
         public ActionResult LangRace(int id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             var child = _context.Children.Single(a => a.ID == id);
+            if (child == null)
+            {
+                return HttpNotFound();
+            }
             var viewModel = new ChildFormViewModel
             {
                 ID = id,

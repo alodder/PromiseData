@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PromiseData.ViewModels;
+using System.Net;
 
 namespace PromiseData.Controllers
 {
@@ -19,14 +20,24 @@ namespace PromiseData.Controllers
 
         [Authorize]
         [HttpGet]
-        public ActionResult Create(int id)
+        public ActionResult Create(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var classroom = _context.Classrooms.Single(a => a.ID == id);
+            if (classroom == null)
+            {
+                return HttpNotFound();
+            }
+
             var viewModel = new ClassroomViewModel
             {
                 Facilities = _context.Facilities,
                 SessionTypes = _context.Code_ProgramSessionType,
                 Services = _context.Services,
-                Facility_ID = id
+                Facility_ID = classroom.ID
             };
             return View(viewModel);
         }

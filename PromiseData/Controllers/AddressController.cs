@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using PromiseData.Models;
 using PromiseData.ViewModels;
+using System.Net;
 
 namespace PromiseData.Controllers
 {
@@ -62,16 +63,32 @@ namespace PromiseData.Controllers
         }
 
         [Authorize]
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             var address = _context.Addresses.Single(a => a.ID == id);
+            if (address == null)
+            {
+                return HttpNotFound();
+            }
             return View( address);
         }
 
         [Authorize]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             var address = _context.Addresses.Single(a => a.ID == id);
+            if (address == null)
+            {
+                return HttpNotFound();
+            }
             var viewModel = new AddressViewModel
             {
                 AddressType_ID = (int)address.AddressType_ID,

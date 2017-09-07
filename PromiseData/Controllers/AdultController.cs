@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using PromiseData.Models;
 using PromiseData.ViewModels;
+using System.Net;
 
 namespace PromiseData.Controllers
 {
@@ -82,16 +83,32 @@ namespace PromiseData.Controllers
         }
 
         [Authorize]
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             var adult = _context.Adults.Single(a => a.ID == id);
+            if (adult == null)
+            {
+                return HttpNotFound();
+            }
             return View(adult);
         }
 
         [Authorize]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             var adult = _context.Adults.Single(a => a.ID == id);
+            if (adult == null)
+            {
+                return HttpNotFound();
+            }
             return View( adult);
         }
 
@@ -107,12 +124,21 @@ namespace PromiseData.Controllers
         }
 
         [HttpGet]
-        public ActionResult LangRace(int id)
+        public ActionResult LangRace(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             var adult = _context.Adults.Single(a => a.ID == id);
+            if (adult == null)
+            {
+                return HttpNotFound();
+            }
+
             var viewModel = new AdultFormViewModel
             {
-                id = id,
+                id = adult.ID,
                 NameFirst = "Anon",
                 NameLast = "Jones",
                 RaceEthnicityList = _context.RaceEthnic.ToList(),
