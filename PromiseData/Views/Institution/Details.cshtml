@@ -22,6 +22,15 @@
         </div>
     </h4>
     <hr />
+    <p>
+        @if (@Model.CanEdit)
+        {
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id });
+        }
+        |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.LicenseNumber)
@@ -57,7 +66,52 @@
         <dd>
             @Html.DisplayFor(model => model.WebAddress)
         </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActiveDate)
+        </dt>
+
+        <dd>
+            @Model.ActiveDate.ToShortDateString()
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+
     </dl>
+
+    <div class="col-md-6 ">
+        <div class="panel panel-default">
+            <div class="panel-heading">@Html.LabelFor(model => model.LocationAddressId)</div>
+            <div class="panel-body">
+                @Html.DisplayFor(model => model.AddressPhysical.Address1)<br />
+                @Html.DisplayFor(model => model.AddressPhysical.Address2)<br />
+                @Html.DisplayFor(model => model.AddressPhysical.Address3)<br />
+                @Html.DisplayFor(model => model.AddressPhysical.City)
+                @Html.DisplayFor(model => model.AddressPhysical.LU_State.Abbreviation)<br />
+                @Html.DisplayFor(model => model.AddressPhysical.ZipCode)<br />
+                @Html.DisplayFor(model => model.AddressPhysical.County)
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 ">
+        <div class="panel panel-default">
+            <div class="panel-heading">@Html.LabelFor(model => model.MailingAddressId)</div>
+            <div class="panel-body">
+                @Html.DisplayFor(model => model.AddressMail.Address1)<br />
+                @Html.DisplayFor(model => model.AddressMail.Address2)<br />
+                @Html.DisplayFor(model => model.AddressMail.Address3)<br />
+                @Html.DisplayFor(model => model.AddressMail.City)
+                @Html.DisplayFor(model => model.AddressMail.LU_State.Abbreviation)<br />
+                @Html.DisplayFor(model => model.AddressMail.ZipCode)<br />
+                @Html.DisplayFor(model => model.AddressMail.County)
+            </div>
+        </div>
+    </div>
 
     <div class="col-lg-6">
         <div class="panel panel-default">
@@ -135,58 +189,82 @@
             </dl>
         </div>
     </div>
-    <div class="col-md-6 ">
-        <div class="panel panel-default">
-            <div class="panel-heading">@Html.LabelFor(model => model.LocationAddressId)</div>
-            <div class="panel-body">
-                @Html.DisplayFor(model => model.AddressPhysical.Address1)<br />
-                @Html.DisplayFor(model => model.AddressPhysical.Address2)<br />
-                @Html.DisplayFor(model => model.AddressPhysical.Address3)<br />
-                @Html.DisplayFor(model => model.AddressPhysical.City)
-                @Html.DisplayFor(model => model.AddressPhysical.LU_State.Abbreviation)<br />
-                @Html.DisplayFor(model => model.AddressPhysical.ZipCode)<br />
-                @Html.DisplayFor(model => model.AddressPhysical.County)
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6 ">
-        <div class="panel panel-default">
-            <div class="panel-heading">@Html.LabelFor(model => model.MailingAddressId)</div>
-            <div class="panel-body">
-                @Html.DisplayFor(model => model.AddressMail.Address1)<br />
-                @Html.DisplayFor(model => model.AddressMail.Address2)<br />
-                @Html.DisplayFor(model => model.AddressMail.Address3)<br />
-                @Html.DisplayFor(model => model.AddressMail.City)
-                @Html.DisplayFor(model => model.AddressMail.LU_State.Abbreviation)<br />
-                @Html.DisplayFor(model => model.AddressMail.ZipCode)<br />
-                @Html.DisplayFor(model => model.AddressMail.County)
-            </div>
-        </div>
-    </div>
-    <div>
-        <div>
-            @Html.DisplayNameFor(model => model.ActiveDate)
-        </div>
 
-        <div>
-            @Model.ActiveDate.ToShortDateString()
-        </div>
-        <div>
-            @Html.DisplayNameFor(model => model.EndDate)
-        </div>
+    <hr />
+    <p>
+        @if (Model.CanEdit)
+            {
+            @Html.ActionLink("Add Agent", "Create", "ContactAgents", new { id = Model.Id }, new { @class = "btn btn-success" })
+        }
+    </p>
 
-        <div>
-            @Html.DisplayFor(model => model.EndDate)
-        </div>
-    </div>
-</div>
-<p>
-    @if (@Model.CanEdit) {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id });
+    @*
+        Table of Agents
+    *@
+    @if (Model.Agents != null)
+    {
+
+        <h3>@Model.LegalName Agents</h3>
+        <table class="table table-hover">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.DirectorAgent.AgentName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DirectorAgent.AgentTitle)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DirectorAgent.AgentEmail)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DirectorAgent.AgentPhone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DirectorAgent.AgentFax)
+                </th>
+
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
+            </tr>
+
+            @foreach (var agent in Model.Agents)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => agent.AgentName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => agent.AgentTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => agent.AgentEmail)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => agent.AgentPhone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => agent.AgentFax)
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |*@
+                        @Html.ActionLink("Details", "Details", "ContactAgents", new { id = agent.AgentId }, null)
+                        @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+                    </td>
+                </tr>
+            }
+
+        </table>
     }
-     |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+</div>
 
 
 @*

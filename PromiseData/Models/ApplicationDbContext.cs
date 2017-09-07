@@ -151,6 +151,11 @@ namespace PromiseData.Models
                 .WithOptional(e => e.ContactAgent1)
                 .HasForeignKey(e => e.DirectorAgentId);
 
+            modelBuilder.Entity<Institution>()
+                .HasMany(e => e.ContactAgents)
+                .WithOptional(e => e.Institution)
+                .HasForeignKey(e => e.InstitutionId);
+
             base.OnModelCreating(modelBuilder);
         }
 

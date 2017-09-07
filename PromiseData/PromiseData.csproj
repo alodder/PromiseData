@@ -193,6 +193,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AddressController.cs" />
+    <Compile Include="Controllers\ContactAgentsController.cs" />
     <Compile Include="Controllers\FacilityController.cs" />
     <Compile Include="Controllers\FamilyController.cs" />
     <Compile Include="Controllers\InstitutionController.cs" />
@@ -380,6 +381,11 @@
     <Content Include="Views\User\ChangePassword.cshtml" />
     <Content Include="Views\User\Details.cshtml" />
     <Content Include="Views\User\Delete.cshtml" />
+    <Content Include="Views\ContactAgents\Create.cshtml" />
+    <Content Include="Views\ContactAgents\Delete.cshtml" />
+    <Content Include="Views\ContactAgents\Details.cshtml" />
+    <Content Include="Views\ContactAgents\Edit.cshtml" />
+    <Content Include="Views\ContactAgents\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

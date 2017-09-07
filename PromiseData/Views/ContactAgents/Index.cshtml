@@ -1,0 +1,63 @@
+﻿@model IEnumerable<PromiseData.Models.ContactAgent>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Institution.LegalName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AgentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AgentTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AgentPhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AgentEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AgentFax)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Institution.LegalName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AgentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AgentTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AgentPhone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AgentEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AgentFax)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AgentId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.AgentId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AgentId })
+        </td>
+    </tr>
+}
+
+</table>

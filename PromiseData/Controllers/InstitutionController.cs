@@ -240,6 +240,7 @@ namespace PromiseData.Controllers
             viewModel.ContactAgent = _context.ContactAgents.SingleOrDefault(d => d.AgentId == institution.ContactAgentId);
             viewModel.AddressPhysical = _context.Addresses.SingleOrDefault(d => d.ID == institution.LocationAddressId);
             viewModel.AddressMail = _context.Addresses.SingleOrDefault(d => d.ID == institution.MailingAddressId);
+            viewModel.Agents = _context.ContactAgents.Where(a => a.InstitutionId == id).ToList();
 
             viewModel.Id = institution.Id;
             viewModel.LicenseNumber = institution.LicenseNumber;
