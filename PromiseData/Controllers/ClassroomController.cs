@@ -26,8 +26,8 @@ namespace PromiseData.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var classroom = _context.Classrooms.Single(a => a.ID == id);
-            if (classroom == null)
+            var facility = _context.Facilities.Single(a => a.ID == id);
+            if (facility == null)
             {
                 return HttpNotFound();
             }
@@ -37,7 +37,7 @@ namespace PromiseData.Controllers
                 Facilities = _context.Facilities,
                 SessionTypes = _context.Code_ProgramSessionType,
                 Services = _context.Services,
-                Facility_ID = classroom.ID
+                Facility_ID = facility.ID
             };
             return View(viewModel);
         }
@@ -69,7 +69,8 @@ namespace PromiseData.Controllers
                 CLASSScore_EmotionalSupport = viewModel.CLASSScore_EmotionalSupport,
                 CLASSScore_ClassroomOrganization = viewModel.CLASSScore_ClassroomOrganization,
                 CLASSScore_InstructionalSupport = viewModel.CLASSScore_InstructionalSupport,
-                upsize_ts = viewModel.upsize_ts
+                upsize_ts = viewModel.upsize_ts,
+                Description = viewModel.Description
             };
 
             _context.Classrooms.Add(classroom);
@@ -105,7 +106,8 @@ namespace PromiseData.Controllers
                 CLASSScore_EmotionalSupport = classroom.CLASSScore_EmotionalSupport,
                 CLASSScore_ClassroomOrganization = classroom.CLASSScore_ClassroomOrganization,
                 CLASSScore_InstructionalSupport = classroom.CLASSScore_InstructionalSupport,
-                upsize_ts = classroom.upsize_ts
+                upsize_ts = classroom.upsize_ts,
+                Description = classroom.Description
             };
             return View( viewModel);
         }

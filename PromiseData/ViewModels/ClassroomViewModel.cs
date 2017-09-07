@@ -59,6 +59,9 @@ namespace PromiseData.ViewModels
         [DisplayName("Upsize")]
         public byte[] upsize_ts { get; set; }
 
+        [DisplayName("Descriptor")]
+        public string Description { get; set; }
+
         public IEnumerable<Facility> Facilities { get; set; }
 
         public IEnumerable<Code_ProgramSessionType> SessionTypes { get; set; }

@@ -48,6 +48,8 @@ namespace PromiseData.Models
         [MaxLength(8)]
         public byte[] upsize_ts { get; set; }
 
+        public string Description { get; set; }
+
         public virtual Code_ProgramSessionType Code_ProgramSessionType { get; set; }
 
         public virtual Facility Facility { get; set; }

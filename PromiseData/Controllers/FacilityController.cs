@@ -147,7 +147,7 @@ namespace PromiseData.Controllers
             };
 
             viewModel.Classrooms = _context.Classrooms.Where(c => c.Facility_ID == id).ToList();
-            viewModel.Provider = _context.Institutions.Single(i => i.Id == facility.ProviderID);
+            viewModel.Provider = _context.Institutions.SingleOrDefault(i => i.Id == facility.ProviderID);
             var facilitySupports = _context.FacilitySupports.Where(s=> s.FacilityID == id).Select(s => s.SupportTypesCode).ToList();
             viewModel.Supports = _context.Code_AdditionalSupportTypes.Where(support => facilitySupports.Contains(support.Code)).ToList();
 
@@ -207,10 +207,15 @@ namespace PromiseData.Controllers
             viewModel.SupportsList = _context.Code_AdditionalSupportTypes.ToList();
 
             viewModel.Classrooms = _context.Classrooms.Where(c => c.ID == id).ToList();
-            viewModel.Provider = _context.Institutions.Single(i => i.Id == facility.ProviderID);
+            viewModel.Provider = _context.Institutions.SingleOrDefault(i => i.Id == facility.ProviderID);
 
             var facilitySupports = _context.FacilitySupports.Where(s => s.FacilityID == id).Select(s => s.SupportTypesCode).ToList();
             viewModel.Supports = _context.Code_AdditionalSupportTypes.Where(support => facilitySupports.Contains(support.Code)).ToList();
+
+            foreach( Code_AdditionalSupportTypes support in viewModel.Supports)
+            {
+                viewModel.SupportDictionary[support.Code] = true;
+            }
 
             return View("FacilityForm", viewModel);
         }

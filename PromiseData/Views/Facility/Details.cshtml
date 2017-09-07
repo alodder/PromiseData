@@ -40,6 +40,18 @@
     </ul>
 
     <hr />
+    <h4>@Html.DisplayNameFor(model => model.AdditionalChildFamilySupports_ID)</h4>
+    <ul class="list-group">
+        @foreach (var Support in Model.Supports)
+        {
+            <li class="list-group-item">
+                @Support.Description
+            </li>
+        }
+    </ul>
+    <hr />
+
+    <h4>Site Waivers</h4>
     <ul class="list-group">
         @foreach (var Support in Model.Supports)
         {
