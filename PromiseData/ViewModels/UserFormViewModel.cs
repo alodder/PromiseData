@@ -6,11 +6,17 @@ using System.Web.Mvc;
 using PromiseData.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 namespace PromiseData.ViewModels
 {
     public class UserFormViewModel
     {
+
+        public Boolean CanView { get; set; }
+
+        public Boolean CanEdit { get; set; }
+
         public ApplicationUser User { get; set; }
 
         public Institution Institution { get; set; }
@@ -20,6 +26,7 @@ namespace PromiseData.ViewModels
         [Key]
         public String UserId { get; set; }
 
+        [DisplayName("Institution")]
         public String InstitutionId { get; set; }
 
         public string[] ListInstitutionNames { get; set; }

@@ -9,63 +9,63 @@
 <h3>@Model.UserName</h3>
 
 <hr />
-<div class="">
-    <div class="col-md-5 panel panel-default">
-        <h4>User:</h4>
+<div class="panel panel-default">
+    <div class="panel-heading">User login: @Model.UserName</div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt>@Html.DisplayNameFor(m => m.UserId):</dt>
+            <dd>@Html.DisplayFor(m => m.UserId)</dd>
 
-        <div>
-            @Html.DisplayNameFor(m => m.UserId):
-            @Html.DisplayFor(m => m.UserId)
-        </div>
-        <div>
-            @Html.DisplayNameFor(m => m.User.Name):
-            @Html.DisplayFor(m => m.User.Name)
-        </div>
-        <div>
-            @Html.DisplayNameFor(m => m.User.Email):
-            @Html.DisplayFor(m => m.User.Email)
-        </div>
-        <div>
-            @Html.DisplayNameFor(m => m.User.PhoneNumber):
-            @Html.DisplayFor(m => m.User.PhoneNumber)
-        </div>
-    </div>
-    <div class="col-md-offset-1 col-md-6 panel panel-default">
+            <dt>@Html.DisplayNameFor(m => m.User.Name):</dt>
+            <dd>@Html.DisplayFor(m => m.User.Name)</dd>
 
-        @Html.DisplayNameFor(m => m.Institution.LegalName):
-        @Html.DisplayFor(m => m.Institution.LegalName)
-        @if (Model.Institution.isHub)
-        {
-            <div class="label label-warning">
-                @Html.DisplayNameFor(m => m.Institution.isHub)
-            </div>
-        }
-        @if (Model.Institution.isProvider)
-        {
-            <div class="label label-info">
-                @Html.DisplayNameFor(m => m.Institution.isProvider)
-            </div>
-        }
-        <div>
-            @Html.DisplayFor(m => m.Institution.Address.County)
-        </div>
-        <div>
-            @Html.DisplayFor(m => m.Institution.Address.City),
-            @Html.DisplayFor(m => m.Institution.Address.LU_State.Abbreviation)
-        </div>
+            <dt>@Html.DisplayNameFor(m => m.User.Email):</dt>
+            <dd>@Html.DisplayFor(m => m.User.Email)</dd>
 
-        <div class="list-group">
-            <div class="list-group-item active">
-                User Roles:
-            </div>
-            @foreach (var roll in Model.CurrentRoles)
+            <dt>@Html.DisplayNameFor(m => m.User.PhoneNumber):</dt>
+            <dd>@Html.DisplayFor(m => m.User.PhoneNumber)</dd>
+
+            <dt>@Html.DisplayNameFor(m => m.InstitutionId)</dt>
+            <dd>@Html.DisplayFor(m => m.Institution.LegalName)
+            @if (Model.Institution.isHub)
             {
-                <div class="list-group-item">
-                    @Model.Roles.Single(m => m.Id == roll.RoleId).Name
+                <div class="label label-warning">
+                    @Html.DisplayNameFor(m => m.Institution.isHub)
                 </div>
             }
-        </div>
+            @if (Model.Institution.isProvider)
+            {
+                <div class="label label-info">
+                    @Html.DisplayNameFor(m => m.Institution.isProvider)
+                </div>
+            }</dd>
+        </dl>
+
+        <h4>User Roles:</h4>
+        <ul class="list-group">
+            @foreach (var roll in Model.CurrentRoles)
+            {
+                <li class="list-group-item">
+                    @Model.Roles.Single(m => m.Id == roll.RoleId).Name
+                </li>
+            }
+        </ul>
+
     </div>
+    @if (Model.CanEdit)
+    {
+        <div class="panel-footer">
+            <div class="text-right">
+                @Html.ActionLink("Edit", "Edit", "User", new { id = Model.UserId }, null)
+                @Html.Raw(" | ")
+                @Html.ActionLink("Assign Roles", "AssignRole", "User", new { id = Model.UserId }, null)
+                @Html.Raw(" | ")
+                @Html.ActionLink("Change Password", "ChangePassword", "User", new { id = Model.UserId }, null)
+            </div>
+            <div class="text-left">@Html.ActionLink("Back to List", "Index")</div>
+        </div>
+    }
+    
 </div>
 
 

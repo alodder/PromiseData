@@ -81,6 +81,12 @@ namespace PromiseData.Controllers
                 userViewModel.Institution = App_context.Institutions.Single(a => a.Id == institutionId);
             }
 
+            if (User.IsInRole("Administrator") || User.IsInRole("System Administrator"))
+            {
+                userViewModel.CanView = true;
+                userViewModel.CanEdit = true;
+            }
+
             userViewModel.User = user;
             userViewModel.UserName = user.UserName;
             userViewModel.UserId = user.Id;
