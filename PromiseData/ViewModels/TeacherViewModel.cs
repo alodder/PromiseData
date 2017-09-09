@@ -17,10 +17,12 @@ namespace PromiseData.ViewModels
 
         [DisplayName("Classroom")]
         public int ClassroomId { get; set; }   //? Classroom w/PP Students 1: Teacher ID Number
+
         public IEnumerable<Classroom> Classrooms { get; set; }
 
         [DisplayName("Teacher Role")]
         public String TeacherType { get; set; }
+
         public IEnumerable<String> TeacherTypes { get; set; }
 
         [DisplayName("Birthday")]
@@ -28,10 +30,11 @@ namespace PromiseData.ViewModels
 
         [DisplayName("Teacher Sex")]
         public int GenderId { get; set; }
+
         public IEnumerable<Code_Gender> Genders { get; set; }
 
         [DisplayName("Teacher Race/Ethnicity")]
-        public int RaceEthnicityIdentity { get; set; }
+        public int? RaceEthnicityIdentity { get; set; }
 
         public IEnumerable<RaceEthnicity> RaceEthnicityList { get; set; }
 
@@ -65,6 +68,7 @@ namespace PromiseData.ViewModels
 
         [DisplayName("Degree Field")]
         public String DegreeField { get; set; }
+
         [DisplayName("Other")]
         public String OtherField { get; set; }
 
@@ -76,9 +80,15 @@ namespace PromiseData.ViewModels
 
         [DisplayName("End Date")]
         [DataType(DataType.Date)]
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         [DisplayName("Reason for Leaving")]
         public String ReasonForLeaving { get; set; }
+
+        [DisplayName("Last Name")]
+        public String NameLast { get; set; }
+
+        [DisplayName("First Name")]
+        public String NameFirst { get; set; }
     }
 }

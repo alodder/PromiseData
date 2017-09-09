@@ -148,6 +148,76 @@
 
     </dl>
 </div>
+
+@*
+    Table of Teachers
+*@
+@if (Model.TeacherClasses != null)
+{
+
+    <h3>@Model.Description Teachers</h3>
+        <p>
+            @Html.ActionLink("Add Teacher", "Create", "Teacher", new { id = Model.ID }, new { @class = "btn btn-success" })
+        </p>
+
+
+    foreach (var teacherclass in Model.TeacherClasses)
+    {
+
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">@Html.DisplayFor(modelItem => teacherclass.Teacher.EndDate)</div>
+                <dl class="panel-body dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(modelItem => teacherclass.Teacher.NameFirst)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(modelItem => teacherclass.Teacher.NameFirst)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(modelItem => teacherclass.Teacher.NameLast)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(modelItem => teacherclass.Teacher.NameLast)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(modelItem => teacherclass.Teacher.TeacherType)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(modelItem => teacherclass.Teacher.TeacherType)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(modelItem => teacherclass.Teacher.TeacherIDNumber)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(modelItem => teacherclass.Teacher.TeacherIDNumber)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(modelItem => teacherclass.Teacher.StartDate)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(modelItem => teacherclass.Teacher.StartDate)
+                    </dd>
+                </dl>
+                @*<p class="text-right">
+        @if (Model.CanEdit)
+        {
+            @Html.ActionLink("Edit", "Edit", "ContactAgents", new { id = agent.AgentId }, null)
+            @Html.Raw(" | ")
+            @Html.ActionLink("Details", "Details", "ContactAgents", new { id = agent.AgentId }, null)
+            @Html.Raw(" | ")
+            @Html.ActionLink("Delete", "Delete", "ContactAgents", new { id = agent.AgentId }, null)
+        }
+    </p>*@
+            </div>
+        </div>
+
+
+
+    }
+
+}
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")

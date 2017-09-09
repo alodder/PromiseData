@@ -50,6 +50,12 @@
         [StringLength(255)]
         public string ReasonForleaving { get; set; }
 
-        public virtual ICollection<Classroom> Classrooms { get; set; }
+        [StringLength(50)]
+        public string NameFirst { get; set; }
+
+        [StringLength(50)]
+        public string NameLast { get; set; }
+
+        public virtual ICollection<TeacherClass> TeacherClasses { get; set; }
     }
 }

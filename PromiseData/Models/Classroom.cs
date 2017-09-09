@@ -56,6 +56,6 @@ namespace PromiseData.Models
 
         public virtual Service Service { get; set; }
 
-        public virtual ICollection<Teacher> Teachers { get; set; }
+        public virtual ICollection<TeacherClass> TeacherClasses { get; set; }
     }
 }

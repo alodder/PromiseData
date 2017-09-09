@@ -33,7 +33,7 @@ namespace PromiseData.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
             var viewModel = new TeacherViewModel
             {
@@ -56,9 +56,13 @@ namespace PromiseData.Controllers
             if (!ModelState.IsValid)
             {
                 viewModel.Genders = _context.CodeGender.ToList();
+                viewModel.RaceEthnicityList = _context.RaceEthnic.ToList();
                 viewModel.EducationTypes = _context.Code_Education.ToList();
                 viewModel.Classrooms = _context.Classrooms;
                 viewModel.TeacherTypes = types;
+                viewModel.Languages = _context.CodeLanguage.ToList();
+                viewModel.ClassroomLanguages = LangBoolDictionary;
+                viewModel.FluentLanguages = LangBoolDictionary;
                 return View("Create", viewModel);
             }
 
@@ -80,7 +84,9 @@ namespace PromiseData.Controllers
                 EndDate = viewModel.EndDate,
                 ReasonForleaving = viewModel.ReasonForLeaving,
                 TeacherRaceEthnicity = viewModel.RaceEthnicityIdentity,
-                Gender_ID = viewModel.GenderId
+                Gender_ID = viewModel.GenderId,
+                NameLast = viewModel.NameLast,
+                NameFirst = viewModel.NameFirst
             };
 
             if (viewModel.DegreeField.Equals("Other"))
@@ -88,11 +94,18 @@ namespace PromiseData.Controllers
 
             _context.Teachers.Add( teacher);
 
+            //SaveChanges() to set teacher.Id
+            _context.SaveChanges();
+
+            /*var classroom = _context.Classrooms.SingleOrDefault(c => c.ID == viewModel.ClassroomId);
+            if(classroom != null)
+                teacher.Classrooms.Add( classroom);*/
+
             //Associate teacher and Classroom in TeacherClass table - many to many?
             var teacherClass = new TeacherClass
             {
-                TeacherID = viewModel.Id,
-                ClassID = viewModel.ClassroomId
+                TeacherID = teacher.ID,
+                ClassroomID = viewModel.ClassroomId
             };
             _context.TeacherClasses.Add(teacherClass);
 
@@ -102,7 +115,7 @@ namespace PromiseData.Controllers
                 if (viewModel.ClassroomLanguages[languageId])
                     _context.TeacherLanguageClassrooms.Add(new TeacherLanguageClassroom
                     {
-                        TeacherID = viewModel.Id,
+                        TeacherID = teacher.ID,
                         LanguageID = languageId
                     });
             }
@@ -113,7 +126,7 @@ namespace PromiseData.Controllers
                 if (viewModel.FluentLanguages[languageId])
                     _context.TeacherLanguageFluencies.Add(new TeacherLanguageFluency
                     {
-                        TeacherID = viewModel.Id,
+                        TeacherID = teacher.ID,
                         LanguageCode = languageId
                     });
             }

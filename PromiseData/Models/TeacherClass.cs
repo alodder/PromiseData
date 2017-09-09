@@ -17,6 +17,10 @@ namespace PromiseData.Models
         [Key]
         [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int ClassID { get; set; }
+        public int ClassroomID { get; set; }
+
+        public virtual Teacher Teacher { get; set; }
+
+        public virtual Classroom Classroom { get; set; }
     }
 }

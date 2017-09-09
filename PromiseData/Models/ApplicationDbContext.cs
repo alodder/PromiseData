@@ -71,6 +71,22 @@ namespace PromiseData.Models
                 .WithMany(e => e.Classrooms)
                 .Map(m => m.ToTable("TeacherClass").MapLeftKey("ClassID").MapRightKey("TeacherID"));*/
 
+            /*-------------------------------------------------------*/
+            modelBuilder.Entity<TeacherClass>()
+                .HasKey(t => new { t.TeacherID, t.ClassroomID });
+
+            modelBuilder.Entity<Teacher>()
+                .HasMany(c => c.TeacherClasses)
+                .WithRequired()
+                .HasForeignKey(c => c.TeacherID);
+
+            modelBuilder.Entity<Classroom>()
+                .HasMany(c => c.TeacherClasses)
+                .WithRequired()
+                .HasForeignKey(c => c.ClassroomID);
+
+            /*------------------------------------------------------*/
+
             modelBuilder.Entity<Code_AdditionalSupportTypes>()
                 .HasMany(e => e.Facilities)
                 .WithOptional(e => e.Code_AdditionalSupportTypes)
