@@ -79,6 +79,7 @@ namespace PromiseData.Controllers
                 int institutionId;
                 int.TryParse(claim.ClaimValue, out institutionId);
                 userViewModel.Institution = App_context.Institutions.Single(a => a.Id == institutionId);
+                userViewModel.InstitutionId = institutionId.ToString();
             }
 
             if (User.IsInRole("Administrator") || User.IsInRole("System Administrator"))
@@ -90,7 +91,6 @@ namespace PromiseData.Controllers
             userViewModel.User = user;
             userViewModel.UserName = user.UserName;
             userViewModel.UserId = user.Id;
-            userViewModel.InstitutionId = userViewModel.Institution.Id.ToString();
             userViewModel.CurrentRoles = user.Roles;
             userViewModel.Roles = _context.Roles.ToList();
 

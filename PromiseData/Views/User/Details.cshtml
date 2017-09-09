@@ -24,21 +24,25 @@
 
             <dt>@Html.DisplayNameFor(m => m.User.PhoneNumber):</dt>
             <dd>@Html.DisplayFor(m => m.User.PhoneNumber)</dd>
-
-            <dt>@Html.DisplayNameFor(m => m.InstitutionId)</dt>
-            <dd>@Html.DisplayFor(m => m.Institution.LegalName)
-            @if (Model.Institution.isHub)
+            @if (Model.Institution != null)
             {
-                <div class="label label-warning">
-                    @Html.DisplayNameFor(m => m.Institution.isHub)
-                </div>
+                <dt>@Html.DisplayNameFor(m => m.InstitutionId)</dt>
+                <dd>
+                    @Html.DisplayFor(m => m.Institution.LegalName)
+                @if (Model.Institution.isHub)
+                {
+                    <div class="label label-warning">
+                        @Html.DisplayNameFor(m => m.Institution.isHub)
+                    </div>
+                }
+                @if (Model.Institution.isProvider)
+                {
+                    <div class="label label-info">
+                        @Html.DisplayNameFor(m => m.Institution.isProvider)
+                    </div>
+                }
+                </dd>
             }
-            @if (Model.Institution.isProvider)
-            {
-                <div class="label label-info">
-                    @Html.DisplayNameFor(m => m.Institution.isProvider)
-                </div>
-            }</dd>
         </dl>
 
         <h4>User Roles:</h4>
