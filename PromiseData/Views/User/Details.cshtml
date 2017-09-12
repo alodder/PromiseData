@@ -29,16 +29,16 @@
                 <dt>@Html.DisplayNameFor(m => m.InstitutionId)</dt>
                 <dd>
                     @Html.DisplayFor(m => m.Institution.LegalName)
-                @if (Model.Institution.isHub)
+                @if (Model.Institution.IsHub)
                 {
                     <div class="label label-warning">
-                        @Html.DisplayNameFor(m => m.Institution.isHub)
+                        @Html.DisplayNameFor(m => m.Institution.IsHub)
                     </div>
                 }
-                @if (Model.Institution.isProvider)
+                @if (Model.Institution.IsProvider)
                 {
                     <div class="label label-info">
-                        @Html.DisplayNameFor(m => m.Institution.isProvider)
+                        @Html.DisplayNameFor(m => m.Institution.IsProvider)
                     </div>
                 }
                 </dd>

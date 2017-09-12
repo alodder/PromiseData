@@ -165,7 +165,7 @@ namespace PromiseData.Controllers
 
             if (User.IsInRole("Hub") 
                 && ( identity.Claims.Any(
-                    t => t.Type == "Institution" && t.Value == viewModel.Provider.parentHubId.ToString())))
+                    t => t.Type == "Institution" && t.Value == viewModel.Provider.ParentHubId.ToString())))
             {
                 viewModel.CanEdit = true;
                 viewModel.CanView = true;

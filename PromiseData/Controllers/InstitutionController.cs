@@ -64,8 +64,8 @@ namespace PromiseData.Controllers
                 WebAddress = viewModel.WebAddress,
                 ActiveDate = viewModel.ActiveDate,
                 EndDate = viewModel.EndDate,
-                isHub = viewModel.isHub,
-                isProvider = viewModel.isProvider
+                IsHub = viewModel.IsHub,
+                IsProvider = viewModel.IsProvider
             };
 
             if (viewModel.ContactAgent.AgentId != 0)
@@ -112,8 +112,8 @@ namespace PromiseData.Controllers
                 MailingAddressId = institution.MailingAddressId,
                 ActiveDate = institution.ActiveDate,
                 EndDate = institution.EndDate,
-                isHub = institution.isHub,
-                isProvider = institution.isProvider,
+                IsHub = institution.IsHub,
+                IsProvider = institution.IsProvider,
                 DirectorAgent = director,
                 ContactAgent = contact,
                 AddressMail = mailingAddress,
@@ -142,8 +142,8 @@ namespace PromiseData.Controllers
             institution.Region = viewModel.Region;
             institution.BackboneOrg = viewModel.BackboneOrg;
             institution.WebAddress = viewModel.WebAddress;
-            institution.isHub = viewModel.isHub;
-            institution.isProvider = viewModel.isProvider;
+            institution.IsHub = viewModel.IsHub;
+            institution.IsProvider = viewModel.IsProvider;
             institution.ActiveDate = viewModel.ActiveDate;
 
             var director = _context.ContactAgents.Single(i => i.AgentId == institution.DirectorAgentId);
@@ -192,7 +192,7 @@ namespace PromiseData.Controllers
         public ActionResult FilterHubs(string query = null)
         {
             var viewModel = new InstitutionsViewModel();
-            viewModel.Institutions = _context.Institutions.ToList().Where(c => c.isHub == true);
+            viewModel.Institutions = _context.Institutions.ToList().Where(c => c.IsHub == true);
 
             if (User.IsInRole("System Administrator") || User.IsInRole("Administrator"))
             {
@@ -209,7 +209,7 @@ namespace PromiseData.Controllers
         public ActionResult FilterProviders(string query = null)
         {
             var viewModel = new InstitutionsViewModel();
-            viewModel.Institutions = _context.Institutions.ToList().Where(c => c.isProvider == true);
+            viewModel.Institutions = _context.Institutions.ToList().Where(c => c.IsProvider == true);
 
             if (User.IsInRole("System Administrator") || User.IsInRole("Administrator"))
             {
@@ -251,19 +251,21 @@ namespace PromiseData.Controllers
             viewModel.ActiveDate = institution.ActiveDate;
             viewModel.EndDate = institution.EndDate;
 
-            viewModel.isProvider = institution.isProvider;
-            viewModel.isHub = institution.isHub;
+            viewModel.IsProvider = institution.IsProvider;
+            viewModel.IsHub = institution.IsHub;
 
             //Populate Hub with children
-            if (institution.isHub)
+            if (institution.IsHub)
             {
-                viewModel.Providers = _context.Institutions.Where(i => i.parentHubId == id).ToList();
+                viewModel.Providers = _context.Institutions.Where(i => i.ParentHubId == id).ToList();
             }
 
             //Populate Provider with children (Facilities/Sites)
-            if (institution.isProvider)
+            if (institution.IsProvider)
             {
                 viewModel.Sites = _context.Facilities.Where(i => i.ProviderID == id).ToList();
+                viewModel.ParentHubId = institution.ParentHubId.GetValueOrDefault();
+                viewModel.ParentHub = _context.Institutions.SingleOrDefault(i => i.Id == viewModel.ParentHubId);
             }
 
             return View( viewModel);

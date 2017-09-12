@@ -8,7 +8,7 @@
 
 <div>
     <ul class="breadcrumb">
-        <li>@Html.ActionLink( "Hub", "Details", "Institution", new { id = Model.Provider.parentHubId }, null)</li>
+        <li>@Html.ActionLink( "Hub", "Details", "Institution", new { id = Model.Provider.ParentHubId }, null)</li>
         <li>@Html.ActionLink( Model.Provider.LegalName, "Details", "Institution", new { id = Model.Provider.Id }, null)</li>
 
         <li class="active">@Html.DisplayFor(model => model.Description)</li>

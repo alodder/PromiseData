@@ -7,15 +7,22 @@
 <h2>Details</h2>
 
 <div>
+    <ul class="breadcrumb">
+        @if (Model.IsProvider) { 
+            <li>@Html.ActionLink(Model.ParentHub.LegalName, "Details", "Institution", new { id = Model.ParentHubId }, null)</li>
+        }
+        <li class="active">@Html.DisplayFor(model => model.LegalName)</li>
+    </ul>
+
     <h4>
         @Html.DisplayFor(model => model.LegalName)
         <div>
-            @if (@Model.isHub)
+            @if (@Model.IsHub)
             {
                 <div class="label label-default">Hub</div>
             }
 
-            @if (@Model.isProvider)
+            @if (@Model.IsProvider)
             {
                 <div class="label label-info">Provider</div>
             }
@@ -206,7 +213,7 @@
 @*
     Table of Hub's Providers
 *@
-@if (Model.isHub)
+@if (Model.IsHub)
 {
 
     <h3>@Model.LegalName Providers</h3>
@@ -297,13 +304,13 @@
                     @item.EndDate.ToString()
                 </td>
                 <td>
-                    @if (item.isHub)
+                    @if (item.IsHub)
                     {
                         <div class="label label-default">Hub</div>
                     }
                 </td>
                 <td>
-                    @if (item.isProvider)
+                    @if (item.IsProvider)
                     {
                         <div class="label label-info">Provider</div>
                     }
@@ -323,7 +330,7 @@
 @*
     Table of Provider's Sites
 *@
-@if (Model.isProvider)
+@if (Model.IsProvider)
 {
     <p>
         @if (Model.CanEdit)

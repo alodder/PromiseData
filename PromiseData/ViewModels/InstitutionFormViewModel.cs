@@ -76,13 +76,13 @@ namespace PromiseData.ViewModels
         public DateTime? EndDate { get; set; }
 
         [DisplayName("Hub")]
-        public bool isHub { get; set; }
+        public bool IsHub { get; set; }
 
         [DisplayName("Provider")]
-        public bool isProvider { get; set; }
+        public bool IsProvider { get; set; }
 
         [DisplayName("Parent Hub")]
-        public int parentHubId { get; set; }
+        public int ParentHubId { get; set; }
 
         [DisplayName("License #")]
         public string LicenseNumber { get; set; }
@@ -102,6 +102,8 @@ namespace PromiseData.ViewModels
         public virtual Address AddressMail { get; set; }
 
         public virtual Address AddressPhysical { get; set; }
+
+        public virtual Institution ParentHub { get; set; }
 
     }
 }
