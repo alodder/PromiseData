@@ -2,6 +2,7 @@ namespace PromiseData.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -37,10 +38,13 @@ namespace PromiseData.Models
 
         public int? PPSlotsUnfilled { get; set; }
 
+        [DisplayName("Emotional Support")]
         public int? CLASSScore_EmotionalSupport { get; set; }
 
+        [DisplayName("Classroom Organization")]
         public int? CLASSScore_ClassroomOrganization { get; set; }
 
+        [DisplayName("Instructional Support")]
         public int? CLASSScore_InstructionalSupport { get; set; }
 
         [Column(TypeName = "timestamp")]

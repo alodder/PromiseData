@@ -347,38 +347,19 @@
                 @Html.DisplayNameFor(model => model.LegalName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Region)
+                Facility Type
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BackboneOrg)
+                Monitoring Visit #1
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.WebAddress)
+                Monitoring Visit #2
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DirectorAgentId)
+                Classrooms
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ContactAgentId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LocationAddressId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MailingAddressId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ActiveDate)
-            </th>
-
-            <th>
-            </th>
-            
-            <th>
-
-            </th>
-            <th>
-
+                
             </th>
             <th>
 
@@ -395,31 +376,13 @@
                     @Html.DisplayFor(modelItem => site.ProviderFacilityType)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => site.Turnover_NonPPStaff)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => site.TurnoverReasons_NonPPStaff)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => site.Transportation_services_offered)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => site.ChildrenReceivingTransportationServices)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => site.AdditionalChildFamilySupports_ID)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => site.MonitoringVisit1Date)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => site.MonitoringVisit2Date)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => site.Turnover_NonPPStaff)
-                </td>
-                <td>
-                    
+                    @Html.DisplayFor(modelItem => site.Classrooms.Count)
                 </td>
                 <td>
                     

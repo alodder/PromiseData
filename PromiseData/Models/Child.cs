@@ -78,5 +78,8 @@ namespace PromiseData.Models
         public DateTime? TransitionPlanConferenceDate { get; set; }
 
         public int? ExitReason_ID { get; set; }
+
+        [ForeignKey("Address_ID")]
+        public virtual Address Address { get; set; }
     }
 }

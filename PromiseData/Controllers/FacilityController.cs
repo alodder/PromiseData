@@ -127,6 +127,7 @@ namespace PromiseData.Controllers
             return RedirectToAction("Index", "Facility");
         }
 
+        [HttpGet]
         public ActionResult Details(int id)
         {
             var facility = _context.Facilities.Single(a => a.ID == id);

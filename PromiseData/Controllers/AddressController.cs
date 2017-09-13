@@ -77,6 +77,57 @@ namespace PromiseData.Controllers
             return View( address);
         }
 
+
+        /**
+         * Take id, retreive address, build and pass viewmodel
+         * */
+        [Authorize]
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            var address = _context.Addresses.Single(a => a.ID == id);
+            var viewModel = new AddressViewModel
+            {
+                AddressTypes = _context.Code_AddressType.ToList(),
+                States = _context.LU_State.ToList(),
+                ID = address.ID,
+                AddressType_ID = address.AddressType_ID.GetValueOrDefault(),
+                Address1 = address.Address1,
+                Address2 = address.Address2,
+                Address3 = address.Address3,
+                City = address.City,
+                ZipCode = address.ZipCode,
+                County = address.County,
+                State_ID = address.State_ID,
+                LU_State = address.LU_State
+            };
+            return View("AddressForm", viewModel);
+        }
+
+        /**
+         * Take viewmodel, retreive address, update and SaveChanges
+         * */
+        [Authorize]
+        [HttpPost]
+        public ActionResult Update(AddressViewModel viewModel)
+        {
+            var address = _context.Addresses.Single(a => a.ID == viewModel.ID);
+
+            address.AddressType_ID = viewModel.AddressType_ID;
+            address.Address1 = viewModel.Address1;
+            address.Address2 = viewModel.Address2;
+            address.Address3 = viewModel.Address3;
+            address.City = viewModel.City;
+            address.ZipCode = viewModel.ZipCode;
+            address.County = viewModel.County;
+            address.State_ID = viewModel.State_ID;
+            address.LU_State = viewModel.LU_State;
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Address");
+        }
+
         [Authorize]
         public ActionResult Delete(int? id)
         {

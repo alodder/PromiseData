@@ -387,6 +387,7 @@
     <Content Include="Views\ContactAgents\Details.cshtml" />
     <Content Include="Views\ContactAgents\Edit.cshtml" />
     <Content Include="Views\ContactAgents\Index.cshtml" />
+    <Content Include="Views\Address\AddressForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

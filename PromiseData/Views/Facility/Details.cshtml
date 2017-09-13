@@ -111,7 +111,7 @@
             Name:
         </th>
         <th>
-            x
+            Lead Teacher:
         </th>
         <th>
             x
@@ -156,10 +156,10 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => classroom.Program_ID)
+                @Html.DisplayFor(modelItem => classroom.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => classroom.ProgramSessionType_ID)
+                @Html.DisplayFor(modelItem => classroom.TeacherClasses.FirstOrDefault(t => t.Teacher.TeacherType.Contains("Lead Teacher")).Teacher.NameFirst)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => classroom.NewOrExpandedClass)
