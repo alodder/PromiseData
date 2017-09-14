@@ -4,12 +4,38 @@ using System.Linq;
 using System.Web;
 using PromiseData.Models;
 using System.ComponentModel;
+using System.Linq.Expressions;
+using PromiseData.Controllers;
+using System.Web.Mvc;
 
 namespace PromiseData.ViewModels
 {
     public class ClassroomViewModel
     {
         public int ID { get; set; }
+
+        public Boolean CanView { get; set; }
+
+        public Boolean CanEdit { get; set; }
+
+        public Boolean CanDelete { get; set; }
+
+        public String Action
+        {
+            get
+            {
+                Expression<Func<ClassroomController, ActionResult>> update =
+                    (c => c.Update(this));
+                Expression<Func<ClassroomController, ActionResult>> create =
+                    (c => c.Create(this));
+
+                var action = (ID != 0) ? update : create;
+                return (action.Body as MethodCallExpression).Method.Name;
+            }
+
+        }
+
+        public string Heading { get; set; }
 
         [DisplayName("Facility")]
         public int Facility_ID { get; set; }

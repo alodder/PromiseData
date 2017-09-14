@@ -40,13 +40,13 @@ namespace PromiseData.Controllers
                 Services = _context.Services,
                 Facility_ID = facility.ID
             };
-            return View(viewModel);
+            return View("ClassroomForm", viewModel);
         }
 
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Classroom viewModel)
+        public ActionResult Create(ClassroomViewModel viewModel)
         {
 
             if (!ModelState.IsValid)
@@ -93,6 +93,7 @@ namespace PromiseData.Controllers
             var classroom = _context.Classrooms.Single(a => a.ID == id);
             var viewModel = new Classroom
             {
+                ID = classroom.ID,
                 Facility_ID = classroom.Facility_ID,
                 Program_ID = classroom.Program_ID,
                 ProgramSessionType_ID = classroom.Program_ID,
@@ -122,6 +123,77 @@ namespace PromiseData.Controllers
             _context.Classrooms.Remove(classroom);
             _context.SaveChanges();
             return RedirectToAction("Index", "Classroom");
+        }
+
+        // GET: Institution
+        [HttpGet]
+        [Authorize(Roles = "Administrator, System Administrator")]
+        public ActionResult Edit(int id)
+        {
+            var classroom = _context.Classrooms.Single(a => a.ID == id);
+
+            var viewModel = new ClassroomViewModel
+            {
+                ID = classroom.ID,
+                Facilities = _context.Facilities,
+                SessionTypes = _context.Code_ProgramSessionType,
+                Services = _context.Services,
+                Facility_ID = classroom.Facility_ID.GetValueOrDefault(),
+                Program_ID = classroom.Program_ID.GetValueOrDefault(),
+                ProgramSessionType_ID = classroom.Program_ID.GetValueOrDefault(),
+                NewOrExpandedClass = classroom.NewOrExpandedClass,
+                SessionHours = classroom.SessionHours.GetValueOrDefault(),
+                SessionWeeks = classroom.SessionWeeks.GetValueOrDefault(),
+                PPStudents = classroom.PPStudents.GetValueOrDefault(),
+                NonPPStudentsHSOPK = classroom.NonPPStudentsHSOPK.GetValueOrDefault(),
+                NonPPStudentsThirdParty = classroom.NonPPStudentsThirdParty.GetValueOrDefault(),
+                NonPPStudentsParentPay = classroom.NonPPStudentsParentPay.GetValueOrDefault(),
+                PPSlotsUnfilled = classroom.PPSlotsUnfilled.GetValueOrDefault(),
+                CLASSScore_EmotionalSupport = classroom.CLASSScore_EmotionalSupport.GetValueOrDefault(),
+                CLASSScore_ClassroomOrganization = classroom.CLASSScore_ClassroomOrganization.GetValueOrDefault(),
+                CLASSScore_InstructionalSupport = classroom.CLASSScore_InstructionalSupport.GetValueOrDefault(),
+                upsize_ts = classroom.upsize_ts,
+                Description = classroom.Description
+            };
+
+            return View("ClassroomForm", viewModel);
+        }
+
+        //POST: Institution update/edit
+        [HttpPost]
+        [Authorize(Roles = "Administrator, System Administrator")]
+        public ActionResult Update(ClassroomViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                viewModel.Facilities = _context.Facilities;
+                viewModel.SessionTypes = _context.Code_ProgramSessionType;
+                viewModel.Services = _context.Services;
+                return View("ClassroomForm", viewModel);
+            }
+
+            var classroom = _context.Classrooms.Single(a => a.ID == viewModel.ID);
+            classroom.Facility_ID = viewModel.Facility_ID;
+            classroom.Program_ID = viewModel.Program_ID;
+            //classroom.ProgramSessionType_ID = viewModel.ProgramSessionType_ID;
+            classroom.NewOrExpandedClass = viewModel.NewOrExpandedClass;
+            classroom.SessionHours = viewModel.SessionHours;
+            classroom.SessionDays = viewModel.SessionDays;
+            classroom.SessionHours = viewModel.SessionHours;
+            classroom.SessionWeeks = viewModel.SessionWeeks;
+            classroom.PPStudents = viewModel.PPStudents;
+            classroom.NonPPStudentsHSOPK = viewModel.NonPPStudentsHSOPK;
+            classroom.NonPPStudentsThirdParty = viewModel.NonPPStudentsThirdParty;
+            classroom.NonPPStudentsParentPay = viewModel.NonPPStudentsParentPay;
+            classroom.PPSlotsUnfilled = viewModel.PPSlotsUnfilled;
+            classroom.CLASSScore_EmotionalSupport = viewModel.CLASSScore_EmotionalSupport;
+            classroom.CLASSScore_ClassroomOrganization = viewModel.CLASSScore_ClassroomOrganization;
+            classroom.CLASSScore_InstructionalSupport = viewModel.CLASSScore_InstructionalSupport;
+            classroom.Description = viewModel.Description;
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Details", "Facility", new { id = viewModel.Facility_ID });
         }
 
         [Authorize]
