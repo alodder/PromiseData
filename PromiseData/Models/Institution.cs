@@ -58,6 +58,9 @@ namespace PromiseData.Models
         [DisplayName("License #")]
         public string LicenseNumber { get; set; }
 
+        [ForeignKey("ParentHubId")]
+        public virtual Institution ParentHub { get; set; }
+
         public virtual Address Address { get; set; }
 
         public virtual Address Address1 { get; set; }

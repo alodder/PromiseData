@@ -68,6 +68,9 @@ namespace PromiseData.Models
 
         public virtual Code_AdditionalSupportTypes Code_AdditionalSupportTypes { get; set; }
 
+        [ForeignKey("ProviderID")]
+        public virtual Institution Provider { get; set; }
+
         public virtual ICollection<Child_Facility> Child_Facilities { get; set; }
     }
 }

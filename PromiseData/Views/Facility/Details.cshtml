@@ -8,11 +8,15 @@
 
 <div>
     <ul class="breadcrumb">
-        <li>@Html.ActionLink( "Hub", "Details", "Institution", new { id = Model.Provider.ParentHubId }, null)</li>
-        <li>@Html.ActionLink( Model.Provider.LegalName, "Details", "Institution", new { id = Model.Provider.Id }, null)</li>
+        @if (!Model.Provider.IsHub)
+        {
+            <li>@Html.ActionLink(Model.Provider.ParentHub.LegalName, "Details", "Institution", new { id = Model.Provider.ParentHubId }, null)</li>
+        }
+        <li>@Html.ActionLink(Model.Provider.LegalName, "Details", "Institution", new { id = Model.Provider.Id }, null)</li>
 
         <li class="active">@Html.DisplayFor(model => model.Description)</li>
     </ul>
+
     <h4>@Html.DisplayFor(model => model.Description)</h4>
     <hr />
 

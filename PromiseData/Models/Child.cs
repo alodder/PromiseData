@@ -82,6 +82,24 @@ namespace PromiseData.Models
         [ForeignKey("Address_ID")]
         public virtual Address Address { get; set; }
 
+        [ForeignKey("GenerationCode_ID")]
+        public virtual Code_GenerationCode Generation { get; set; }
+
+        [ForeignKey("OtherNameType_ID")]
+        public virtual Code_OtherNameType OtherNameType { get; set; }
+
+        [ForeignKey("Gender_ID")]
+        public virtual Code_Gender Gender { get; set; }
+
+        [ForeignKey("Language_ID")]
+        public virtual Code_Language Language { get; set; }
+
+        [ForeignKey("Program_ID")]
+        public virtual Code_ProgramSessionType ProgramSessionType { get; set; }
+
+        [ForeignKey("ExitReason_ID")]
+        public virtual Code_ExitReason ExitReason { get; set; }
+
         public virtual ICollection<Child_Facility> Child_Facilities { get; set; }
     }
 }

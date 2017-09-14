@@ -140,6 +140,9 @@ namespace PromiseData.Models
                 .WithOptional(e => e.Facility)
                 .HasForeignKey(e => e.Facility_ID);
 
+            modelBuilder.Entity<Facility>()
+                .HasRequired(e => e.Provider);
+
             modelBuilder.Entity<Family>()
                 .Property(e => e.Income)
                 .HasPrecision(19, 4);
@@ -182,6 +185,18 @@ namespace PromiseData.Models
             modelBuilder.Entity<Child>()
                 .HasOptional(e => e.Address);
 
+            modelBuilder.Entity<Child>()
+                .HasOptional(e => e.Generation);
+
+            modelBuilder.Entity<Child>()
+                .HasOptional(e => e.OtherNameType);
+
+            modelBuilder.Entity<Child>()
+                .HasOptional(e => e.Gender);
+
+            modelBuilder.Entity<Child>()
+                .HasOptional(e => e.Language);
+
             modelBuilder.Entity<ContactAgent>()
                 .HasMany(e => e.Institutions)
                 .WithOptional(e => e.ContactAgent)
@@ -191,6 +206,9 @@ namespace PromiseData.Models
                 .HasMany(e => e.Institutions1)
                 .WithOptional(e => e.ContactAgent1)
                 .HasForeignKey(e => e.DirectorAgentId);
+
+            modelBuilder.Entity<Institution>()
+                .HasOptional(e => e.ParentHub);
 
             modelBuilder.Entity<Institution>()
                 .HasMany(e => e.ContactAgents)

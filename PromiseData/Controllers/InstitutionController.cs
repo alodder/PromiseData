@@ -271,7 +271,8 @@ namespace PromiseData.Controllers
             return View( viewModel);
         }
 
-        // GET: Institution
+        [HttpGet]
+        [Authorize(Roles = "Administrator, System Administrator")]
         public ActionResult Index(string query = null)
         { 
             var viewModel = new InstitutionsViewModel();
