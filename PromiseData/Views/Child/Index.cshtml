@@ -1,193 +1,203 @@
-﻿@model IEnumerable<PromiseData.Models.Child>
+﻿@model PromiseData.ViewModels.ChildrenListViewModel
 
-@{
-    ViewBag.Title = "Index";
-}
-
-<h2>Index</h2>
+<h2>@Model.Heading</h2>
 
 <p>
     @Html.ActionLink("Add New", "Add")
 </p>
+
+@using (Html.BeginForm("Search", "Child"))
+{
+    <div class="form-group">
+        @Html.Label("search", "Student Lookup: ")
+        <div class="input-group col-md-6">
+            @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control", placeholder = "Lookup student by name or ID" })
+            <span class="input-group-btn">
+                <button type="submit" class="btn btn-default glyphicon glyphicon-search"></button>
+            </span>
+        </div>
+    </div>
+}
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ELD_ID)
+            @*Html.DisplayNameFor(model => model.ELD_ID)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SSID)
+            @*@Html.DisplayNameFor(model => model.SSID)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
+            @*@Html.DisplayNameFor(model => model.LastName)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @*@Html.DisplayNameFor(model => model.FirstName)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MiddleName)
+            @*@Html.DisplayNameFor(model => model.MiddleName)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.GenerationCode_ID)
+            @*@Html.DisplayNameFor(model => model.GenerationCode_ID)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.OtherNameType_ID)
+            @*@Html.DisplayNameFor(model => model.OtherNameType_ID)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.OtherLastName)
+            @*@Html.DisplayNameFor(model => model.OtherLastName)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.OtherFirstName)
+            @*@Html.DisplayNameFor(model => model.OtherFirstName)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.OtherMiddleName)
+            @*@Html.DisplayNameFor(model => model.OtherMiddleName)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Address_ID)
+            @*@Html.DisplayNameFor(model => model.Address_ID)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Birthdate)
+            @*@Html.DisplayNameFor(model => model.Birthdate)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Gender_ID)
+            @*@Html.DisplayNameFor(model => model.Gender_ID)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Homeless)
+            @*@Html.DisplayNameFor(model => model.Homeless)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Migrant)
+            @*@Html.DisplayNameFor(model => model.Migrant)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.HeadStartEligibility)
+            @*@Html.DisplayNameFor(model => model.HeadStartEligibility)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Language_ID)
+            @*@Html.DisplayNameFor(model => model.Language_ID)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EnglishLanguageLearner)
+            @*@Html.DisplayNameFor(model => model.EnglishLanguageLearner)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ClassroomLanguage_ID)
+            @*@Html.DisplayNameFor(model => model.ClassroomLanguage_ID)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SchoolDistrictCode)
+            @*@Html.DisplayNameFor(model => model.SchoolDistrictCode)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ElementarySchoolCode)
+            @*@Html.DisplayNameFor(model => model.ElementarySchoolCode)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PriorEarlyLearningMonths)
+           @* @Html.DisplayNameFor(model => model.PriorEarlyLearningMonths)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Program_ID)
+           @* @Html.DisplayNameFor(model => model.Program_ID)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SchoolDistrictCatchment)
+            @*@Html.DisplayNameFor(model => model.SchoolDistrictCatchment)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ElementarySchoolCatchment)
+            @*@Html.DisplayNameFor(model => model.ElementarySchoolCatchment)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Parent_ProviderConsultations)
+            @*@Html.DisplayNameFor(model => model.Parent_ProviderConsultations)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TransitionPlanConferenceDate)
+            @*@Html.DisplayNameFor(model => model.TransitionPlanConferenceDate)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ExitReason_ID)
+            @*@Html.DisplayNameFor(model => model.ExitReason_ID)*@
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var child in Model.Children) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.ELD_ID)
+            @Html.DisplayFor(modelItem => child.ELD_ID)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.SSID)
+            @Html.DisplayFor(modelItem => child.SSID)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.LastName)
+            @Html.DisplayFor(modelItem => child.LastName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
+            @Html.DisplayFor(modelItem => child.FirstName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.MiddleName)
+            @Html.DisplayFor(modelItem => child.MiddleName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.GenerationCode_ID)
+            @Html.DisplayFor(modelItem => child.GenerationCode_ID)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.OtherNameType_ID)
+            @Html.DisplayFor(modelItem => child.OtherNameType_ID)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.OtherLastName)
+            @Html.DisplayFor(modelItem => child.OtherLastName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.OtherFirstName)
+            @Html.DisplayFor(modelItem => child.OtherFirstName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.OtherMiddleName)
+            @Html.DisplayFor(modelItem => child.OtherMiddleName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Address.City)
+            @Html.DisplayFor(modelItem => child.Address.City)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Birthdate)
+            @Html.DisplayFor(modelItem => child.Birthdate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Gender_ID)
+            @Html.DisplayFor(modelItem => child.Gender_ID)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Homeless)
+            @Html.DisplayFor(modelItem => child.Homeless)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Migrant)
+            @Html.DisplayFor(modelItem => child.Migrant)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.HeadStartEligibility)
+            @Html.DisplayFor(modelItem => child.HeadStartEligibility)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Language_ID)
+            @Html.DisplayFor(modelItem => child.Language_ID)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.EnglishLanguageLearner)
+            @Html.DisplayFor(modelItem => child.EnglishLanguageLearner)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ClassroomLanguage_ID)
+            @Html.DisplayFor(modelItem => child.ClassroomLanguage_ID)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.SchoolDistrictCode)
+            @Html.DisplayFor(modelItem => child.SchoolDistrictCode)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ElementarySchoolCode)
+            @Html.DisplayFor(modelItem => child.ElementarySchoolCode)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PriorEarlyLearningMonths)
+            @Html.DisplayFor(modelItem => child.PriorEarlyLearningMonths)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Program_ID)
+            @Html.DisplayFor(modelItem => child.Program_ID)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.SchoolDistrictCatchment)
+            @Html.DisplayFor(modelItem => child.SchoolDistrictCatchment)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ElementarySchoolCatchment)
+            @Html.DisplayFor(modelItem => child.ElementarySchoolCatchment)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Parent_ProviderConsultations)
+            @Html.DisplayFor(modelItem => child.Parent_ProviderConsultations)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TransitionPlanConferenceDate)
+            @Html.DisplayFor(modelItem => child.TransitionPlanConferenceDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ExitReason_ID)
+            @Html.DisplayFor(modelItem => child.ExitReason_ID)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Edit", "Edit", new { id= child.ID }) |
+            @Html.ActionLink("Details", "Details", new { id= child.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id= child.ID })
         </td>
     </tr>
 }

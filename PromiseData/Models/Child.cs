@@ -81,5 +81,7 @@ namespace PromiseData.Models
 
         [ForeignKey("Address_ID")]
         public virtual Address Address { get; set; }
+
+        public virtual ICollection<Child_Facility> Child_Facilities { get; set; }
     }
 }

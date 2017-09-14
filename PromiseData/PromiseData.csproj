@@ -246,12 +246,14 @@
     <Compile Include="Models\Screening.cs" />
     <Compile Include="Models\Service.cs" />
     <Compile Include="Models\Teacher.cs" />
+    <Compile Include="Models\Child_Facility.cs" />
     <Compile Include="Models\TeacherClass.cs" />
     <Compile Include="Models\TeacherLanguageClassroom.cs" />
     <Compile Include="Models\TeacherLanguageFluency.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AddressViewModel.cs" />
+    <Compile Include="ViewModels\ChildrenListViewModel.cs" />
     <Compile Include="ViewModels\ContactAgentViewModel.cs" />
     <Compile Include="ViewModels\ChildRaceViewModel.cs" />
     <Compile Include="ViewModels\FacilityViewModel.cs" />

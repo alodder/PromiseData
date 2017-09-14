@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using PromiseData.Models;
 using PromiseData.ViewModels;
 using System.Net;
+using System.Security.Claims;
 
 namespace PromiseData.Controllers
 {
@@ -160,11 +161,65 @@ namespace PromiseData.Controllers
             return RedirectToAction("Create", "Adult");
         }
 
+        [HttpPost]
         [Authorize]
-        // GET: Address
-        public ActionResult Index()
+        public ActionResult Search(ChildrenListViewModel viewModel)
         {
-            var viewModel = _context.Children;
+            return RedirectToAction("Index", "Child", new { query = viewModel.SearchTerm });
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult Index(string query = null)
+        {
+            var viewModel = new ChildrenListViewModel();
+
+            ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
+
+            var claims = (from c in identity.Claims
+                          where c.Type == "Institution"
+                          select c);
+
+            viewModel.Children = _context.Children.ToList();
+
+            if (!(User.IsInRole("System Administrator") || User.IsInRole("Administrator")))
+            {
+                int institutionId = Int32.Parse(claims.FirstOrDefault().Value);
+                var institution = _context.Institutions.SingleOrDefault(i => i.Id == institutionId);
+
+                if (institution.IsHub)
+                {
+                    var providers = _context.Institutions.Where(i => i.ParentHubId == institutionId).Select(p => p.Id);
+                    
+                    var childFacilities = _context.ChildFacilities.Where(f => providers.Contains(f.Facility.ProviderID)).Select(c => c.ChildID);
+                    viewModel.Children = viewModel.Children.Where(c => childFacilities.Contains( c.ID));
+                }
+                if (institution.IsProvider)
+                {
+                    var childFacilities = _context.ChildFacilities.Where(f => f.Facility.ProviderID == institutionId).Select(c => c.ChildID);
+                    viewModel.Children = viewModel.Children.Where(c => childFacilities.Contains(c.ID));
+                }
+            }
+
+            if (!String.IsNullOrWhiteSpace(query))
+            {
+                var querylow = query.ToLower();
+                var queryFilter = viewModel.Children.Where(i =>
+                                            (i.FirstName.ToLower() ?? "").Contains(querylow) ||
+                                            (i.LastName.ToLower() ?? "").Contains(querylow) ||
+                                            ((i.FirstName + " " +i.LastName).ToLower() ?? "").Contains(querylow) ||
+                                            (i.ELD_ID.GetValueOrDefault().ToString()).Contains(querylow)
+                                            );
+
+                viewModel.Children = queryFilter.ToList();
+            }
+
+            if (User.IsInRole("Administrator") || User.IsInRole("System Administrator"))
+            {
+                viewModel.CanAdd = true;
+                viewModel.CanEdit = true;
+                viewModel.CanDelete = true;
+            }
             return View(viewModel);
         }
     }

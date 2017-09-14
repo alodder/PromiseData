@@ -47,6 +47,8 @@ namespace PromiseData.Models
         public virtual DbSet<Teacher> Teachers { get; set; }
         public virtual DbSet<TeacherClass> TeacherClasses { get; set; }
 
+        public virtual DbSet<Child_Facility> ChildFacilities { get; set; }
+
         public virtual DbSet<TeacherLanguageClassroom> TeacherLanguageClassrooms { get; set; }
         public virtual DbSet<TeacherLanguageFluency> TeacherLanguageFluencies { get; set; }
 
@@ -71,6 +73,8 @@ namespace PromiseData.Models
                 .WithMany(e => e.Classrooms)
                 .Map(m => m.ToTable("TeacherClass").MapLeftKey("ClassID").MapRightKey("TeacherID"));*/
 
+
+            //Teacher to Class Many to Many with tertiary table TeacherClass
             /*-------------------------------------------------------*/
             modelBuilder.Entity<TeacherClass>()
                 .HasKey(t => new { t.TeacherID, t.ClassroomID });
@@ -84,6 +88,24 @@ namespace PromiseData.Models
                 .HasMany(c => c.TeacherClasses)
                 .WithRequired()
                 .HasForeignKey(c => c.ClassroomID);
+
+            /*------------------------------------------------------*/
+
+
+            //Child to Facility Many to Many with tertiary table Child_Facility
+            /*-------------------------------------------------------*/
+            modelBuilder.Entity<Child_Facility>()
+                .HasKey(t => new { t.FacilityID, t.ChildID });
+
+            modelBuilder.Entity<Facility>()
+                .HasMany(c => c.Child_Facilities)
+                .WithRequired()
+                .HasForeignKey(c => c.FacilityID);
+
+            modelBuilder.Entity<Child>()
+                .HasMany(c => c.Child_Facilities)
+                .WithRequired()
+                .HasForeignKey(c => c.ChildID);
 
             /*------------------------------------------------------*/
 
