@@ -32,7 +32,7 @@ namespace PromiseData.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Hub, Provider, Administrator, System Administrator")]
         public ActionResult Create(int? id)
         {
             var viewModel = new TeacherViewModel
@@ -46,11 +46,11 @@ namespace PromiseData.Controllers
                 ClassroomLanguages = LangBoolDictionary, 
                 FluentLanguages = LangBoolDictionary
             };
-            return View(viewModel);
+            return View("TeacherForm", viewModel);
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Hub, Provider, Administrator, System Administrator")]
         public ActionResult Create( TeacherViewModel viewModel)
         {
             if (!ModelState.IsValid)
@@ -63,7 +63,7 @@ namespace PromiseData.Controllers
                 viewModel.Languages = _context.CodeLanguage.ToList();
                 viewModel.ClassroomLanguages = LangBoolDictionary;
                 viewModel.FluentLanguages = LangBoolDictionary;
-                return View("Create", viewModel);
+                return View("TeacherForm", viewModel);
             }
 
 
@@ -129,6 +129,156 @@ namespace PromiseData.Controllers
                         TeacherID = teacher.ID,
                         LanguageCode = languageId
                     });
+            }
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Teacher");
+        }
+
+        // GET: Institution
+        [HttpGet]
+        [Authorize(Roles = "Provider, Hub, Administrator, System Administrator")]
+        public ActionResult Edit(int id)
+        {
+            var teacher = _context.Teachers.Single(i => i.ID == id);
+
+            var viewModel = new TeacherViewModel {
+                Id = teacher.ID,
+                TeacherIDNumber = teacher.TeacherIDNumber,
+                TeacherType = teacher.TeacherType,
+                TeacherBirthdate = teacher.TeacherBirthdate.GetValueOrDefault(),
+                RaceEthnicityIdentity = teacher.TeacherRaceEthnicity,
+                StartDate = teacher.StartDate.GetValueOrDefault(),
+                EndDate = teacher.EndDate,
+                ReasonForLeaving = teacher.ReasonForleaving,
+                TeacherSalary = teacher.TeacherSalary.GetValueOrDefault(),
+                CDA = teacher.CDA,
+                DegreeField = teacher.DegreeField,
+                PDStep = teacher.PDStep.GetValueOrDefault(),
+                YearsExperience = teacher.YearsExperience.GetValueOrDefault(),
+                NameLast = teacher.NameLast,
+                NameFirst = teacher.NameFirst
+            };
+
+            viewModel.Genders = _context.CodeGender.ToList();
+            viewModel.RaceEthnicityList = _context.RaceEthnic.ToList();
+            viewModel.EducationTypes = _context.Code_Education.ToList();
+
+            //List of classrooms limited to classrooms assigned to user
+            viewModel.Classrooms = _context.Classrooms;
+
+            viewModel.TeacherTypes = types;
+            viewModel.Languages = _context.CodeLanguage.ToList();
+            viewModel.ClassroomLanguages = LangBoolDictionary;
+            viewModel.FluentLanguages = LangBoolDictionary;
+
+            return View("TeacherForm", viewModel);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Hub, Provider, Administrator, System Administrator")]
+        public ActionResult Update(TeacherViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                viewModel.Genders = _context.CodeGender.ToList();
+                viewModel.RaceEthnicityList = _context.RaceEthnic.ToList();
+                viewModel.EducationTypes = _context.Code_Education.ToList();
+                viewModel.Classrooms = _context.Classrooms;
+                viewModel.TeacherTypes = types;
+                viewModel.Languages = _context.CodeLanguage.ToList();
+                viewModel.ClassroomLanguages = LangBoolDictionary;
+                viewModel.FluentLanguages = LangBoolDictionary;
+                return View("TeacherForm", viewModel);
+            }
+
+            //get teacher object from db
+            var teacher = _context.Teachers.Single(i => i.ID == viewModel.Id);
+
+            //Update values from viewmodel
+            teacher.TeacherIDNumber = viewModel.TeacherIDNumber;
+            teacher.TeacherType = viewModel.TeacherType;
+            teacher.TeacherBirthdate = viewModel.TeacherBirthdate;
+            //Languages_spoken_in_classroom = viewModel.ClassroomLanguages,
+            //FluentLanguages = viewModel.FluentLanguages,
+            teacher.StartDate = viewModel.StartDate;
+            teacher.TeacherSalary = viewModel.TeacherSalary;
+            teacher.Education_ID = viewModel.EducationID;
+            teacher.CDA = viewModel.CDA;
+            teacher.DegreeField = viewModel.DegreeField;
+            teacher.PDStep = viewModel.PDStep;
+            teacher.YearsExperience = viewModel.YearsExperience;
+            teacher.EndDate = viewModel.EndDate;
+            teacher.ReasonForleaving = viewModel.ReasonForLeaving;
+            teacher.TeacherRaceEthnicity = viewModel.RaceEthnicityIdentity;
+            teacher.Gender_ID = viewModel.GenderId;
+            teacher.NameLast = viewModel.NameLast;
+            teacher.NameFirst = viewModel.NameFirst;
+
+            if (viewModel.DegreeField.Equals("Other"))
+                teacher.DegreeField = viewModel.OtherField;
+
+            //SaveChanges()
+            _context.SaveChanges();
+
+            //Associate teacher and Classroom in TeacherClass table - many to many?
+            var teacherClass = new TeacherClass
+            {
+                TeacherID = teacher.ID,
+                ClassroomID = viewModel.ClassroomId
+            };
+            //if(!_context.TeacherClasses.Contains(teacherClass))
+            //    _context.TeacherClasses.Add(teacherClass);
+
+            //Update languages in ClassroomLanguages to TeacherLanguageClassroom table
+            foreach (var languageId in viewModel.ClassroomLanguages.Keys)
+            {
+                var teacherLangClass = new TeacherLanguageClassroom { 
+                    TeacherID = teacher.ID,
+                    LanguageID = languageId
+                };
+
+                if ( _context.TeacherLanguageClassrooms.Contains(teacherLangClass))
+                {
+                    if (!viewModel.ClassroomLanguages[languageId])
+                    {
+                        _context.TeacherLanguageClassrooms.Remove(teacherLangClass);
+                    }
+                }
+                else
+                {
+                    if (viewModel.ClassroomLanguages[languageId])
+                    {
+                        _context.TeacherLanguageClassrooms.Add(teacherLangClass);
+                    }
+                }
+            }
+
+            //Add languages to TeacherLanguageFluency table
+            foreach (var languageId in viewModel.FluentLanguages.Keys)
+            {
+                var teacherLangFluent = new TeacherLanguageFluency
+                {
+                    TeacherID = teacher.ID,
+                    LanguageCode = languageId
+                };
+
+
+                if (_context.TeacherLanguageFluencies.Contains(teacherLangFluent))
+                {
+                    if (!viewModel.ClassroomLanguages[languageId])
+                    {
+                        _context.TeacherLanguageFluencies.Remove(teacherLangFluent);
+                    }
+                }
+                else
+                {
+                    if (viewModel.ClassroomLanguages[languageId])
+                    {
+                        _context.TeacherLanguageFluencies.Add(teacherLangFluent);
+                    }
+                }
             }
 
             _context.SaveChanges();

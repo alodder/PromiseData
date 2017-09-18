@@ -5,12 +5,36 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using PromiseData.Models;
+using System.Linq.Expressions;
+using PromiseData.Controllers;
+using System.Web.Mvc;
 
 namespace PromiseData.ViewModels
 {
     public class TeacherViewModel
     {
         public int Id { get; set; }
+
+        public Boolean CanView { get; set; }
+
+        public Boolean CanEdit { get; set; }
+
+        public Boolean CanDelete { get; set; }
+
+        public String Action
+        {
+            get
+            {
+                Expression<Func<TeacherController, ActionResult>> update =
+                    (c => c.Update(this));
+                Expression<Func<TeacherController, ActionResult>> create =
+                    (c => c.Create(this));
+
+                var action = (Id != 0) ? update : create;
+                return (action.Body as MethodCallExpression).Method.Name;
+            }
+
+        }
 
         [DisplayName("Teacher ID Number")]
         public String TeacherIDNumber { get; set; }
@@ -26,6 +50,8 @@ namespace PromiseData.ViewModels
         public IEnumerable<String> TeacherTypes { get; set; }
 
         [DisplayName("Birthday")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime TeacherBirthdate { get; set; }
 
         [DisplayName("Teacher Sex")]
@@ -54,6 +80,7 @@ namespace PromiseData.ViewModels
 
         [DisplayName("Start Date")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime StartDate { get; set; }
 
         [DisplayName("Salary")]

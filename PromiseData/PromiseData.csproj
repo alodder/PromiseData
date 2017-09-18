@@ -359,7 +359,7 @@
     <Content Include="Views\Classroom\Details.cshtml" />
     <Content Include="Views\Classroom\Delete.cshtml" />
     <Content Include="Views\Teacher\Index.cshtml" />
-    <Content Include="Views\Teacher\Create.cshtml" />
+    <Content Include="Views\Teacher\TeacherForm.cshtml" />
     <Content Include="Views\Facility\Index.cshtml" />
     <Content Include="Views\Facility\FacilityForm.cshtml" />
     <Content Include="Views\Facility\Details.cshtml" />
