@@ -120,7 +120,7 @@
                             <input type="hidden" name="@String.Format("FluentLanguages[{0}].Key", j)" value="@langCheck.Key" />
                             @Html.CheckBox(String.Format("FluentLanguages[{0}].Value", j), langCheck.Value)
                             <label class="categoryLabel" for="@String.Format("FluentLanguages_{0}__Value", j)">@Model.Languages.Single(r => r.Code == langCheck.Key).Description</label>
-                            @{i++;}
+                            @{j++;}
                         </div>
                     </div>
                 }
