@@ -231,61 +231,59 @@ namespace PromiseData.Controllers
             //if(!_context.TeacherClasses.Contains(teacherClass))
             //    _context.TeacherClasses.Add(teacherClass);
 
-
-            var langClassSet = _context.TeacherLanguageClassrooms.Where(t => t.TeacherID == teacher.ID);
+            ////////////////////////////////////
             //Update languages in ClassroomLanguages to TeacherLanguageClassroom table
+            var langClassSet = _context.TeacherLanguageClassrooms.Where(t => t.TeacherID == teacher.ID);
             foreach (var languageId in viewModel.ClassroomLanguages.Keys)
             {
+                //Create TeacherLanguageClassroom for Teacher and Language pair
                 var teacherLangClass = new TeacherLanguageClassroom { 
                     TeacherID = teacher.ID,
                     LanguageID = languageId
                 };
 
-                if (langClassSet.Select(t => t.TeacherID).Contains(teacherLangClass.TeacherID))
+                /**
+                 * If the language wasn't checked, remove from table,
+                 * else if it was both checked and doesn't yet exist, add it
+                 */
+                if (!viewModel.ClassroomLanguages[languageId])
                 {
-                    if (!viewModel.ClassroomLanguages[languageId])
-                    {
-                        var ttlangclass = langClassSet.Select(t => t.TeacherID).Contains(teacherLangClass.TeacherID);
-                        //_context.TeacherLanguageClassrooms.Attach(teacherLangClass);
-                        _context.TeacherLanguageClassrooms.Remove(teacherLangClass);
-                    }
+                    _context.TeacherLanguageClassrooms.RemoveRange(langClassSet.Where(tlc => tlc.LanguageID == teacherLangClass.LanguageID));
                 }
-                else
+                else if (viewModel.ClassroomLanguages[languageId] &&
+                        !langClassSet.Select(t => t.TeacherID).Contains(teacherLangClass.TeacherID))
                 {
-                    if (viewModel.ClassroomLanguages[languageId])
-                    {
-                        _context.TeacherLanguageClassrooms.Add(teacherLangClass);
-                    }
+                    _context.TeacherLanguageClassrooms.Add(teacherLangClass);
                 }
             }
 
-            /*var TeacherLanguageSet = _context.TeacherLanguageFluencies.Where(t => t.TeacherID == teacher.ID);
+            ////////////////////////////////////
             //Add languages to TeacherLanguageFluency table
+            var TeacherLanguageSet = _context.TeacherLanguageFluencies.Where(t => t.TeacherID == teacher.ID);
             foreach (var languageId in viewModel.FluentLanguages.Keys)
             {
+                //Create TeacherLanguageFluency for Teacher and Language pair
                 var teacherLangFluent = new TeacherLanguageFluency
                 {
                     TeacherID = teacher.ID,
                     LanguageCode = languageId
                 };
 
-
-                if ( TeacherLanguageSet.Select(t => t.TeacherID).Contains( teacherLangFluent.TeacherID))
+                /**
+                 * If the language wasn't checked, remove from table,
+                 * else if it was both checked and doesn't yet exist, add it
+                 */
+                if (!viewModel.FluentLanguages[languageId])
                 {
-                    if (!viewModel.FluentLanguages[languageId])
-                    {
-                        _context.TeacherLanguageFluencies.Attach(teacherLangFluent);
-                        _context.TeacherLanguageFluencies.Remove(teacherLangFluent);
-                    }
+                    _context.TeacherLanguageFluencies.RemoveRange(TeacherLanguageSet.Where(t => t.LanguageCode == languageId));
                 }
-                else
+                else if (viewModel.FluentLanguages[languageId] &&
+                            !TeacherLanguageSet.Select(t => t.LanguageCode).Contains(teacherLangFluent.LanguageCode))
                 {
-                    if (viewModel.FluentLanguages[languageId])
-                    {
-                        _context.TeacherLanguageFluencies.Add(teacherLangFluent);
-                    }
+                    
+                    _context.TeacherLanguageFluencies.Add(teacherLangFluent);
                 }
-            }*/
+            }
 
             _context.SaveChanges();
 
