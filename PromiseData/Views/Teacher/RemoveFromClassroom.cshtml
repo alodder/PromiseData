@@ -1,0 +1,28 @@
+﻿@model PromiseData.ViewModels.TeacherClassViewModel
+
+@{
+    ViewBag.Title = "RemoveFromClassroom";
+}
+
+<h2>Remove Teacher From Classroom</h2>
+
+<div>
+    @Html.HiddenFor(m => m.teacherid)
+    @Html.HiddenFor(m => m.classroomid)
+    <dl>
+        <dt>Classroom:</dt>
+        <dd>@Model.classroom.Description</dd>
+
+        <dt>Teacher:</dt>
+        <dd>@Model.teacher.NameFirst</dd>
+    </dl>
+</div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Remove" class="btn btn-default" /> |
+        @Html.ActionLink("Back to Classroom", "Details", "Classroom", new { id = Model.classroom.ID }, null)
+    </div>
+}

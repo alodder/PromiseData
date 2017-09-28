@@ -136,7 +136,7 @@ namespace PromiseData.Controllers
             return RedirectToAction("Index", "Teacher");
         }
 
-        // GET: Institution
+        // GET: Teacher
         [HttpGet]
         [Authorize(Roles = "Provider, Hub, Administrator, System Administrator")]
         public ActionResult Edit(int id)
@@ -288,6 +288,32 @@ namespace PromiseData.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Teacher");
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Provider, Hub, Administrator, System Administrator")]
+        public ActionResult RemoveFromClassroom(int id, int classroomid)
+        {
+            var teacher = _context.Teachers.Single(t => t.ID == id);
+            var classroom = _context.Classrooms.Single(t => t.ID == classroomid);
+            var teacherClass = _context.TeacherClasses.Single(tc => tc.TeacherID == id && tc.ClassroomID == classroomid);
+            var teacherClassView = new TeacherClassViewModel {
+                teacher = teacher,
+                classroom = classroom,
+                teacherClass = teacherClass
+            };
+            return View( teacherClassView);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Provider, Hub, Administrator, System Administrator")]
+        public ActionResult RemoveFromClassroom(TeacherClassViewModel teacherClassView)
+        {
+
+            _context.TeacherClasses.RemoveRange(_context.TeacherClasses.Where( tc => tc.TeacherID == teacherClassView.teacherid && tc.ClassroomID == teacherClassView.classroomid));
+            _context.SaveChanges();
+
+            return RedirectToAction("Details", "Classroom", teacherClassView.classroomid);
         }
 
         [Authorize]

@@ -1,0 +1,162 @@
+﻿@model PromiseData.Models.Teacher
+
+@{
+    ViewBag.Title = "View";
+}
+
+<h2>View</h2>
+
+<div>
+    <h4>Teacher</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TeacherIDNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeacherIDNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TeacherType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeacherType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TeacherBirthdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeacherBirthdate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gender_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TeacherRaceEthnicity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeacherRaceEthnicity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Languages_spoken_in_classroom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Languages_spoken_in_classroom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FluentLanguages)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FluentLanguages)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TeacherSalary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeacherSalary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Education_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Education_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CDA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CDA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DegreeField)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DegreeField)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PDStep)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PDStep)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.YearsExperience)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YearsExperience)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReasonForleaving)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReasonForleaving)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NameFirst)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NameFirst)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NameLast)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NameLast)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -259,6 +259,7 @@
     <Compile Include="ViewModels\FacilityViewModel.cs" />
     <Compile Include="ViewModels\FamilyViewModel.cs" />
     <Compile Include="ViewModels\InstitutionFormViewModel.cs" />
+    <Compile Include="ViewModels\TeacherClassViewModel.cs" />
     <Compile Include="ViewModels\InstitutionsViewModel.cs" />
     <Compile Include="ViewModels\TeacherViewModel.cs" />
     <Compile Include="ViewModels\AdultFormViewModel.cs" />
@@ -391,6 +392,8 @@
     <Content Include="Views\ContactAgents\Index.cshtml" />
     <Content Include="Views\Address\AddressForm.cshtml" />
     <Content Include="Views\Classroom\ClassroomForm.cshtml" />
+    <Content Include="Views\Teacher\RemoveFromClassroom.cshtml" />
+    <Content Include="Views\Teacher\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

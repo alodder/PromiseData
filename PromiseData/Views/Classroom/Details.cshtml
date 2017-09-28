@@ -202,16 +202,16 @@
                         @Html.DisplayFor(modelItem => teacherclass.Teacher.StartDate)
                     </dd>
                 </dl>
-                @*<p class="text-right">
-                    @if (Model.CanEdit)
+                <p class="text-right">
+                    @if (true) //Model.CanEdit
                     {
-                        @Html.ActionLink("Edit", "Edit", "ContactAgents", new { id = agent.AgentId }, null)
+                        @Html.ActionLink("Edit", "Edit", "Teacher", new { id = teacherclass.Teacher.ID }, null)
                         @Html.Raw(" | ")
-                        @Html.ActionLink("Details", "Details", "ContactAgents", new { id = agent.AgentId }, null)
+                        @Html.ActionLink("Details", "Details", "Teacher", new { id = teacherclass.Teacher.ID }, null)
                         @Html.Raw(" | ")
-                        @Html.ActionLink("Delete", "Delete", "ContactAgents", new { id = agent.AgentId }, null)
+                        @Html.ActionLink("Remove", "RemoveFromClassroom", "Teacher", new { id = teacherclass.TeacherID, classroomid = teacherclass.ClassroomID}, null)
                     }
-                </p>*@
+                </p>
             </div>
         </div>
 
