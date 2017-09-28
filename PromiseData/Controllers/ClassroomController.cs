@@ -58,7 +58,7 @@ namespace PromiseData.Controllers
             {
                 Facility_ID = viewModel.Facility_ID,
                 Program_ID = viewModel.Program_ID,
-                ProgramSessionType_ID = viewModel.Program_ID,
+                //ProgramSessionType_ID = viewModel.Program_ID,
                 NewOrExpandedClass = viewModel.NewOrExpandedClass,
                 SessionHours = viewModel.SessionHours,
                 SessionWeeks = viewModel.SessionWeeks,
