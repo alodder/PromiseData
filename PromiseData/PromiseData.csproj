@@ -193,6 +193,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AddressController.cs" />
+    <Compile Include="Controllers\AuditAttribute.cs" />
     <Compile Include="Controllers\ContactAgentsController.cs" />
     <Compile Include="Controllers\FacilityController.cs" />
     <Compile Include="Controllers\FamilyController.cs" />
@@ -214,6 +215,7 @@
     <Compile Include="Models\Adult.cs" />
     <Compile Include="Models\AdultRace.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
+    <Compile Include="Models\AuditingModels.cs" />
     <Compile Include="Models\Child.cs" />
     <Compile Include="Models\ChildRace.cs" />
     <Compile Include="Models\ChildScreening.cs" />

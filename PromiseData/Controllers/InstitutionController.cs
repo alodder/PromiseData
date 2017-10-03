@@ -24,6 +24,7 @@ namespace PromiseData.Controllers
 
         // GET: Institution
         [HttpGet]
+        [Audit]
         [Authorize(Roles = "Administrator, System Administrator")]
         public ActionResult Create()
         {
@@ -87,6 +88,7 @@ namespace PromiseData.Controllers
 
         // GET: Institution
         [HttpGet]
+        [Audit]
         [Authorize(Roles = "Administrator, System Administrator")]
         public ActionResult Edit(int id)
         {
@@ -127,6 +129,7 @@ namespace PromiseData.Controllers
 
         //POST: Institution update/edit
         [HttpPost]
+        [Audit]
         [Authorize(Roles = "Administrator, System Administrator")]
         public ActionResult Update(InstitutionFormViewModel viewModel)
         {
