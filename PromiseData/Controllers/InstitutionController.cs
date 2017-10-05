@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using Advanced_Auditing.Models;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using PromiseData.Models;
 using PromiseData.ViewModels;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
+
 
 namespace PromiseData.Controllers
 {
@@ -37,6 +39,7 @@ namespace PromiseData.Controllers
 
         // POST: Institution
         [HttpPost]
+        [Audit(AuditingLevel = 2)]
         [Authorize(Roles = "Administrator, System Administrator")]
         public ActionResult Create(InstitutionFormViewModel viewModel)
         {
@@ -129,7 +132,7 @@ namespace PromiseData.Controllers
 
         //POST: Institution update/edit
         [HttpPost]
-        [Audit]
+        [Audit(AuditingLevel = 2)]
         [Authorize(Roles = "Administrator, System Administrator")]
         public ActionResult Update(InstitutionFormViewModel viewModel)
         {

@@ -193,7 +193,6 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AddressController.cs" />
-    <Compile Include="Controllers\AuditAttribute.cs" />
     <Compile Include="Controllers\ContactAgentsController.cs" />
     <Compile Include="Controllers\FacilityController.cs" />
     <Compile Include="Controllers\FamilyController.cs" />
