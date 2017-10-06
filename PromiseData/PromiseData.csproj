@@ -205,6 +205,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\WaiverRequestsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -251,6 +252,8 @@
     <Compile Include="Models\TeacherClass.cs" />
     <Compile Include="Models\TeacherLanguageClassroom.cs" />
     <Compile Include="Models\TeacherLanguageFluency.cs" />
+    <Compile Include="Models\WaiverRequest.cs" />
+    <Compile Include="Models\WaiverCurrent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AddressViewModel.cs" />
@@ -395,6 +398,11 @@
     <Content Include="Views\Classroom\ClassroomForm.cshtml" />
     <Content Include="Views\Teacher\RemoveFromClassroom.cshtml" />
     <Content Include="Views\Teacher\View.cshtml" />
+    <Content Include="Views\WaiverRequests\Create.cshtml" />
+    <Content Include="Views\WaiverRequests\Delete.cshtml" />
+    <Content Include="Views\WaiverRequests\Details.cshtml" />
+    <Content Include="Views\WaiverRequests\Edit.cshtml" />
+    <Content Include="Views\WaiverRequests\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<PromiseData.Models.WaiverRequest>
+
+@{
+    ViewBag.Title = "Waiver Requests";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("New Request", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Site.Description)
+        </th>
+        <th>
+            Staff Name
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WaiverType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SparkCurrent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Qualification)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AdditionalComments)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Site.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Staff.NameLast)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WaiverType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SparkCurrent)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Qualification)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AdditionalComments)
+        </td>
+        <td>
+            @Html.ActionLink("Update", "Edit", new { id=item.WaiverRequestID }) |
+            @Html.ActionLink("View", "Details", new { id=item.WaiverRequestID }) |
+            @Html.ActionLink("Cancel", "Delete", new { id=item.WaiverRequestID })
+        </td>
+    </tr>
+}
+
+</table>

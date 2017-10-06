@@ -55,6 +55,10 @@ namespace PromiseData.Models
         public virtual DbSet<ContactAgent> ContactAgents { get; set; }
         public virtual DbSet<Institution> Institutions { get; set; }
 
+        public virtual DbSet<WaiverRequest> WaiverRequests { get; set; }
+
+        public virtual DbSet<WaiverCurrent> WaiverCurrents { get; set; }
+
         public virtual DbSet<InstitutionUser> InstitutionUsers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -214,6 +218,12 @@ namespace PromiseData.Models
                 .HasMany(e => e.ContactAgents)
                 .WithOptional(e => e.Institution)
                 .HasForeignKey(e => e.InstitutionId);
+
+            modelBuilder.Entity<WaiverRequest>()
+                .HasOptional(e => e.Site);
+
+            modelBuilder.Entity<WaiverRequest>()
+                .HasOptional(e => e.Staff);
 
             base.OnModelCreating(modelBuilder);
         }
