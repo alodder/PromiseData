@@ -16,8 +16,13 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.WaiverType, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("WaiverType", null, htmlAttributes: new { @class = "form-control" })
+            <div class="col-md-6">
+                @Html.Label("Site")
+                @Html.RadioButtonFor(model => model.WaiverType, "Site")
+            </div>
+            <div class="col-md-6">
+                @Html.Label("Staff")
+                @Html.RadioButtonFor(model => model.WaiverType, "Staff")
                 @Html.ValidationMessageFor(model => model.WaiverType, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -73,3 +78,17 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/Contact.js")
+    <script type="text/javascript">
+        contact.init({
+          contactsGridAction: '@Url.Action("ContactsGrid")',
+          newContactAction: '@Url.Action("Create")',
+          editContactAction: '@Url.Action("Edit")',
+          deleteContactAction: '@Url.Action("Delete")'
+        });
+    </script>
+}
