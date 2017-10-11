@@ -170,8 +170,26 @@ namespace PromiseData.Controllers
 
             viewModel.TeacherTypes = types;
             viewModel.Languages = _context.CodeLanguage.ToList();
-            viewModel.ClassroomLanguages = LangBoolDictionary;
-            viewModel.FluentLanguages = LangBoolDictionary;
+
+            var langList = _context.CodeLanguage.ToList();
+
+            viewModel.ClassroomLanguages = new Dictionary<int, bool>();
+            viewModel.FluentLanguages = new Dictionary<int, bool>();
+
+            var langClassSet = _context.TeacherLanguageClassrooms.Where(t => t.TeacherID == teacher.ID);
+            var langFluentSet = _context.TeacherLanguageFluencies.Where(t => t.TeacherID == teacher.ID);
+            foreach (Code_Language language in langList)
+            {
+                if (langClassSet.Select(t => t.LanguageID).Contains(language.Code))
+                    viewModel.ClassroomLanguages.Add(language.Code, true);
+                else
+                    viewModel.ClassroomLanguages.Add(language.Code, false);
+
+                if (langFluentSet.Select(t => t.LanguageCode).Contains(language.Code))
+                    viewModel.FluentLanguages.Add(language.Code, true);
+                else
+                    viewModel.FluentLanguages.Add(language.Code, false);
+            }
 
             return View("TeacherForm", viewModel);
         }
@@ -319,8 +337,59 @@ namespace PromiseData.Controllers
         [Authorize]
         public ActionResult Details(int id)
         {
-            var teacher = _context.Teachers.Single(t => t.ID == id);
-            return View( teacher);
+            var teacher = _context.Teachers.Single(i => i.ID == id);
+
+            var viewModel = new TeacherViewModel
+            {
+                Id = teacher.ID,
+                TeacherIDNumber = teacher.TeacherIDNumber,
+                TeacherType = teacher.TeacherType,
+                TeacherBirthdate = teacher.TeacherBirthdate.GetValueOrDefault(),
+                RaceEthnicityIdentity = teacher.TeacherRaceEthnicity,
+                StartDate = teacher.StartDate.GetValueOrDefault(),
+                EndDate = teacher.EndDate,
+                ReasonForLeaving = teacher.ReasonForleaving,
+                TeacherSalary = teacher.TeacherSalary.GetValueOrDefault(),
+                CDA = teacher.CDA,
+                DegreeField = teacher.DegreeField,
+                PDStep = teacher.PDStep.GetValueOrDefault(),
+                YearsExperience = teacher.YearsExperience.GetValueOrDefault(),
+                NameLast = teacher.NameLast,
+                NameFirst = teacher.NameFirst
+            };
+
+            viewModel.Genders = _context.CodeGender.ToList();
+            viewModel.RaceEthnicityList = _context.RaceEthnic.ToList();
+            viewModel.EducationTypes = _context.Code_Education.ToList();
+
+            //List of classrooms limited to classrooms assigned to user
+            viewModel.Classrooms = _context.Classrooms;
+
+            viewModel.TeacherTypes = types;
+            viewModel.Languages = _context.CodeLanguage.ToList();
+
+
+            var langList = _context.CodeLanguage.ToList();
+
+            viewModel.ClassroomLanguages = new Dictionary<int, bool>();
+            viewModel.FluentLanguages = new Dictionary<int, bool>();
+
+            var langClassSet = _context.TeacherLanguageClassrooms.Where(t => t.TeacherID == teacher.ID);
+            var langFluentSet = _context.TeacherLanguageFluencies.Where(t => t.TeacherID == teacher.ID);
+            foreach (Code_Language language in langList)
+            {
+                if (langClassSet.Select(t => t.LanguageID).Contains( language.Code))
+                    viewModel.ClassroomLanguages.Add(language.Code, true);
+                else
+                    viewModel.ClassroomLanguages.Add(language.Code, false);
+
+                if (langFluentSet.Select(t => t.LanguageCode).Contains( language.Code))
+                    viewModel.FluentLanguages.Add(language.Code, true);
+                else
+                    viewModel.FluentLanguages.Add(language.Code, false);
+            }
+
+            return View( viewModel);
         }
 
         [Authorize]

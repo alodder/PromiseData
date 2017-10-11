@@ -1,4 +1,4 @@
-﻿@model PromiseData.Models.Teacher
+﻿@model PromiseData.ViewModels.TeacherViewModel
 
 @{
     ViewBag.Title = "View";
@@ -16,6 +16,22 @@
 
         <dd>
             @Html.DisplayFor(model => model.TeacherIDNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NameFirst)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NameFirst)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NameLast)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NameLast)
         </dd>
 
         <dt>
@@ -136,22 +152,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.ReasonForleaving)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NameFirst)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NameFirst)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NameLast)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NameLast)
         </dd>
     </dl>
 
