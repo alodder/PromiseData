@@ -145,6 +145,11 @@ namespace PromiseData.Models
                 .HasForeignKey(e => e.Facility_ID);
 
             modelBuilder.Entity<Facility>()
+                .HasMany(e => e.WaiverCurrents)
+                .WithRequired(e => e.Site)
+                .HasForeignKey(e => e.SiteID);
+
+            modelBuilder.Entity<Facility>()
                 .HasRequired(e => e.Provider);
 
             modelBuilder.Entity<Family>()

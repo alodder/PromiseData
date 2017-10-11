@@ -71,6 +71,8 @@ namespace PromiseData.Models
         [ForeignKey("ProviderID")]
         public virtual Institution Provider { get; set; }
 
+        public virtual ICollection<WaiverCurrent> WaiverCurrents { get; set; }
+
         public virtual ICollection<Child_Facility> Child_Facilities { get; set; }
     }
 }

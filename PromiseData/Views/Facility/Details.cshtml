@@ -57,10 +57,10 @@
 
     <h4>Site Waivers</h4>
     <ul class="list-group">
-        @foreach (var Support in Model.Supports)
+        @foreach (var Waiver in Model.Waivers)
         {
             <li class="list-group-item">
-                @Support.Description
+                @Waiver.WaiverType
             </li>
         }
     </ul>

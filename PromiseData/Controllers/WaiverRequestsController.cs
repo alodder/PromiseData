@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PromiseData.Models;
+using Advanced_Auditing.Models;
 
 namespace PromiseData.Controllers
 {
@@ -37,6 +38,7 @@ namespace PromiseData.Controllers
         }
 
         // GET: WaiverRequests/Create
+        [Audit(AuditingLevel = 2)]
         public ActionResult Create()
         {
             ViewBag.WaiverType = new SelectList(new List<SelectListItem>
@@ -54,6 +56,7 @@ namespace PromiseData.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Audit(AuditingLevel = 2)]
         public ActionResult Create([Bind(Include = "WaiverRequestID,waiverType,SiteID,SparkCurrent,StaffID,Qualification,AdditionalComments")] WaiverRequest waiverRequest)
         {
             if (ModelState.IsValid)
@@ -69,6 +72,7 @@ namespace PromiseData.Controllers
         }
 
         // GET: WaiverRequests/Edit/5
+        [Audit(AuditingLevel = 2)]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -90,6 +94,7 @@ namespace PromiseData.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Audit(AuditingLevel = 2)]
         public ActionResult Edit([Bind(Include = "WaiverRequestID,waiverType,SiteID,SparkCurrent,StaffID,Qualification,AdditionalComments")] WaiverRequest waiverRequest)
         {
             if (ModelState.IsValid)
@@ -104,6 +109,7 @@ namespace PromiseData.Controllers
         }
 
         // GET: WaiverRequests/Delete/5
+        [Audit(AuditingLevel = 2)]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -121,6 +127,7 @@ namespace PromiseData.Controllers
         // POST: WaiverRequests/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Audit(AuditingLevel = 2)]
         public ActionResult DeleteConfirmed(int id)
         {
             WaiverRequest waiverRequest = db.WaiverRequests.Find(id);

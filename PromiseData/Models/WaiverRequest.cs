@@ -15,6 +15,7 @@
         [DisplayName("Waiver Type")]
         public string WaiverType { get; set; }
 
+        [DisplayName("Site")]
         public int? SiteID { get; set; }
 
         //Sites current rating
@@ -22,10 +23,12 @@
         public string SparkCurrent { get; set; }
 
         //Staff Waiver
+        [DisplayName("Staff")]
         public int? StaffID { get; set; }
 
         public string Qualification { get; set; }
 
+        [DataType(DataType.MultilineText)]
         [DisplayName("Additional Comments")]
         public string AdditionalComments { get; set; }
 
