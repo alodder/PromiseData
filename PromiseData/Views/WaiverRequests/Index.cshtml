@@ -15,10 +15,10 @@
             Site
         </th>
         <th>
-            Staff Name
+            @Html.DisplayNameFor(model => model.WaiverType)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.WaiverType)
+            Staff Name
         </th>
         <th>
             @Html.DisplayNameFor(model => model.SparkCurrent)
@@ -38,10 +38,15 @@
             @Html.DisplayFor(modelItem => item.Site.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Staff.NameLast)
+            @Html.DisplayFor(modelItem => item.WaiverType)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.WaiverType)
+            @if(item.Staff !=null)
+            {
+                @item.Staff.NameLast;
+                @Html.Raw(", ");
+                @item.Staff.NameFirst;
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.SparkCurrent)
