@@ -345,11 +345,13 @@ namespace PromiseData.Controllers
                 TeacherIDNumber = teacher.TeacherIDNumber,
                 TeacherType = teacher.TeacherType,
                 TeacherBirthdate = teacher.TeacherBirthdate.GetValueOrDefault(),
+                GenderId = teacher.Gender_ID.GetValueOrDefault(),
                 RaceEthnicityIdentity = teacher.TeacherRaceEthnicity,
                 StartDate = teacher.StartDate.GetValueOrDefault(),
                 EndDate = teacher.EndDate,
                 ReasonForLeaving = teacher.ReasonForleaving,
                 TeacherSalary = teacher.TeacherSalary.GetValueOrDefault(),
+                EducationID = teacher.Education_ID.GetValueOrDefault(),
                 CDA = teacher.CDA,
                 DegreeField = teacher.DegreeField,
                 PDStep = teacher.PDStep.GetValueOrDefault(),
@@ -363,7 +365,8 @@ namespace PromiseData.Controllers
             viewModel.EducationTypes = _context.Code_Education.ToList();
 
             //List of classrooms limited to classrooms assigned to user
-            viewModel.Classrooms = _context.Classrooms;
+            var classIDs = teacher.TeacherClasses.Select(tc => tc.ClassroomID);
+            viewModel.Classrooms = _context.Classrooms.Where( c => classIDs.Contains( c.ID)).ToList();
 
             viewModel.TeacherTypes = types;
             viewModel.Languages = _context.CodeLanguage.ToList();

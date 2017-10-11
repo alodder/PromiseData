@@ -47,7 +47,7 @@
             @Html.DisplayFor(modelItem => item.TeacherType)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.StartDate)
+            @item.StartDate.Value.ToShortDateString()
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Education_ID)
@@ -56,7 +56,10 @@
             @Html.DisplayFor(modelItem => item.YearsExperience)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.EndDate)
+            @if( item.EndDate.HasValue)
+            {
+                item.EndDate.Value.ToShortDateString();
+            }
         </td>
         <td>
             @foreach (var teacherClass in item.TeacherClasses)

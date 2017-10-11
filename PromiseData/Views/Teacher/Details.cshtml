@@ -1,171 +1,207 @@
 ﻿@model PromiseData.ViewModels.TeacherViewModel
 
-@{
-    ViewBag.Title = "View";
-}
-
 <h2>Details</h2>
 
 <div>
     <h4>Teacher</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TeacherIDNumber)
-        </dt>
+    <div class="">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.TeacherIDNumber)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.TeacherIDNumber)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.TeacherIDNumber)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NameFirst)
-        </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.NameFirst)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.NameFirst)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.NameFirst)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NameLast)
-        </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.NameLast)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.NameLast)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.NameLast)
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TeacherType)
-        </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.TeacherBirthdate)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.TeacherType)
-        </dd>
+                    <dd>
+                        @Model.TeacherBirthdate.ToShortDateString()
+                    </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TeacherBirthdate)
-        </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.GenderId)
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.TeacherBirthdate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Gender_ID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Gender_ID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TeacherRaceEthnicity)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TeacherRaceEthnicity)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Languages_spoken_in_classroom)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Languages_spoken_in_classroom)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FluentLanguages)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FluentLanguages)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StartDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TeacherSalary)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TeacherSalary)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Education_ID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Education_ID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CDA)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CDA)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DegreeField)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DegreeField)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PDStep)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PDStep)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.YearsExperience)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.YearsExperience)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EndDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EndDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ReasonForleaving)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ReasonForleaving)
-        </dd>
-    </dl>
-
-    @foreach(var teacherClass in Model.TeacherClasses)
-    {
-        <div>
-            @Html.ActionLink(teacherClass.Classroom.Description, "Details", "Classroom", new { id = teacherClass.Classroom.ID }, null)
-             - 
-            <strong>@Html.DisplayFor(classroom => teacherClass.Classroom.Facility.Description)</strong>
+                    <dd>
+                        @Model.Genders.Single(r => r.Code == Model.GenderId).Description
+                    </dd>
+                </dl>
+            </div>
         </div>
-    }
+    </div>
+
+    <div class="">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.TeacherType)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.TeacherType)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ClassroomLanguages)
+                    </dt>
+
+                    <dd>
+                        @foreach (KeyValuePair<int, bool> lang in Model.ClassroomLanguages)
+                        {
+                            if (lang.Value)
+                            {
+                                @Model.Languages.Single(r => r.Code == lang.Key).Description
+                            }
+                        }
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.FluentLanguages)
+                    </dt>
+
+                    <dd>
+                        @foreach (KeyValuePair<int, bool> lang in Model.FluentLanguages)
+            {
+                if (lang.Value)
+                {
+                                @Model.Languages.Single(r => r.Code == lang.Key).Description
+                                @Html.Raw(" ")
+                            }
+                        }
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.TeacherSalary)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.TeacherSalary)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.EducationID)
+                    </dt>
+
+                    <dd>
+                        @Model.EducationTypes.Single(r => r.Code == Model.EducationID).Description
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.CDA)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.CDA)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.DegreeField)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.DegreeField)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.PDStep)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.PDStep)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.YearsExperience)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.YearsExperience)
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="">
+        <div class="panel panel-default">
+            <div class="panel-heading">Tenure</div>
+            <div class="panel-body">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.StartDate)
+                    </dt>
+
+                    <dd>
+                        @Model.StartDate.ToShortDateString()
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.EndDate)
+                    </dt>
+
+                    <dd>
+                        @if (Model.EndDate.HasValue)
+            {
+                Model.EndDate.Value.ToShortDateString();
+            }
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ReasonForLeaving)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.ReasonForLeaving)
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="">
+        <div class="panel panel-default">
+            <div class="panel-heading">Classrooms</div>
+            <div class="panel-body">
+                @foreach (var classroom in Model.Classrooms)
+                {
+                    <div>
+                        @Html.ActionLink(classroom.Description ?? "Classroom", "Details", "Classroom", new { id = classroom.ID }, null)
+                        -
+                        <strong>@Html.DisplayFor(clas => classroom.Facility.Description)</strong>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+
 
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
