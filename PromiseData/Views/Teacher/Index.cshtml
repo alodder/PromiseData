@@ -1,13 +1,10 @@
 ﻿@model IEnumerable<PromiseData.Models.Teacher>
 
-@{
-    ViewBag.Title = "Index";
-}
 
-<h2>Index</h2>
+<h2>Staff</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Add New", "Create")
 </p>
 <table class="table">
     <tr>
@@ -21,37 +18,10 @@
             @Html.DisplayNameFor(model => model.TeacherType)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TeacherBirthdate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gender_ID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TeacherRaceEthnicity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Languages_spoken_in_classroom)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FluentLanguages)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.StartDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TeacherSalary)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Education_ID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CDA)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DegreeField)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PDStep)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.YearsExperience)
@@ -60,7 +30,7 @@
             @Html.DisplayNameFor(model => model.EndDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ReasonForleaving)
+            @Html.DisplayNameFor(model => model.TeacherClasses)
         </th>
         <th></th>
     </tr>
@@ -77,37 +47,10 @@
             @Html.DisplayFor(modelItem => item.TeacherType)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TeacherBirthdate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Gender_ID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TeacherRaceEthnicity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Languages_spoken_in_classroom)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FluentLanguages)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.StartDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TeacherSalary)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Education_ID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CDA)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DegreeField)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PDStep)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.YearsExperience)
@@ -116,7 +59,10 @@
             @Html.DisplayFor(modelItem => item.EndDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ReasonForleaving)
+            @foreach (var teacherClass in item.TeacherClasses)
+            {
+                @Html.DisplayFor(classroom => teacherClass.Classroom.Description)
+            }
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |

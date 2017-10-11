@@ -4,7 +4,7 @@
     ViewBag.Title = "View";
 }
 
-<h2>View</h2>
+<h2>Details</h2>
 
 <div>
     <h4>Teacher</h4>
@@ -153,8 +153,17 @@
         <dd>
             @Html.DisplayFor(model => model.NameLast)
         </dd>
-
     </dl>
+
+    @foreach(var teacherClass in Model.TeacherClasses)
+    {
+        <div>
+            @Html.ActionLink(teacherClass.Classroom.Description, "Details", "Classroom", new { id = teacherClass.Classroom.ID }, null)
+             - 
+            <strong>@Html.DisplayFor(classroom => teacherClass.Classroom.Facility.Description)</strong>
+        </div>
+    }
+
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
