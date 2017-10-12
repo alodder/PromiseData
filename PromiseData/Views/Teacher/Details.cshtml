@@ -85,21 +85,13 @@
 
                     <dd>
                         @foreach (KeyValuePair<int, bool> lang in Model.FluentLanguages)
-            {
-                if (lang.Value)
-                {
+                        {
+                            if (lang.Value)
+                            {
                                 @Model.Languages.Single(r => r.Code == lang.Key).Description
                                 @Html.Raw(" ")
                             }
                         }
-                    </dd>
-
-                    <dt>
-                        @Html.DisplayNameFor(model => model.TeacherSalary)
-                    </dt>
-
-                    <dd>
-                        @Html.DisplayFor(model => model.TeacherSalary)
                     </dd>
 
                     <dt>
@@ -140,6 +132,14 @@
 
                     <dd>
                         @Html.DisplayFor(model => model.YearsExperience)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.TeacherSalary)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.TeacherSalary)
                     </dd>
                 </dl>
             </div>
