@@ -129,31 +129,36 @@
 
 <div>
     <h4>CLASS Scores</h4>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            @Html.DisplayNameFor(model => model.CLASSScore_EmotionalSupport): 
-            @Html.DisplayFor(model => model.CLASSScore_EmotionalSupport.Value)
-            <div class="progress">
-                <div class="progress-bar" style="width: 60%;"></div>
-            </div>
+    @foreach (var classScore in Model.CLASSScores)
+    {
+        <div class="panel panel-default">
+            <div class="panel-heading">@classScore.Score_date.ToShortDateString()</div>
+            <div class="panel-body">
+                @Html.DisplayNameFor(model => classScore.CLASSScore_EmotionalSupport):
+                @classScore.CLASSScore_EmotionalSupport.GetValueOrDefault().ToString()
+                <div class="progress">
+                    <div class="progress-bar progress-bar-info" style="width: 60%;"></div>
+                </div>
 
-            @Html.DisplayNameFor(model => model.CLASSScore_ClassroomOrganization): 
-            @Html.DisplayFor(model => model.CLASSScore_ClassroomOrganization.Value)
-            <div class="progress">
-                <div class="progress-bar" style="width: 60%;"></div>
-            </div>
+                @Html.DisplayNameFor(model => classScore.CLASSScore_ClassroomOrganization):
+                @classScore.CLASSScore_ClassroomOrganization.GetValueOrDefault().ToString()
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success" style="width: 60%;"></div>
+                </div>
 
-            @Html.DisplayNameFor(model => model.CLASSScore_InstructionalSupport): 
-            @Html.DisplayFor(model => model.CLASSScore_InstructionalSupport.Value)
-            <div class="progress">
-                <div class="progress-bar" style="width: 60%;"></div>
+                @Html.DisplayNameFor(model => classScore.CLASSScore_InstructionalSupport):
+                @classScore.CLASSScore_InstructionalSupport.GetValueOrDefault().ToString()
+                <div class="progress">
+                    <div class="progress-bar progress-bar-warning" style="width: 60%;"></div>
+                </div>
             </div>
         </div>
-        @if (!Model.Facility.Provider.IsHub)
-        {
-            <li>@Html.ActionLink("Add New SCORE", "Create", "CLASS_Score", new { id = Model.ID }, null)</li>
-        }
-    </div>
+    }
+
+    @if (!Model.Facility.Provider.IsHub)
+    {
+        <li>@Html.ActionLink("Add New SCORE", "Create", "CLASS_Score", new { id = Model.ID }, null)</li>
+    }
 </div>
 
 @*
