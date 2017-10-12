@@ -1,0 +1,53 @@
+﻿@model IEnumerable<PromiseData.Models.CLASS_Score>
+
+<h2>CLASS Scores</h2>
+
+<p>
+    @Html.ActionLink("New Score", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Classroom.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CLASSScore_EmotionalSupport)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CLASSScore_ClassroomOrganization)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CLASSScore_InstructionalSupport)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Score_date)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Classroom.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CLASSScore_EmotionalSupport)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CLASSScore_ClassroomOrganization)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CLASSScore_InstructionalSupport)
+        </td>
+        <td>
+            @item.Score_date.ToShortDateString()
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Score_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Score_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Score_id })
+        </td>
+    </tr>
+}
+
+</table>

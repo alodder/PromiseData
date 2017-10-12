@@ -149,6 +149,10 @@
                 <div class="progress-bar" style="width: 60%;"></div>
             </div>
         </div>
+        @if (!Model.Facility.Provider.IsHub)
+        {
+            <li>@Html.ActionLink("Add New SCORE", "Create", "CLASS_Score", new { id = Model.ID }, null)</li>
+        }
     </div>
 </div>
 

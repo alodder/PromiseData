@@ -1,0 +1,58 @@
+﻿@model PromiseData.Models.CLASS_Score
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CLASS_Score</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Classroom.NewOrExpandedClass)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Classroom.NewOrExpandedClass)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CLASSScore_EmotionalSupport)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CLASSScore_EmotionalSupport)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CLASSScore_ClassroomOrganization)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CLASSScore_ClassroomOrganization)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CLASSScore_InstructionalSupport)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CLASSScore_InstructionalSupport)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Score_date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Score_date)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Score_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -193,6 +193,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AddressController.cs" />
+    <Compile Include="Controllers\CLASS_ScoreController.cs" />
     <Compile Include="Controllers\ContactAgentsController.cs" />
     <Compile Include="Controllers\FacilityController.cs" />
     <Compile Include="Controllers\FamilyController.cs" />
@@ -404,6 +405,11 @@
     <Content Include="Views\WaiverRequests\Details.cshtml" />
     <Content Include="Views\WaiverRequests\Edit.cshtml" />
     <Content Include="Views\WaiverRequests\Index.cshtml" />
+    <Content Include="Views\CLASS_Score\Create.cshtml" />
+    <Content Include="Views\CLASS_Score\Delete.cshtml" />
+    <Content Include="Views\CLASS_Score\Details.cshtml" />
+    <Content Include="Views\CLASS_Score\Edit.cshtml" />
+    <Content Include="Views\CLASS_Score\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

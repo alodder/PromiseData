@@ -221,6 +221,9 @@ namespace PromiseData.Models
             modelBuilder.Entity<Institution>()
                 .HasOptional(e => e.ParentHub);
 
+            modelBuilder.Entity<CLASS_Score>()
+                .HasRequired(e => e.Classroom);
+
             modelBuilder.Entity<Institution>()
                 .HasMany(e => e.ContactAgents)
                 .WithOptional(e => e.Institution)
