@@ -19,6 +19,7 @@ namespace PromiseData.Models
 
         public int? ProgramSessionType_ID { get; set; }
 
+        [DisplayName("New Or Expanded Class")]
         [StringLength(10)]
         public string NewOrExpandedClass { get; set; }
 
@@ -28,6 +29,7 @@ namespace PromiseData.Models
 
         public int? SessionWeeks { get; set; }
 
+        [DisplayName("Preschool Promise Students")]
         public int? PPStudents { get; set; }
 
         public int? NonPPStudentsHSOPK { get; set; }
@@ -59,6 +61,8 @@ namespace PromiseData.Models
         public virtual Facility Facility { get; set; }
 
         public virtual Service Service { get; set; }
+
+        public virtual ICollection<CLASS_Score> CLASSScores { get; set; }
 
         public virtual ICollection<TeacherClass> TeacherClasses { get; set; }
     }

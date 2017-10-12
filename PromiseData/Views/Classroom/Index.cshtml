@@ -12,7 +12,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            Site
+        </th>
+        <th>
+            Classroom
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Description)
@@ -27,40 +30,7 @@
             @Html.DisplayNameFor(model => model.NewOrExpandedClass)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SessionHours)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SessionDays)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SessionWeeks)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.PPStudents)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NonPPStudentsHSOPK)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NonPPStudentsThirdParty)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NonPPStudentsParentPay)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PPSlotsUnfilled)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CLASSScore_EmotionalSupport)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CLASSScore_ClassroomOrganization)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CLASSScore_InstructionalSupport)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.upsize_ts)
         </th>
         <th></th>
     </tr>
@@ -68,7 +38,17 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Description)
+            @Html.DisplayFor(modelItem => item.Facility.Description)
+        </td>
+        <td>
+            @if(!item.Description.IsEmpty())
+            {
+                @Html.DisplayFor(modelItem => item.Description)
+            }
+            else
+            {
+                @Html.DisplayFor(modelItem => item.ID)
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Code_ProgramSessionType.Description)
@@ -83,40 +63,7 @@
             @Html.DisplayFor(modelItem => item.NewOrExpandedClass)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.SessionHours)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SessionDays)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SessionWeeks)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.PPStudents)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NonPPStudentsHSOPK)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NonPPStudentsThirdParty)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NonPPStudentsParentPay)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PPSlotsUnfilled)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CLASSScore_EmotionalSupport)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CLASSScore_ClassroomOrganization)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CLASSScore_InstructionalSupport)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.upsize_ts)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |

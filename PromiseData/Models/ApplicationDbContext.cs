@@ -59,6 +59,8 @@ namespace PromiseData.Models
 
         public virtual DbSet<WaiverCurrent> WaiverCurrents { get; set; }
 
+        public virtual DbSet<CLASS_Score> ClassScores { get; set; }
+
         public virtual DbSet<InstitutionUser> InstitutionUsers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -223,6 +225,11 @@ namespace PromiseData.Models
                 .HasMany(e => e.ContactAgents)
                 .WithOptional(e => e.Institution)
                 .HasForeignKey(e => e.InstitutionId);
+
+            modelBuilder.Entity<Classroom>()
+                .HasMany(e => e.CLASSScores)
+                .WithRequired(e => e.Classroom)
+                .HasForeignKey(e => e.Classroom_id);
 
             base.OnModelCreating(modelBuilder);
         }

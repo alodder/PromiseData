@@ -231,6 +231,7 @@
     <Compile Include="Models\ContactAgent.cs" />
     <Compile Include="Models\ELD_ID.cs" />
     <Compile Include="Models\FacilitySupport.cs" />
+    <Compile Include="Models\Class_Score.cs" />
     <Compile Include="Models\Hub.cs" />
     <Compile Include="Models\Institution.cs" />
     <Compile Include="Models\InstitutionUser.cs" />
