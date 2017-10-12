@@ -152,7 +152,7 @@ namespace PromiseData.Controllers
             var facilitySupports = _context.FacilitySupports.Where(s=> s.FacilityID == id).Select(s => s.SupportTypesCode).ToList();
             viewModel.Supports = _context.Code_AdditionalSupportTypes.Where(support => facilitySupports.Contains(support.Code)).ToList();
 
-            viewModel.Waivers = new List<WaiverCurrent>();// facility.WaiverCurrents.ToList();
+            viewModel.Waivers = facility.WaiverCurrents.ToList();
 
             /**
              * Set user access to controls

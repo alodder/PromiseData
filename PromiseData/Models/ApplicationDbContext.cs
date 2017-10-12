@@ -224,12 +224,6 @@ namespace PromiseData.Models
                 .WithOptional(e => e.Institution)
                 .HasForeignKey(e => e.InstitutionId);
 
-            modelBuilder.Entity<WaiverRequest>()
-                .HasOptional(e => e.Site);
-
-            modelBuilder.Entity<WaiverRequest>()
-                .HasOptional(e => e.Staff);
-
             base.OnModelCreating(modelBuilder);
         }
 
