@@ -34,6 +34,16 @@ namespace Advanced_Auditing.Models
 
     public class AuditingContext : DbContext
     {
+        public AuditingContext()
+            : base("name=AuditContext")
+        {
+        }
+
+        public static AuditingContext Create()
+        {
+            return new AuditingContext();
+        }
+
         public DbSet<Audit> AuditRecords { get; set; }
     }
 
