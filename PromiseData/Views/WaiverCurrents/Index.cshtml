@@ -1,0 +1,152 @@
+﻿@model PromiseData.ViewModels.WaiversProcessViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Site Waivers</h2>
+
+<p>
+    @Html.ActionLink("Add New", "Create")
+</p>
+
+<hr />
+<h3>Waiver Requests</h3>
+<table class="table">
+    <tr>
+        <th>
+            Site
+        </th>
+        <th>
+            Provider
+        </th>
+        <th>
+            Waiver Type
+        </th>
+        <th>
+            Staff Name
+        </th>
+        <th>
+            Current Spark Rating
+        </th>
+        <th>
+            Qualification
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.WaiverRequests)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Site.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Site.Provider.LegalName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WaiverType)
+            </td>
+            <td>
+                @if (item.Staff != null)
+                {
+                    @item.Staff.NameLast;
+                    @Html.Raw(", ");
+                    @item.Staff.NameFirst;
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SparkCurrent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Qualification)
+            </td>
+            <td>
+                <div>
+                    @Html.ActionLink("Update", "Edit", "WaiverRequests", new { id = item.WaiverRequestID }, null) |
+                    @Html.ActionLink("View", "Details", "WaiverRequests", new { id = item.WaiverRequestID }, null) |
+                    @Html.ActionLink("Cancel", "Delete", "WaiverRequests", new { id = item.WaiverRequestID }, null)
+                </div>
+                <div>
+                    @Html.ActionLink("Process", "ProcessWaiver", new { id = item.WaiverRequestID })
+                </div>
+            </td>
+        </tr>
+    }
+</table>
+
+<hr />
+<h3>Current Waivers</h3>
+<table class="table">
+    <tr>
+        <th>
+            Site
+        </th>
+        <th>
+            Staff
+        </th>
+        <th>
+            Waiver Type
+        </th>
+        <th>
+            Current Spark
+        </th>
+        <th>
+            Qualification
+        </th>
+        <th>
+            Development
+        </th>
+        <th>
+            Credits
+        </th>
+        <th>
+            Training Hours
+        </th>
+        <th>
+            Service Hour Count
+        </th>
+        <th>
+            Unsatisfied
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.WaiverCurrents) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Site.ProviderFacilityType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Staff.TeacherIDNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WaiverType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SparkCurrent)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Qualification)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Development)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Credits)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServiceHourCount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Unsatisfied)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.WaiverCurrentID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.WaiverCurrentID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.WaiverCurrentID })
+        </td>
+    </tr>
+}
+
+</table>

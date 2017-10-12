@@ -206,6 +206,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\WaiverCurrentsController.cs" />
     <Compile Include="Controllers\WaiverRequestsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -265,6 +266,7 @@
     <Compile Include="ViewModels\FacilityViewModel.cs" />
     <Compile Include="ViewModels\FamilyViewModel.cs" />
     <Compile Include="ViewModels\InstitutionFormViewModel.cs" />
+    <Compile Include="ViewModels\WaiversProcessViewModel.cs" />
     <Compile Include="ViewModels\TeacherClassViewModel.cs" />
     <Compile Include="ViewModels\InstitutionsViewModel.cs" />
     <Compile Include="ViewModels\TeacherViewModel.cs" />
@@ -410,6 +412,11 @@
     <Content Include="Views\CLASS_Score\Details.cshtml" />
     <Content Include="Views\CLASS_Score\Edit.cshtml" />
     <Content Include="Views\CLASS_Score\Index.cshtml" />
+    <Content Include="Views\WaiverCurrents\Create.cshtml" />
+    <Content Include="Views\WaiverCurrents\Delete.cshtml" />
+    <Content Include="Views\WaiverCurrents\Details.cshtml" />
+    <Content Include="Views\WaiverCurrents\Edit.cshtml" />
+    <Content Include="Views\WaiverCurrents\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
