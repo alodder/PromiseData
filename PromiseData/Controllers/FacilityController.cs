@@ -303,9 +303,26 @@ namespace PromiseData.Controllers
         // GET: Facility
         public ActionResult Index()
         {
-            var viewModel = _context.Facilities;
+            IEnumerable<Facility> facilities;
 
-            return View( viewModel);
+            if (User.IsInRole("Administrator") || User.IsInRole("System Administrator"))
+            {
+                facilities = _context.Facilities;
+            }
+            else
+            {
+                ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
+
+                var claims = (from c in identity.Claims
+                              where c.Type == "Institution"
+                              select c);
+                var institutionId = Int32.Parse(claims.FirstOrDefault().Value);
+
+                facilities = _context.Facilities.Where(
+                    f => f.ProviderID == institutionId);
+            }
+
+            return View(facilities);
         }
     }
 }
