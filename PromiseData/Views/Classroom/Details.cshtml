@@ -155,9 +155,9 @@
         </div>
     }
 
-    @if (!Model.Facility.Provider.IsHub)
+    @if (Model.Facility.Provider.IsProvider)
     {
-        <li>@Html.ActionLink("Add New SCORE", "Create", "CLASS_Score", new { id = Model.ID }, null)</li>
+        @Html.ActionLink("Add New SCORE", "Create", "CLASS_Score", new { id = Model.ID }, new { @class = "btn btn-success" })
     }
 </div>
 
