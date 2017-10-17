@@ -417,6 +417,7 @@
     <Content Include="Views\WaiverCurrents\Details.cshtml" />
     <Content Include="Views\WaiverCurrents\Edit.cshtml" />
     <Content Include="Views\WaiverCurrents\Index.cshtml" />
+    <Content Include="Views\Child\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

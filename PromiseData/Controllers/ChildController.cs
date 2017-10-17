@@ -90,6 +90,40 @@ namespace PromiseData.Controllers
         }
 
         [Authorize]
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var child = _context.Children.Single(a => a.ID == id);
+            if (child == null)
+            {
+                return HttpNotFound();
+            }
+
+            var viewModel = new ChildFormViewModel
+            {
+                LastName = child.LastName,
+                OtherLastName = child.OtherLastName,
+                FirstName = child.FirstName,
+                MiddleName = child.MiddleName,
+                OtherMiddleName = child.OtherMiddleName,
+                Date = child.Birthdate.GetValueOrDefault(),
+                GenerationCodeID = child.GenerationCode_ID.GetValueOrDefault(),
+                LanguageID = child.Language_ID.GetValueOrDefault(),
+                GenderID = child.Gender_ID.GetValueOrDefault(),
+
+                Genders = _context.CodeGender.ToList(),
+                Languages = _context.CodeLanguage.ToList(),
+                RaceEthnicityList = _context.RaceEthnic.ToList(),
+                Generations = _context.Code_GenerationCode.ToList()
+            };
+
+            return View(viewModel);
+        }
+
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
