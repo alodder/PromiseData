@@ -67,9 +67,9 @@ namespace PromiseData.Controllers
                 NonPPStudentsThirdParty = viewModel.NonPPStudentsThirdParty,
                 NonPPStudentsParentPay = viewModel.NonPPStudentsParentPay,
                 PPSlotsUnfilled = viewModel.PPSlotsUnfilled,
-                CLASSScore_EmotionalSupport = viewModel.CLASSScore_EmotionalSupport,
-                CLASSScore_ClassroomOrganization = viewModel.CLASSScore_ClassroomOrganization,
-                CLASSScore_InstructionalSupport = viewModel.CLASSScore_InstructionalSupport,
+                //CLASSScore_EmotionalSupport = viewModel.CLASSScore_EmotionalSupport,
+                //CLASSScore_ClassroomOrganization = viewModel.CLASSScore_ClassroomOrganization,
+                //CLASSScore_InstructionalSupport = viewModel.CLASSScore_InstructionalSupport,
                 upsize_ts = viewModel.upsize_ts,
                 Description = viewModel.Description
             };
@@ -149,9 +149,9 @@ namespace PromiseData.Controllers
                 NonPPStudentsThirdParty = classroom.NonPPStudentsThirdParty.GetValueOrDefault(),
                 NonPPStudentsParentPay = classroom.NonPPStudentsParentPay.GetValueOrDefault(),
                 PPSlotsUnfilled = classroom.PPSlotsUnfilled.GetValueOrDefault(),
-                CLASSScore_EmotionalSupport = classroom.CLASSScore_EmotionalSupport.GetValueOrDefault(),
-                CLASSScore_ClassroomOrganization = classroom.CLASSScore_ClassroomOrganization.GetValueOrDefault(),
-                CLASSScore_InstructionalSupport = classroom.CLASSScore_InstructionalSupport.GetValueOrDefault(),
+                //CLASSScore_EmotionalSupport = classroom.CLASSScore_EmotionalSupport.GetValueOrDefault(),
+                //CLASSScore_ClassroomOrganization = classroom.CLASSScore_ClassroomOrganization.GetValueOrDefault(),
+                //CLASSScore_InstructionalSupport = classroom.CLASSScore_InstructionalSupport.GetValueOrDefault(),
                 upsize_ts = classroom.upsize_ts,
                 Description = classroom.Description
             };
@@ -186,9 +186,9 @@ namespace PromiseData.Controllers
             classroom.NonPPStudentsThirdParty = viewModel.NonPPStudentsThirdParty;
             classroom.NonPPStudentsParentPay = viewModel.NonPPStudentsParentPay;
             classroom.PPSlotsUnfilled = viewModel.PPSlotsUnfilled;
-            classroom.CLASSScore_EmotionalSupport = viewModel.CLASSScore_EmotionalSupport;
-            classroom.CLASSScore_ClassroomOrganization = viewModel.CLASSScore_ClassroomOrganization;
-            classroom.CLASSScore_InstructionalSupport = viewModel.CLASSScore_InstructionalSupport;
+            //classroom.CLASSScore_EmotionalSupport = viewModel.CLASSScore_EmotionalSupport;
+            //classroom.CLASSScore_ClassroomOrganization = viewModel.CLASSScore_ClassroomOrganization;
+            //classroom.CLASSScore_InstructionalSupport = viewModel.CLASSScore_InstructionalSupport;
             classroom.Description = viewModel.Description;
 
             _context.SaveChanges();
