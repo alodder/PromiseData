@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using PromiseData.Models;
 using PromiseData.ViewModels;
 using System.Security.Claims;
+using Advanced_Auditing.Models;
 
 namespace PromiseData.Controllers
 {
@@ -33,6 +34,7 @@ namespace PromiseData.Controllers
         }
 
         [HttpGet]
+        [Audit(AuditingLevel = 1)]
         [Authorize(Roles = "Hub, Provider, Administrator, System Administrator")]
         public ActionResult Create(int? id)
         {
@@ -41,18 +43,37 @@ namespace PromiseData.Controllers
                 Genders = _context.CodeGender.ToList(),
                 RaceEthnicityList = _context.RaceEthnic.ToList(),
                 EducationTypes = _context.Code_Education.ToList(),
-                Classrooms = _context.Classrooms,
+                //Classrooms = _context.Classrooms,
                 TeacherTypes = types,
                 Languages = _context.CodeLanguage.ToList(),
-                ClassroomLanguages = LangBoolDictionary, 
+                ClassroomLanguages = LangBoolDictionary,
                 FluentLanguages = LangBoolDictionary
             };
+
+            if (User.IsInRole("Administrator") || User.IsInRole("System Administrator"))
+            {
+                viewModel.Classrooms = _context.Classrooms;
+            }
+            else
+            {
+                ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
+
+                var claims = (from c in identity.Claims
+                              where c.Type == "Institution"
+                              select c);
+                var institutionId = Int32.Parse(claims.FirstOrDefault().Value);
+
+                viewModel.Classrooms = _context.Classrooms.Where(
+                    c => c.Facility.ProviderID == institutionId);
+            }
+
             return View("TeacherForm", viewModel);
         }
 
         [HttpPost]
-        [Authorize(Roles = "Hub, Provider, Administrator, System Administrator")]
-        public ActionResult Create( TeacherViewModel viewModel)
+        [Audit(AuditingLevel = 2)]
+        [Authorize(Roles = "Provider, Hub, Administrator, System Administrator")]
+        public ActionResult Create(TeacherViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -93,7 +114,7 @@ namespace PromiseData.Controllers
             if (viewModel.DegreeField.Equals("Other"))
                 teacher.DegreeField = viewModel.OtherField;
 
-            _context.Teachers.Add( teacher);
+            _context.Teachers.Add(teacher);
 
             //SaveChanges() to set teacher.Id
             _context.SaveChanges();
@@ -139,6 +160,7 @@ namespace PromiseData.Controllers
 
         // GET: Teacher
         [HttpGet]
+        [Audit(AuditingLevel = 1)]
         [Authorize(Roles = "Provider, Hub, Administrator, System Administrator")]
         public ActionResult Edit(int id)
         {
@@ -196,7 +218,8 @@ namespace PromiseData.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Hub, Provider, Administrator, System Administrator")]
+        [Audit(AuditingLevel = 2)]
+        [Authorize(Roles = "Provider, Hub, Administrator, System Administrator")]
         public ActionResult Update(TeacherViewModel viewModel)
         {
             if (!ModelState.IsValid)
@@ -256,7 +279,7 @@ namespace PromiseData.Controllers
             foreach (var languageId in viewModel.ClassroomLanguages.Keys)
             {
                 //Create TeacherLanguageClassroom for Teacher and Language pair
-                var teacherLangClass = new TeacherLanguageClassroom { 
+                var teacherLangClass = new TeacherLanguageClassroom {
                     TeacherID = teacher.ID,
                     LanguageID = languageId
                 };
@@ -299,7 +322,7 @@ namespace PromiseData.Controllers
                 else if (viewModel.FluentLanguages[languageId] &&
                             !TeacherLanguageSet.Select(t => t.LanguageCode).Contains(teacherLangFluent.LanguageCode))
                 {
-                    
+
                     _context.TeacherLanguageFluencies.Add(teacherLangFluent);
                 }
             }
@@ -310,6 +333,7 @@ namespace PromiseData.Controllers
         }
 
         [HttpGet]
+        [Audit(AuditingLevel = 1)]
         [Authorize(Roles = "Provider, Hub, Administrator, System Administrator")]
         public ActionResult RemoveFromClassroom(int id, int classroomid)
         {
@@ -321,10 +345,11 @@ namespace PromiseData.Controllers
                 classroom = classroom,
                 teacherClass = teacherClass
             };
-            return View( teacherClassView);
+            return View(teacherClassView);
         }
 
         [HttpPost]
+        [Audit(AuditingLevel = 2)]
         [Authorize(Roles = "Provider, Hub, Administrator, System Administrator")]
         public ActionResult RemoveFromClassroom(TeacherClassViewModel teacherClassView)
         {
@@ -396,14 +421,16 @@ namespace PromiseData.Controllers
             return View( viewModel);
         }
 
-        [Authorize]
+        [Audit(AuditingLevel = 2)]
+        [Authorize(Roles = "Administrator, System Administrator")]
         public ActionResult Delete(int id)
         {
             var teacher = _context.Teachers.Single(t => t.ID == id);
             return View( teacher);
         }
 
-        [Authorize]
+        [Audit(AuditingLevel = 2)]
+        [Authorize(Roles = "Administrator, System Administrator")]
         [HttpPost, ActionName("Delete")]
         //[ValidateAntiForgeryToken]
         public ActionResult ConfirmDelete(int id)
@@ -415,7 +442,6 @@ namespace PromiseData.Controllers
         }
 
         [Authorize]
-        // GET: Adult
         public ActionResult Index()
         {
             var viewModel = _context.Teachers;
