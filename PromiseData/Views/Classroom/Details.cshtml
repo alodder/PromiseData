@@ -18,7 +18,7 @@
         <li class="active">@Html.DisplayFor(model => model.Description)</li>
     </ul>
 
-    <h4>@Html.DisplayFor(model => model.Description)</h4>
+    <h3>@Html.DisplayFor(model => model.Description)</h3>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -60,6 +60,10 @@
         <dd>
             @Html.DisplayFor(model => model.NewOrExpandedClass)
         </dd>
+    </dl>
+
+    <h4>Class Session</h4>
+    <dl class="dl-horizontal">
 
         <dt>
             @Html.DisplayNameFor(model => model.SessionHours)
@@ -84,7 +88,10 @@
         <dd>
             @Html.DisplayFor(model => model.SessionWeeks)
         </dd>
+    </dl>
 
+    <h4>Class Composition</h4>
+    <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.PPStudents)
         </dt>

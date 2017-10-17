@@ -23,21 +23,28 @@ namespace PromiseData.Models
         [StringLength(10)]
         public string NewOrExpandedClass { get; set; }
 
+        [DisplayName("Session Hours")]
         public double? SessionHours { get; set; }
 
+        [DisplayName("Session Days")]
         public int? SessionDays { get; set; }
 
+        [DisplayName("Session Weeks")]
         public int? SessionWeeks { get; set; }
 
         [DisplayName("Preschool Promise Students")]
         public int? PPStudents { get; set; }
 
+        [DisplayName("HSOPK")]
         public int? NonPPStudentsHSOPK { get; set; }
 
+        [DisplayName("Third Party")]
         public int? NonPPStudentsThirdParty { get; set; }
 
+        [DisplayName("Parent Pay")]
         public int? NonPPStudentsParentPay { get; set; }
 
+        [DisplayName("Slots Unfilled")]
         public int? PPSlotsUnfilled { get; set; }
 
         [DisplayName("Emotional Support")]
