@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using PromiseData.Models;
 using PromiseData.ViewModels;
+using System.Security.Claims;
 
 namespace PromiseData.Controllers
 {
@@ -418,7 +419,27 @@ namespace PromiseData.Controllers
         public ActionResult Index()
         {
             var viewModel = _context.Teachers;
-            return View( viewModel);
+
+            IEnumerable<Teacher> teachers;
+
+            if (User.IsInRole("Administrator") || User.IsInRole("System Administrator"))
+            {
+                teachers = _context.Teachers;
+            }
+            else
+            {
+                ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
+
+                var claims = (from c in identity.Claims
+                              where c.Type == "Institution"
+                              select c);
+                var institutionId = Int32.Parse(claims.FirstOrDefault().Value);
+
+                // teacher.teacherclass.class.facility?
+                teachers = _context.TeacherClasses.Where( tc => tc.Classroom.Facility.ProviderID == institutionId).Select( t=> t.Teacher);
+            }
+
+            return View( teachers);
         }
     }
 }
