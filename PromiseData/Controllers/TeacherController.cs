@@ -371,7 +371,7 @@ namespace PromiseData.Controllers
                 TeacherIDNumber = teacher.TeacherIDNumber,
                 TeacherType = teacher.TeacherType,
                 TeacherBirthdate = teacher.TeacherBirthdate.GetValueOrDefault(),
-                GenderId = teacher.Gender_ID.GetValueOrDefault(),
+                GenderId = teacher.Gender_ID,
                 RaceEthnicityIdentity = teacher.TeacherRaceEthnicity,
                 StartDate = teacher.StartDate.GetValueOrDefault(),
                 EndDate = teacher.EndDate,

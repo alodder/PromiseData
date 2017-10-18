@@ -31,7 +31,7 @@ namespace PromiseData.ViewModels
 
         [Required]
         [DisplayName("Sex")]
-        public int GenderID { get; set; }
+        public char GenderID { get; set; }
 
         public IEnumerable<Code_Gender> Genders { get; set; }
 

@@ -46,7 +46,7 @@
                     </dt>
 
                     <dd>
-                        @Model.Genders.Single(r => r.Code == Model.GenderId).Description
+                        @Model.Genders.Single(r => r.Code == Model.GenderId.ToString()).Description
                     </dd>
                 </dl>
             </div>

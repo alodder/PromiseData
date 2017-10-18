@@ -9,7 +9,8 @@ namespace PromiseData.Models
     public partial class Code_Gender
     {
         [Key]
-        public int Code { get; set; }
+        [StringLength(1)]
+        public string Code { get; set; }
 
         [StringLength(100)]
         public string Description { get; set; }

@@ -24,7 +24,7 @@ namespace PromiseData.Models
 
         public int? Age { get; set; }
 
-        public int? Gender_ID { get; set; }
+        public char Gender_ID { get; set; }
 
         [StringLength(255)]
         public string ResidentialTime { get; set; }

@@ -9,9 +9,11 @@ namespace PromiseData.Models
     [Table("Child")]
     public partial class Child
     {
+        [Key]
         public int ID { get; set; }
 
-        public int? ELD_ID { get; set; }
+        [StringLength(20)]
+        public string ELD_ID { get; set; }
 
         [StringLength(20)]
         public string SSID { get; set; }
@@ -42,7 +44,7 @@ namespace PromiseData.Models
 
         public DateTime? Birthdate { get; set; }
 
-        public int? Gender_ID { get; set; }
+        public string Gender_ID { get; set; }
 
         public bool Homeless { get; set; }
 

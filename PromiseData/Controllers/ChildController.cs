@@ -64,8 +64,16 @@ namespace PromiseData.Controllers
                 Birthdate = viewModel.Date,
                 GenerationCode_ID = viewModel.GenerationCodeID,
                 Language_ID = viewModel.LanguageID,
-                Gender_ID = viewModel.GenderID
+                Gender_ID = viewModel.GenderID.ToString()
             };
+
+            String studentId = viewModel.FirstName.Substring(0, 2);
+            studentId += "-";
+            studentId += viewModel.LastName.Substring(0, 3);
+            studentId += "-";
+            studentId += viewModel.Date.ToString("yyyyMMdd");
+
+            child.ELD_ID = studentId;
 
             var returnChild = _context.Children.Add(child);
             _context.SaveChanges();
@@ -112,7 +120,7 @@ namespace PromiseData.Controllers
                 Date = child.Birthdate.GetValueOrDefault(),
                 GenerationCodeID = child.GenerationCode_ID.GetValueOrDefault(),
                 LanguageID = child.Language_ID.GetValueOrDefault(),
-                GenderID = child.Gender_ID.GetValueOrDefault(),
+                GenderID = child.Gender_ID.ToCharArray()[0],
 
                 Genders = _context.CodeGender.ToList(),
                 Languages = _context.CodeLanguage.ToList(),
@@ -242,7 +250,7 @@ namespace PromiseData.Controllers
                                             (i.FirstName.ToLower() ?? "").Contains(querylow) ||
                                             (i.LastName.ToLower() ?? "").Contains(querylow) ||
                                             ((i.FirstName + " " +i.LastName).ToLower() ?? "").Contains(querylow) ||
-                                            (i.ELD_ID.GetValueOrDefault().ToString()).Contains(querylow)
+                                            (i.ELD_ID ?? "").Contains(querylow)
                                             );
 
                 viewModel.Children = queryFilter.ToList();

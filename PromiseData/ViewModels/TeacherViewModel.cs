@@ -55,7 +55,7 @@ namespace PromiseData.ViewModels
         public DateTime TeacherBirthdate { get; set; }
 
         [DisplayName("Teacher Sex")]
-        public int GenderId { get; set; }
+        public char GenderId { get; set; }
 
         public IEnumerable<Code_Gender> Genders { get; set; }
 
