@@ -441,16 +441,22 @@ namespace PromiseData.Controllers
             return RedirectToAction("Index", "Teacher");
         }
 
+        [HttpPost]
         [Authorize]
-        public ActionResult Index()
+        public ActionResult Search(TeacherListViewModel viewModel)
         {
-            var viewModel = _context.Teachers;
+            return RedirectToAction("Index", "Teacher", new { query = viewModel.SearchTerm });
+        }
 
-            IEnumerable<Teacher> teachers;
+        [Authorize]
+        public ActionResult Index(string query = null)
+        {
+            var viewModel = new TeacherListViewModel();
+            viewModel.Teachers = _context.Teachers;
 
             if (User.IsInRole("Administrator") || User.IsInRole("System Administrator"))
             {
-                teachers = _context.Teachers;
+                viewModel.Teachers = _context.Teachers;
             }
             else
             {
@@ -462,10 +468,31 @@ namespace PromiseData.Controllers
                 var institutionId = Int32.Parse(claims.FirstOrDefault().Value);
 
                 // teacher.teacherclass.class.facility?
-                teachers = _context.TeacherClasses.Where( tc => tc.Classroom.Facility.ProviderID == institutionId).Select( t=> t.Teacher);
+                viewModel.Teachers = _context.TeacherClasses.Where( tc => tc.Classroom.Facility.ProviderID == institutionId).Select( t=> t.Teacher);
             }
 
-            return View( teachers);
+            if (!String.IsNullOrWhiteSpace(query))
+            {
+                var querylow = query.ToLower();
+                var queryFilter = viewModel.Teachers.Where(i =>
+                                            (i.NameFirst.ToLower() ?? "").Contains(querylow) ||
+                                            (i.NameLast.ToLower() ?? "").Contains(querylow) ||
+                                            ((i.NameFirst + " " + i.NameLast).ToLower() ?? "").Contains(querylow) ||
+                                            (i.TeacherIDNumber ?? "").Contains(querylow)
+                                            );
+
+                viewModel.Teachers = queryFilter.ToList();
+                viewModel.SearchTerm = query;
+            }
+
+            if (User.IsInRole("Administrator") || User.IsInRole("System Administrator"))
+            {
+                viewModel.CanAdd = true;
+                viewModel.CanEdit = true;
+                viewModel.CanDelete = true;
+            }
+
+            return View( viewModel);
         }
     }
 }

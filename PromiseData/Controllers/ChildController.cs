@@ -246,6 +246,7 @@ namespace PromiseData.Controllers
                                             );
 
                 viewModel.Children = queryFilter.ToList();
+                viewModel.SearchTerm = query;
             }
 
             if (User.IsInRole("Administrator") || User.IsInRole("System Administrator"))

@@ -308,6 +308,7 @@ namespace PromiseData.Controllers
                                             );
                 
                 viewModel.Institutions = blurb.ToList();
+                viewModel.SearchTerm = query;
             }
 
             if (User.IsInRole("Administrator") || User.IsInRole("System Administrator"))

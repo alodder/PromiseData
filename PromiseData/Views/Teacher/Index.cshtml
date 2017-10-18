@@ -1,41 +1,54 @@
-﻿@model IEnumerable<PromiseData.Models.Teacher>
-
+﻿@model PromiseData.ViewModels.TeacherListViewModel
 
 <h2>Staff</h2>
 
 <p>
     @Html.ActionLink("Add New", "Create")
 </p>
+
+@using (Html.BeginForm("Search", "Teacher"))
+{
+    <div class="form-group">
+        @Html.Label("search", "Teacher Lookup: ")
+        <div class="input-group col-md-6">
+            @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control", placeholder = "Lookup staff by name or ID", value = Model.SearchTerm })
+            <span class="input-group-btn">
+                <button type="submit" class="btn btn-default glyphicon glyphicon-search"></button>
+            </span>
+        </div>
+    </div>
+}
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.NameLast)
+            Last Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NameFirst)
+            First Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TeacherType)
+            Role
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.StartDate)
+            Start Date
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Education_ID)
+            Education
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.YearsExperience)
+            Experience
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EndDate)
+            End Date
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TeacherClasses)
+            Classes
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model.Teachers) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.NameLast)

@@ -13,7 +13,7 @@
     <div class="form-group">
         @Html.Label("search", "Institution Lookup: ")
         <div class="input-group col-md-6">
-            @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control", placeholder = "Lookup provider or hub" })
+            @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control", placeholder = "Lookup provider or hub", value = Model.SearchTerm })
             <span class="input-group-btn">
                 <button type="submit" class="btn btn-default glyphicon glyphicon-search"></button>
             </span>
