@@ -1,22 +1,23 @@
-namespace PromiseData.Models
-{
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Dynamic;
+using System.Linq;
+using System.Web;
+using PromiseData.Models;
+using static System.DateTime;
 
-    public partial class Child_Services_Enrollment
+namespace PromiseData.ViewModels
+{
+    public class ChildEnrollViewModel
     {
-        [Key]
-        [Column(Order = 0)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DisplayName("Child")]
+        [Required]
         public int ChildID { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DisplayName("Classroom")]
+        [Required]
         public int ServicesID { get; set; }
 
         [DataType(DataType.Date)]
@@ -43,10 +44,12 @@ namespace PromiseData.Models
         [DisplayName("Received Info")]
         public bool TransportationUse { get; set; }
 
-        [ForeignKey("ChildID")]
-        public virtual Child Child { get; set; }
+        public Child Child { get; set; }
 
-        [ForeignKey("ServicesID")]
-        public virtual Service Service { get; set; }
+        public Service Service { get; set; }
+
+        public IEnumerable<Child> Children { get; set; }
+
+        public IEnumerable<Service> Services { get; set; }
     }
 }

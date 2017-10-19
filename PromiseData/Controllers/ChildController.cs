@@ -203,6 +203,55 @@ namespace PromiseData.Controllers
             return RedirectToAction("Create", "Adult");
         }
 
+        [HttpGet]
+        [Authorize]
+        public ActionResult Enroll(int id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var child = _context.Children.Single(a => a.ID == id);
+            if (child == null)
+            {
+                return HttpNotFound();
+            }
+
+            var viewModel = new ChildEnrollViewModel
+            {
+                Child = child,
+                ChildID = child.ID
+            };
+
+            viewModel.Children = GetUserChildren();
+            viewModel.Services = _context.Services;
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult Enroll(ChildFormViewModel viewModel)
+        {
+            foreach (var raceId in viewModel.RaceDictionary.Keys)
+            {
+                //var truth = false;
+                //viewModel.RaceDictionary.TryGetValue(raceId, out truth);
+                if (viewModel.RaceDictionary[raceId])
+                {
+                    var ChildRace = new ChildRace
+                    {
+                        ChildID = viewModel.ID,
+                        RaceID = raceId
+                    };
+                    _context.ChildRaces.Add(ChildRace);
+                }
+            }
+
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Child");
+        }
+
         [HttpPost]
         [Authorize]
         public ActionResult Search(ChildrenListViewModel viewModel)
@@ -216,32 +265,7 @@ namespace PromiseData.Controllers
         {
             var viewModel = new ChildrenListViewModel();
 
-            ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
-
-            var claims = (from c in identity.Claims
-                          where c.Type == "Institution"
-                          select c);
-
-            viewModel.Children = _context.Children.ToList();
-
-            if (!(User.IsInRole("System Administrator") || User.IsInRole("Administrator")))
-            {
-                int institutionId = Int32.Parse(claims.FirstOrDefault().Value);
-                var institution = _context.Institutions.SingleOrDefault(i => i.Id == institutionId);
-
-                if (institution.IsHub)
-                {
-                    var providers = _context.Institutions.Where(i => i.ParentHubId == institutionId).Select(p => p.Id);
-                    
-                    var childFacilities = _context.ChildFacilities.Where(f => providers.Contains(f.Facility.ProviderID)).Select(c => c.ChildID);
-                    viewModel.Children = viewModel.Children.Where(c => childFacilities.Contains( c.ID));
-                }
-                if (institution.IsProvider)
-                {
-                    var childFacilities = _context.ChildFacilities.Where(f => f.Facility.ProviderID == institutionId).Select(c => c.ChildID);
-                    viewModel.Children = viewModel.Children.Where(c => childFacilities.Contains(c.ID));
-                }
-            }
+            viewModel.Children = GetUserChildren();
 
             if (!String.IsNullOrWhiteSpace(query))
             {
@@ -264,6 +288,69 @@ namespace PromiseData.Controllers
                 viewModel.CanDelete = true;
             }
             return View(viewModel);
+        }
+
+        private int GetUserInstitutionID()
+        {
+            ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
+
+            var claims = (from c in identity.Claims
+                          where c.Type == "Institution"
+                          select c);
+            int institutionId = Int32.Parse(claims.FirstOrDefault().Value);
+
+            return institutionId;
+        }
+
+        private IEnumerable<Child> GetUserChildren()
+        {
+                        var children = _context.Children.AsEnumerable();
+
+            if (!(User.IsInRole("System Administrator") || User.IsInRole("Administrator")))
+            {
+                int institutionId = GetUserInstitutionID();
+                var institution = _context.Institutions.SingleOrDefault(i => i.Id == institutionId);
+
+                if (institution.IsHub)
+                {
+                    var providers = _context.Institutions.Where(i => i.ParentHubId == institutionId).Select(p => p.Id);
+
+                    var childFacilities = _context.ChildFacilities.Where(f => providers.Contains(f.Facility.ProviderID)).Select(c => c.ChildID);
+                    children = children.Where(c => childFacilities.Contains(c.ID));
+                }
+                if (institution.IsProvider)
+                {
+                    var childFacilities = _context.ChildFacilities.Where(f => f.Facility.ProviderID == institutionId).Select(c => c.ChildID);
+                    children = children.Where(c => childFacilities.Contains(c.ID));
+                }
+            }
+            return children;
+        }
+
+        private IEnumerable<Service> GetUserServices()
+        {
+            var services = _context.Services.AsEnumerable();
+
+            if (!(User.IsInRole("System Administrator") || User.IsInRole("Administrator")))
+            {
+                int institutionId = GetUserInstitutionID();
+                var institution = _context.Institutions.SingleOrDefault(i => i.Id == institutionId);
+
+                if (institution.IsHub)
+                {
+                    var providerids = _context.Institutions.Where(i => i.ParentHubId == institutionId).Select(p => p.Id);
+
+                    var facilityids = _context.Facilities.Where(f => providerids.Contains(f.ProviderID)).Select(f => f.ID);
+                    var classrooms = _context.Classrooms.Where(c => facilityids.Contains( c.Facility_ID.GetValueOrDefault())).Select(c => c.ID);
+                    services = services.Where(s => classrooms.Contains(s.ID));
+                }
+                if (institution.IsProvider)
+                {
+                    var childFacilities = _context.ChildFacilities.Where(f => f.Facility.ProviderID == institutionId).Select(c => c.ChildID);
+                    //children = children.Where(c => childFacilities.Contains(c.ID));
+                }
+            }
+            return services;
         }
     }
 }

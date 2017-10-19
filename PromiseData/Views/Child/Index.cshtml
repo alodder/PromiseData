@@ -81,6 +81,8 @@
         <th>
             @*@Html.DisplayNameFor(model => model.ExitReason_ID)*@
         </th>
+        <th>
+        </th>
         <th></th>
     </tr>
 
@@ -146,6 +148,9 @@
         <td>
             @Html.DisplayFor(modelItem => child.ExitReason_ID)
         </td>
+        <th>
+            @Html.ActionLink("Enroll", "Enroll", new { id = child.ID })
+        </th>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id= child.ID }) |
             @Html.ActionLink("Details", "Details", new { id= child.ID }) |
