@@ -224,7 +224,7 @@ namespace PromiseData.Controllers
             };
 
             viewModel.Children = GetUserChildren();
-            viewModel.Services = _context.Services;
+            viewModel.Services = GetUserServices();
 
             return View(viewModel);
         }

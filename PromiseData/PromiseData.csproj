@@ -420,6 +420,7 @@
     <Content Include="Views\WaiverCurrents\Edit.cshtml" />
     <Content Include="Views\WaiverCurrents\Index.cshtml" />
     <Content Include="Views\Child\Edit.cshtml" />
+    <Content Include="Views\Child\Enroll.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
