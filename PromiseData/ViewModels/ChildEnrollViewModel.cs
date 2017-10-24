@@ -16,9 +16,13 @@ namespace PromiseData.ViewModels
         [Required]
         public int ChildID { get; set; }
 
-        [DisplayName("Classroom")]
+        [DisplayName("Service")]
         [Required]
         public int ServicesID { get; set; }
+
+        [DisplayName("Classroom")]
+        [Required]
+        public int ClassroomID { get; set; }
 
         [DisplayName("Site")]
         [Required]
@@ -57,6 +61,8 @@ namespace PromiseData.ViewModels
         public IEnumerable<Child> Children { get; set; }
 
         public IEnumerable<Facility> Sites { get; set; }
+
+        public IEnumerable<Classroom> Classrooms { get; set; }
 
         public IEnumerable<Service> Services { get; set; }
     }

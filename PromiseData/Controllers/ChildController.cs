@@ -203,10 +203,16 @@ namespace PromiseData.Controllers
             return RedirectToAction("Create", "Adult");
         }
 
-        [HttpPost]
+        //[HttpGet]
         public JsonResult getClassrooms(int id)
         {
-            var classrooms = _context.Classrooms.Where(c => c.Facility_ID == id).Select(c => new { id=c.ID, description = c.Description}).ToList();
+            var classrooms = _context.Classrooms
+                .Where(c => c.Facility_ID == id)
+                .Select(c => new {
+                    ID =c.ID,
+                    Description = c.Description
+                })
+                .ToList();
             return Json(classrooms, JsonRequestBehavior.AllowGet);
         }
 
@@ -233,6 +239,7 @@ namespace PromiseData.Controllers
             viewModel.Children = GetUserChildren();
             viewModel.Services = GetUserServices();
             viewModel.Sites = GetUserSites();
+            viewModel.Classrooms = _context.Classrooms;
 
             return View(viewModel);
         }
