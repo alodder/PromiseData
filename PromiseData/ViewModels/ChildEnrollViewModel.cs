@@ -20,6 +20,10 @@ namespace PromiseData.ViewModels
         [Required]
         public int ServicesID { get; set; }
 
+        [DisplayName("Site")]
+        [Required]
+        public int FacilityID { get; set; }
+
         [DataType(DataType.Date)]
         [DisplayName("Start Date")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
@@ -46,9 +50,13 @@ namespace PromiseData.ViewModels
 
         public Child Child { get; set; }
 
+        public Facility Facility { get; set; }
+
         public Service Service { get; set; }
 
         public IEnumerable<Child> Children { get; set; }
+
+        public IEnumerable<Facility> Sites { get; set; }
 
         public IEnumerable<Service> Services { get; set; }
     }

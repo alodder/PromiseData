@@ -16,10 +16,20 @@
 
     <div class="">
         <div class="form-group">
+            @Html.LabelFor(m => m.FacilityID)
+            @Html.DropDownListFor(m => m.FacilityID, new SelectList(Model.Sites, "ID", "Description"), new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="">
+        <div class="form-group">
+            <asp:DropDownList ID="ddlClassrooms" runat="server">
+            </asp:DropDownList>
             @Html.LabelFor(m => m.ServicesID)
             @Html.DropDownListFor(m => m.ServicesID, new SelectList(Model.Services, "ID", "ClassroomId"), new { @class = "form-control" })
         </div>
     </div>
+
 
     <div class="">
         <div class="form-group">
@@ -68,4 +78,24 @@
             @Html.ValidationMessageFor(m => m.TransportationUse)
         </div>
     </div>
+
+    <div id="dump">
+    </div>
 </div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $("#FacilityID").change(function () {
+            $.ajax({
+                url: '@Url.Action("getClassrooms")',
+                type: 'post',
+                data: {
+                    id: $("#FacilityID").val()
+                }
+            }).done(function (response) {
+                $("dump").html(response);
+            });
+        });
+    </script>
+}  
