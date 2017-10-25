@@ -1,4 +1,4 @@
-﻿@model PromiseData.Models.WaiverCurrent
+﻿@model PromiseData.ViewModels.WaiverCurrentViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -25,7 +25,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.SiteID, "SiteID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("SiteID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.SiteID, model.Sites, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.SiteID, "", new { @class = "text-danger" })
             </div>
         </div>

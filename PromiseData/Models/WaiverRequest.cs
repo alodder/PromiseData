@@ -26,7 +26,6 @@
         [DisplayName("Current Spark Status")]
         public string SparkCurrent { get; set; }
 
-
         //Staff Waiver
         [DisplayName("Staff")]
         public int? StaffID { get; set; }

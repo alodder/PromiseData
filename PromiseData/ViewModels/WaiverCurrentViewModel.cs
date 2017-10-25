@@ -1,29 +1,26 @@
-﻿using System;
+﻿using PromiseData.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace PromiseData.Models
+namespace PromiseData.ViewModels
 {
-    [Table("WaiverCurrent")]
-    public class WaiverCurrent
+    public class WaiverCurrentViewModel
     {
         public int WaiverCurrentID { get; set; }
 
+        public int WaiverRequestID { get; set; }
 
         public string WaiverType { get; set; }
 
-        //Site Waiver
         public int SiteID { get; set; }
 
-        //Sites current rating
         [DisplayName("Current Spark Level")]//waiver, 4, or 5
         public string SparkCurrent { get; set; }
 
-
-        //
         //Staff Waiver
         [DisplayName("Staff")]
         public int StaffID { get; set; }
@@ -63,9 +60,14 @@ namespace PromiseData.Models
         //Waiver Unsatisfied
         public bool Unsatisfied { get; set; }
 
+        public virtual WaiverRequest WaiverRequest { get; set; }
+
         public virtual Teacher Staff { get; set; }
 
         public virtual Facility Site { get; set; }
 
+        public IEnumerable<Teacher> Staffs { get; set; }
+
+        public IEnumerable<Facility> Sites { get; set; }
     }
 }

@@ -42,11 +42,33 @@ namespace PromiseData.Controllers
         }
 
         // GET: WaiverCurrents/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
-            ViewBag.SiteID = new SelectList(db.Facilities, "ID", "ProviderFacilityType");
-            ViewBag.StaffID = new SelectList(db.Teachers, "ID", "TeacherIDNumber");
-            return View();
+            WaiverCurrentViewModel viewModel = new WaiverCurrentViewModel();
+            viewModel.Sites = db.Facilities;
+            viewModel.Staffs = db.Teachers;
+
+            if (id != null)
+            {
+                WaiverRequest waiverrequest = db.WaiverRequests.Find(id);
+                if (waiverrequest != null)
+                {
+                    viewModel.WaiverRequest = waiverrequest;
+                    viewModel.WaiverRequestID = id.GetValueOrDefault();
+
+                    viewModel.WaiverType = waiverrequest.WaiverType;
+                    if (String.Compare(waiverrequest.WaiverType, "Site", true) == 0)
+                    {
+
+                    }
+                    viewModel.SiteID = waiverrequest.SiteID.GetValueOrDefault();
+                    viewModel.SparkCurrent = waiverrequest.SparkCurrent;
+                    viewModel.ServiceHourCount = waiverrequest.ServiceHours.GetValueOrDefault();
+                    viewModel.StaffID = waiverrequest.StaffID.GetValueOrDefault();
+                    viewModel.Qualification = waiverrequest.Qualification;
+                }
+            }
+            return View(viewModel);
         }
 
         // POST: WaiverCurrents/Create
