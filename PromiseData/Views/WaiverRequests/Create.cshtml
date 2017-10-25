@@ -24,35 +24,56 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SiteID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("SiteID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.SiteID, "", new { @class = "text-danger" })
+        <div id="siteblock">
+            <div class="form-group">
+                @Html.LabelFor(model => model.SiteID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("SiteID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.SiteID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.ServiceHours, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.ServiceHours, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ServiceHours, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.SparkCurrent, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.DropDownListFor(model => model.SparkCurrent,
+                        new SelectList(new List<SelectListItem>
+                        {
+                            new SelectListItem { Text = "Unlicensed", Value = "Unlicensed"},
+                            new SelectListItem { Text = "Licensed", Value = "Licensed"},
+                            new SelectListItem { Text = "Waiver", Value = "Waiver"},
+                            new SelectListItem { Text = "Portfolio Submitted (awaiting star designation)", Value = "Portfolio"},
+                            new SelectListItem { Text = "3 Star Rated", Value = "3star"}
+                        }, "Value", "Text")
+                        , htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.SparkCurrent, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SparkCurrent, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SparkCurrent, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SparkCurrent, "", new { @class = "text-danger" })
+        <div id="staffblock">
+            <div class="form-group">
+                @Html.LabelFor(model => model.StaffID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("StaffID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.StaffID, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.StaffID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("StaffID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.StaffID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Qualification, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Qualification, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Qualification, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Qualification, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Qualification, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Qualification, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
@@ -77,15 +98,36 @@
 </div>
 
 
-@section scripts
+
+@section Scripts
 {
-    @Scripts.Render("~/bundles/Contact.js")
     <script type="text/javascript">
-        contact.init({
-          contactsGridAction: '@Url.Action("ContactsGrid")',
-          newContactAction: '@Url.Action("Create")',
-          editContactAction: '@Url.Action("Edit")',
-          deleteContactAction: '@Url.Action("Delete")'
+        $(document).ready(function () {
+            $("#siteblock").hide();
+            $("#staffblock").hide();
+
+            if (selValue == "Site") {
+                $("#siteblock").show();
+                $("#staffblock").hide();
+            }
+            if (selValue == "Staff") {
+                $("#staffblock").show();
+                $("#siteblock").hide();
+            }
+        });
+
+        $("input:radio").click(function () {
+            console.log("click");
+            var selValue = $('input[name=WaiverType]:checked').val();
+            console.log(selValue);
+            if (selValue == "Site") {
+                $("#siteblock").show();
+                $("#staffblock").hide();
+            }
+            if (selValue == "Staff") {
+                $("#staffblock").show();
+                $("#siteblock").hide();
+            }
         });
     </script>
-}
+}  

@@ -46,6 +46,14 @@ namespace PromiseData.Controllers
                                     new SelectListItem { Selected = true, Text = "Site", Value = "Site"},
                                     new SelectListItem { Selected = false, Text = "Staff", Value = "Staff"}
                                 });
+            ViewBag.SparkLevels = new SelectList(new List<SelectListItem>
+                                {
+                                    new SelectListItem { Selected = true, Text = "Unlicensed", Value = "Unlicensed"},
+                                    new SelectListItem { Selected = false, Text = "Licensed", Value = "Licensed"},
+                                    new SelectListItem { Selected = false, Text = "Waiver", Value = "Waiver"},
+                                    new SelectListItem { Selected = false, Text = "Portfolio Submitted (awaiting star designation)", Value = "Portfolio"},
+                                    new SelectListItem { Selected = false, Text = "3 Star Rated", Value = "3star"}
+                                });
             ViewBag.SiteID = new SelectList(db.Facilities, "ID", "Description");
             ViewBag.StaffID = new SelectList(db.Teachers, "ID", "NameLast");
             return View();

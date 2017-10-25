@@ -19,8 +19,13 @@
         public int? SiteID { get; set; }
 
         //Sites current rating
-        [DisplayName("Current Spark Rating")]
+        [DisplayName("900 Service Hours")]
+        public int? ServiceHours { get; set; }
+
+        //Sites current rating
+        [DisplayName("Current Spark Status")]
         public string SparkCurrent { get; set; }
+
 
         //Staff Waiver
         [DisplayName("Staff")]
