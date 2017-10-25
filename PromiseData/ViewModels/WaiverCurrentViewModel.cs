@@ -14,8 +14,10 @@ namespace PromiseData.ViewModels
 
         public int WaiverRequestID { get; set; }
 
+        [DisplayName("Waiver Type")]
         public string WaiverType { get; set; }
 
+        [DisplayName("Site")]
         public int SiteID { get; set; }
 
         [DisplayName("Current Spark Level")]//waiver, 4, or 5
@@ -48,13 +50,16 @@ namespace PromiseData.ViewModels
         [DisplayName("900 Service Hours")]
         public bool NineHundredServiceHours { get; set; }
 
-        [DisplayName("Impact Service Hour")]
+        [DisplayName("Service Hour Impairment")]
         public string ServiceHourImpact { get; set; }
 
+        [DisplayName("If Other, please explain")]
         public string ServiceHourImpactOther { get; set; }
 
+        [DisplayName("Service Hour Count")]
         public int ServiceHourCount { get; set; }
 
+        [DisplayName("Additional Comments")]
         public string AdditionalComments { get; set; }
 
         //Waiver Unsatisfied

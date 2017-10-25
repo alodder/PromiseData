@@ -68,7 +68,7 @@
                     @Html.ActionLink("Cancel", "Delete", "WaiverRequests", new { id = item.WaiverRequestID }, null)
                 </div>
                 <div>
-                    @Html.ActionLink("Process", "ProcessWaiver", new { id = item.WaiverRequestID })
+                    @Html.ActionLink("Process", "Create", new { id = item.WaiverRequestID })
                 </div>
             </td>
         </tr>

@@ -1,127 +1,164 @@
 ﻿@model PromiseData.ViewModels.WaiverCurrentViewModel
 
-@{
-    ViewBag.Title = "Create";
-}
-
-<h2>Create</h2>
+<h2>Process</h2>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>WaiverCurrent</h4>
+        <h4>Waivers</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.WaiverType, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.WaiverType, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="col-md-3">
+                @Html.Label("Site")
+                @Html.RadioButtonFor(model => model.WaiverType, "Site")
+            </div>
+            <div class="col-md-3">
+                @Html.Label("900 Direct Service Hours")
+                @Html.RadioButtonFor(model => model.WaiverType, "Hours")
+            </div>
+            <div class="col-md-3">
+                @Html.Label("Staff")
+                @Html.RadioButtonFor(model => model.WaiverType, "Staff")
                 @Html.ValidationMessageFor(model => model.WaiverType, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SiteID, "SiteID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.SiteID, model.Sites, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.SiteID, "", new { @class = "text-danger" })
+        @* Site Waiverblock *@
+        <div id="siteblock">
+            <div class="form-group">
+                @Html.LabelFor(model => model.SiteID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.SiteID, new SelectList(Model.Sites, "ID", "Description"), htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.SiteID, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SparkCurrent, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SparkCurrent, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SparkCurrent, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.StaffID, "StaffID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("StaffID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.StaffID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Qualification, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Qualification, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Qualification, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Development, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Development, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Development, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Credits, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Credits, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Credits, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TrainingHours, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TrainingHours, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TrainingHours, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NineHundredServiceHours, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.NineHundredServiceHours)
-                    @Html.ValidationMessageFor(model => model.NineHundredServiceHours, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.SparkCurrent, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.SparkCurrent, new SelectList(
+                        new List<SelectListItem> {
+                        new SelectListItem { Text="Spark Rating 4 achieved", Value = "Spark4"},
+                        new SelectListItem { Text="Spark Rating 5 achieved", Value = "Spark5"}
+                    }, "Value", "Text"), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.SparkCurrent, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ServiceHourImpact, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ServiceHourImpact, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ServiceHourImpact, "", new { @class = "text-danger" })
+        @* Staff Waiverblock *@
+        <div id="staffblock">
+            <div class="form-group">
+                @Html.LabelFor(model => model.StaffID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.StaffID, new SelectList(Model.Staffs, "ID", "NameLast"), htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.StaffID, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ServiceHourImpactOther, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ServiceHourImpactOther, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ServiceHourImpactOther, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Qualification, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.Qualification, new SelectList(
+                        new List<SelectListItem> {
+                        new SelectListItem { Text="Lead Teacher obtained BA", Value = "BA"},
+                        new SelectListItem { Text="Support staff obtained required Step advancement", Value = "Step"}
+                    }, "Value", "Text"), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Qualification, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ServiceHourCount, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ServiceHourCount, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ServiceHourCount, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Development, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.Development, new SelectList(
+                        new List<SelectListItem> {
+                        new SelectListItem { Text="Community based training or college classes", Value = "Community"},
+                        new SelectListItem { Text="Credits earned", Value = "Credits"},
+                        new SelectListItem { Text="Training hours earned", Value = "Training"}
+                    }, "Value", "Text"), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Development, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Credits, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Credits, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Credits, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TrainingHours, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TrainingHours, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TrainingHours, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
+        
+        @* Service Hours Waiverblock *@
+        <div id="hoursblock">
+            <div class="form-group">
+                @Html.LabelFor(model => model.NineHundredServiceHours, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.NineHundredServiceHours)
+                        @Html.ValidationMessageFor(model => model.NineHundredServiceHours, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ServiceHourImpact, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.Development, new SelectList(
+                        new List<SelectListItem> {
+                        new SelectListItem { Text="First year late program start", Value = "FirstYearStart"},
+                        new SelectListItem { Text="New facility", Value = "NewFacility"},
+                        new SelectListItem { Text="Inclement weather", Value = "Inclement"},
+                        new SelectListItem { Text="Other", Value = "Other"}
+                    }, "Value", "Text"), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ServiceHourImpact, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ServiceHourImpactOther, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ServiceHourImpactOther, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ServiceHourImpactOther, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ServiceHourCount, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ServiceHourCount, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ServiceHourCount, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        
+
+        
 
         <div class="form-group">
             @Html.LabelFor(model => model.AdditionalComments, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.AdditionalComments, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.AdditionalComments, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.AdditionalComments, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Unsatisfied, htmlAttributes: new { @class = "control-label col-md-2" })
+            <h5>Waiver conditions are not satisfied. Need to reapply.</h5>
+            @Html.LabelFor(model => model.Unsatisfied, htmlAttributes: new { @class = "control-label  col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.Unsatisfied)
@@ -141,3 +178,41 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#siteblock").hide();
+            $("#staffblock").hide();
+            $("#hoursblock").hide();
+
+            displayForm();
+        });
+
+        $("input:radio").click(function () {
+            console.log("click");
+            displayForm();
+        });
+
+        function displayForm() {
+            var selValue = $('input[name=WaiverType]:checked').val();
+            if (selValue == "Site") {
+                $("#siteblock").show();
+                $("#staffblock").hide();
+                $("#hoursblock").hide();
+            }
+            if (selValue == "Staff") {
+                $("#siteblock").hide();
+                $("#staffblock").show();
+                $("#hoursblock").hide();
+            }
+            if (selValue == "Hours") {
+                $("#siteblock").hide();
+                $("#staffblock").hide();
+                $("#hoursblock").show();
+            }
+        }
+    </script>
+}
+  
