@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using PromiseData.Models;
 using Advanced_Auditing.Models;
+using System.Security.Claims;
 
 namespace PromiseData.Controllers
 {
@@ -93,7 +94,7 @@ namespace PromiseData.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.SiteID = new SelectList(db.Facilities, "ID", "Description", waiverRequest.SiteID);
+            ViewBag.SiteID = new SelectList(GetUserSites(), "ID", "Description", waiverRequest.SiteID);
             ViewBag.StaffID = new SelectList(db.Teachers, "ID", "NameLast", waiverRequest.StaffID);
             return View(waiverRequest);
         }
@@ -153,6 +154,64 @@ namespace PromiseData.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private int GetUserInstitutionID()
+        {
+            ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
+
+            var claims = (from c in identity.Claims
+                          where c.Type == "Institution"
+                          select c);
+            int institutionId = Int32.Parse(claims.FirstOrDefault().Value);
+
+            return institutionId;
+        }
+
+        private IEnumerable<Facility> GetUserSites()
+        {
+            var sites = db.Facilities.AsQueryable();
+
+            if (!(User.IsInRole("System Administrator") || User.IsInRole("Administrator")))
+            {
+                int institutionId = GetUserInstitutionID();
+                var institution = db.Institutions.SingleOrDefault(i => i.Id == institutionId);
+
+                if (institution.IsHub)
+                {
+                    var providerids = db.Institutions.Where(i => i.ParentHubId == institutionId).Select(p => p.Id);
+
+                    sites = db.Facilities.Where(f => providerids.Contains(f.ProviderID));
+                }
+                if (institution.IsProvider)
+                {
+                    sites = db.Facilities.Where(f => f.ProviderID == institutionId);
+                }
+            }
+            return sites;
+        }
+
+        private IEnumerable<Teacher> GetUserTeachers()
+        {
+            var teachers = db.Teachers.AsQueryable();
+
+            if (!(User.IsInRole("System Administrator") || User.IsInRole("Administrator")))
+            {
+                int institutionId = GetUserInstitutionID();
+                var institution = db.Institutions.SingleOrDefault(i => i.Id == institutionId);
+
+                if (institution.IsHub)
+                {
+                    var providerids = db.Institutions.Where(i => i.ParentHubId == institutionId).Select(p => p.Id);
+                    teachers = db.TeacherClasses.Where(tc => providerids.Contains( tc.Classroom.Facility.ProviderID)).Select(tc => tc.Teacher);
+                }
+                if (institution.IsProvider)
+                {
+                    var providerids = db.Institutions.Where(i => i.ParentHubId == institutionId).Select(p => p.Id);
+                    teachers = db.TeacherClasses.Where(tc => providerids.Contains(tc.Classroom.Facility.ProviderID)).Select(tc => tc.Teacher);
+                }
+            }
+            return teachers;
         }
     }
 }
