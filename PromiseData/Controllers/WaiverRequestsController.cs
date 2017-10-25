@@ -69,6 +69,7 @@ namespace PromiseData.Controllers
         {
             if (ModelState.IsValid)
             {
+                waiverRequest.RequestUpdated = DateTime.Now;
                 db.WaiverRequests.Add(waiverRequest);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -107,6 +108,7 @@ namespace PromiseData.Controllers
         {
             if (ModelState.IsValid)
             {
+                waiverRequest.RequestUpdated = DateTime.Now;
                 db.Entry(waiverRequest).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

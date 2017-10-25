@@ -36,6 +36,9 @@
         [DisplayName("Additional Comments")]
         public string AdditionalComments { get; set; }
 
+        [DisplayName("Request Updated")]
+        public DateTime? RequestUpdated { get; set; }
+
         public virtual Teacher Staff { get; set; }
 
         public virtual Facility Site { get; set; }

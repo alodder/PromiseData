@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
@@ -58,8 +59,13 @@ namespace PromiseData.Models
 
         public int ServiceHourCount { get; set; }
 
+        [DataType(DataType.MultilineText)]
+        [DisplayName("Additional Comments")]
         public string AdditionalComments { get; set; }
 
+        [DisplayName("Waiver Expiration")]
+        public DateTime? Expiration { get; set; }
+        
         //Waiver Unsatisfied
         public bool Unsatisfied { get; set; }
 

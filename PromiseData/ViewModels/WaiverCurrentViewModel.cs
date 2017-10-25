@@ -62,6 +62,9 @@ namespace PromiseData.ViewModels
         [DisplayName("Additional Comments")]
         public string AdditionalComments { get; set; }
 
+        [DisplayName("Waiver Expiration")]
+        public DateTime? Expiration { get; set; }
+
         //Waiver Unsatisfied
         public bool Unsatisfied { get; set; }
 

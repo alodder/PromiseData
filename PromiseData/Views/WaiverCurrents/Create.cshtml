@@ -146,7 +146,14 @@
         </div>
         
 
-        
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Expiration, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Expiration, new { @class = "form-control", placeholder = "2010-01-01 ", type = "date" })
+                @Html.ValidationMessageFor(m => m.Expiration)
+            </div>
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.AdditionalComments, htmlAttributes: new { @class = "control-label col-md-2" })
