@@ -226,6 +226,7 @@
     <Compile Include="Models\Code_AddressType.cs" />
     <Compile Include="Models\Code_Education.cs" />
     <Compile Include="Models\Code_ExitReason.cs" />
+    <Compile Include="Models\Code_IFSP.cs" />
     <Compile Include="Models\Code_GenerationCode.cs" />
     <Compile Include="Models\Code_OtherNameType.cs" />
     <Compile Include="Models\Code_ProgramSessionType.cs" />
@@ -252,6 +253,7 @@
     <Compile Include="Models\Service.cs" />
     <Compile Include="Models\Teacher.cs" />
     <Compile Include="Models\Child_Facility.cs" />
+    <Compile Include="Models\Child_IFSP.cs" />
     <Compile Include="Models\TeacherClass.cs" />
     <Compile Include="Models\TeacherLanguageClassroom.cs" />
     <Compile Include="Models\TeacherLanguageFluency.cs" />
