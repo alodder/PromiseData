@@ -112,6 +112,8 @@ namespace PromiseData.Controllers
             viewModel.RaceEthnicityList = _context.RaceEthnic.ToList();
             viewModel.Generations = _context.Code_GenerationCode.ToList();
 
+            viewModel.CanEdit = UserCanUpdateChild( child.ID);
+
             return View(viewModel);
         }
 
@@ -326,8 +328,17 @@ namespace PromiseData.Controllers
         /**
          * Return true if Child belongsd to facility/HUB for User or User is admin
          **/
-        private bool UserCanUpdateChild()
+        private bool UserCanUpdateChild(int childID)
         {
+            if ( (User.IsInRole("System Administrator") || User.IsInRole("Administrator")))
+            {
+                return true;
+            }
+            var children = GetUserChildren();
+            if (children.Select(c => c.ID).Contains(childID))
+            {
+                return true;
+            }
             return false;
         }
 
