@@ -6,8 +6,8 @@ namespace PromiseData.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Child_IFSP")]
-    public partial class Child_IFSP
+    [Table("Child_Special_Needs")]
+    public partial class Child_Special_Needs
     {
         [Key]
         [Column(Order = 0)]
@@ -17,13 +17,12 @@ namespace PromiseData.Models
         [Key]
         [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        [StringLength(24)]
-        public string IFSP_Code { get; set; }
+        public int SpecialNeedsCode { get; set; }
 
         [ForeignKey("ChildID")]
         public virtual Child Child { get; set; }
 
-        [ForeignKey("IFSP_Code")]
-        public virtual Code_IFSP IFSP { get; set; }
+        [ForeignKey("SpecialNeedsCode")]
+        public virtual Special_Needs SpecialNeed { get; set; }
     }
 }

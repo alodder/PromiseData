@@ -93,8 +93,26 @@ namespace PromiseData.Controllers
             {
                 return HttpNotFound();
             }
-            
-            return View(child);
+
+            var viewModel = new ChildDetailsViewModel();
+            viewModel.ID = child.ID;
+            viewModel.LastName = child.LastName;
+            viewModel.FirstName = child.FirstName;
+            viewModel.GenerationCodeID = child.GenerationCode_ID.GetValueOrDefault();
+            viewModel.MiddleName = child.MiddleName;
+            viewModel.OtherMiddleName = child.OtherMiddleName;
+            viewModel.OtherLastName = child.OtherLastName;
+            viewModel.Birthdate = child.Birthdate.GetValueOrDefault();
+            viewModel.GenderID = child.Gender_ID[0];
+
+            viewModel.Child_IFSP = _context.Child_IFSPs.Where(c => c.ChildID == id).ToList();
+            viewModel.Child_Special_Needs = _context.Child_Special_Needs.Where(c => c.ChildID == id).ToList();
+
+            viewModel.Languages = _context.CodeLanguage.ToList();
+            viewModel.RaceEthnicityList = _context.RaceEthnic.ToList();
+            viewModel.Generations = _context.Code_GenerationCode.ToList();
+
+            return View(viewModel);
         }
 
         [Authorize]

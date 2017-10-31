@@ -1,4 +1,4 @@
-﻿@model PromiseData.Models.Child
+﻿@model PromiseData.ViewModels.ChildDetailsViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -9,110 +9,136 @@
 <div>
     <h4>Child</h4>
     <hr />
+
+    <div class="panel">
+        <div class="panel-heading">Identification</div>
+        <div class="panel-body">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.ELD_ID)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ELD_ID)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.SSID)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.SSID)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.LastName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.FirstName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.MiddleName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.MiddleName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.GenerationCodeID)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Generation.Description)
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-heading">Additional Name Information</div>
+        <div class="panel-body">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.OtherNameTypeID)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.OtherNameType.Description)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.OtherLastName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.OtherLastName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.OtherFirstName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.OtherFirstName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.OtherMiddleName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.OtherMiddleName)
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-heading">Address</div>
+        <div class="panel-body">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Address_ID)
+                </dt>
+            </dl>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-heading">Details</div>
+        <div class="panel-body">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Birthdate)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Birthdate)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.GenderID)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Gender.Description)
+                </dd>
+            </dl>
+        </div>
+    </div>
+
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ELD_ID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ELD_ID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SSID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SSID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MiddleName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MiddleName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GenerationCode_ID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Generation.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.OtherNameType_ID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.OtherNameType.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.OtherLastName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.OtherLastName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.OtherFirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.OtherFirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.OtherMiddleName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.OtherMiddleName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Address_ID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Birthdate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Birthdate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Gender_ID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Gender.Description)
-        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.Homeless)
@@ -235,8 +261,37 @@
         </dd>
 
     </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+    <div class="panel">
+        <div class="panel-heading">Special Needs</div>
+        <div class="panel-body">
+            <dl class="dl-horizontal">
+                @foreach (var ifsp in Model.Child_IFSP)
+                {
+                    <dt>
+                        @ifsp.IFSP
+                    </dt>
+                }
+            </dl>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-heading">IFSP</div>
+        <div class="panel-body">
+            <dl class="dl-horizontal">
+                @foreach (var ifsp in Model.Child_IFSP)
+                {
+                    <dt>
+                        @ifsp.IFSP
+                    </dt>
+                }
+            </dl>
+        </div>
+    </div>
+
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
