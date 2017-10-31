@@ -323,6 +323,18 @@ namespace PromiseData.Controllers
             return View(viewModel);
         }
 
+        /**
+         * Return true if Child belongsd to facility/HUB for User or User is admin
+         **/
+        private bool UserCanUpdateChild()
+        {
+            return false;
+        }
+
+
+        /**
+         * Retrieve Identity Claim for user for 'Institution' which holds an ID in its value field
+         **/
         private int GetUserInstitutionID()
         {
             ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
@@ -335,9 +347,18 @@ namespace PromiseData.Controllers
             return institutionId;
         }
 
-        private IEnumerable<Child> GetUserChildren()
+
+        /**
+         * Return an IQueryable of Children that the User has rights to see.
+         * If the user is an administrator, return all children.
+         * Otherwise return the children at sites that belong to the user's Provider or HUB
+         * 
+         * IQueryable is lighter on memory than IEnumerable using this strategy
+         * https://stackoverflow.com/questions/2876616/returning-ienumerablet-vs-iqueryablet
+         **/
+        private IQueryable<Child> GetUserChildren()
         {
-                        var children = _context.Children.AsEnumerable();
+            var children = _context.Children.AsQueryable();
 
             if (!(User.IsInRole("System Administrator") || User.IsInRole("Administrator")))
             {
@@ -361,9 +382,13 @@ namespace PromiseData.Controllers
             return children;
         }
 
-        private IEnumerable<Service> GetUserServices()
+
+        /**
+         * Return 'Services' (the Class session or school year model) that a user can see/administrate in order to enroll a child
+         **/
+        private IQueryable<Service> GetUserServices()
         {
-            var services = _context.Services.AsEnumerable();
+            var services = _context.Services.AsQueryable();
 
             if (!(User.IsInRole("System Administrator") || User.IsInRole("Administrator")))
             {
@@ -387,7 +412,10 @@ namespace PromiseData.Controllers
             return services;
         }
 
-        private IEnumerable<Facility> GetUserSites()
+        /**
+         * Return Sites (Facility) that a user can see details about or see the Children enrolled
+         **/
+        private IQueryable<Facility> GetUserSites()
         {
             var sites = _context.Facilities.AsQueryable();
 

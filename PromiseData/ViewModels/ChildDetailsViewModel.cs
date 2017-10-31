@@ -12,6 +12,10 @@ namespace PromiseData.ViewModels
 {
     public class ChildDetailsViewModel
     {
+        public Boolean CanView { get; set; }
+        public Boolean CanEdit { get; set; }
+        public Boolean CanDelete { get; set; }
+
         [DisplayName("RowID")]
         [Required]
         public int ID { get; set; }
