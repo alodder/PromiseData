@@ -17,8 +17,7 @@ namespace PromiseData.Models
         [Key]
         [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        [StringLength(24)]
-        public string IFSP_Code { get; set; }
+        public int IFSP_Code { get; set; }
 
         [ForeignKey("ChildID")]
         public virtual Child Child { get; set; }

@@ -118,6 +118,20 @@ namespace PromiseData.ViewModels
 
         public virtual ICollection<Child_IFSP> Child_IFSP { get; set; }
 
+        //List of all Possible Special Needs
+        public virtual ICollection<Special_Needs> Special_Needs { get; set; }
+
+        [DisplayName("Child Special Needs")]
+        //dictionary for checkbox values
+        public Dictionary<int, bool> MySpecialNeeds { get; set; }
+
+        //List of all Possible Code_IFSP
+        public virtual ICollection<Code_IFSP> IFSPs { get; set; }
+
+        [DisplayName("Child IFSP")]
+        //dictionary for checkbox values
+        public Dictionary<int, bool> MyIFSP { get; set; }
+
         public IEnumerable<RaceEthnicity> RaceEthnicityList { get; set; }
         public Dictionary<int, bool> RaceDictionary { get; set; }
 

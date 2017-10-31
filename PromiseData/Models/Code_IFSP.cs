@@ -9,8 +9,7 @@ namespace PromiseData.Models
     public partial class Code_IFSP
     {
         [Key]
-        [StringLength(24)]
-        public string Code { get; set; }
+        public int Code { get; set; }
 
         [StringLength(50)]
         public string Description { get; set; }

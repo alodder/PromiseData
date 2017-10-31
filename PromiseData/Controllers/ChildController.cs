@@ -105,7 +105,7 @@ namespace PromiseData.Controllers
             viewModel.Birthdate = child.Birthdate.GetValueOrDefault();
             viewModel.GenderID = child.Gender_ID[0];
 
-            viewModel.Child_IFSP = _context.Child_IFSPs.Where(c => c.ChildID == id).ToList();
+            viewModel.Child_IFSP = _context.Child_IFSPs.Where(c => c.ChildID == child.ID).ToList();
             viewModel.Child_Special_Needs = _context.Child_Special_Needs.Where(c => c.ChildID == id).ToList();
 
             viewModel.Languages = _context.CodeLanguage.ToList();
@@ -147,6 +147,52 @@ namespace PromiseData.Controllers
                 RaceEthnicityList = _context.RaceEthnic.ToList(),
                 Generations = _context.Code_GenerationCode.ToList()
             };
+
+            return View(viewModel);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult UpdateIFSP(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var child = _context.Children.Single(a => a.ID == id);
+            if (child == null)
+            {
+                return HttpNotFound();
+            }
+
+            var viewModel = new ChildSpecialViewModel
+            {
+                ChildID = child.ID,
+                Child = child,
+
+                IFSPs = _context.Code_IFSPs.ToList(),
+                Special_Needs = _context.SpecialNeeds.ToList()
+            };
+
+            viewModel.MyIFSP = new Dictionary<int, bool>();
+            var IFSPset = _context.Child_IFSPs.Where(c => c.ChildID == child.ID);
+            foreach (Code_IFSP IFSP in viewModel.IFSPs)
+            {
+                if (IFSPset.Select(t => t.IFSP_Code).Contains(IFSP.Code))
+                    viewModel.MyIFSP.Add(IFSP.Code, true);
+                else
+                    viewModel.MyIFSP.Add(IFSP.Code, false);
+            }
+
+            viewModel.MySpecialNeeds = new Dictionary<int, bool>();
+            var specialSet = _context.Child_Special_Needs.Where(c => c.ChildID == child.ID);
+            foreach (Special_Needs SpecialNeed in viewModel.Special_Needs)
+            {
+                if (specialSet.Select(t => t.SpecialNeedsCode).Contains( SpecialNeed.Code))
+                    viewModel.MySpecialNeeds.Add(SpecialNeed.Code, true);
+                else
+                    viewModel.MySpecialNeeds.Add(SpecialNeed.Code, false);
+            }
 
             return View(viewModel);
         }

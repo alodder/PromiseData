@@ -264,6 +264,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AddressViewModel.cs" />
+    <Compile Include="ViewModels\ChildSpecialViewModel.cs" />
     <Compile Include="ViewModels\ChildEnrollViewModel.cs" />
     <Compile Include="ViewModels\ChildDetailsViewModel.cs" />
     <Compile Include="ViewModels\TeacherListViewModel.cs" />
@@ -427,6 +428,8 @@
     <Content Include="Views\WaiverCurrents\Index.cshtml" />
     <Content Include="Views\Child\Edit.cshtml" />
     <Content Include="Views\Child\Enroll.cshtml" />
+    <Content Include="Views\Child\UpdateIFSP.cshtml" />
+    <Content Include="Views\Child\UpdateSpecialNeeds.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

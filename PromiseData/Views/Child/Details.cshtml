@@ -107,7 +107,7 @@
     <div class="panel">
         <div class="panel-heading">Address</div>
         <div class="panel-body">
-            @if (Model.Address_ID > 0)
+            @if (Model.Address_ID >= 0)
             {
                 Html.Raw("<address>");
                 Model.Address.Address1.ToString();
@@ -290,6 +290,12 @@
                     </dt>
                 }
             </dl>
+
+
+            @if (Model.CanEdit)
+            {
+                @Html.ActionLink("Change", "Edit", new { id = Model.ID })
+            }
         </div>
     </div>
 
@@ -304,11 +310,22 @@
                     </dt>
                 }
             </dl>
+
+
+            @if (Model.CanEdit)
+            {
+                @Html.ActionLink("Change", "Edit", new { id = Model.ID })
+            }
         </div>
     </div>
 
     </div>
     <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+        @if (Model.CanEdit)
+        {
+            @Html.ActionLink("Edit", "Edit", new { id = Model.ID })
+            @Html.Raw(" | ");
+        }
+        
         @Html.ActionLink("Back to List", "Index")
     </p>

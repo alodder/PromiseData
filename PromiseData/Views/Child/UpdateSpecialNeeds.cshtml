@@ -1,0 +1,49 @@
+﻿@model PromiseData.ViewModels.ChildSpecialViewModel
+
+@{
+    ViewBag.Title = "Update Special Needs";
+}
+
+<h2>Update Special Needs</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Special Needs</h4>
+        <hr />
+        <h3>@Model.FirstName @Model.LastName</h3>
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="row">
+            <h4>IFSP</h4>
+            <div class="row col-lg-offset-1">
+                @{var i = 0; }
+                @foreach (KeyValuePair<int, bool> langCheck in Model.ClassroomLanguages)
+                {
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <input type="hidden" name="@String.Format("ClassroomLanguages[{0}].Key", i)" value="@langCheck.Key" />
+                            @Html.CheckBox(String.Format("ClassroomLanguages[{0}].Value", i), langCheck.Value)
+                            <label class="categoryLabel" for="@String.Format("ClassroomLanguages_{0}__Value", i)">@Model.Languages.Single(r => r.Code == langCheck.Key).Description</label>
+                            @{i++;}
+                        </div>
+                    </div>
+                                }
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

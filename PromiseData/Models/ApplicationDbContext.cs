@@ -49,8 +49,10 @@ namespace PromiseData.Models
 
         public virtual DbSet<Child_Facility> ChildFacilities { get; set; }
 
+        public virtual DbSet<Special_Needs> SpecialNeeds { get; set; }
         public virtual DbSet<Child_Special_Needs> Child_Special_Needs { get; set; }
 
+        public virtual DbSet<Code_IFSP> Code_IFSPs { get; set; }
         public virtual DbSet<Child_IFSP> Child_IFSPs { get; set; }
 
         public virtual DbSet<TeacherLanguageClassroom> TeacherLanguageClassrooms { get; set; }
@@ -250,5 +252,7 @@ namespace PromiseData.Models
         public System.Data.Entity.DbSet<PromiseData.ViewModels.FamilyViewModel> FamilyViewModels { get; set; }
 
         public System.Data.Entity.DbSet<PromiseData.ViewModels.InstitutionFormViewModel> InstitutionViewModels { get; set; }
+
+        public System.Data.Entity.DbSet<PromiseData.ViewModels.ChildDetailsViewModel> ChildDetailsViewModels { get; set; }
     }
 }
