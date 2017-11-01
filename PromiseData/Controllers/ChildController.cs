@@ -174,10 +174,10 @@ namespace PromiseData.Controllers
             };
 
             viewModel.MyIFSP = new Dictionary<int, bool>();
-            var IFSPset = _context.Child_IFSPs.Where(c => c.ChildID == child.ID);
+            var IFSPset = _context.Child_IFSPs.Where(c => c.ChildID == child.ID).ToList();
             foreach (Code_IFSP IFSP in viewModel.IFSPs)
             {
-                if (IFSPset.Select(t => t.IFSP_Code).Contains(IFSP.Code))
+                if ( IFSPset.Select(t => t.IFSP_Code).Contains(IFSP.Code))
                     viewModel.MyIFSP.Add(IFSP.Code, true);
                 else
                     viewModel.MyIFSP.Add(IFSP.Code, false);
@@ -190,7 +190,7 @@ namespace PromiseData.Controllers
         [HttpPost]
         public ActionResult UpdateIFSP(ChildSpecialViewModel viewModel)
         {
-            var IFSPset = _context.Child_IFSPs.Where(c => c.ChildID == viewModel.ChildID);
+            var IFSPset = _context.Child_IFSPs.Where(c => c.ChildID == viewModel.ChildID).ToList();
             foreach (var IFSP in viewModel.MyIFSP.Keys)
             {
                 //Create TeacherLanguageClassroom for Teacher and Language pair
@@ -209,7 +209,7 @@ namespace PromiseData.Controllers
                     _context.Child_IFSPs.RemoveRange( IFSPset.Where( tlc => tlc.IFSP_Code == childsIFSP.IFSP_Code));
                 }
                 else if (viewModel.MyIFSP[IFSP] &&
-                        !IFSPset.Select(t => t.ChildID).Contains(childsIFSP.ChildID))
+                        !IFSPset.Select(t => t.ChildID).Contains( childsIFSP.ChildID))//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 {
                     _context.Child_IFSPs.Add( childsIFSP);
                 }
@@ -243,7 +243,7 @@ namespace PromiseData.Controllers
             };
 
             viewModel.MySpecialNeeds = new Dictionary<int, bool>();
-            var specialSet = _context.Child_Special_Needs.Where(c => c.ChildID == child.ID);
+            var specialSet = _context.Child_Special_Needs.Where(c => c.ChildID == child.ID).ToList();
             foreach (Special_Needs SpecialNeed in viewModel.Special_Needs)
             {
                 if (specialSet.Select(t => t.SpecialNeedsCode).Contains(SpecialNeed.Code))
@@ -259,7 +259,7 @@ namespace PromiseData.Controllers
         [HttpPost]
         public ActionResult UpdateSpecialNeeds(ChildSpecialViewModel viewModel)
         {
-            var SpecialNeedsSet = _context.Child_Special_Needs.Where(c => c.ChildID == viewModel.ChildID);
+            var SpecialNeedsSet = _context.Child_Special_Needs.Where(c => c.ChildID == viewModel.ChildID).ToList();
             foreach (var SpecialNeedCode in viewModel.MySpecialNeeds.Keys)
             {
                 //Create TeacherLanguageClassroom for Teacher and Language pair

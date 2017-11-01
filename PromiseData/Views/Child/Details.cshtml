@@ -283,10 +283,10 @@
         <div class="panel-heading">Special Needs</div>
         <div class="panel-body">
             <dl class="dl-horizontal">
-                @foreach (var ifsp in Model.Child_IFSP)
+                @foreach (var special in Model.Child_Special_Needs)
                 {
                     <dt>
-                        @ifsp.IFSP
+                        @special.SpecialNeed.Description
                     </dt>
                 }
             </dl>
@@ -306,7 +306,7 @@
                 @foreach (var ifsp in Model.Child_IFSP)
                 {
                     <dt>
-                        @ifsp.IFSP
+                        @ifsp.IFSP.Description
                     </dt>
                 }
             </dl>
