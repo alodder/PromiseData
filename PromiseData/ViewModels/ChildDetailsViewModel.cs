@@ -119,7 +119,7 @@ namespace PromiseData.ViewModels
         public virtual IEnumerable<Child_IFSP> Child_IFSP { get; set; }
 
         //List of all Possible Special Needs
-        public virtual ICollection<Special_Needs> Special_Needs { get; set; }
+        public virtual IEnumerable<Special_Needs> Special_Needs { get; set; }
 
         [DisplayName("Child Special Needs")]
         //dictionary for checkbox values

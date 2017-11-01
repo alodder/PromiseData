@@ -13,26 +13,26 @@
     <div class="form-horizontal">
         <h4>Special Needs</h4>
         <hr />
-        <h3>@Model.FirstName @Model.LastName</h3>
+        <h3>@Model.Child.FirstName @Model.Child.LastName</h3>
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.ChildID)
 
         <div class="row">
-            <h4>IFSP</h4>
+            <h4>Special Needs</h4>
             <div class="row col-lg-offset-1">
                 @{var i = 0; }
-                @foreach (KeyValuePair<int, bool> langCheck in Model.ClassroomLanguages)
+                @foreach (KeyValuePair<int, bool> SpecialCheck in Model.MySpecialNeeds)
                 {
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <input type="hidden" name="@String.Format("ClassroomLanguages[{0}].Key", i)" value="@langCheck.Key" />
-                            @Html.CheckBox(String.Format("ClassroomLanguages[{0}].Value", i), langCheck.Value)
-                            <label class="categoryLabel" for="@String.Format("ClassroomLanguages_{0}__Value", i)">@Model.Languages.Single(r => r.Code == langCheck.Key).Description</label>
+                            <input type="hidden" name="@String.Format("MySpecialNeeds[{0}].Key", i)" value="@SpecialCheck.Key" />
+                            @Html.CheckBox(String.Format("MySpecialNeeds[{0}].Value", i), SpecialCheck.Value)
+                            <label class="categoryLabel" for="@String.Format("MySpecialNeeds_{0}__Value", i)">@Model.Special_Needs.Single(r => r.Code == SpecialCheck.Key).Description</label>
                             @{i++;}
                         </div>
                     </div>
-                                }
+                }
             </div>
         </div>
 

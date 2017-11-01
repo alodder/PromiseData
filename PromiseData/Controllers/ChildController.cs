@@ -171,7 +171,6 @@ namespace PromiseData.Controllers
                 Child = child,
 
                 IFSPs = _context.Code_IFSPs.ToList(),
-                Special_Needs = _context.SpecialNeeds.ToList()
             };
 
             viewModel.MyIFSP = new Dictionary<int, bool>();
@@ -184,17 +183,41 @@ namespace PromiseData.Controllers
                     viewModel.MyIFSP.Add(IFSP.Code, false);
             }
 
-            viewModel.MySpecialNeeds = new Dictionary<int, bool>();
-            var specialSet = _context.Child_Special_Needs.Where(c => c.ChildID == child.ID);
-            foreach (Special_Needs SpecialNeed in viewModel.Special_Needs)
+            return View(viewModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult UpdateIFSP(ChildSpecialViewModel viewModel)
+        {
+            var IFSPset = _context.Child_IFSPs.Where(c => c.ChildID == viewModel.ChildID);
+            foreach (var IFSP in viewModel.MyIFSP.Keys)
             {
-                if (specialSet.Select(t => t.SpecialNeedsCode).Contains( SpecialNeed.Code))
-                    viewModel.MySpecialNeeds.Add(SpecialNeed.Code, true);
-                else
-                    viewModel.MySpecialNeeds.Add(SpecialNeed.Code, false);
+                //Create TeacherLanguageClassroom for Teacher and Language pair
+                var childsIFSP = new Child_IFSP
+                {
+                    ChildID = viewModel.ChildID,
+                    IFSP_Code = IFSP
+                };
+
+                /**
+                 * If the language wasn't checked, remove from table,
+                 * else if it was both checked and doesn't yet exist, add it
+                 */
+                if (!viewModel.MyIFSP[IFSP])
+                {
+                    _context.Child_IFSPs.RemoveRange( IFSPset.Where( tlc => tlc.IFSP_Code == childsIFSP.IFSP_Code));
+                }
+                else if (viewModel.MyIFSP[IFSP] &&
+                        !IFSPset.Select(t => t.ChildID).Contains(childsIFSP.ChildID))
+                {
+                    _context.Child_IFSPs.Add( childsIFSP);
+                }
             }
 
-            return View(viewModel);
+            _context.SaveChanges();
+
+            return RedirectToAction("Details", new { id = viewModel.ChildID });
         }
 
         [Authorize]
@@ -216,19 +239,8 @@ namespace PromiseData.Controllers
                 ChildID = child.ID,
                 Child = child,
 
-                IFSPs = _context.Code_IFSPs.ToList(),
                 Special_Needs = _context.SpecialNeeds.ToList()
             };
-
-            viewModel.MyIFSP = new Dictionary<int, bool>();
-            var IFSPset = _context.Child_IFSPs.Where(c => c.ChildID == child.ID);
-            foreach (Code_IFSP IFSP in viewModel.IFSPs)
-            {
-                if (IFSPset.Select(t => t.IFSP_Code).Contains(IFSP.Code))
-                    viewModel.MyIFSP.Add(IFSP.Code, true);
-                else
-                    viewModel.MyIFSP.Add(IFSP.Code, false);
-            }
 
             viewModel.MySpecialNeeds = new Dictionary<int, bool>();
             var specialSet = _context.Child_Special_Needs.Where(c => c.ChildID == child.ID);
@@ -241,6 +253,40 @@ namespace PromiseData.Controllers
             }
 
             return View(viewModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult UpdateSpecialNeeds(ChildSpecialViewModel viewModel)
+        {
+            var SpecialNeedsSet = _context.Child_Special_Needs.Where(c => c.ChildID == viewModel.ChildID);
+            foreach (var SpecialNeedCode in viewModel.MySpecialNeeds.Keys)
+            {
+                //Create TeacherLanguageClassroom for Teacher and Language pair
+                var childsSpecial = new Child_Special_Needs
+                {
+                    ChildID = viewModel.ChildID,
+                    SpecialNeedsCode = SpecialNeedCode
+                };
+
+                /**
+                 * If the language wasn't checked, remove from table,
+                 * else if it was both checked and doesn't yet exist, add it
+                 */
+                if (!viewModel.MySpecialNeeds[SpecialNeedCode])
+                {
+                    _context.Child_Special_Needs.RemoveRange( SpecialNeedsSet.Where(tlc => tlc.SpecialNeedsCode == childsSpecial.SpecialNeedsCode));
+                }
+                else if (viewModel.MySpecialNeeds[SpecialNeedCode] &&
+                        !SpecialNeedsSet.Select(t => t.ChildID).Contains( childsSpecial.ChildID))
+                {
+                    _context.Child_Special_Needs.Add( childsSpecial);
+                }
+            }
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Details", new { id = viewModel.ChildID });
         }
 
         [Authorize]
