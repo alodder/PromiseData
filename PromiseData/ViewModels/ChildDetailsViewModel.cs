@@ -41,7 +41,7 @@ namespace PromiseData.ViewModels
         [DisplayName("Middle Name")]
         public String MiddleName { get; set; }
 
-        [DisplayName("2nd Middle Name")]
+        [DisplayName("Second Middle Name")]
         public String OtherMiddleName { get; set; }
 
         [DisplayName("Other First Name")]
@@ -50,8 +50,10 @@ namespace PromiseData.ViewModels
         [DisplayName("Other Last Name")]
         public String OtherLastName { get; set; }
 
+        [DisplayName("Other Name")]
         public int? OtherNameTypeID { get; set; }
 
+        [DisplayName("Address")]
         public int? Address_ID { get; set; }
 
         [DataType(DataType.Date)]
@@ -60,42 +62,50 @@ namespace PromiseData.ViewModels
         public DateTime Birthdate { get; set; }
 
         [Required]
-        [DisplayName("Sex")]
+        [DisplayName("Gender")]
         public char GenderID { get; set; }
 
         public bool Homeless { get; set; }
 
         public bool Migrant { get; set; }
 
+        [DisplayName("Head Start Eligibility")]
         public bool HeadStartEligibility { get; set; }
 
+        [DisplayName("Language")]
         public int? Language_ID { get; set; }
 
+        [DisplayName("English Language Learner")]
         public bool EnglishLanguageLearner { get; set; }
 
+        [DisplayName("Classroom Language")]
         public int? ClassroomLanguage_ID { get; set; }
 
-        [StringLength(255)]
+        [DisplayName("School District Code")]
         public string SchoolDistrictCode { get; set; }
 
-        [StringLength(255)]
+        [DisplayName("Elementary School Code")]
         public string ElementarySchoolCode { get; set; }
 
+        [DisplayName("Prior Early Learning Months")]
         public int? PriorEarlyLearningMonths { get; set; }
 
+        [DisplayName("Program")]
         public int? Program_ID { get; set; }
 
-        [StringLength(255)]
+        [DisplayName("School District Catchment")]
         public string SchoolDistrictCatchment { get; set; }
 
-        [StringLength(255)]
+        [DisplayName("Elementary School Catchment")]
         public string ElementarySchoolCatchment { get; set; }
 
-        [StringLength(255)]
+        [DisplayName("Parent Provider Consultations")]
         public string Parent_ProviderConsultations { get; set; }
 
+        [DisplayName("Transition Plan ConferenceDate")]
         public DateTime? TransitionPlanConferenceDate { get; set; }
 
+        [DisplayName("Exit Reason")]
         public int? ExitReason_ID { get; set; }
 
         public virtual Address Address { get; set; }

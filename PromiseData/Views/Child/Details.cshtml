@@ -107,28 +107,34 @@
     <div class="panel">
         <div class="panel-heading">Address</div>
         <div class="panel-body">
-            @if (Model.Address_ID >= 0)
-            {
-                Html.Raw("<address>");
-                Model.Address.Address1.ToString();
-                Model.Address.Address2.ToString();
-                Model.Address.Address3.ToString();
-
-                Model.Address.City.ToString();
-                Model.Address.LU_State.ToString();
-
-                Model.Address.ZipCode.ToString();
-                Html.Raw("</address>");
-            }
-
             <dl class="dl-horizontal">
                 <dt>
                     @Html.DisplayNameFor(model => model.Address_ID)
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.Address_ID)
+                    @if (Model.Address_ID >= 0)
+                    {
+                        Html.Raw("<address>");
+                        Model.Address.Address1.ToString();
+                        Model.Address.Address2.ToString();
+                        Model.Address.Address3.ToString();
+
+                        Model.Address.City.ToString();
+                        Model.Address.LU_State.ToString();
+
+                        Model.Address.ZipCode.ToString();
+                        Html.Raw("</address>");
+                    }
+                    else
+                    {
+                        <i>No Address</i>
+                    }
                 </dd>
             </dl>
+            @if (Model.CanEdit)
+            {
+                @Html.ActionLink("Change", "ChildAddress", new { id = Model.ID })
+            }
         </div>
     </div>
 
@@ -315,6 +321,22 @@
             @if (Model.CanEdit)
             {
                 @Html.ActionLink("Change", "UpdateIFSP", new { id = Model.ID })
+            }
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-heading">Enrollment</div>
+        <div class="panel-body">
+            <dl class="dl-horizontal">
+                <dt></dt>
+                <dd></dd>
+            </dl>
+
+
+            @if (Model.CanEdit)
+            {
+                @Html.ActionLink("Enroll", "UpdateSpecialNeeds", new { id = Model.ID })
             }
         </div>
     </div>
