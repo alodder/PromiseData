@@ -1,11 +1,11 @@
 ﻿@model PromiseData.ViewModels.AdultFormViewModel
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Adult";
 }
 
-<h2>Add Parent/Guardian</h2>
+<h2>Parent/Guardian</h2>
 <hr />
-@using (Html.BeginForm("Create", "Adult"))
+@using (Html.BeginForm(Model.Action, "Adult"))
 {
     <div class="form-horizontal bs-component">
         <div class="row">

@@ -2,6 +2,7 @@ namespace PromiseData.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -15,7 +16,6 @@ namespace PromiseData.Models
             AdultRaces = new HashSet<AdultRace>();
         }
 
-        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ID { get; set; }
 
         public int? ELD_ID { get; set; }
@@ -24,11 +24,14 @@ namespace PromiseData.Models
 
         public int? Age { get; set; }
 
+        [DisplayName("Gender")]
         public char Gender_ID { get; set; }
 
+        [DisplayName("Time with child/Week")]
         [StringLength(255)]
         public string ResidentialTime { get; set; }
 
+        [DisplayName("Education")]
         public int? Education_ID { get; set; }
 
         [StringLength(16)]
@@ -39,6 +42,12 @@ namespace PromiseData.Models
         public virtual ELD_ID ELD_ID1 { get; set; }
 
         public int? FamilyID { get; set; }
+
+        [DisplayName("First Name")]
+        public String NameFirst { get; set; }
+
+        [DisplayName("Last Name")]
+        public String NameLast { get; set; }
 
         [ForeignKey("FamilyID")]
         public virtual Family Family { get; set; }

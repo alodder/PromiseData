@@ -308,8 +308,6 @@
                     @Html.Raw("</dt>");
                 }
             </dl>
-
-
         </div>
     </div>
 
@@ -332,8 +330,6 @@
                     @Html.Raw("</dt>");
                 }
             </dl>
-
-
         </div>
     </div>
 
@@ -355,7 +351,7 @@
                 @if (Model.CanEdit)
                 {
                     @Html.Raw("<dt>");
-                    @Html.ActionLink("Add", "AddToChild", "Adult", new { id = Model.ID }, null)
+                    @Html.ActionLink("Add", "Create", "Adult", new { id = Model.ID }, null)
                     @Html.Raw("</dt>");
                 }
             </dl>
@@ -367,7 +363,6 @@
         <div class="panel-body">
             <dl class="dl-horizontal">
                 <dt></dt>
-                <dd></dd>
 
                 @if (Model.CanEdit)
                 {

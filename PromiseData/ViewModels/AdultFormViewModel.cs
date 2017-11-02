@@ -5,12 +5,36 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using PromiseData.Models;
+using System.Linq.Expressions;
+using PromiseData.Controllers;
+using System.Web.Mvc;
 
 namespace PromiseData.ViewModels
 {
     public class AdultFormViewModel
     {
         public int id { get; set; }
+
+        public Boolean CanView { get; set; }
+
+        public Boolean CanEdit { get; set; }
+
+        public Boolean CanDelete { get; set; }
+
+        public String Action
+        {
+            get
+            {
+                Expression<Func<AdultController, ActionResult>> update =
+                    (c => c.Update(this));
+                Expression<Func<AdultController, ActionResult>> create =
+                    (c => c.Create(this));
+
+                var action = (id != 0) ? update : create;
+                return (action.Body as MethodCallExpression).Method.Name;
+            }
+
+        }
 
         [DisplayName("First Name")]
         public String NameFirst { get; set; }
