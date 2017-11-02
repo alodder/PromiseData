@@ -108,6 +108,13 @@ namespace PromiseData.ViewModels
         [DisplayName("Exit Reason")]
         public int? ExitReason_ID { get; set; }
 
+        [DisplayName("Family")]
+        public int FamilyID { get; set; }
+
+        public Family Family { get; set; }
+
+        public virtual IEnumerable<Adult> Adults { get; set; }
+
         public virtual Address Address { get; set; }
 
         public virtual Code_GenerationCode Generation { get; set; }
@@ -152,6 +159,5 @@ namespace PromiseData.ViewModels
 
         public IEnumerable<ChildRace> ChildRaces { get; set; }
 
-        public int familyId { get; set; }
     }
 }

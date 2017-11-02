@@ -59,6 +59,6 @@ namespace PromiseData.ViewModels
 
         public IEnumerable<Code_Language> Languages { get; set; }
 
-        public int familyId { get; set; }
+        public int FamilyID { get; set; }
     }
 }

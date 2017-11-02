@@ -78,7 +78,7 @@ namespace PromiseData.Controllers
             var returnChild = _context.Children.Add(child);
             _context.SaveChanges();
 
-            return RedirectToAction("LangRace", new { id = returnChild.ID});
+            return RedirectToAction("Race", new { id = returnChild.ID});
         }
 
         [Authorize]
@@ -104,9 +104,21 @@ namespace PromiseData.Controllers
             viewModel.OtherLastName = child.OtherLastName;
             viewModel.Birthdate = child.Birthdate.GetValueOrDefault();
             viewModel.GenderID = child.Gender_ID[0];
+            viewModel.Address_ID = child.Address_ID;
 
-            viewModel.Child_IFSP = _context.Child_IFSPs.ToList();
-            viewModel.Child_Special_Needs = _context.Child_Special_Needs.ToList();
+            viewModel.Address = _context.Addresses.SingleOrDefault( a => a.ID == child.Address_ID);
+            viewModel.Generation = _context.Code_GenerationCode.SingleOrDefault(a => a.Code == child.GenerationCode_ID);
+            viewModel.OtherNameType = child.OtherNameType;
+            viewModel.Gender = _context.CodeGender.SingleOrDefault(a => a.Code == child.Gender_ID);
+            viewModel.Language = _context.CodeLanguage.SingleOrDefault(a => a.Code == child.Language_ID);
+            viewModel.ProgramSessionType = _context.Code_ProgramSessionType.SingleOrDefault(a => a.Code == child.Program_ID);
+            viewModel.ExitReason = _context.Code_ExitReason.SingleOrDefault(a => a.Code == child.Language_ID);
+
+            viewModel.Child_IFSP = _context.Child_IFSPs.Where(c => c.ChildID == child.ID).ToList();
+            viewModel.Child_Special_Needs = _context.Child_Special_Needs.Where(c => c.ChildID == child.ID).ToList();
+
+            viewModel.Family = _context.Families.SingleOrDefault( f => f.ID == child.FamilyID);
+            viewModel.Adults = _context.Adults.Where( a => a.FamilyID == viewModel.FamilyID);
 
             viewModel.Languages = _context.CodeLanguage.ToList();
             viewModel.RaceEthnicityList = _context.RaceEthnic.ToList();
@@ -209,7 +221,7 @@ namespace PromiseData.Controllers
                     _context.Child_IFSPs.RemoveRange( IFSPset.Where( tlc => tlc.IFSP_Code == childsIFSP.IFSP_Code));
                 }
                 else if (viewModel.MyIFSP[IFSP] &&
-                        !IFSPset.Select(t => t.ChildID).Contains( childsIFSP.ChildID))//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                        !IFSPset.Select(t => t.IFSP_Code).Contains( childsIFSP.IFSP_Code))//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 {
                     _context.Child_IFSPs.Add( childsIFSP);
                 }
@@ -278,7 +290,7 @@ namespace PromiseData.Controllers
                     _context.Child_Special_Needs.RemoveRange( SpecialNeedsSet.Where(tlc => tlc.SpecialNeedsCode == childsSpecial.SpecialNeedsCode));
                 }
                 else if (viewModel.MySpecialNeeds[SpecialNeedCode] &&
-                        !SpecialNeedsSet.Select(t => t.ChildID).Contains( childsSpecial.ChildID))
+                        !SpecialNeedsSet.Select(t => t.SpecialNeedsCode).Contains( childsSpecial.SpecialNeedsCode))
                 {
                     _context.Child_Special_Needs.Add( childsSpecial);
                 }
@@ -316,7 +328,7 @@ namespace PromiseData.Controllers
         }
 
         [HttpGet]
-        public ActionResult LangRace(int id)
+        public ActionResult Race(int id)
         {
             if (id == null)
             {
@@ -340,7 +352,7 @@ namespace PromiseData.Controllers
         }
 
         [HttpPost]
-        public ActionResult LangRace(ChildFormViewModel viewModel)
+        public ActionResult Race(ChildFormViewModel viewModel)
         {
             foreach (var raceId in viewModel.RaceDictionary.Keys)
             {
@@ -360,6 +372,7 @@ namespace PromiseData.Controllers
             _context.SaveChanges();
             return RedirectToAction("Create", "Adult");
         }
+
 
         //[HttpGet]
         public JsonResult getClassrooms(int id)

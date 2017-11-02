@@ -130,11 +130,15 @@
                         <i>No Address</i>
                     }
                 </dd>
+
+                @if (Model.CanEdit)
+                {
+                    @Html.Raw("<dt>");
+                    @Html.ActionLink("Change", "ChildAddress", new { id = Model.ID })
+                    @Html.Raw("</dt>");
+                }
+
             </dl>
-            @if (Model.CanEdit)
-            {
-                @Html.ActionLink("Change", "ChildAddress", new { id = Model.ID })
-            }
         </div>
     </div>
 
@@ -147,7 +151,7 @@
                 </dt>
 
                 <dd>
-                    @Html.DisplayFor(model => model.Birthdate)
+                    @Model.Birthdate.ToShortDateString()
                 </dd>
 
                 <dt>
@@ -294,14 +298,18 @@
                     <dt>
                         @special.SpecialNeed.Description
                     </dt>
+
+                }
+
+                @if (Model.CanEdit)
+                {
+                    @Html.Raw("<dt>");
+                    @Html.ActionLink("Change", "UpdateSpecialNeeds", new { id = Model.ID })
+                    @Html.Raw("</dt>");
                 }
             </dl>
 
 
-            @if (Model.CanEdit)
-            {
-                @Html.ActionLink("Change", "UpdateSpecialNeeds", new { id = Model.ID })
-            }
         </div>
     </div>
 
@@ -314,14 +322,43 @@
                     <dt>
                         @ifsp.IFSP.Description
                     </dt>
+
+                }
+
+                @if (Model.CanEdit)
+                {
+                    @Html.Raw("<dt>");
+                    @Html.ActionLink("Change", "UpdateIFSP", new { id = Model.ID })
+                    @Html.Raw("</dt>");
                 }
             </dl>
 
 
-            @if (Model.CanEdit)
-            {
-                @Html.ActionLink("Change", "UpdateIFSP", new { id = Model.ID })
-            }
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-heading">Adults</div>
+        <div class="panel-body">
+            <dl class="dl-horizontal">
+                @foreach (var adult in Model.Adults)
+                {
+                    <dt>
+                        @adult.ID
+                    </dt>
+                    if (Model.CanEdit)
+                    {
+                        @Html.ActionLink("Edit", "Edit", "Adult", new { id = adult.ID }, null)
+                    }
+                }
+
+                @if (Model.CanEdit)
+                {
+                    @Html.Raw("<dt>");
+                    @Html.ActionLink("Add", "AddToChild", "Adult", new { id = Model.ID }, null)
+                    @Html.Raw("</dt>");
+                }
+            </dl>
         </div>
     </div>
 
@@ -331,13 +368,14 @@
             <dl class="dl-horizontal">
                 <dt></dt>
                 <dd></dd>
+
+                @if (Model.CanEdit)
+                {
+                    @Html.Raw("<dt>");
+                    @Html.ActionLink("Enroll", "Enroll", new { id = Model.ID })
+                    @Html.Raw("</dt>");
+                }
             </dl>
-
-
-            @if (Model.CanEdit)
-            {
-                @Html.ActionLink("Enroll", "UpdateSpecialNeeds", new { id = Model.ID })
-            }
         </div>
     </div>
 

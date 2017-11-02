@@ -1,11 +1,11 @@
 ﻿@model PromiseData.ViewModels.ChildFormViewModel
 @{
-    ViewBag.Title = "LangRace";
+    ViewBag.Title = "Race";
 }
 
 <h2>@Model.FirstName @Model.LastName</h2>
 
-@using (Html.BeginForm("LangRace", "Child", FormMethod.Post))
+@using (Html.BeginForm("Race", "Child", FormMethod.Post))
 {
     <div class="form-horizontal bs-component">
         <h3>Race/Ethnicity</h3>

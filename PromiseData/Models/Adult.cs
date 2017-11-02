@@ -38,6 +38,11 @@ namespace PromiseData.Models
 
         public virtual ELD_ID ELD_ID1 { get; set; }
 
+        public int? FamilyID { get; set; }
+
+        [ForeignKey("FamilyID")]
+        public virtual Family Family { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AdultRace> AdultRaces { get; set; }
     }

@@ -53,6 +53,6 @@ namespace PromiseData.ViewModels
         //dictionary for checkbox values
         public Dictionary<int, bool> RaceDictionary { get; set; }
 
-        public int familyId { get; set; }   
+        public int FamilyID { get; set; }   
     }
 }

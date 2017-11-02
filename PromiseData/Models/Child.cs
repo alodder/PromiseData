@@ -81,6 +81,11 @@ namespace PromiseData.Models
 
         public int? ExitReason_ID { get; set; }
 
+        public int? FamilyID { get; set; }
+
+        [ForeignKey("FamilyID")]
+        public virtual Family Family { get; set; }
+
         [ForeignKey("Address_ID")]
         public virtual Address Address { get; set; }
 
