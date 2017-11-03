@@ -342,10 +342,13 @@
                     <dt>
                         @adult.ID
                     </dt>
-                    if (Model.CanEdit)
-                    {
-                        @Html.ActionLink("Edit", "Edit", "Adult", new { id = adult.ID }, null)
-                    }
+                    <dd>
+                        @adult.NameFirst @adult.NameLast
+                        @if (Model.CanEdit)
+                        {
+                            @Html.ActionLink("Edit", "Edit", "Adult", new { id = adult.ID }, null)
+                        }
+                    </dd>
                 }
 
                 @if (Model.CanEdit)

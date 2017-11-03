@@ -118,7 +118,7 @@ namespace PromiseData.Controllers
             viewModel.Child_Special_Needs = _context.Child_Special_Needs.Where(c => c.ChildID == child.ID).ToList();
 
             viewModel.Family = _context.Families.SingleOrDefault( f => f.ID == child.FamilyID);
-            viewModel.Adults = _context.Adults.Where( a => a.FamilyID == viewModel.FamilyID);
+            viewModel.Adults = _context.Adults.Where( a => a.FamilyID == child.FamilyID);
 
             viewModel.Languages = _context.CodeLanguage.ToList();
             viewModel.RaceEthnicityList = _context.RaceEthnic.ToList();

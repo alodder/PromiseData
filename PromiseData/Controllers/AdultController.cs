@@ -83,14 +83,17 @@ namespace PromiseData.Controllers
                 return View("AdultForm", viewModel);
             }
 
-
             var adult = new Adult
             {
+                AdultType = viewModel.AdultType,
                 Age = viewModel.Age,
+                Gender_ID = viewModel.GenderID,
                 ResidentialTime = viewModel.ResidentialTime,
                 Education_ID = viewModel.Education_ID,
                 Employment = viewModel.Employment,
-                Gender_ID = viewModel.GenderID
+                FamilyID = viewModel.FamilyID,
+                NameFirst = viewModel.NameFirst,
+                NameLast = viewModel.NameLast
             };
 
             _context.Adults.Add(adult);
@@ -120,14 +123,17 @@ namespace PromiseData.Controllers
                 EducationTypes = _context.Code_Education.ToList(),
                 TimeTypes = types,
 
+                id = adult.ID,
                 ELDID = adult.ELD_ID.GetValueOrDefault(),
-                AdultTypeID = adult.AdultType_ID.GetValueOrDefault(),
+                AdultType = adult.AdultType,
                 Age = adult.Age.GetValueOrDefault(),
                 GenderID = adult.Gender_ID,
                 ResidentialTime = adult.ResidentialTime,
                 Education_ID = adult.Education_ID.GetValueOrDefault(),
                 Employment = adult.Employment,
-                FamilyID = adult.FamilyID.GetValueOrDefault()
+                FamilyID = adult.FamilyID.GetValueOrDefault(),
+                NameFirst = adult.NameFirst,
+                NameLast = adult.NameLast
             };
 
             return View("AdultForm", viewModel);
@@ -150,6 +156,7 @@ namespace PromiseData.Controllers
             adult.Age = viewModel.Age;
             adult.NameFirst = viewModel.NameFirst;
             adult.NameLast = viewModel.NameLast;
+            adult.AdultType = viewModel.AdultType;
             adult.ResidentialTime = viewModel.ResidentialTime;
             adult.Education_ID = viewModel.Education_ID;
             adult.Employment = viewModel.Employment;

@@ -20,7 +20,7 @@ namespace PromiseData.Models
 
         public int? ELD_ID { get; set; }
 
-        public int? AdultType_ID { get; set; }
+        public String AdultType { get; set; }
 
         public int? Age { get; set; }
 
@@ -54,5 +54,7 @@ namespace PromiseData.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AdultRace> AdultRaces { get; set; }
+
+        public virtual Code_Gender Gender { get; set; }
     }
 }
