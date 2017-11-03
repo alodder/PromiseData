@@ -106,7 +106,7 @@ namespace PromiseData.Controllers
                 EndDate = viewModel.EndDate,
                 ReasonForleaving = viewModel.ReasonForLeaving,
                 TeacherRaceEthnicity = viewModel.RaceEthnicityIdentity,
-                Gender_ID = viewModel.GenderId,
+                Gender_ID = viewModel.GenderId.ToString(),
                 NameLast = viewModel.NameLast,
                 NameFirst = viewModel.NameFirst
             };
@@ -254,7 +254,7 @@ namespace PromiseData.Controllers
             teacher.EndDate = viewModel.EndDate;
             teacher.ReasonForleaving = viewModel.ReasonForLeaving;
             teacher.TeacherRaceEthnicity = viewModel.RaceEthnicityIdentity;
-            teacher.Gender_ID = viewModel.GenderId;
+            teacher.Gender_ID = viewModel.GenderId.ToString();
             teacher.NameLast = viewModel.NameLast;
             teacher.NameFirst = viewModel.NameFirst;
 
@@ -371,7 +371,7 @@ namespace PromiseData.Controllers
                 TeacherIDNumber = teacher.TeacherIDNumber,
                 TeacherType = teacher.TeacherType,
                 TeacherBirthdate = teacher.TeacherBirthdate.GetValueOrDefault(),
-                GenderId = teacher.Gender_ID,
+                GenderId = teacher.Gender_ID[0],
                 RaceEthnicityIdentity = teacher.TeacherRaceEthnicity,
                 StartDate = teacher.StartDate.GetValueOrDefault(),
                 EndDate = teacher.EndDate,

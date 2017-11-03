@@ -9,6 +9,7 @@
 {
 
     @Html.HiddenFor(m => m.FamilyID)
+    @Html.HiddenFor(m => m.id)
     <div class="form-horizontal bs-component">
         <div class="row">
             <div class="col-md-3">
@@ -37,7 +38,7 @@
             <div class="col-md-2">
                 <div class="form-group">
                     @Html.LabelFor(m => m.GenderID)
-                    @Html.DropDownListFor(m => m.GenderID, new SelectList(Model.Genders, "Description", "Description"), new { @class = "form-control" })
+                    @Html.DropDownListFor(m => m.GenderID, new SelectList(Model.Genders, "Code", "Description"), new { @class = "form-control" })
                 </div>
             </div>
         </div>

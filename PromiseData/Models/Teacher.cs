@@ -24,7 +24,8 @@
         public DateTime? TeacherBirthdate { get; set; }
 
         [DisplayName("Gender")]
-        public char Gender_ID { get; set; }
+        [StringLength(1)]
+        public string Gender_ID { get; set; }
 
         [DisplayName("Race/Ethnicity")]
         public int? TeacherRaceEthnicity { get; set; }

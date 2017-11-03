@@ -87,7 +87,7 @@ namespace PromiseData.Controllers
             {
                 AdultType = viewModel.AdultType,
                 Age = viewModel.Age,
-                Gender_ID = viewModel.GenderID,
+                Gender_Code = viewModel.GenderID.ToString(),
                 ResidentialTime = viewModel.ResidentialTime,
                 Education_ID = viewModel.Education_ID,
                 Employment = viewModel.Employment,
@@ -127,7 +127,7 @@ namespace PromiseData.Controllers
                 ELDID = adult.ELD_ID.GetValueOrDefault(),
                 AdultType = adult.AdultType,
                 Age = adult.Age.GetValueOrDefault(),
-                GenderID = adult.Gender_ID,
+                GenderID = adult.Gender_Code[0],
                 ResidentialTime = adult.ResidentialTime,
                 Education_ID = adult.Education_ID.GetValueOrDefault(),
                 Employment = adult.Employment,
@@ -160,7 +160,7 @@ namespace PromiseData.Controllers
             adult.ResidentialTime = viewModel.ResidentialTime;
             adult.Education_ID = viewModel.Education_ID;
             adult.Employment = viewModel.Employment;
-            adult.Gender_ID = viewModel.GenderID;
+            adult.Gender_Code = viewModel.GenderID.ToString();
 
             _context.SaveChanges();
 

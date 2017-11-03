@@ -346,7 +346,9 @@
                         @adult.NameFirst @adult.NameLast
                         @if (Model.CanEdit)
                         {
-                            @Html.ActionLink("Edit", "Edit", "Adult", new { id = adult.ID }, null)
+                            @Html.ActionLink("Update", "Edit", "Adult", new { id = adult.ID }, null)
+                            @Html.Raw(" | ")
+                            @Html.ActionLink("Remove", "Edit", "Adult", new { id = adult.ID }, null)
                         }
                     </dd>
                 }

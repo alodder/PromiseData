@@ -44,6 +44,7 @@ namespace PromiseData.Models
 
         public DateTime? Birthdate { get; set; }
 
+        [StringLength(1)]
         public string Gender_ID { get; set; }
 
         public bool Homeless { get; set; }

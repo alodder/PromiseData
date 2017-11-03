@@ -25,7 +25,8 @@ namespace PromiseData.Models
         public int? Age { get; set; }
 
         [DisplayName("Gender")]
-        public char Gender_ID { get; set; }
+        [StringLength(1)]
+        public string Gender_Code { get; set; }
 
         [DisplayName("Time with child/Week")]
         [StringLength(255)]
@@ -55,6 +56,7 @@ namespace PromiseData.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AdultRace> AdultRaces { get; set; }
 
+        [ForeignKey("Gender_Code")]
         public virtual Code_Gender Gender { get; set; }
     }
 }
