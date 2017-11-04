@@ -27,5 +27,9 @@ namespace PromiseData.Models
         public bool SSI { get; set; }
 
         public int? MonthlyCostAdditionalServices { get; set; }
+
+        public virtual ICollection<Adult> Adults { get; set; }
+
+        public virtual ICollection<Child> Children { get; set; }
     }
 }

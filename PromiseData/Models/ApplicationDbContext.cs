@@ -164,6 +164,16 @@ namespace PromiseData.Models
                 .Property(e => e.Income)
                 .HasPrecision(19, 4);
 
+            modelBuilder.Entity<Family>()
+                .HasMany(e => e.Children)
+                .WithOptional(e => e.Family)
+                .HasForeignKey(e => e.FamilyID);
+
+            modelBuilder.Entity<Family>()
+                .HasMany(e => e.Adults)
+                .WithOptional(e => e.Family)
+                .HasForeignKey(e => e.FamilyID);
+
             modelBuilder.Entity<LU_State>()
                 .HasMany(e => e.Addresses)
                 .WithOptional(e => e.LU_State)
