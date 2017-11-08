@@ -336,31 +336,33 @@
     <div class="panel">
         <div class="panel-heading">Adults</div>
         <div class="panel-body">
-            <dl class="dl-horizontal">
                 @foreach (var adult in Model.Adults)
                 {
-                    <dt>
-                        @adult.NameFirst @adult.NameLast
-                    </dt>
-                    <dd>
-                        @Html.ActionLink("View", "Details", "Adult", new { id = adult.ID }, null)
-                        @if (Model.CanEdit)
-                        {
-                            @Html.Raw(" | ")
-                            @Html.ActionLink("Update", "Edit", "Adult", new { id = adult.ID }, null)
-                            @Html.Raw(" | ")
-                            @Html.ActionLink("Remove", "Edit", "Adult", new { id = adult.ID }, null)
-                        }
-                    </dd>
+                    <div class="adult">
+                        <div class="col-lg-3">
+                            @adult.NameFirst @adult.NameLast
+                        </div>
+                        <div class="clearfix">
+                            @Html.ActionLink("View", "Details", "Adult", new { id = adult.ID }, null)
+                            @if (Model.CanEdit)
+                            {
+                                @Html.Raw(" | ")
+                                @Html.ActionLink("Update", "Edit", "Adult", new { id = adult.ID }, null)
+                                @Html.Raw(" | ")
+                                <a id="@adult.ID" class="adultRemove">Remove</a>
+                            }
+                        </div>
+                    </div>
+                    
                 }
 
                 @if (Model.CanEdit)
                 {
-                    @Html.Raw("<dt>");
-                    @Html.ActionLink("Add", "Create", "Adult", new { id = Model.ID }, null)
-                    @Html.Raw("</dt>");
+                    <div class="col-lg-offset-1">
+                        @Html.ActionLink("Add", "Create", "Adult", new { id = Model.ID }, null)
+                    </div>
+                    
                 }
-            </dl>
         </div>
     </div>
 
@@ -390,3 +392,41 @@
         
         @Html.ActionLink("Back to List", "Index")
     </p>
+
+@section Scripts
+{
+    <script type="text/javascript">
+
+        var urlRemoveAdult = '@Url.Action("confirmRemoveAdult", "Child")';
+
+        function removeAdult( id) {
+            $.get(
+                urlRemoveAdult,
+                { id: id },
+                function (response) {
+                    alert(response);
+                }
+            );
+        }
+
+        $(".adultRemove").click(function()
+        {
+            var adult = $(this).closest('.adult');
+            var adultId = $(this).attr("id");
+
+            $.get(urlRemoveAdult, { id: adultId}, function (response) {
+                var itsago = confirm(response);
+                if (itsago) {
+                    $.post('@Url.Action("removeAdult", "Child")', { id: adultId }, function (response) {
+                        adult.text("Adult Removed");
+                        adult.fadeOut("slow", function () {
+                            adult.remove();
+                        });
+                    });
+
+                }
+            });
+        });
+
+    </script>
+}  

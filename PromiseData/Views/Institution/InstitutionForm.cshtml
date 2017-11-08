@@ -234,3 +234,36 @@
         </div>
     </div>
 }
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#siteblock").hide();
+            $("#staffblock").hide();
+
+            if (selValue == "Site") {
+                $("#siteblock").show();
+                $("#staffblock").hide();
+            }
+            if (selValue == "Staff") {
+                $("#staffblock").show();
+                $("#siteblock").hide();
+            }
+        });
+
+        $("input:radio").click(function () {
+            console.log("click");
+            var selValue = $('input[name=WaiverType]:checked').val();
+            console.log(selValue);
+            if (selValue == "Site") {
+                $("#siteblock").show();
+                $("#staffblock").hide();
+            }
+            if (selValue == "Staff") {
+                $("#staffblock").show();
+                $("#siteblock").hide();
+            }
+        });
+    </script>
+}  

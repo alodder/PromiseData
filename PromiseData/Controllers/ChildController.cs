@@ -6,6 +6,7 @@ using PromiseData.Models;
 using PromiseData.ViewModels;
 using System.Net;
 using System.Security.Claims;
+using System.Web.Services;
 
 namespace PromiseData.Controllers
 {
@@ -385,6 +386,25 @@ namespace PromiseData.Controllers
                 })
                 .ToList();
             return Json(classrooms, JsonRequestBehavior.AllowGet);
+        }
+
+        [WebMethod]
+        public string confirmRemoveAdult(int id)
+        {
+            var adult = _context.Adults.Single(a => a.ID == id);
+            string response = "Are you sure you want to remove ";
+            response += adult.NameFirst + " " + adult.NameLast;
+            response += " from this child's family?";
+            return response;
+        }
+
+        [WebMethod]
+        public int removeAdult(int id)
+        {
+            var adult = _context.Adults.Single(a => a.ID == id);
+            adult.FamilyID = null;
+            var success = _context.SaveChanges();
+            return success;
         }
 
         [HttpGet]
