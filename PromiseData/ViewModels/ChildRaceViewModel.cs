@@ -33,7 +33,7 @@ namespace PromiseData.ViewModels
 
         public IEnumerable<RaceEthnicity> RaceEthnicityList { get; set; }
 
-        public Dictionary<int, bool> RaceDictionary;
+        public Dictionary<int, bool> RaceDictionary { get; set; }
 
         public bool Update { get; set; }
     }

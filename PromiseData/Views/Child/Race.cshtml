@@ -16,9 +16,10 @@
             {
                 <div class="col-lg-3">
                     <div class="form-group">
-                        <input type="hidden" name="@String.Format("RaceDictionary[{0}].Key", i)" value="@raceCheck.Key" />
-                        @Html.CheckBox(String.Format("RaceDictionary[{0}].Value", i), raceCheck.Value)
-                        <label class="categoryLabel" for="@String.Format("RaceDictionary_{0}__Value", i)">@Model.RaceEthnicityList.Single(r => r.Id == raceCheck.Key).Description</label>
+                        <input type="hidden" name="@String.Format("RaceDictionary[{0}].Key", @i)" value="@raceCheck.Key" />
+                        @Html.CheckBox(String.Format("RaceDictionary[{0}].Value", @i), raceCheck.Value)
+                        <label class="categoryLabel" for="@String.Format("RaceDictionary_{0}__Value", @i)">@Model.RaceEthnicityList.Single(r => r.Id == raceCheck.Key).Description</label>
+
                         @{i++;}
                     </div>
                 </div>

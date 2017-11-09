@@ -39,6 +39,7 @@ namespace PromiseData.ViewModels
         [DisplayName("Teacher ID Number")]
         public String TeacherIDNumber { get; set; }
 
+        [Required]
         [DisplayName("Classroom")]
         public int ClassroomId { get; set; }   //? Classroom w/PP Students 1: Teacher ID Number
 

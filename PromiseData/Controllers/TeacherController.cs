@@ -357,7 +357,7 @@ namespace PromiseData.Controllers
             _context.TeacherClasses.RemoveRange(_context.TeacherClasses.Where( tc => tc.TeacherID == teacherClassView.teacherid && tc.ClassroomID == teacherClassView.classroomid));
             _context.SaveChanges();
 
-            return RedirectToAction("Details", "Classroom", teacherClassView.classroomid);
+            return RedirectToAction("Details", "Classroom", new { id = teacherClassView.classroomid } );
         }
 
         [Authorize]

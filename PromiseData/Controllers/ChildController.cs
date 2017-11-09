@@ -409,7 +409,7 @@ namespace PromiseData.Controllers
         [HttpPost]
         public ActionResult UpdateRace(ChildRaceViewModel viewModel)
         {
-            var childRaces = _context.ChildRaces.Where(r => r.ChildID == viewModel.ChildID).Select(r => r.RaceID);
+            var childRaces = _context.ChildRaces.Where(r => r.ChildID == viewModel.ChildID);
             foreach (var raceId in viewModel.RaceDictionary.Keys)
             {
                 var ChildRace = new ChildRace
@@ -418,19 +418,19 @@ namespace PromiseData.Controllers
                         RaceID = raceId
                     };
 
-                if (viewModel.RaceDictionary[raceId] && !childRaces.Contains(raceId))
+                if (viewModel.RaceDictionary[raceId] && !childRaces.Select(r => r.RaceID).Contains(raceId))
                 {
                     _context.ChildRaces.Add( ChildRace);
                 }
-                if (!viewModel.RaceDictionary[raceId] && childRaces.Contains(raceId))
+                if (!viewModel.RaceDictionary[raceId] && childRaces.Select(r => r.RaceID).Contains(raceId))
                 {
-                    _context.ChildRaces.Remove(ChildRace);
+                    _context.ChildRaces.RemoveRange(childRaces.Where( r=> r.RaceID == raceId));
                 }
 
             }
 
             _context.SaveChanges();
-            return RedirectToAction("Details", "Child", viewModel.ChildID);
+            return RedirectToAction("Details", "Child", new { id = viewModel.ChildID });
         }
 
 
