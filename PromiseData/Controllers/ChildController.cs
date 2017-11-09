@@ -342,12 +342,10 @@ namespace PromiseData.Controllers
             {
                 return HttpNotFound();
             }
-            var viewModel = new ChildFormViewModel
+            var viewModel = new ChildRaceViewModel
             {
-                ID = id,
-                FirstName = child.FirstName,
-                LastName = child.LastName,
-                Languages = _context.CodeLanguage.ToList(),
+                ChildID = id,
+                Child = child,
                 RaceEthnicityList = _context.RaceEthnic.ToList(),
                 RaceDictionary = RaceBoolDictionary
             };
@@ -399,7 +397,7 @@ namespace PromiseData.Controllers
 
             var childRaces = _context.ChildRaces.Where(r => r.ChildID == child.ID).Select(r => r.RaceID);
 
-            foreach(var def in viewModel.RaceDictionary)
+            foreach(var def in viewModel.RaceDictionary.ToList())
             {
                 if (childRaces.Contains(def.Key))
                     viewModel.RaceDictionary[def.Key] = true;

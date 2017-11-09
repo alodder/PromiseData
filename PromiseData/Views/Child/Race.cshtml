@@ -2,7 +2,7 @@
 
 <h2>@Model.Child.FirstName @Model.Child.LastName</h2>
 
-@using ( Html.BeginForm( Model.Action, "Race"))
+@using ( Html.BeginForm( Model.Action, "Child"))
 {
     @Html.HiddenFor(m => m.ChildID);
     @Html.HiddenFor(m => m.Update);
