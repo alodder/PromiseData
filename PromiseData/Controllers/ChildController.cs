@@ -121,6 +121,8 @@ namespace PromiseData.Controllers
             viewModel.Family = _context.Families.SingleOrDefault( f => f.ID == child.FamilyID);
             viewModel.Adults = _context.Adults.Where( a => a.FamilyID == child.FamilyID);
 
+            viewModel.ChildRaces = _context.ChildRaces.Where( r => r.ChildID == child.ID);
+
             viewModel.Languages = _context.CodeLanguage.ToList();
             viewModel.RaceEthnicityList = _context.RaceEthnic.ToList();
             viewModel.Generations = _context.Code_GenerationCode.ToList();
@@ -353,7 +355,7 @@ namespace PromiseData.Controllers
         }
 
         [HttpPost]
-        public ActionResult Race(ChildFormViewModel viewModel)
+        public ActionResult Race(ChildRaceViewModel viewModel)
         {
             foreach (var raceId in viewModel.RaceDictionary.Keys)
             {
@@ -363,7 +365,7 @@ namespace PromiseData.Controllers
                 {
                     var ChildRace = new ChildRace
                     {
-                        ChildID = viewModel.ID,
+                        ChildID = viewModel.ChildID,
                         RaceID = raceId
                     };
                     _context.ChildRaces.Add(ChildRace);
@@ -372,6 +374,65 @@ namespace PromiseData.Controllers
             
             _context.SaveChanges();
             return RedirectToAction("Create", "Adult");
+        }
+
+        [HttpGet]
+        public ActionResult EditRace(int id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var child = _context.Children.Single(a => a.ID == id);
+            if (child == null)
+            {
+                return HttpNotFound();
+            }
+            var viewModel = new ChildRaceViewModel
+            {
+                ChildID = id,
+                Child = child,
+                RaceEthnicityList = _context.RaceEthnic.ToList(),
+                RaceDictionary = RaceBoolDictionary,
+                Update = true
+            };
+
+            var childRaces = _context.ChildRaces.Where(r => r.ChildID == child.ID).Select(r => r.RaceID);
+
+            foreach(var def in viewModel.RaceDictionary)
+            {
+                if (childRaces.Contains(def.Key))
+                    viewModel.RaceDictionary[def.Key] = true;
+            }
+
+            return View("Race", viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateRace(ChildRaceViewModel viewModel)
+        {
+            var childRaces = _context.ChildRaces.Where(r => r.ChildID == viewModel.ChildID).Select(r => r.RaceID);
+            foreach (var raceId in viewModel.RaceDictionary.Keys)
+            {
+                var ChildRace = new ChildRace
+                    {
+                        ChildID = viewModel.ChildID,
+                        RaceID = raceId
+                    };
+
+                if (viewModel.RaceDictionary[raceId] && !childRaces.Contains(raceId))
+                {
+                    _context.ChildRaces.Add( ChildRace);
+                }
+                if (!viewModel.RaceDictionary[raceId] && childRaces.Contains(raceId))
+                {
+                    _context.ChildRaces.Remove(ChildRace);
+                }
+
+            }
+
+            _context.SaveChanges();
+            return RedirectToAction("Details", "Child", viewModel.ChildID);
         }
 
 

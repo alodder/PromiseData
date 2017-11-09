@@ -161,6 +161,22 @@
                 <dd>
                     @Html.DisplayFor(model => model.Gender.Description)
                 </dd>
+
+                <dt>
+                    Race/Ethnicity
+                </dt>
+
+                <dd>
+                    @foreach(var childrace in Model.ChildRaces)
+                    {
+                        @Model.RaceEthnicityList.Single( r=> r.Id == childrace.RaceID).Description
+                        @Html.Raw("<br/>")
+                    }
+                    @if (Model.CanEdit)
+                    {
+                        @Html.ActionLink("Edit", "EditRace", new { id = Model.ID })
+                    }
+                </dd>
             </dl>
         </div>
     </div>

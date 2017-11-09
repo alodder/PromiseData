@@ -1,12 +1,12 @@
-﻿@model PromiseData.ViewModels.ChildFormViewModel
-@{
-    ViewBag.Title = "Race";
-}
+﻿@model PromiseData.ViewModels.ChildRaceViewModel
 
-<h2>@Model.FirstName @Model.LastName</h2>
+<h2>@Model.Child.FirstName @Model.Child.LastName</h2>
 
-@using (Html.BeginForm("Race", "Child", FormMethod.Post))
+@using ( Html.BeginForm( Model.Action, "Race"))
 {
+    @Html.HiddenFor(m => m.ChildID);
+    @Html.HiddenFor(m => m.Update);
+
     <div class="form-horizontal bs-component">
         <h3>Race/Ethnicity</h3>
         <p>Select all that apply</p>
