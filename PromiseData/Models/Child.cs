@@ -111,5 +111,6 @@ namespace PromiseData.Models
         public virtual ICollection<Child_Facility> Child_Facilities { get; set; }
 
         public virtual ICollection<Child_IFSP> Child_IFSP { get; set; }
+
     }
 }

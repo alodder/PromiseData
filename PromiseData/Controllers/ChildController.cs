@@ -5,19 +5,23 @@ using System.Web.Mvc;
 using PromiseData.Models;
 using PromiseData.ViewModels;
 using System.Net;
+using Microsoft.AspNet.Identity;
 using System.Security.Claims;
 using System.Web.Services;
+using PromiseData.Repositories;
 
 namespace PromiseData.Controllers
 {
     public class ChildController : Controller
     {
         private ApplicationDbContext _context;
+        private ChildRepository _childRepository;
         private Dictionary<int, bool> RaceBoolDictionary;
 
         public ChildController()
         {
             _context = new ApplicationDbContext();
+            _childRepository = new ChildRepository( _context);
             RaceBoolDictionary = new Dictionary<int, bool>();
             var raceList = _context.RaceEthnic.ToList();
             foreach (RaceEthnicity race in raceList)
@@ -486,7 +490,7 @@ namespace PromiseData.Controllers
                 ChildID = child.ID
             };
 
-            viewModel.Children = GetUserChildren();
+            viewModel.Children = _childRepository.GetUserChildren( (ClaimsPrincipal)User);
             viewModel.Services = GetUserServices();
             viewModel.Sites = GetUserSites();
             viewModel.Classrooms = _context.Classrooms;
