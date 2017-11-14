@@ -18,7 +18,7 @@ namespace PromiseData.Repositories
         {
             App_context = _context;
             _userRepository = new UserRepository( App_context);
-    }
+        }
 
         /**
          * 

@@ -32,7 +32,6 @@ namespace PromiseData.Models
         public virtual DbSet<Code_OtherNameType> Code_OtherNameType { get; set; }
         public virtual DbSet<Code_ProgramSessionType> Code_ProgramSessionType { get; set; }
         public virtual DbSet<Code_ProgramType> Code_ProgramType { get; set; }
-        public virtual DbSet<ELD_ID> ELD_ID { get; set; }
         public virtual DbSet<Facility> Facilities { get; set; }
         public virtual DbSet<FacilitySupport> FacilitySupports { get; set; }
         public virtual DbSet<Family> Families { get; set; }

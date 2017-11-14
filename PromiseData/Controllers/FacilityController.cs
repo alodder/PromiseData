@@ -9,15 +9,17 @@ using PromiseData.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Security.Claims;
+using PromiseData.Repositories;
 
 namespace PromiseData.Controllers
 {
     public class FacilityController : Controller
     {
         private IdentityStoreDbContext _IdentityContext;
+        private SitesRepository _sitesRepository;
+
         private UserManager<ApplicationUser> UserManager;
         private RoleManager<IdentityRole> RoleManager;
-
 
         private ApplicationDbContext _context;
         private List<String> FacilityTypes;
@@ -30,6 +32,8 @@ namespace PromiseData.Controllers
             UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_IdentityContext));
 
             _context = new ApplicationDbContext();
+
+            _sitesRepository = new SitesRepository( _context);
 
             FacilityTypes = new List<string>();
             FacilityTypes.Add("Registered Family");
@@ -154,30 +158,8 @@ namespace PromiseData.Controllers
 
             viewModel.Waivers = facility.WaiverCurrents.ToList();
 
-            /**
-             * Set user access to controls
-             **/
-            if (User.IsInRole("System Administrator") || User.IsInRole("Administrator"))
-            {
-                viewModel.CanEdit = true;
-                viewModel.CanView = true;
-            }
-            //int institutionId;
-
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-
-            if (User.IsInRole("Hub") 
-                && ( identity.Claims.Any(
-                    t => t.Type == "Institution" && t.Value == viewModel.Provider.ParentHubId.ToString())))
-            {
-                viewModel.CanEdit = true;
-                viewModel.CanView = true;
-            }
-            if (User.IsInRole("Provider") && identity.Claims.Any(t => t.Type == "Institution" && t.Value == viewModel.Provider.Id.ToString()))
-            {
-                viewModel.CanEdit = true;
-                viewModel.CanView = true;
-            }
+            viewModel.CanEdit = _sitesRepository.UserCanEditSite((ClaimsPrincipal)User, facility.ID);
+            viewModel.CanView = true;
 
             return View(viewModel);
         }
@@ -303,24 +285,7 @@ namespace PromiseData.Controllers
         // GET: Facility
         public ActionResult Index()
         {
-            IEnumerable<Facility> facilities;
-
-            if (User.IsInRole("Administrator") || User.IsInRole("System Administrator"))
-            {
-                facilities = _context.Facilities;
-            }
-            else
-            {
-                ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
-
-                var claims = (from c in identity.Claims
-                              where c.Type == "Institution"
-                              select c);
-                var institutionId = Int32.Parse(claims.FirstOrDefault().Value);
-
-                facilities = _context.Facilities.Where(
-                    f => f.ProviderID == institutionId);
-            }
+            IEnumerable<Facility> facilities = _sitesRepository.GetUserSites( (ClaimsPrincipal)User);
 
             return View(facilities);
         }

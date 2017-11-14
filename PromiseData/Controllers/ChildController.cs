@@ -19,6 +19,7 @@ namespace PromiseData.Controllers
         private ServicesRepository _servicesRepository;
         private SitesRepository _sitesRepository;
         private ClassroomRepository _classroomRepository;
+
         private Dictionary<int, bool> RaceBoolDictionary;
 
         public ChildController()
@@ -306,10 +307,12 @@ namespace PromiseData.Controllers
                  */
                 if (!viewModel.MySpecialNeeds[SpecialNeedCode])
                 {
-                    _context.Child_Special_Needs.RemoveRange( SpecialNeedsSet.Where(tlc => tlc.SpecialNeedsCode == childsSpecial.SpecialNeedsCode));
+                    _context.Child_Special_Needs.RemoveRange( 
+                        SpecialNeedsSet.Where(tlc => tlc.SpecialNeedsCode == childsSpecial.SpecialNeedsCode));
                 }
                 else if (viewModel.MySpecialNeeds[SpecialNeedCode] &&
-                        !SpecialNeedsSet.Select(t => t.SpecialNeedsCode).Contains( childsSpecial.SpecialNeedsCode))
+                        !SpecialNeedsSet.Select(t => t.SpecialNeedsCode)
+                                        .Contains( childsSpecial.SpecialNeedsCode))
                 {
                     _context.Child_Special_Needs.Add( childsSpecial);
                 }

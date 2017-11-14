@@ -46,5 +46,29 @@ namespace PromiseData.Repositories
             }
             return sites;
         }
+
+        public bool UserCanEditSite(ClaimsPrincipal User, int siteId)
+        {
+            if (User.IsInRole("System Administrator") || User.IsInRole("Administrator"))
+            {
+                return true;
+            }
+
+            var institutionid = _userRepository.GetUserInstitutionID( User);
+            var site = App_context.Facilities.Single(f => f.ID == siteId);
+
+            if (User.IsInRole("Hub")
+                && (institutionid == site.Provider.ParentHubId))
+            {
+                return true;
+            }
+
+            if (User.IsInRole("Provider") 
+                && (institutionid == site.Provider.Id))
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
