@@ -16,12 +16,19 @@ namespace PromiseData.Controllers
     {
         private ApplicationDbContext _context;
         private ChildRepository _childRepository;
+        private ServicesRepository _servicesRepository;
+        private SitesRepository _sitesRepository;
+        private ClassroomRepository _classroomRepository;
         private Dictionary<int, bool> RaceBoolDictionary;
 
         public ChildController()
         {
             _context = new ApplicationDbContext();
             _childRepository = new ChildRepository( _context);
+            _servicesRepository = new ServicesRepository(_context);
+            _sitesRepository = new SitesRepository(_context);
+            _classroomRepository = new ClassroomRepository(_context);
+
             RaceBoolDictionary = new Dictionary<int, bool>();
             var raceList = _context.RaceEthnic.ToList();
             foreach (RaceEthnicity race in raceList)
@@ -30,6 +37,11 @@ namespace PromiseData.Controllers
             }
         }
 
+
+        /**
+         * Create Child form
+         * Possibbly add Classroom here?
+         */
         [Authorize]
         [HttpGet]
         public ActionResult Add()
@@ -131,7 +143,7 @@ namespace PromiseData.Controllers
             viewModel.RaceEthnicityList = _context.RaceEthnic.ToList();
             viewModel.Generations = _context.Code_GenerationCode.ToList();
 
-            viewModel.CanEdit = UserCanUpdateChild( child.ID);
+            viewModel.CanEdit = _childRepository.UserCanUpdateChild( (ClaimsPrincipal)User, child.ID);
 
             return View(viewModel);
         }
@@ -491,9 +503,9 @@ namespace PromiseData.Controllers
             };
 
             viewModel.Children = _childRepository.GetUserChildren( (ClaimsPrincipal)User);
-            viewModel.Services = GetUserServices();
-            viewModel.Sites = GetUserSites();
-            viewModel.Classrooms = _context.Classrooms;
+            viewModel.Services = _servicesRepository.GetUserServices( (ClaimsPrincipal)User);
+            viewModel.Sites = _sitesRepository.GetUserSites( (ClaimsPrincipal)User);
+            viewModel.Classrooms = _classroomRepository.GetUserClassrooms((ClaimsPrincipal)User);
 
             return View(viewModel);
         }
@@ -534,7 +546,7 @@ namespace PromiseData.Controllers
         {
             var viewModel = new ChildrenListViewModel();
 
-            viewModel.Children = GetUserChildren();
+            viewModel.Children = _childRepository.GetUserChildren( (ClaimsPrincipal)User);
 
             if (!String.IsNullOrWhiteSpace(query))
             {
@@ -557,130 +569,6 @@ namespace PromiseData.Controllers
                 viewModel.CanDelete = true;
             }
             return View(viewModel);
-        }
-
-        /**
-         * Return true if Child belongsd to facility/HUB for User or User is admin
-         **/
-        private bool UserCanUpdateChild(int childID)
-        {
-            if ( (User.IsInRole("System Administrator") || User.IsInRole("Administrator")))
-            {
-                return true;
-            }
-            var children = GetUserChildren();
-            if (children.Select(c => c.ID).Contains(childID))
-            {
-                return true;
-            }
-            return false;
-        }
-
-
-        /**
-         * Retrieve Identity Claim for user for 'Institution' which holds an ID in its value field
-         **/
-        private int GetUserInstitutionID()
-        {
-            ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
-
-            var claims = (from c in identity.Claims
-                          where c.Type == "Institution"
-                          select c);
-            int institutionId = Int32.Parse(claims.FirstOrDefault().Value);
-
-            return institutionId;
-        }
-
-
-        /**
-         * Return an IQueryable of Children that the User has rights to see.
-         * If the user is an administrator, return all children.
-         * Otherwise return the children at sites that belong to the user's Provider or HUB
-         * 
-         * IQueryable is lighter on memory than IEnumerable using this strategy
-         * https://stackoverflow.com/questions/2876616/returning-ienumerablet-vs-iqueryablet
-         **/
-        private IQueryable<Child> GetUserChildren()
-        {
-            var children = _context.Children.AsQueryable();
-
-            if (!(User.IsInRole("System Administrator") || User.IsInRole("Administrator")))
-            {
-                int institutionId = GetUserInstitutionID();
-                var institution = _context.Institutions.SingleOrDefault(i => i.Id == institutionId);
-
-                if (institution.IsHub)
-                {
-                    var providers = _context.Institutions.Where(i => i.ParentHubId == institutionId).Select(p => p.Id);
-                    
-                    //should assume children not enrolled, retrieve by column facility_id in child table
-                    var childFacilities = _context.ChildFacilities.Where(f => providers.Contains(f.Facility.ProviderID)).Select(c => c.ChildID);
-                    children = children.Where(c => childFacilities.Contains(c.ID));
-                }
-                if (institution.IsProvider)
-                {
-                    var childFacilities = _context.ChildFacilities.Where(f => f.Facility.ProviderID == institutionId).Select(c => c.ChildID);
-                    children = children.Where(c => childFacilities.Contains(c.ID));
-                }
-            }
-            return children;
-        }
-
-
-        /**
-         * Return 'Services' (the Class session or school year model) that a user can see/administrate in order to enroll a child
-         **/
-        private IQueryable<Service> GetUserServices()
-        {
-            var services = _context.Services.AsQueryable();
-
-            if (!(User.IsInRole("System Administrator") || User.IsInRole("Administrator")))
-            {
-                int institutionId = GetUserInstitutionID();
-                var institution = _context.Institutions.SingleOrDefault(i => i.Id == institutionId);
-
-                if (institution.IsHub)
-                {
-                    var providerids = _context.Institutions.Where(i => i.ParentHubId == institutionId).Select(p => p.Id);
-
-                    var facilityids = _context.Facilities.Where(f => providerids.Contains(f.ProviderID)).Select(f => f.ID);
-                    var classrooms = _context.Classrooms.Where(c => facilityids.Contains( c.Facility_ID.GetValueOrDefault())).Select(c => c.ID);
-                    services = services.Where(s => classrooms.Contains(s.ID));
-                }
-                if (institution.IsProvider)
-                {
-                    var childFacilities = _context.ChildFacilities.Where(f => f.Facility.ProviderID == institutionId).Select(c => c.ChildID);
-                    services = services.Where(s => childFacilities.Contains(s.ID));
-                }
-            }
-            return services;
-        }
-
-        /**
-         * Return Sites (Facility) that a user can see details about or see the Children enrolled
-         **/
-        private IQueryable<Facility> GetUserSites()
-        {
-            var sites = _context.Facilities.AsQueryable();
-
-            if (!(User.IsInRole("System Administrator") || User.IsInRole("Administrator")))
-            {
-                int institutionId = GetUserInstitutionID();
-                var institution = _context.Institutions.SingleOrDefault(i => i.Id == institutionId);
-
-                if (institution.IsHub)
-                {
-                    var providerids = _context.Institutions.Where(i => i.ParentHubId == institutionId).Select(p => p.Id);
-
-                    sites = _context.Facilities.Where(f => providerids.Contains(f.ProviderID));
-                }
-                if (institution.IsProvider)
-                {
-                    sites = _context.Facilities.Where(f => f.ProviderID == institutionId);
-                }
-            }
-            return sites;
         }
     }
 }

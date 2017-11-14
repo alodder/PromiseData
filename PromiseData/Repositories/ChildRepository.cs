@@ -13,34 +13,20 @@ namespace PromiseData.Repositories
     public class ChildRepository
     {
         private ApplicationDbContext App_context;
-        private static IdentityStoreDbContext Identity_context;
-
-        private UserManager<ApplicationUser> UserManager;
-        private RoleManager<IdentityRole> RoleManager;
+        private UserRepository _userRepository;
 
         public ChildRepository( ApplicationDbContext _context)
         {
             App_context = _context;
-            Identity_context = new IdentityStoreDbContext();
-
-            UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(Identity_context));
-            RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(Identity_context));
-        }
-
-        private ApplicationUser GetUser()
-        {
-            var User = UserManager.FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-            return User;
+            _userRepository = new UserRepository( App_context);
         }
 
         /**
         * Return true if Child belongsd to facility/HUB for User or User is admin
         **/
-        private bool UserCanUpdateChild(int childID)
+        public bool UserCanUpdateChild(ClaimsPrincipal User, int childID)
         {
-            var User = GetUser();
-            if ((User.Roles.Select(r => r.RoleId).Contains( RoleManager.FindByName("System Administrator").Id))
-                || (User.Roles.Select(r => r.RoleId).Contains(RoleManager.FindByName("Administrator").Id)))
+            if (!(User.IsInRole("System Administrator") || User.IsInRole("Administrator")))
             {
                 return true;
             }
@@ -50,22 +36,6 @@ namespace PromiseData.Repositories
                 return true;
             }
             return false;
-        }
-
-
-        /**
-         * Retrieve Identity Claim for user for 'Institution' which holds an ID in its value field
-         **/
-        private int GetUserInstitutionID( ClaimsPrincipal User)
-        {
-            ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
-
-            var claims = (from c in identity.Claims
-                          where c.Type == "Institution"
-                          select c);
-            int institutionId = Int32.Parse(claims.FirstOrDefault().Value);
-
-            return institutionId;
         }
 
 
@@ -83,7 +53,7 @@ namespace PromiseData.Repositories
 
             if (!(User.IsInRole("System Administrator") || User.IsInRole("Administrator")))
             {
-                int institutionId = GetUserInstitutionID( User);
+                int institutionId = _userRepository.GetUserInstitutionID( User);
                 var institution = App_context.Institutions.SingleOrDefault(i => i.Id == institutionId);
 
                 if (institution.IsHub)
@@ -101,68 +71,6 @@ namespace PromiseData.Repositories
                 }
             }
             return children;
-        }
-
-
-        /**
-         * Return 'Services' (the Class session or school year model) that a user can see/administrate in order to enroll a child
-         **/
-        private IQueryable<Service> GetUserServices(ClaimsPrincipal User)
-        {
-            var services = App_context.Services.AsQueryable();
-
-            if (!(User.IsInRole("System Administrator") || User.IsInRole("Administrator")))
-                {
-                int institutionId = GetUserInstitutionID( User);
-                var institution = App_context.Institutions.SingleOrDefault(i => i.Id == institutionId);
-
-                if (institution.IsHub)
-                {
-                    var providerids = App_context.Institutions.Where(i => i.ParentHubId == institutionId).Select(p => p.Id);
-
-                    var facilityids = App_context.Facilities.Where(f => providerids.Contains(f.ProviderID)).Select(f => f.ID);
-                    var classrooms = App_context.Classrooms.Where(c => facilityids.Contains(c.Facility_ID.GetValueOrDefault())).Select(c => c.ID);
-                    services = services.Where(s => classrooms.Contains(s.ID));
-                }
-                if (institution.IsProvider)
-                {
-                    var childFacilities = App_context.ChildFacilities.Where(f => f.Facility.ProviderID == institutionId).Select(c => c.ChildID);
-                    services = services.Where(s => childFacilities.Contains(s.ID));
-                }
-            }
-            return services;
-        }
-
-        /**
-         * Return Sites (Facility) that a user can see details about or see the Children enrolled
-         **/
-        private IQueryable<Facility> GetUserSites(ClaimsPrincipal User)
-        {
-            var sites = App_context.Facilities.AsQueryable();
-
-            if (!(User.IsInRole("System Administrator") 
-                || User.IsInRole("Administrator")))
-            {
-                int institutionId = GetUserInstitutionID( User);
-                var institution = App_context.Institutions.SingleOrDefault(i => i.Id == institutionId);
-
-                if (institution.IsHub)
-                {
-                    var providerids = App_context.Institutions.Where(i => i.ParentHubId == institutionId).Select(p => p.Id);
-
-                    sites = App_context.Facilities.Where(f => providerids.Contains(f.ProviderID));
-                }
-                if (institution.IsProvider)
-                {
-                    sites = App_context.Facilities.Where(f => f.ProviderID == institutionId);
-                }
-            }
-            return sites;
-        }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
         }
     }
 }
