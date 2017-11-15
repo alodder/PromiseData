@@ -22,26 +22,13 @@
                 @Html.ActionLink(" ", "Index", "Home", new {area = ""}, new {@class = "navbar-brand"})
             </div>
             <div class="navbar-collapse collapse">
-                @if (User.IsInRole("Administrator") || User.IsInRole("System Administrator"))
-                {
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Admin", "Index", "Home")</li>
-                    </ul>
-                }
-                @if (User.IsInRole("Hub"))
-                {
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Admin", "Index", "Home")</li>
-                    </ul>
-                }
-                @if (User.IsInRole("Provider"))
-                {
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Admin", "Index", "Home")</li>
-                    </ul>
-                }
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>
+                        <a>Hub</a>
+                    </li>
+                    <li>
+                        <a>Provider</a>
+                    </li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

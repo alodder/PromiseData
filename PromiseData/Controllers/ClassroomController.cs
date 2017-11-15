@@ -7,16 +7,19 @@ using System.Web.Mvc;
 using PromiseData.ViewModels;
 using System.Net;
 using System.Security.Claims;
+using PromiseData.Repositories;
 
 namespace PromiseData.Controllers
 {
     public class ClassroomController : Controller
     {
         private ApplicationDbContext _context;
+        private ClassroomRepository _classroomRepository;
 
         public ClassroomController()
         {
             _context = new ApplicationDbContext();
+            _classroomRepository = new ClassroomRepository( _context);
         }
 
         [Authorize]
@@ -149,9 +152,6 @@ namespace PromiseData.Controllers
                 NonPPStudentsThirdParty = classroom.NonPPStudentsThirdParty.GetValueOrDefault(),
                 NonPPStudentsParentPay = classroom.NonPPStudentsParentPay.GetValueOrDefault(),
                 PPSlotsUnfilled = classroom.PPSlotsUnfilled.GetValueOrDefault(),
-                //CLASSScore_EmotionalSupport = classroom.CLASSScore_EmotionalSupport.GetValueOrDefault(),
-                //CLASSScore_ClassroomOrganization = classroom.CLASSScore_ClassroomOrganization.GetValueOrDefault(),
-                //CLASSScore_InstructionalSupport = classroom.CLASSScore_InstructionalSupport.GetValueOrDefault(),
                 upsize_ts = classroom.upsize_ts,
                 Description = classroom.Description
             };
@@ -186,9 +186,6 @@ namespace PromiseData.Controllers
             classroom.NonPPStudentsThirdParty = viewModel.NonPPStudentsThirdParty;
             classroom.NonPPStudentsParentPay = viewModel.NonPPStudentsParentPay;
             classroom.PPSlotsUnfilled = viewModel.PPSlotsUnfilled;
-            //classroom.CLASSScore_EmotionalSupport = viewModel.CLASSScore_EmotionalSupport;
-            //classroom.CLASSScore_ClassroomOrganization = viewModel.CLASSScore_ClassroomOrganization;
-            //classroom.CLASSScore_InstructionalSupport = viewModel.CLASSScore_InstructionalSupport;
             classroom.Description = viewModel.Description;
 
             _context.SaveChanges();
@@ -200,24 +197,7 @@ namespace PromiseData.Controllers
         // GET: Classroom
         public ActionResult Index()
         {
-            IEnumerable<Classroom> classrooms;
-
-            if (User.IsInRole("Administrator") || User.IsInRole("System Administrator"))
-            {
-                classrooms = _context.Classrooms;
-            }
-            else
-            {
-                ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
-
-                var claims = (from c in identity.Claims
-                              where c.Type == "Institution"
-                              select c);
-                var institutionId= Int32.Parse(claims.FirstOrDefault().Value);
-
-                classrooms = _context.Classrooms.Where(
-                    c => c.Facility.ProviderID == institutionId);
-            }
+            IEnumerable<Classroom> classrooms = _classroomRepository.GetUserClassrooms( (ClaimsPrincipal)User);
 
             return View( classrooms);
         }
