@@ -24,11 +24,20 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a>Hub</a>
+                        <a>@ViewBag.UserInstitutionName</a>
                     </li>
-                    <li>
-                        <a>Provider</a>
-                    </li>
+                    @if ((ViewBag.UserInstitutionIsHub != null ) && (ViewBag.UserInstitutionIsHub))
+                    {
+                        <li>
+                            <a>Hub</a>
+                        </li>
+                    }
+                    @if ((ViewBag.UserInstitutionIsProvider != null) && (ViewBag.UserInstitutionIsProvider))
+                    {
+                        <li>
+                            <a>Provider</a>
+                        </li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
