@@ -44,7 +44,7 @@ namespace PromiseData.Models
             filterContext.Controller.ViewBag.UserIsAuthenticated = User.Identity.IsAuthenticated;
             if( User.Identity.IsAuthenticated)
             {
-                filterContext.Controller.ViewBag.UserRoles = Roles.GetRolesForUser();
+                filterContext.Controller.ViewBag.UserRoles = _userRepository.GetUserRoles( (ClaimsPrincipal)User);
                 filterContext.Controller.ViewBag.UserIsAdmin = ((User.IsInRole("System Administrator")
                     || User.IsInRole("Administrator")));
 
