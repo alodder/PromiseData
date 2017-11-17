@@ -21,9 +21,12 @@ namespace PromiseData.Repositories
             RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new IdentityStoreDbContext()));
         }
 
-        public string[] GetUserRoles(ClaimsPrincipal User)
+        public IEnumerable<string> GetUserRoles(ClaimsPrincipal User)
         {
-            return ((RolePrincipal)User).GetRoles();
+            var roles = ((ClaimsIdentity)User.Identity).Claims
+                .Where(c => c.Type == ClaimTypes.Role)
+                .Select(c => c.Value);
+            return roles;
         }
 
         public bool UserIsAdmin(ClaimsPrincipal User)

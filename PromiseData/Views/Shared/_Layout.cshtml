@@ -23,6 +23,15 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    @if (ViewBag.UserRoles != null)
+                    {
+                        foreach (string role in ViewBag.UserRoles)
+                        {
+                            <li>
+                                <a>@role</a>
+                            </li>
+                        }
+                    }
                     <li>
                         <a>@ViewBag.UserInstitutionName</a>
                     </li>
