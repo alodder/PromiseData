@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PromiseData.Models;
+using PromiseData.ViewModels;
 
 namespace PromiseData.Controllers
 {
@@ -39,12 +40,13 @@ namespace PromiseData.Controllers
         // GET: ContactAgents/Create
         public ActionResult Create(int? id)
         {
-            /*if (id == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }*/
-            ViewBag.InstitutionId = id;
-            return View();
+            }
+            ContactAgentViewModel view = new ContactAgentViewModel();
+            view.InstitutionId = id;
+            return View(view);
         }
 
         // POST: ContactAgents/Create
@@ -52,17 +54,27 @@ namespace PromiseData.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AgentId,AgentName,AgentTitle,AgentPhone,AgentEmail,AgentFax,InstitutionId")] ContactAgent contactAgent)
+        public ActionResult Create(ContactAgentViewModel contactAgentViewModel)
         {
             if (ModelState.IsValid)
             {
+                var contactAgent = new ContactAgent
+                {
+                    AgentName = contactAgentViewModel.AgentName,
+                    AgentEmail = contactAgentViewModel.AgentEmail,
+                    AgentFax = contactAgentViewModel.AgentFax,
+                    AgentPhone = contactAgentViewModel.AgentPhone,
+                    AgentTitle = contactAgentViewModel.AgentTitle,
+                    InstitutionId = contactAgentViewModel.InstitutionId
+                };
+
                 db.ContactAgents.Add(contactAgent);
                 db.SaveChanges();
-                return RedirectToAction("Details", "Institution", contactAgent.InstitutionId);
+                return RedirectToAction("Details", "Institution", new { id = contactAgent.InstitutionId });
             }
 
-            ViewBag.InstitutionId = new SelectList(db.Institutions, "Id", "LegalName", contactAgent.InstitutionId);
-            return View(contactAgent);
+            ViewBag.InstitutionId = new SelectList(db.Institutions, "Id", "LegalName", contactAgentViewModel.InstitutionId);
+            return View(contactAgentViewModel);
         }
 
         // GET: ContactAgents/Edit/5
@@ -119,9 +131,11 @@ namespace PromiseData.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             ContactAgent contactAgent = db.ContactAgents.Find(id);
+            var institutionId = contactAgent.InstitutionId;
+
             db.ContactAgents.Remove(contactAgent);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Institution", new { id = institutionId });
         }
 
         protected override void Dispose(bool disposing)
