@@ -97,8 +97,8 @@ namespace PromiseData.Controllers
         {
             var institution = _context.Institutions.Single(i => i.Id == id);
 
-            var director = _context.ContactAgents.SingleOrDefault(c => c.AgentId == institution.DirectorAgentId);
-            var contact = _context.ContactAgents.SingleOrDefault(c => c.AgentId == institution.ContactAgentId);
+            //var director = _context.ContactAgents.SingleOrDefault(c => c.AgentId == institution.DirectorAgentId);
+            //var contact = _context.ContactAgents.SingleOrDefault(c => c.AgentId == institution.ContactAgentId);
 
             var mailingAddress = _context.Addresses.SingleOrDefault(c => c.ID == institution.MailingAddressId);
             var locationAddress = _context.Addresses.SingleOrDefault(c => c.ID == institution.LocationAddressId);
@@ -119,8 +119,8 @@ namespace PromiseData.Controllers
                 EndDate = institution.EndDate,
                 IsHub = institution.IsHub,
                 IsProvider = institution.IsProvider,
-                DirectorAgent = director,
-                ContactAgent = contact,
+                //DirectorAgent = director,
+                //ContactAgent = contact,
                 AddressMail = mailingAddress,
                 AddressPhysical = locationAddress
             };
