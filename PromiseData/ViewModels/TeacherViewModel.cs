@@ -118,5 +118,9 @@ namespace PromiseData.ViewModels
 
         [DisplayName("First Name")]
         public String NameFirst { get; set; }
+
+        public IEnumerable<WaiverCurrent> WaiversCurrent { get; set; }
+
+        public IEnumerable<WaiverRequest> WaiverRequests { get; set; }
     }
 }

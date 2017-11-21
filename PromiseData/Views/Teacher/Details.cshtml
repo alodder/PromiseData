@@ -146,41 +146,94 @@
         </div>
     </div>
 
-    <div class="">
-        <div class="panel panel-default">
-            <div class="panel-heading">Tenure</div>
-            <div class="panel-body">
-                <dl class="dl-horizontal">
-                    <dt>
-                        @Html.DisplayNameFor(model => model.StartDate)
-                    </dt>
 
-                    <dd>
-                        @Model.StartDate.ToShortDateString()
-                    </dd>
+    <div class="panel panel-default">
+        <div class="panel-heading">Tenure</div>
+        <div class="panel-body">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.StartDate)
+                </dt>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.EndDate)
-                    </dt>
+                <dd>
+                    @Model.StartDate.ToShortDateString()
+                </dd>
 
-                    <dd>
-                        @if (Model.EndDate.HasValue)
-            {
-                Model.EndDate.Value.ToShortDateString();
-            }
-                    </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.EndDate)
+                </dt>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.ReasonForLeaving)
-                    </dt>
+                <dd>
+                    @if (Model.EndDate.HasValue)
+                    {
+                        Model.EndDate.Value.ToShortDateString();
+                    }
+                </dd>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.ReasonForLeaving)
-                    </dd>
-                </dl>
-            </div>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ReasonForLeaving)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ReasonForLeaving)
+                </dd>
+            </dl>
         </div>
     </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Waivers</div>
+        <div class="panel-body">
+            <h5>Waiver Requests</h5>
+            @foreach (var Waiver in Model.WaiverRequests)
+            {
+                <div class="row">
+                    <div class="col-md-2">
+                        @Waiver.WaiverType
+                    </div>
+                    <div class="col-md-2">
+                        @Waiver.Qualification
+                    </div>
+                    <div class="col-md-2">
+                        @Waiver.AdditionalComments
+                    </div>
+                </div>
+            }
+
+            <br />
+            <h5>Current Waivers</h5>
+            @foreach (var Waiver in Model.WaiversCurrent)
+            {
+                <div class="row">
+                    <div class="col-md-1">
+                        @Waiver.WaiverType
+                    </div>
+                    <div class="col-md-2">
+                        @Waiver.Qualification
+                    </div>
+                    <div class="col-md-2">
+                        @Waiver.Development
+                    </div>
+                    <div class="col-md-1">
+                        @Waiver.Credits
+                    </div>
+                    <div class="col-md-1">
+                        @Waiver.TrainingHours
+                    </div>
+                    <div class="col-md-2">
+                        @Waiver.AdditionalComments
+                    </div>
+                    <div class="col-md-1">
+                        @Waiver.Unsatisfied
+                    </div>
+                    <div class="col-md-1">
+                        @Waiver.Expiration
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
 
     <div class="">
         <div class="panel panel-default">

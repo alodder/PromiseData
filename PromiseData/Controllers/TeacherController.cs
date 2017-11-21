@@ -397,6 +397,8 @@ namespace PromiseData.Controllers
             viewModel.TeacherTypes = types;
             viewModel.Languages = _context.CodeLanguage.ToList();
 
+            viewModel.WaiverRequests = teacher.WaiverRequests;
+            viewModel.WaiversCurrent = teacher.WaiverCurrents;
 
             var langList = _context.CodeLanguage.ToList();
 
