@@ -158,7 +158,8 @@ namespace PromiseData.Controllers
             var facilitySupports = _context.FacilitySupports.Where(s=> s.FacilityID == id).Select(s => s.SupportTypesCode).ToList();
             viewModel.Supports = _context.Code_AdditionalSupportTypes.Where(support => facilitySupports.Contains(support.Code)).ToList();
 
-            viewModel.Waivers = facility.WaiverCurrents.ToList();
+            viewModel.WaiversCurrent = facility.WaiverCurrents.ToList();
+            viewModel.WaiverRequests = facility.WaiverRequests.ToList();
 
             viewModel.CanEdit = _sitesRepository.UserCanEditSite((ClaimsPrincipal)User, facility.ID);
             viewModel.CanView = true;

@@ -74,6 +74,12 @@
         [StringLength(50)]
         public string NameLast { get; set; }
 
+        [DisplayName("Current Waivers")]
+        public virtual ICollection<WaiverCurrent> WaiverCurrents { get; set; }
+
+        [DisplayName("Waiver Requests")]
+        public virtual ICollection<WaiverRequest> WaiverRequests { get; set; }
+
         [DisplayName("Classes")]
         public virtual ICollection<TeacherClass> TeacherClasses { get; set; }
     }

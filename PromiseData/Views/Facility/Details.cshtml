@@ -60,11 +60,25 @@
     <hr />
 
     <h4>Site Waivers</h4>
+    <h5>Waiver Requests</h5>
     <ul class="list-group">
-        @foreach (var Waiver in Model.Waivers)
+        @foreach (var Waiver in Model.WaiverRequests)
         {
             <li class="list-group-item">
                 @Waiver.WaiverType
+                @Waiver.SparkCurrent
+                @Waiver.ServiceHours
+            </li>
+        }
+    </ul>
+    <h5>Current Waivers</h5>
+    <ul class="list-group">
+        @foreach (var Waiver in Model.WaiversCurrent)
+        {
+            <li class="list-group-item">
+                @Waiver.SparkCurrent
+                @Waiver.NineHundredServiceHours
+                @Waiver.Expiration
             </li>
         }
     </ul>

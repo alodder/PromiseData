@@ -102,7 +102,9 @@ namespace PromiseData.ViewModels
 
         public string[] SelectedSupports { get; set; }
 
-        public IEnumerable<WaiverCurrent> Waivers { get; set; }
+        public IEnumerable<WaiverCurrent> WaiversCurrent { get; set; }
+
+        public IEnumerable<WaiverRequest> WaiverRequests { get; set; }
 
         public IEnumerable<Classroom> Classrooms { get; set; }
     }

@@ -77,6 +77,8 @@ namespace PromiseData.Models
 
         public virtual ICollection<WaiverCurrent> WaiverCurrents { get; set; }
 
+        public virtual ICollection<WaiverRequest> WaiverRequests { get; set; }
+
         public virtual ICollection<Child_Facility> Child_Facilities { get; set; }
     }
 }

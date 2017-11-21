@@ -17,7 +17,7 @@ namespace PromiseData.Models
         public string WaiverType { get; set; }
 
         //Site Waiver
-        public int SiteID { get; set; }
+        public int? SiteID { get; set; }
 
         //Sites current rating
         [DisplayName("Current Spark Level")]//waiver, 4, or 5
@@ -27,7 +27,7 @@ namespace PromiseData.Models
         //
         //Staff Waiver
         [DisplayName("Staff")]
-        public int StaffID { get; set; }
+        public int? StaffID { get; set; }
 
         //for Lead - obtained BA
         //for support - obtainedd Step advancement
