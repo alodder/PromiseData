@@ -108,7 +108,8 @@ namespace PromiseData.Controllers
                 MonitoringVisit2Date = viewModel.MonitoringVisit2Date,
                 MonitoringVisit2Result = viewModel.MonitoringVisit2Result,
                 Description = viewModel.Description,
-                ProviderID = viewModel.ProviderId
+                ProviderID = viewModel.ProviderId,
+                LicenseNumber = viewModel.LicenseNumber,
             };
 
             var facilityId = _context.Facilities.Add(facility).ID;
@@ -148,7 +149,8 @@ namespace PromiseData.Controllers
                 MonitoringVisit1Result = facility.MonitoringVisit1Result,
                 MonitoringVisit2Date = facility.MonitoringVisit2Date,
                 MonitoringVisit2Result = facility.MonitoringVisit2Result,
-                Description = facility.Description
+                Description = facility.Description,
+                LicenseNumber = facility.LicenseNumber
             };
 
             viewModel.Classrooms = _context.Classrooms.Where(c => c.Facility_ID == id).ToList();
@@ -184,6 +186,7 @@ namespace PromiseData.Controllers
                 MonitoringVisit2Date = facility.MonitoringVisit2Date,
                 MonitoringVisit2Result = facility.MonitoringVisit2Result,
                 Description = facility.Description,
+                LicenseNumber = facility.LicenseNumber,
                 FacilityTypes = this.FacilityTypes,
                 SupportTypes = _context.Code_AdditionalSupportTypes,
                 SupportDictionary = SupportBoolDictionary
@@ -228,6 +231,7 @@ namespace PromiseData.Controllers
             facility.MonitoringVisit2Date = viewModel.MonitoringVisit2Date;
             facility.MonitoringVisit2Result = viewModel.MonitoringVisit2Result;
             facility.Description = viewModel.Description;
+            facility.LicenseNumber = viewModel.LicenseNumber;
 
             _context.FacilitySupports.RemoveRange(_context.FacilitySupports.Where(x => x.FacilityID == facility.ID));
 
@@ -256,6 +260,7 @@ namespace PromiseData.Controllers
             var viewModel = new FacilityViewModel
             {
                 ID = facility.ID,
+                LicenseNumber = facility.LicenseNumber,
                 ProviderFacilityType = facility.ProviderFacilityType,
                 Turnover_NonPPStaff = facility.Turnover_NonPPStaff,
                 TurnoverReasons_NonPPStaff = facility.TurnoverReasons_NonPPStaff,

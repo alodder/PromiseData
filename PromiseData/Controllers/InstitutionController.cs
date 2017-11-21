@@ -61,7 +61,6 @@ namespace PromiseData.Controllers
 
 
             var institute = new Institution {
-                LicenseNumber = viewModel.LicenseNumber,
                 LegalName = viewModel.LegalName,
                 Region = viewModel.Region,
                 BackboneOrg = viewModel.BackboneOrg,
@@ -97,16 +96,12 @@ namespace PromiseData.Controllers
         {
             var institution = _context.Institutions.Single(i => i.Id == id);
 
-            //var director = _context.ContactAgents.SingleOrDefault(c => c.AgentId == institution.DirectorAgentId);
-            //var contact = _context.ContactAgents.SingleOrDefault(c => c.AgentId == institution.ContactAgentId);
-
             var mailingAddress = _context.Addresses.SingleOrDefault(c => c.ID == institution.MailingAddressId);
             var locationAddress = _context.Addresses.SingleOrDefault(c => c.ID == institution.LocationAddressId);
 
             var viewModel = new InstitutionFormViewModel {
                 Heading = "Edit Institution",
                 Id = institution.Id,
-                LicenseNumber = institution.LicenseNumber,
                 LegalName = institution.LegalName,
                 Region = institution.Region, 
                 BackboneOrg = institution.BackboneOrg,
@@ -119,8 +114,6 @@ namespace PromiseData.Controllers
                 EndDate = institution.EndDate,
                 IsHub = institution.IsHub,
                 IsProvider = institution.IsProvider,
-                //DirectorAgent = director,
-                //ContactAgent = contact,
                 AddressMail = mailingAddress,
                 AddressPhysical = locationAddress
             };
@@ -249,7 +242,6 @@ namespace PromiseData.Controllers
             viewModel.Agents = _context.ContactAgents.Where(a => a.InstitutionId == id).ToList();
 
             viewModel.Id = institution.Id;
-            viewModel.LicenseNumber = institution.LicenseNumber;
             viewModel.LegalName = institution.LegalName;
             viewModel.Region = institution.Region;
             viewModel.BackboneOrg = institution.BackboneOrg;

@@ -83,7 +83,13 @@ namespace PromiseData.ViewModels
         [DisplayName("Description")]
         public string Description { get; set; }
 
+        [DisplayName("Parent Provider")]
         public int ProviderId { get; set; }
+
+        [Required]
+        [StringLength(10)]
+        [DisplayName("Child Care License")]
+        public string LicenseNumber { get; set; }
 
         [DisplayName("Provider")]
         public Institution Provider { get; set; }

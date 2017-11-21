@@ -63,6 +63,10 @@ namespace PromiseData.Models
         [DisplayName("Parent Provider")]
         public int ProviderID { get; set; }
 
+        [StringLength(10)]
+        [DisplayName("Child Care License")]
+        public string LicenseNumber { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Classroom> Classrooms { get; set; }
 
