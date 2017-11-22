@@ -1,68 +1,76 @@
-﻿@model IEnumerable<PromiseData.Models.WaiverRequest>
+﻿@model PromiseData.ViewModels.WaiversProcessViewModel
 
 @{
-    ViewBag.Title = "Waiver Requests";
+    ViewBag.Title = "Index";
 }
 
-<h2>@ViewBag.Title</h2>
+<h2>Waiver Requests</h2>
 
 <p>
-    @Html.ActionLink("New Request", "Create")
+    @Html.ActionLink("Add New", "Create")
 </p>
+
+<hr />
+<h3>Waiver Requests</h3>
 <table class="table">
     <tr>
         <th>
             Site
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.WaiverType)
+            Provider
+        </th>
+        <th>
+            Waiver Type
         </th>
         <th>
             Staff Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SparkCurrent)
+            Current Spark Rating
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Qualification)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AdditionalComments)
+            Qualification
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Site.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.WaiverType)
-        </td>
-        <td>
-            @if(item.Staff !=null)
-            {
-                @item.Staff.NameLast;
-                @Html.Raw(", ");
-                @item.Staff.NameFirst;
-            }
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SparkCurrent)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Qualification)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AdditionalComments)
-        </td>
-        <td>
-            @Html.ActionLink("Update", "Edit", new { id=item.WaiverRequestID }) |
-            @Html.ActionLink("View", "Details", new { id=item.WaiverRequestID }) |
-            @Html.ActionLink("Cancel", "Delete", new { id=item.WaiverRequestID })
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model.WaiverRequests)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Site.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Site.Provider.LegalName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WaiverType)
+            </td>
+            <td>
+                @if (item.Staff != null)
+                {
+                    @item.Staff.NameLast;
+                    @Html.Raw(", ");
+                    @item.Staff.NameFirst;
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SparkCurrent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Qualification)
+            </td>
+            <td>
+                <div>
+                    @Html.ActionLink("Update", "Edit", "WaiverRequests", new { id = item.WaiverRequestID }, null) |
+                    @Html.ActionLink("View", "Details", "WaiverRequests", new { id = item.WaiverRequestID }, null) |
+                    @Html.ActionLink("Cancel", "Delete", "WaiverRequests", new { id = item.WaiverRequestID }, null)
+                </div>
+                <div>
+                    @Html.ActionLink("Process", "Create", new { id = item.WaiverRequestID })
+                </div>
+            </td>
+        </tr>
+    }
 </table>

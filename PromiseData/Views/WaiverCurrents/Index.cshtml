@@ -4,76 +4,11 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Site Waivers</h2>
+<h2>Current Waivers</h2>
 
 <p>
     @Html.ActionLink("Add New", "Create")
 </p>
-
-<hr />
-<h3>Waiver Requests</h3>
-<table class="table">
-    <tr>
-        <th>
-            Site
-        </th>
-        <th>
-            Provider
-        </th>
-        <th>
-            Waiver Type
-        </th>
-        <th>
-            Staff Name
-        </th>
-        <th>
-            Current Spark Rating
-        </th>
-        <th>
-            Qualification
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model.WaiverRequests)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Site.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Site.Provider.LegalName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WaiverType)
-            </td>
-            <td>
-                @if (item.Staff != null)
-                {
-                    @item.Staff.NameLast;
-                    @Html.Raw(", ");
-                    @item.Staff.NameFirst;
-                }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SparkCurrent)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Qualification)
-            </td>
-            <td>
-                <div>
-                    @Html.ActionLink("Update", "Edit", "WaiverRequests", new { id = item.WaiverRequestID }, null) |
-                    @Html.ActionLink("View", "Details", "WaiverRequests", new { id = item.WaiverRequestID }, null) |
-                    @Html.ActionLink("Cancel", "Delete", "WaiverRequests", new { id = item.WaiverRequestID }, null)
-                </div>
-                <div>
-                    @Html.ActionLink("Process", "Create", new { id = item.WaiverRequestID })
-                </div>
-            </td>
-        </tr>
-    }
-</table>
 
 <hr />
 <h3>Current Waivers</h3>

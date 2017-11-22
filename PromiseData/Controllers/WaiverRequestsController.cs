@@ -9,21 +9,46 @@ using System.Web.Mvc;
 using PromiseData.Models;
 using Advanced_Auditing.Models;
 using System.Security.Claims;
+using PromiseData.ViewModels;
+using PromiseData.Repositories;
 
 namespace PromiseData.Controllers
 {
     public class WaiverRequestsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext db;
+        private WaiverRepository _waiverRepository;
+        private SitesRepository _sitesRepository;
+        private TeachersRepository _teachersRepository;
 
-        // GET: WaiverRequests
-        public ActionResult Index()
+        public WaiverRequestsController()
         {
-            var waiverRequests = db.WaiverRequests.Include(w => w.Site).Include(w => w.Staff);
-            return View(waiverRequests.ToList());
+            db = new ApplicationDbContext();
+            _waiverRepository = new WaiverRepository( db);
+            _sitesRepository = new SitesRepository( db);
+            _teachersRepository = new TeachersRepository( db);
         }
 
-        // GET: WaiverRequests/Details/5
+
+
+
+        [Authorize]
+        public ActionResult Index()
+        {
+            WaiversProcessViewModel viewModel = new WaiversProcessViewModel();
+
+            if( User.IsInRole("System Administrator") || User.IsInRole("Administrator"))
+            {
+                viewModel.CanDelete = true;
+                viewModel.CanEdit = true;
+            }
+
+            viewModel.WaiverRequests = _waiverRepository.getWaiverRequests( (ClaimsPrincipal)User).Include(w => w.Site).Include(w => w.Staff);
+
+            return View( viewModel);
+        }
+
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -38,7 +63,7 @@ namespace PromiseData.Controllers
             return View(waiverRequest);
         }
 
-        // GET: WaiverRequests/Create
+        [Authorize]
         [Audit(AuditingLevel = 2)]
         public ActionResult Create()
         {
@@ -55,8 +80,8 @@ namespace PromiseData.Controllers
                                     new SelectListItem { Selected = false, Text = "Portfolio Submitted (awaiting star designation)", Value = "Portfolio"},
                                     new SelectListItem { Selected = false, Text = "3 Star Rated", Value = "3star"}
                                 });
-            ViewBag.SiteID = new SelectList(db.Facilities, "ID", "Description");
-            ViewBag.StaffID = new SelectList(db.Teachers, "ID", "NameLast");
+            ViewBag.SiteID = new SelectList(_sitesRepository.GetUserSites((ClaimsPrincipal)User), "ID", "Description");
+            ViewBag.StaffID = new SelectList(_teachersRepository.GetUserTeachers((ClaimsPrincipal)User), "ID", "NameLast");
             return View();
         }
 
@@ -65,6 +90,7 @@ namespace PromiseData.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         [Audit(AuditingLevel = 2)]
         public ActionResult Create([Bind(Include = "WaiverRequestID,waiverType,SiteID,SparkCurrent,StaffID,Qualification,AdditionalComments")] WaiverRequest waiverRequest)
         {
@@ -76,12 +102,13 @@ namespace PromiseData.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.SiteID = new SelectList(db.Facilities, "ID", "Description", waiverRequest.SiteID);
-            ViewBag.StaffID = new SelectList(db.Teachers, "ID", "NameLast", waiverRequest.StaffID);
+            ViewBag.SiteID = new SelectList(_sitesRepository.GetUserSites((ClaimsPrincipal)User), "ID", "Description", waiverRequest.SiteID);
+            ViewBag.StaffID = new SelectList(_teachersRepository.GetUserTeachers( (ClaimsPrincipal)User), "ID", "NameLast", waiverRequest.StaffID);
             return View(waiverRequest);
         }
 
         // GET: WaiverRequests/Edit/5
+        [Authorize]
         [Audit(AuditingLevel = 2)]
         public ActionResult Edit(int? id)
         {
@@ -94,8 +121,8 @@ namespace PromiseData.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.SiteID = new SelectList(GetUserSites(), "ID", "Description", waiverRequest.SiteID);
-            ViewBag.StaffID = new SelectList(db.Teachers, "ID", "NameLast", waiverRequest.StaffID);
+            ViewBag.SiteID = new SelectList(_sitesRepository.GetUserSites( (ClaimsPrincipal)User), "ID", "Description", waiverRequest.SiteID);
+            ViewBag.StaffID = new SelectList(_teachersRepository.GetUserTeachers((ClaimsPrincipal)User), "ID", "NameLast", waiverRequest.StaffID);
             return View(waiverRequest);
         }
 
@@ -104,6 +131,7 @@ namespace PromiseData.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         [Audit(AuditingLevel = 2)]
         public ActionResult Edit([Bind(Include = "WaiverRequestID,waiverType,SiteID,SparkCurrent,StaffID,Qualification,AdditionalComments")] WaiverRequest waiverRequest)
         {
@@ -114,12 +142,13 @@ namespace PromiseData.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.SiteID = new SelectList(db.Facilities, "ID", "Description", waiverRequest.SiteID);
-            ViewBag.StaffID = new SelectList(db.Teachers, "ID", "NameLast", waiverRequest.StaffID);
+            ViewBag.SiteID = new SelectList(_sitesRepository.GetUserSites((ClaimsPrincipal)User), "ID", "Description", waiverRequest.SiteID);
+            ViewBag.StaffID = new SelectList(_teachersRepository.GetUserTeachers((ClaimsPrincipal)User), "ID", "NameLast", waiverRequest.StaffID);
             return View(waiverRequest);
         }
 
         // GET: WaiverRequests/Delete/5
+        [Authorize]
         [Audit(AuditingLevel = 2)]
         public ActionResult Delete(int? id)
         {
@@ -138,6 +167,7 @@ namespace PromiseData.Controllers
         // POST: WaiverRequests/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         [Audit(AuditingLevel = 2)]
         public ActionResult DeleteConfirmed(int id)
         {
@@ -145,73 +175,6 @@ namespace PromiseData.Controllers
             db.WaiverRequests.Remove(waiverRequest);
             db.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private int GetUserInstitutionID()
-        {
-            ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
-
-            var claims = (from c in identity.Claims
-                          where c.Type == "Institution"
-                          select c);
-            int institutionId = Int32.Parse(claims.FirstOrDefault().Value);
-
-            return institutionId;
-        }
-
-        private IEnumerable<Facility> GetUserSites()
-        {
-            var sites = db.Facilities.AsQueryable();
-
-            if (!(User.IsInRole("System Administrator") || User.IsInRole("Administrator")))
-            {
-                int institutionId = GetUserInstitutionID();
-                var institution = db.Institutions.SingleOrDefault(i => i.Id == institutionId);
-
-                if (institution.IsHub)
-                {
-                    var providerids = db.Institutions.Where(i => i.ParentHubId == institutionId).Select(p => p.Id);
-
-                    sites = db.Facilities.Where(f => providerids.Contains(f.ProviderID));
-                }
-                if (institution.IsProvider)
-                {
-                    sites = db.Facilities.Where(f => f.ProviderID == institutionId);
-                }
-            }
-            return sites;
-        }
-
-        private IEnumerable<Teacher> GetUserTeachers()
-        {
-            var teachers = db.Teachers.AsQueryable();
-
-            if (!(User.IsInRole("System Administrator") || User.IsInRole("Administrator")))
-            {
-                int institutionId = GetUserInstitutionID();
-                var institution = db.Institutions.SingleOrDefault(i => i.Id == institutionId);
-
-                if (institution.IsHub)
-                {
-                    var providerids = db.Institutions.Where(i => i.ParentHubId == institutionId).Select(p => p.Id);
-                    teachers = db.TeacherClasses.Where(tc => providerids.Contains( tc.Classroom.Facility.ProviderID)).Select(tc => tc.Teacher);
-                }
-                if (institution.IsProvider)
-                {
-                    var providerids = db.Institutions.Where(i => i.ParentHubId == institutionId).Select(p => p.Id);
-                    teachers = db.TeacherClasses.Where(tc => providerids.Contains(tc.Classroom.Facility.ProviderID)).Select(tc => tc.Teacher);
-                }
-            }
-            return teachers;
         }
     }
 }

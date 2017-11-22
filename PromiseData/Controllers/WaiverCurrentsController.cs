@@ -20,10 +20,23 @@ namespace PromiseData.Controllers
         {
             WaiversProcessViewModel viewModel = new WaiversProcessViewModel();
 
-            viewModel.WaiverCurrents = db.WaiverCurrents.Include(w => w.Site).Include(w => w.Staff);
-            viewModel.WaiverRequests = db.WaiverRequests.Include(w => w.Site).Include(w => w.Staff);
+            viewModel.WaiverCurrents = db.WaiverCurrents.Where(w => DateTime.Compare((w.Expiration ?? DateTime.MaxValue), DateTime.Now) > 0)
+                .Include(w => w.Site)
+                .Include(w => w.Staff);
 
             return View( viewModel);
+        }
+
+        // GET: WaiverCurrents
+        public ActionResult Archived()
+        {
+            WaiversProcessViewModel viewModel = new WaiversProcessViewModel();
+
+            viewModel.WaiverCurrents = db.WaiverCurrents.Where(w => DateTime.Compare((w.Expiration ?? DateTime.MaxValue), DateTime.Now) <= 0)
+                .Include(w => w.Site)
+                .Include(w => w.Staff);
+
+            return View(viewModel);
         }
 
         // GET: WaiverCurrents/Details/5
