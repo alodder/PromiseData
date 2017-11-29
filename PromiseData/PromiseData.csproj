@@ -438,6 +438,7 @@
     <Content Include="Views\Child\Enroll.cshtml" />
     <Content Include="Views\Child\UpdateIFSP.cshtml" />
     <Content Include="Views\Child\UpdateSpecialNeeds.cshtml" />
+    <Content Include="Views\WaiverCurrents\Archived.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

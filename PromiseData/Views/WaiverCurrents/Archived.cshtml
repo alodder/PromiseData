@@ -1,0 +1,83 @@
+﻿@model PromiseData.ViewModels.WaiversProcessViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Archived Waivers</h2>
+
+<hr />
+<h3>Archived Waivers</h3>
+<table class="table">
+    <tr>
+        <th>
+            Site
+        </th>
+        <th>
+            Staff
+        </th>
+        <th>
+            Waiver Type
+        </th>
+        <th>
+            Current Spark
+        </th>
+        <th>
+            Qualification
+        </th>
+        <th>
+            Development
+        </th>
+        <th>
+            Credits
+        </th>
+        <th>
+            Training Hours
+        </th>
+        <th>
+            Service Hour Count
+        </th>
+        <th>
+            Unsatisfied
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.WaiverCurrents) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Site.ProviderFacilityType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Staff.TeacherIDNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WaiverType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SparkCurrent)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Qualification)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Development)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Credits)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServiceHourCount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Unsatisfied)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.WaiverCurrentID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.WaiverCurrentID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.WaiverCurrentID })
+        </td>
+    </tr>
+}
+
+</table>
