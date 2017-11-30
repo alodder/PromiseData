@@ -56,6 +56,12 @@ namespace PromiseData.Models
         [DisplayName("Instructional Support")]
         public int? CLASSScore_InstructionalSupport { get; set; }
 
+        [DisplayName("Classroom Capacity")]
+        public int? Capacity { get; set; }
+
+        [DisplayName("Preschool Promise Slots")]
+        public int? PPSlots { get; set; }
+
         [Column(TypeName = "timestamp")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [MaxLength(8)]
