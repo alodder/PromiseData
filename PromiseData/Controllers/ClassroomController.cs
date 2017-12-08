@@ -147,6 +147,8 @@ namespace PromiseData.Controllers
                 NewOrExpandedClass = classroom.NewOrExpandedClass,
                 SessionHours = classroom.SessionHours.GetValueOrDefault(),
                 SessionWeeks = classroom.SessionWeeks.GetValueOrDefault(),
+                PPSlots = classroom.PPSlots.GetValueOrDefault(),
+                Capacity = classroom.Capacity.GetValueOrDefault(),
                 PPStudents = classroom.PPStudents.GetValueOrDefault(),
                 NonPPStudentsHSOPK = classroom.NonPPStudentsHSOPK.GetValueOrDefault(),
                 NonPPStudentsThirdParty = classroom.NonPPStudentsThirdParty.GetValueOrDefault(),
@@ -185,6 +187,8 @@ namespace PromiseData.Controllers
             classroom.NonPPStudentsHSOPK = viewModel.NonPPStudentsHSOPK;
             classroom.NonPPStudentsThirdParty = viewModel.NonPPStudentsThirdParty;
             classroom.NonPPStudentsParentPay = viewModel.NonPPStudentsParentPay;
+            classroom.PPSlots = viewModel.PPSlots;
+            classroom.Capacity = viewModel.Capacity;
             classroom.PPSlotsUnfilled = viewModel.PPSlotsUnfilled;
             classroom.Description = viewModel.Description;
 

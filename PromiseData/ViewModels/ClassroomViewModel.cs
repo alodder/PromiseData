@@ -88,6 +88,12 @@ namespace PromiseData.ViewModels
         [DisplayName("Descriptor")]
         public string Description { get; set; }
 
+        [DisplayName("Classroom Capacity")]
+        public int? Capacity { get; set; }
+
+        [DisplayName("Preschool Promise Slots")]
+        public int? PPSlots { get; set; }
+
         public IEnumerable<Facility> Facilities { get; set; }
 
         public IEnumerable<Code_ProgramSessionType> SessionTypes { get; set; }
