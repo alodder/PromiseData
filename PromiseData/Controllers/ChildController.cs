@@ -549,7 +549,7 @@ namespace PromiseData.Controllers
         {
             var viewModel = new ChildrenListViewModel();
 
-            viewModel.Children = _childRepository.GetUserChildren( (ClaimsPrincipal)User);
+            viewModel.Children = _childRepository.GetUserChildren( (ClaimsPrincipal)User).ToList();
 
             if (!String.IsNullOrWhiteSpace(query))
             {
