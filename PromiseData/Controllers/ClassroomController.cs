@@ -201,7 +201,7 @@ namespace PromiseData.Controllers
         // GET: Classroom
         public ActionResult Index()
         {
-            IEnumerable<Classroom> classrooms = _classroomRepository.GetUserClassrooms( (ClaimsPrincipal)User);
+            IEnumerable<Classroom> classrooms = _classroomRepository.GetUserClassrooms( (ClaimsPrincipal)User).ToList();
 
             return View( classrooms);
         }

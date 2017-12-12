@@ -43,7 +43,7 @@ namespace PromiseData.Controllers
                 viewModel.CanEdit = true;
             }
 
-            viewModel.WaiverRequests = _waiverRepository.getWaiverRequests( (ClaimsPrincipal)User).Include(w => w.Site).Include(w => w.Staff);
+            viewModel.WaiverRequests = _waiverRepository.getWaiverRequests( (ClaimsPrincipal)User).Include(w => w.Site).Include(w => w.Staff).ToList();
 
             return View( viewModel);
         }

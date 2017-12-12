@@ -7,6 +7,7 @@ using PromiseData.Models;
 using PromiseData.ViewModels;
 using System.Security.Claims;
 using Advanced_Auditing.Models;
+using PromiseData.Repositories;
 
 namespace PromiseData.Controllers
 {
@@ -15,10 +16,12 @@ namespace PromiseData.Controllers
         private ApplicationDbContext _context;
         private List<String> types;
         private Dictionary<int, bool> LangBoolDictionary;
+        private TeachersRepository _teacherRepository;
 
         public TeacherController()
         {
             _context = new ApplicationDbContext();
+            _teacherRepository = new TeachersRepository(_context);
 
             types = new List<string>();
             types.Add("Lead");
@@ -454,38 +457,7 @@ namespace PromiseData.Controllers
         public ActionResult Index(string query = null)
         {
             var viewModel = new TeacherListViewModel();
-            viewModel.Teachers = _context.Teachers;
-
-            if (User.IsInRole("Administrator") || User.IsInRole("System Administrator"))
-            {
-                viewModel.Teachers = _context.Teachers;
-            }
-            else
-            {
-                ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
-
-                var claims = (from c in identity.Claims
-                              where c.Type == "Institution"
-                              select c);
-                var institutionId = Int32.Parse(claims.FirstOrDefault().Value);
-
-                // teacher.teacherclass.class.facility?
-                viewModel.Teachers = _context.TeacherClasses.Where( tc => tc.Classroom.Facility.ProviderID == institutionId).Select( t=> t.Teacher);
-            }
-
-            if (!String.IsNullOrWhiteSpace(query))
-            {
-                var querylow = query.ToLower();
-                var queryFilter = viewModel.Teachers.Where(i =>
-                                            (i.NameFirst.ToLower() ?? "").Contains(querylow) ||
-                                            (i.NameLast.ToLower() ?? "").Contains(querylow) ||
-                                            ((i.NameFirst + " " + i.NameLast).ToLower() ?? "").Contains(querylow) ||
-                                            (i.TeacherIDNumber ?? "").Contains(querylow)
-                                            );
-
-                viewModel.Teachers = queryFilter.ToList();
-                viewModel.SearchTerm = query;
-            }
+            viewModel.Teachers = _teacherRepository.GetUserTeachers( (ClaimsPrincipal)User).ToList();
 
             if (User.IsInRole("Administrator") || User.IsInRole("System Administrator"))
             {
