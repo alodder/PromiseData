@@ -146,6 +146,22 @@
             </div>
             </fieldset>
 
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CurriculumOther, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.DropDownListFor(model => model.CurriculumOther, new SelectList(Model.Curricula, "Code", "Description"), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CurriculumOther, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            @Html.LabelFor(model => model.CurriculumOther, htmlAttributes: new { @class = "control-label col-md-6" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.CurriculumOther, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CurriculumOther, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Save" class="btn btn-default" />

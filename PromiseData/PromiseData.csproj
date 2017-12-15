@@ -191,6 +191,8 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Models\Curricula.cs" />
+    <Compile Include="Models\ClassroomCurricula.cs" />
     <Compile Include="Repositories\TeachersRepository.cs" />
     <Compile Include="Repositories\WaiverRepository.cs" />
     <Compile Include="Repositories\ChildRepository.cs" />

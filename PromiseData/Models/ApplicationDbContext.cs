@@ -61,10 +61,12 @@ namespace PromiseData.Models
         public virtual DbSet<Institution> Institutions { get; set; }
 
         public virtual DbSet<WaiverRequest> WaiverRequests { get; set; }
-
         public virtual DbSet<WaiverCurrent> WaiverCurrents { get; set; }
 
+        public virtual DbSet<Curricula> Curricula { get; set; }
+
         public virtual DbSet<CLASS_Score> ClassScores { get; set; }
+        public virtual DbSet<ClassroomCurricula> ClassroomCurricula { get; set; }
 
         public virtual DbSet<InstitutionUser> InstitutionUsers { get; set; }
 
@@ -83,6 +85,19 @@ namespace PromiseData.Models
                 .HasMany(e => e.Teachers)
                 .WithMany(e => e.Classrooms)
                 .Map(m => m.ToTable("TeacherClass").MapLeftKey("ClassID").MapRightKey("TeacherID"));*/
+
+            modelBuilder.Entity<ClassroomCurricula>()
+                .HasKey(t => new { t.CurriculaCode, t.ClassroomID });
+
+            modelBuilder.Entity<Curricula>()
+                .HasMany(c => c.ClassroomCurricula)
+                .WithRequired()
+                .HasForeignKey(c => c.CurriculaCode);
+
+            modelBuilder.Entity<Classroom>()
+                .HasMany(c => c.ClassroomCurricula)
+                .WithRequired()
+                .HasForeignKey(c => c.ClassroomID);
 
 
             //Teacher to Class Many to Many with tertiary table TeacherClass

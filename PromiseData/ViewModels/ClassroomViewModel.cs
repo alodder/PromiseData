@@ -94,9 +94,14 @@ namespace PromiseData.ViewModels
         [DisplayName("Preschool Promise Slots")]
         public int? PPSlots { get; set; }
 
+        [DisplayName("Other Curriculum")]
+        public string CurriculumOther { get; set; }
+
         public IEnumerable<Facility> Facilities { get; set; }
 
         public IEnumerable<Code_ProgramSessionType> SessionTypes { get; set; }
+
+        public IEnumerable<Curricula> Curricula { get; set; }
 
         public IEnumerable<Service> Services { get; set; }
     }

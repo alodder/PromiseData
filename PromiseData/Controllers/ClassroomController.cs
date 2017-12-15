@@ -41,7 +41,8 @@ namespace PromiseData.Controllers
                 Facilities = _context.Facilities,
                 SessionTypes = _context.Code_ProgramSessionType,
                 Services = _context.Services,
-                Facility_ID = facility.ID
+                Facility_ID = facility.ID,
+                Curricula = _context.Curricula
             };
             return View("ClassroomForm", viewModel);
         }
