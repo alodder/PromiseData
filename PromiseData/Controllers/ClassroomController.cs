@@ -15,11 +15,24 @@ namespace PromiseData.Controllers
     {
         private ApplicationDbContext _context;
         private ClassroomRepository _classroomRepository;
+        private Dictionary<int, bool> CurriculaDictionary;
 
         public ClassroomController()
         {
             _context = new ApplicationDbContext();
             _classroomRepository = new ClassroomRepository( _context);
+
+            BuildCurriculaDictionary();
+        }
+
+        private void BuildCurriculaDictionary()
+        {
+            CurriculaDictionary = new Dictionary<int, bool>();
+            var curriculaList = _context.Curricula.ToList();
+            foreach (Curricula curricula in curriculaList)
+            {
+                CurriculaDictionary.Add(curricula.Code, false);
+            }
         }
 
         [Authorize]
@@ -42,7 +55,8 @@ namespace PromiseData.Controllers
                 SessionTypes = _context.Code_ProgramSessionType,
                 Services = _context.Services,
                 Facility_ID = facility.ID,
-                Curricula = _context.Curricula
+                Curricula = _context.Curricula,
+                ClassroomCurricula = CurriculaDictionary
             };
             return View("ClassroomForm", viewModel);
         }
@@ -71,15 +85,23 @@ namespace PromiseData.Controllers
                 NonPPStudentsThirdParty = viewModel.NonPPStudentsThirdParty,
                 NonPPStudentsParentPay = viewModel.NonPPStudentsParentPay,
                 PPSlotsUnfilled = viewModel.PPSlotsUnfilled,
-                //CLASSScore_EmotionalSupport = viewModel.CLASSScore_EmotionalSupport,
-                //CLASSScore_ClassroomOrganization = viewModel.CLASSScore_ClassroomOrganization,
-                //CLASSScore_InstructionalSupport = viewModel.CLASSScore_InstructionalSupport,
                 upsize_ts = viewModel.upsize_ts,
                 Description = viewModel.Description
             };
 
             _context.Classrooms.Add(classroom);
             _context.SaveChanges();
+
+            //Add Curricula to ClassroomCurricula table
+            foreach (var curriculaCode in viewModel.ClassroomCurricula.Keys)
+            {
+                if (viewModel.ClassroomCurricula[curriculaCode])
+                    _context.ClassroomCurricula.Add(new ClassroomCurricula
+                    {
+                        ClassroomID = classroom.ID,
+                        CurriculaCode = curriculaCode
+                    });
+            }
 
             return RedirectToAction("Index", "Classroom");
         }
@@ -156,8 +178,23 @@ namespace PromiseData.Controllers
                 NonPPStudentsParentPay = classroom.NonPPStudentsParentPay.GetValueOrDefault(),
                 PPSlotsUnfilled = classroom.PPSlotsUnfilled.GetValueOrDefault(),
                 upsize_ts = classroom.upsize_ts,
-                Description = classroom.Description
+                Description = classroom.Description,
+                Curricula = _context.Curricula,
+                ClassroomCurricula = CurriculaDictionary
             };
+
+            var curriculaList = _context.Curricula.ToList();
+
+            viewModel.ClassroomCurricula = new Dictionary<int, bool>();
+
+            var curriculaClassSet = _context.ClassroomCurricula.Where(t => t.ClassroomID == classroom.ID);
+            foreach (Curricula curriculum in curriculaList)
+            {
+                if (curriculaClassSet.Select(t => t.CurriculaCode).Contains(curriculum.Code))
+                    viewModel.ClassroomCurricula.Add(curriculum.Code, true);
+                else
+                    viewModel.ClassroomCurricula.Add(curriculum.Code, false);
+            }
 
             return View("ClassroomForm", viewModel);
         }
@@ -193,9 +230,36 @@ namespace PromiseData.Controllers
             classroom.PPSlotsUnfilled = viewModel.PPSlotsUnfilled;
             classroom.Description = viewModel.Description;
 
+            ////////////////////////////////////
+            //Update curricula in ClassroomCurricula to ClassroomCurricula table
+            var curriculaClassSet = _context.ClassroomCurricula.Where(t => t.ClassroomID == classroom.ID);
+            foreach (var curriculumCode in viewModel.ClassroomCurricula.Keys)
+            {
+                //Create TeacherLanguageClassroom for Teacher and Language pair
+                var classroomCurriculum = new ClassroomCurricula
+                {
+                    ClassroomID = classroom.ID,
+                    CurriculaCode = curriculumCode
+                };
+
+                /**
+                 * If the curriculum wasn't checked, remove from table,
+                 * else if it was both checked and does not yet exist, add it
+                 */
+                if (!viewModel.ClassroomCurricula[curriculumCode])
+                {
+                    _context.ClassroomCurricula.RemoveRange(curriculaClassSet.Where(c => c.CurriculaCode == classroomCurriculum.CurriculaCode));
+                }
+                else if (viewModel.ClassroomCurricula[curriculumCode] &&
+                        !curriculaClassSet.Select(t => t.CurriculaCode).Contains(classroomCurriculum.CurriculaCode))
+                {
+                    _context.ClassroomCurricula.Add(classroomCurriculum);
+                }
+            }
+
             _context.SaveChanges();
 
-            return RedirectToAction("Details", "Facility", new { id = viewModel.Facility_ID });
+            return RedirectToAction("Details", "Classroom", new { id = viewModel.ID });
         }
 
         [Authorize]

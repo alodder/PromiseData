@@ -19,7 +19,6 @@ namespace PromiseData.Controllers
         private TeachersRepository _teacherRepository;
         private ClassroomRepository _classroomRepository;
 
-
         public TeacherController()
         {
             _context = new ApplicationDbContext();

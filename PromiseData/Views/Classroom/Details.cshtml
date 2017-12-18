@@ -132,6 +132,16 @@
             @Html.DisplayFor(model => model.PPSlotsUnfilled)
         </dd>
     </dl>
+
+    <div>
+        <h4>Curriculum</h4>
+        @foreach (var curriculum in Model.ClassroomCurricula)
+        {
+            @curriculum.Curricula.Description
+            @Html.Raw(" ")
+        }
+    </div>
+
 </div>
 
 <div>
