@@ -230,15 +230,24 @@ namespace PromiseData.Controllers
             classroom.PPSlotsUnfilled = viewModel.PPSlotsUnfilled;
             classroom.Description = viewModel.Description;
 
+            UpdateClassCurriculum(classroom.ID, viewModel.ClassroomCurricula);
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Details", "Classroom", new { id = viewModel.ID });
+        }
+
+        private void UpdateClassCurriculum(int classroomID, Dictionary<int, bool> ClassroomCurricula)
+        {
             ////////////////////////////////////
             //Update curricula in ClassroomCurricula to ClassroomCurricula table
-            var curriculaClassSet = _context.ClassroomCurricula.Where(t => t.ClassroomID == classroom.ID);
-            foreach (var curriculumCode in viewModel.ClassroomCurricula.Keys)
+            var curriculaClassSet = _context.ClassroomCurricula.Where(t => t.ClassroomID == classroomID);
+            foreach (var curriculumCode in ClassroomCurricula.Keys)
             {
                 //Create TeacherLanguageClassroom for Teacher and Language pair
                 var classroomCurriculum = new ClassroomCurricula
                 {
-                    ClassroomID = classroom.ID,
+                    ClassroomID = classroomID,
                     CurriculaCode = curriculumCode
                 };
 
@@ -246,20 +255,17 @@ namespace PromiseData.Controllers
                  * If the curriculum wasn't checked, remove from table,
                  * else if it was both checked and does not yet exist, add it
                  */
-                if (!viewModel.ClassroomCurricula[curriculumCode])
+                if (!ClassroomCurricula[curriculumCode])
                 {
                     _context.ClassroomCurricula.RemoveRange(curriculaClassSet.Where(c => c.CurriculaCode == classroomCurriculum.CurriculaCode));
                 }
-                else if (viewModel.ClassroomCurricula[curriculumCode] &&
+                else if (ClassroomCurricula[curriculumCode] &&
                         !curriculaClassSet.Select(t => t.CurriculaCode).Contains(classroomCurriculum.CurriculaCode))
                 {
                     _context.ClassroomCurricula.Add(classroomCurriculum);
                 }
             }
-
             _context.SaveChanges();
-
-            return RedirectToAction("Details", "Classroom", new { id = viewModel.ID });
         }
 
         [Authorize]
