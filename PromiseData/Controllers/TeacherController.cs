@@ -17,11 +17,14 @@ namespace PromiseData.Controllers
         private List<String> types;
         private Dictionary<int, bool> LangBoolDictionary;
         private TeachersRepository _teacherRepository;
+        private ClassroomRepository _classroomRepository;
+
 
         public TeacherController()
         {
             _context = new ApplicationDbContext();
             _teacherRepository = new TeachersRepository(_context);
+            _classroomRepository = new ClassroomRepository(_context);
 
             types = new List<string>();
             types.Add("Lead");
@@ -53,22 +56,7 @@ namespace PromiseData.Controllers
                 FluentLanguages = LangBoolDictionary
             };
 
-            if (User.IsInRole("Administrator") || User.IsInRole("System Administrator"))
-            {
-                viewModel.Classrooms = _context.Classrooms;
-            }
-            else
-            {
-                ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
-
-                var claims = (from c in identity.Claims
-                              where c.Type == "Institution"
-                              select c);
-                var institutionId = Int32.Parse(claims.FirstOrDefault().Value);
-
-                viewModel.Classrooms = _context.Classrooms.Where(
-                    c => c.Facility.ProviderID == institutionId);
-            }
+            viewModel.Classrooms = _classroomRepository.GetUserClassrooms( (ClaimsPrincipal)User);
 
             return View("TeacherForm", viewModel);
         }
