@@ -97,15 +97,28 @@ namespace PromiseData.ViewModels
         [DisplayName("Other Curriculum")]
         public string CurriculumOther { get; set; }
 
-        [DisplayName("Classroom Curricula")]
+        [DisplayName("Other Assessment Tool")]
+        public string AssessmentOther { get; set; }
+
+        [DisplayName("Other Screening Tool")]
+        public string ScreeningOther { get; set; }
+
         //dictionary for checkbox values
         public Dictionary<int, bool> ClassroomCurricula { get; set; }
+        //dictionary for checkbox values
+        public Dictionary<int, bool> ClassroomAssessments { get; set; }
+        //dictionary for checkbox values
+        public Dictionary<int, bool> ClassroomScreenings { get; set; }
 
         public IEnumerable<Facility> Facilities { get; set; }
 
         public IEnumerable<Code_ProgramSessionType> SessionTypes { get; set; }
 
         public IEnumerable<Curricula> Curricula { get; set; }
+
+        public IEnumerable<AssessmentTools> AssessmentTools { get; set; }
+
+        public IEnumerable<ScreeningTools> ScreeningTools { get; set; }
 
         public IEnumerable<Service> Services { get; set; }
     }

@@ -64,9 +64,14 @@ namespace PromiseData.Models
         public virtual DbSet<WaiverCurrent> WaiverCurrents { get; set; }
 
         public virtual DbSet<Curricula> Curricula { get; set; }
+        public virtual DbSet<AssessmentTools> AssessmentTools { get; set; }
+        public virtual DbSet<ScreeningTools> ScreeningTools { get; set; }
+
+        public virtual DbSet<ClassroomCurricula> ClassroomCurricula { get; set; }
+        public virtual DbSet<ClassroomAssessment> ClassroomAssessment { get; set; }
+        public virtual DbSet<ClassroomScreening> ClassroomScreening { get; set; }
 
         public virtual DbSet<CLASS_Score> ClassScores { get; set; }
-        public virtual DbSet<ClassroomCurricula> ClassroomCurricula { get; set; }
 
         public virtual DbSet<InstitutionUser> InstitutionUsers { get; set; }
 
@@ -99,6 +104,31 @@ namespace PromiseData.Models
                 .WithRequired()
                 .HasForeignKey(c => c.ClassroomID);
 
+            modelBuilder.Entity<ClassroomAssessment>()
+                .HasKey(t => new { t.AssessmentCode, t.ClassroomID });
+
+            modelBuilder.Entity<AssessmentTools>()
+                .HasMany(c => c.ClassroomAssessments)
+                .WithRequired()
+                .HasForeignKey(c => c.AssessmentCode);
+
+            modelBuilder.Entity<Classroom>()
+                .HasMany(c => c.ClassroomAssessments)
+                .WithRequired()
+                .HasForeignKey(c => c.ClassroomID);
+
+            modelBuilder.Entity<ClassroomScreening>()
+                .HasKey(t => new { t.ScreeningCode, t.ClassroomID });
+
+            modelBuilder.Entity<ScreeningTools>()
+                .HasMany(c => c.ClassroomScreenings)
+                .WithRequired()
+                .HasForeignKey(c => c.ScreeningCode);
+
+            modelBuilder.Entity<Classroom>()
+                .HasMany(c => c.ClassroomScreenings)
+                .WithRequired()
+                .HasForeignKey(c => c.ClassroomID);
 
             //Teacher to Class Many to Many with tertiary table TeacherClass
             /*-------------------------------------------------------*/

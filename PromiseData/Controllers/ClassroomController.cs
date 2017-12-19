@@ -16,6 +16,8 @@ namespace PromiseData.Controllers
         private ApplicationDbContext _context;
         private ClassroomRepository _classroomRepository;
         private Dictionary<int, bool> CurriculaDictionary;
+        private Dictionary<int, bool> AssessmentsDictionary;
+        private Dictionary<int, bool> ScreeningsDictionary;
 
         public ClassroomController()
         {
@@ -23,6 +25,8 @@ namespace PromiseData.Controllers
             _classroomRepository = new ClassroomRepository( _context);
 
             BuildCurriculaDictionary();
+            BuildAssessmentsDictionary();
+            BuildScreeningsDictionary();
         }
 
         private void BuildCurriculaDictionary()
@@ -32,6 +36,26 @@ namespace PromiseData.Controllers
             foreach (Curricula curricula in curriculaList)
             {
                 CurriculaDictionary.Add(curricula.Code, false);
+            }
+        }
+
+        private void BuildAssessmentsDictionary()
+        {
+            AssessmentsDictionary = new Dictionary<int, bool>();
+            var assessmentList = _context.AssessmentTools.ToList();
+            foreach (AssessmentTools assessment in assessmentList)
+            {
+                AssessmentsDictionary.Add(assessment.Code, false);
+            }
+        }
+
+        private void BuildScreeningsDictionary()
+        {
+            ScreeningsDictionary = new Dictionary<int, bool>();
+            var screeningList = _context.ScreeningTools.ToList();
+            foreach (ScreeningTools screening in screeningList)
+            {
+                ScreeningsDictionary.Add(screening.Code, false);
             }
         }
 
@@ -56,7 +80,11 @@ namespace PromiseData.Controllers
                 Services = _context.Services,
                 Facility_ID = facility.ID,
                 Curricula = _context.Curricula,
-                ClassroomCurricula = CurriculaDictionary
+                ClassroomCurricula = CurriculaDictionary,
+                AssessmentTools = _context.AssessmentTools,
+                ClassroomAssessments = AssessmentsDictionary,
+                ScreeningTools = _context.ScreeningTools,
+                ClassroomScreenings = ScreeningsDictionary
             };
             return View("ClassroomForm", viewModel);
         }
@@ -231,6 +259,8 @@ namespace PromiseData.Controllers
             classroom.Description = viewModel.Description;
 
             UpdateClassCurriculum(classroom.ID, viewModel.ClassroomCurricula);
+            UpdateClassAssessment(classroom.ID, viewModel.ClassroomCurricula);
+            UpdateClassScreening(classroom.ID, viewModel.ClassroomCurricula);
 
             _context.SaveChanges();
 
@@ -263,6 +293,68 @@ namespace PromiseData.Controllers
                         !curriculaClassSet.Select(t => t.CurriculaCode).Contains(classroomCurriculum.CurriculaCode))
                 {
                     _context.ClassroomCurricula.Add(classroomCurriculum);
+                }
+            }
+            _context.SaveChanges();
+        }
+
+        private void UpdateClassAssessment(int classroomID, Dictionary<int, bool> ClassroomAssessments)
+        {
+            ////////////////////////////////////
+            //Update curricula in ClassroomCurricula to ClassroomCurricula table
+            var assessmentClassSet = _context.ClassroomAssessment.Where(t => t.ClassroomID == classroomID);
+            foreach (var assessmentCode in ClassroomAssessments.Keys)
+            {
+                //Create TeacherLanguageClassroom for Teacher and Language pair
+                var classroomAssessment = new ClassroomAssessment
+                {
+                    ClassroomID = classroomID,
+                    AssessmentCode = assessmentCode
+                };
+
+                /**
+                 * If the curriculum wasn't checked, remove from table,
+                 * else if it was both checked and does not yet exist, add it
+                 */
+                if (!ClassroomAssessments[assessmentCode])
+                {
+                    _context.ClassroomAssessment.RemoveRange(assessmentClassSet.Where(c => c.AssessmentCode == classroomAssessment.AssessmentCode));
+                }
+                else if (ClassroomAssessments[assessmentCode] &&
+                        !assessmentClassSet.Select(t => t.AssessmentCode).Contains(classroomAssessment.AssessmentCode))
+                {
+                    _context.ClassroomAssessment.Add(classroomAssessment);
+                }
+            }
+            _context.SaveChanges();
+        }
+
+        private void UpdateClassScreening(int classroomID, Dictionary<int, bool> ClassroomScreenings)
+        {
+            ////////////////////////////////////
+            //Update curricula in ClassroomCurricula to ClassroomCurricula table
+            var screeningClassSet = _context.ClassroomScreening.Where(t => t.ClassroomID == classroomID);
+            foreach (var screeningCode in ClassroomScreenings.Keys)
+            {
+                //Create TeacherLanguageClassroom for Teacher and Language pair
+                var classroomScreening = new ClassroomScreening
+                {
+                    ClassroomID = classroomID,
+                    ScreeningCode = screeningCode
+                };
+
+                /**
+                 * If the curriculum wasn't checked, remove from table,
+                 * else if it was both checked and does not yet exist, add it
+                 */
+                if (!ClassroomScreenings[screeningCode])
+                {
+                    _context.ClassroomScreening.RemoveRange(screeningClassSet.Where(c => c.ScreeningCode == classroomScreening.ScreeningCode));
+                }
+                else if (ClassroomScreenings[screeningCode] &&
+                        !screeningClassSet.Select(t => t.ScreeningCode).Contains(classroomScreening.ScreeningCode))
+                {
+                    _context.ClassroomScreening.Add(classroomScreening);
                 }
             }
             _context.SaveChanges();

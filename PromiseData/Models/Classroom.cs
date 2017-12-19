@@ -80,5 +80,9 @@ namespace PromiseData.Models
         public virtual ICollection<TeacherClass> TeacherClasses { get; set; }
 
         public virtual ICollection<ClassroomCurricula> ClassroomCurricula { get; set; }
+
+        public virtual ICollection<ClassroomAssessment> ClassroomAssessments { get; set; }
+
+        public virtual ICollection<ClassroomScreening> ClassroomScreenings { get; set; }
     }
 }
