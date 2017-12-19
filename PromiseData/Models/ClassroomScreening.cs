@@ -23,7 +23,7 @@ namespace PromiseData.Models
         [Column(Order = 2)]
         public string UserDefined { get; set; }
 
-        public virtual ScreeningTools ScreeningTools { get; set; }
+        public virtual ScreeningTools Screening { get; set; }
 
         public virtual Classroom Classroom { get; set; }
     }

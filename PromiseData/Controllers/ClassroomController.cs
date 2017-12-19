@@ -208,7 +208,11 @@ namespace PromiseData.Controllers
                 upsize_ts = classroom.upsize_ts,
                 Description = classroom.Description,
                 Curricula = _context.Curricula,
-                ClassroomCurricula = CurriculaDictionary
+                ClassroomCurricula = CurriculaDictionary,
+                AssessmentTools = _context.AssessmentTools,
+                ClassroomAssessments = AssessmentsDictionary,
+                ScreeningTools = _context.ScreeningTools,
+                ClassroomScreenings = ScreeningsDictionary
             };
 
             var curriculaList = _context.Curricula.ToList();
@@ -258,16 +262,16 @@ namespace PromiseData.Controllers
             classroom.PPSlotsUnfilled = viewModel.PPSlotsUnfilled;
             classroom.Description = viewModel.Description;
 
-            UpdateClassCurriculum(classroom.ID, viewModel.ClassroomCurricula);
-            UpdateClassAssessment(classroom.ID, viewModel.ClassroomCurricula);
-            UpdateClassScreening(classroom.ID, viewModel.ClassroomCurricula);
+            UpdateClassCurriculum(classroom.ID, viewModel.ClassroomCurricula, viewModel.CurriculumOther);
+            UpdateClassAssessment(classroom.ID, viewModel.ClassroomCurricula, viewModel.AssessmentOther);
+            UpdateClassScreening(classroom.ID, viewModel.ClassroomCurricula, viewModel.ScreeningOther);
 
             _context.SaveChanges();
 
             return RedirectToAction("Details", "Classroom", new { id = viewModel.ID });
         }
 
-        private void UpdateClassCurriculum(int classroomID, Dictionary<int, bool> ClassroomCurricula)
+        private void UpdateClassCurriculum(int classroomID, Dictionary<int, bool> ClassroomCurricula, string CurriculumOther)
         {
             ////////////////////////////////////
             //Update curricula in ClassroomCurricula to ClassroomCurricula table
@@ -278,7 +282,8 @@ namespace PromiseData.Controllers
                 var classroomCurriculum = new ClassroomCurricula
                 {
                     ClassroomID = classroomID,
-                    CurriculaCode = curriculumCode
+                    CurriculaCode = curriculumCode,
+                    UserDefined = CurriculumOther
                 };
 
                 /**
@@ -298,18 +303,19 @@ namespace PromiseData.Controllers
             _context.SaveChanges();
         }
 
-        private void UpdateClassAssessment(int classroomID, Dictionary<int, bool> ClassroomAssessments)
+        private void UpdateClassAssessment(int classroomID, Dictionary<int, bool> ClassroomAssessments, string AssessmentOther)
         {
             ////////////////////////////////////
             //Update curricula in ClassroomCurricula to ClassroomCurricula table
-            var assessmentClassSet = _context.ClassroomAssessment.Where(t => t.ClassroomID == classroomID);
+            var assessmentClassSet = _context.ClassroomAssessments.Where(t => t.ClassroomID == classroomID);
             foreach (var assessmentCode in ClassroomAssessments.Keys)
             {
                 //Create TeacherLanguageClassroom for Teacher and Language pair
                 var classroomAssessment = new ClassroomAssessment
                 {
                     ClassroomID = classroomID,
-                    AssessmentCode = assessmentCode
+                    AssessmentCode = assessmentCode,
+                    UserDefined = AssessmentOther
                 };
 
                 /**
@@ -318,29 +324,30 @@ namespace PromiseData.Controllers
                  */
                 if (!ClassroomAssessments[assessmentCode])
                 {
-                    _context.ClassroomAssessment.RemoveRange(assessmentClassSet.Where(c => c.AssessmentCode == classroomAssessment.AssessmentCode));
+                    _context.ClassroomAssessments.RemoveRange(assessmentClassSet.Where(c => c.AssessmentCode == classroomAssessment.AssessmentCode));
                 }
                 else if (ClassroomAssessments[assessmentCode] &&
                         !assessmentClassSet.Select(t => t.AssessmentCode).Contains(classroomAssessment.AssessmentCode))
                 {
-                    _context.ClassroomAssessment.Add(classroomAssessment);
+                    _context.ClassroomAssessments.Add(classroomAssessment);
                 }
             }
             _context.SaveChanges();
         }
 
-        private void UpdateClassScreening(int classroomID, Dictionary<int, bool> ClassroomScreenings)
+        private void UpdateClassScreening(int classroomID, Dictionary<int, bool> ClassroomScreenings, string ScreeningOther)
         {
             ////////////////////////////////////
             //Update curricula in ClassroomCurricula to ClassroomCurricula table
-            var screeningClassSet = _context.ClassroomScreening.Where(t => t.ClassroomID == classroomID);
+            var screeningClassSet = _context.ClassroomScreenings.Where(t => t.ClassroomID == classroomID);
             foreach (var screeningCode in ClassroomScreenings.Keys)
             {
                 //Create TeacherLanguageClassroom for Teacher and Language pair
                 var classroomScreening = new ClassroomScreening
                 {
                     ClassroomID = classroomID,
-                    ScreeningCode = screeningCode
+                    ScreeningCode = screeningCode,
+                    UserDefined = ScreeningOther
                 };
 
                 /**
@@ -349,12 +356,12 @@ namespace PromiseData.Controllers
                  */
                 if (!ClassroomScreenings[screeningCode])
                 {
-                    _context.ClassroomScreening.RemoveRange(screeningClassSet.Where(c => c.ScreeningCode == classroomScreening.ScreeningCode));
+                    _context.ClassroomScreenings.RemoveRange(screeningClassSet.Where(c => c.ScreeningCode == classroomScreening.ScreeningCode));
                 }
                 else if (ClassroomScreenings[screeningCode] &&
                         !screeningClassSet.Select(t => t.ScreeningCode).Contains(classroomScreening.ScreeningCode))
                 {
-                    _context.ClassroomScreening.Add(classroomScreening);
+                    _context.ClassroomScreenings.Add(classroomScreening);
                 }
             }
             _context.SaveChanges();

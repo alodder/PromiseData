@@ -68,8 +68,8 @@ namespace PromiseData.Models
         public virtual DbSet<ScreeningTools> ScreeningTools { get; set; }
 
         public virtual DbSet<ClassroomCurricula> ClassroomCurricula { get; set; }
-        public virtual DbSet<ClassroomAssessment> ClassroomAssessment { get; set; }
-        public virtual DbSet<ClassroomScreening> ClassroomScreening { get; set; }
+        public virtual DbSet<ClassroomAssessment> ClassroomAssessments { get; set; }
+        public virtual DbSet<ClassroomScreening> ClassroomScreenings { get; set; }
 
         public virtual DbSet<CLASS_Score> ClassScores { get; set; }
 

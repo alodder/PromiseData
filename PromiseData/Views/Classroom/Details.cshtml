@@ -137,7 +137,13 @@
         <h4>Curriculum</h4>
         @foreach (var curriculum in Model.ClassroomCurricula)
         {
-            @curriculum.Curricula.Description
+            if(curriculum.CurriculaCode == 1)
+            {
+                @curriculum.UserDefined
+            } else
+            {
+                @curriculum.Curricula.Description
+            }
             @Html.Raw(" ")
         }
     </div>

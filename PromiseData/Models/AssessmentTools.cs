@@ -6,6 +6,7 @@ namespace PromiseData.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
+    [Table("AssessmentTools")]
     public partial class AssessmentTools
     {
         [Key]

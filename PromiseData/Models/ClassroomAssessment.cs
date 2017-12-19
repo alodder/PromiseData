@@ -23,7 +23,7 @@ namespace PromiseData.Models
         [Column(Order = 2)]
         public string UserDefined { get; set; }
 
-        public virtual AssessmentTools AssessmentTool { get; set; }
+        public virtual AssessmentTools Assessment { get; set; }
 
         public virtual Classroom Classroom { get; set; }
     }

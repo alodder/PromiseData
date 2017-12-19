@@ -163,11 +163,13 @@
                 }
             </div>
         </div>
-        <div class="form-group col-md-4">
-            @Html.LabelFor(model => model.CurriculumOther, htmlAttributes: new { @class = "control-label col-md-6" })
-            <div class="col-md-6">
-                @Html.EditorFor(model => model.CurriculumOther, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CurriculumOther, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.CurriculumOther, htmlAttributes: new { @class = "control-label col-md-6" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.CurriculumOther, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CurriculumOther, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
@@ -175,7 +177,7 @@
         <div class="row">
             <h4>Classroom Assessment Tools</h4>
             <div class="row col-lg-offset-1">
-                @{var j = 0; }
+                @{ j = 0; }
                 @foreach (KeyValuePair<int, bool> asCheck in Model.ClassroomAssessments)
                 {
                     <div class="col-lg-4">
@@ -186,21 +188,23 @@
                             @{j++;}
                         </div>
                     </div>
-                                }
+                }
             </div>
         </div>
-        <div class="form-group col-md-4">
-            @Html.LabelFor(model => model.AssessmentOther, htmlAttributes: new { @class = "control-label col-md-6" })
-            <div class="col-md-6">
-                @Html.EditorFor(model => model.AssessmentOther, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AssessmentOther, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.AssessmentOther, htmlAttributes: new { @class = "control-label col-md-6" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.AssessmentOther, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AssessmentOther, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
         <div class="row">
             <h4>Classroom Screening Tools</h4>
             <div class="row col-lg-offset-1">
-                @{var j = 0; }
+                @{ j = 0; }
                 @foreach (KeyValuePair<int, bool> scrCheck in Model.ClassroomScreenings)
                 {
                     <div class="col-lg-4">
@@ -211,22 +215,24 @@
                             @{j++;}
                         </div>
                     </div>
-                                }
+                }
             </div>
         </div>
-        <div class="form-group col-md-4">
-            @Html.LabelFor(model => model.ScreeningOther, htmlAttributes: new { @class = "control-label col-md-6" })
-            <div class="col-md-6">
-                @Html.EditorFor(model => model.ScreeningOther, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ScreeningOther, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.ScreeningOther, htmlAttributes: new { @class = "control-label col-md-6" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.ScreeningOther, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ScreeningOther, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-default" />
-                </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
             </div>
+        </div>
     </div>
 }
 

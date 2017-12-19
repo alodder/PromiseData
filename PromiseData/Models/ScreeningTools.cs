@@ -6,6 +6,7 @@ namespace PromiseData.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
+    [Table("ScreeningTools")]
     public partial class ScreeningTools
     {
         [Key]
