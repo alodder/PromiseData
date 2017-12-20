@@ -135,20 +135,66 @@
 
     <div>
         <h4>Curriculum</h4>
-        @foreach (var curriculum in Model.ClassroomCurricula)
-        {
-            if(curriculum.CurriculaCode == 1)
+        <ul>
+            @foreach (var curriculum in Model.ClassroomCurricula)
             {
-                @curriculum.UserDefined
-            } else
-            {
-                @curriculum.Curricula.Description
+                <li>
+                    @if (curriculum.CurriculaCode == 1)
+                    {
+                    @curriculum.UserDefined
+                    }
+                    else
+                    {
+                    @curriculum.Curricula.Description
+                    }
+                    @Html.Raw(" ")
+                </li>
             }
-            @Html.Raw(" ")
-        }
+        </ul>
     </div>
 
+    <div>
+        <h4>Assessment Tools</h4>
+        <ul>
+            @foreach (var assessment in Model.ClassroomAssessments)
+            {
+                <li>
+                    @if (assessment.AssessmentCode == 1)
+                    {
+                        @assessment.UserDefined
+                    }
+                    else
+                    {
+                        @assessment.Assessment.Description
+                    }
+                    @Html.Raw(" ")
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div>
+        <h4>Screening</h4>
+        <ul>
+            @foreach (var screening in Model.ClassroomScreenings)
+            {
+                <li>
+                    @if (screening.ScreeningCode == 1)
+                    {
+                        @screening.UserDefined
+                    }
+                    else
+                    {
+                        @screening.Screening.Description
+                    }
+                    @Html.Raw(" ")
+                </li>
+            }
+        </ul>
+    </div>
 </div>
+
+<br />
 
 <div>
     <h4>CLASS Scores</h4>

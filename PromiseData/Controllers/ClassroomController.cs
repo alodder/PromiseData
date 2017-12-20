@@ -120,16 +120,9 @@ namespace PromiseData.Controllers
             _context.Classrooms.Add(classroom);
             _context.SaveChanges();
 
-            //Add Curricula to ClassroomCurricula table
-            foreach (var curriculaCode in viewModel.ClassroomCurricula.Keys)
-            {
-                if (viewModel.ClassroomCurricula[curriculaCode])
-                    _context.ClassroomCurricula.Add(new ClassroomCurricula
-                    {
-                        ClassroomID = classroom.ID,
-                        CurriculaCode = curriculaCode
-                    });
-            }
+            UpdateClassCurriculum(classroom.ID, viewModel.ClassroomCurricula, viewModel.CurriculumOther);
+            UpdateClassAssessment(classroom.ID, viewModel.ClassroomCurricula, viewModel.AssessmentOther);
+            UpdateClassScreening(classroom.ID, viewModel.ClassroomCurricula, viewModel.ScreeningOther);
 
             return RedirectToAction("Index", "Classroom");
         }
@@ -283,7 +276,7 @@ namespace PromiseData.Controllers
                 {
                     ClassroomID = classroomID,
                     CurriculaCode = curriculumCode,
-                    UserDefined = CurriculumOther
+                    UserDefined = (curriculumCode == 0) ? (CurriculumOther) : String.Empty
                 };
 
                 /**
@@ -315,7 +308,7 @@ namespace PromiseData.Controllers
                 {
                     ClassroomID = classroomID,
                     AssessmentCode = assessmentCode,
-                    UserDefined = AssessmentOther
+                    UserDefined = (assessmentCode == 0) ? (AssessmentOther) : String.Empty
                 };
 
                 /**
@@ -347,7 +340,7 @@ namespace PromiseData.Controllers
                 {
                     ClassroomID = classroomID,
                     ScreeningCode = screeningCode,
-                    UserDefined = ScreeningOther
+                    UserDefined = (screeningCode == 0) ? (ScreeningOther) : String.Empty
                 };
 
                 /**
