@@ -15,47 +15,67 @@ namespace PromiseData.Controllers
     {
         private ApplicationDbContext _context;
         private ClassroomRepository _classroomRepository;
-        private Dictionary<int, bool> CurriculaDictionary;
-        private Dictionary<int, bool> AssessmentsDictionary;
-        private Dictionary<int, bool> ScreeningsDictionary;
 
         public ClassroomController()
         {
             _context = new ApplicationDbContext();
             _classroomRepository = new ClassroomRepository( _context);
-
-            BuildCurriculaDictionary();
-            BuildAssessmentsDictionary();
-            BuildScreeningsDictionary();
         }
 
-        private void BuildCurriculaDictionary()
+        private void BuildCurriculaDictionary(ClassroomViewModel viewModel)
         {
-            CurriculaDictionary = new Dictionary<int, bool>();
             var curriculaList = _context.Curricula.ToList();
-            foreach (Curricula curricula in curriculaList)
+            viewModel.ClassroomCurricula = new Dictionary<int, bool>();
+            var curriculaClassSet = _context.ClassroomCurricula.Where(t => t.ClassroomID == viewModel.ID);
+            foreach (Curricula curriculum in curriculaList)
             {
-                CurriculaDictionary.Add(curricula.Code, false);
+                if (curriculaClassSet.Select(t => t.CurriculaCode).Contains(curriculum.Code))
+                {
+                    viewModel.ClassroomCurricula.Add(curriculum.Code, true);
+                    viewModel.CurriculumOther = (curriculum.Code == 1) ? (curriculaClassSet.Single(t => t.CurriculaCode == curriculum.Code).UserDefined) : viewModel.CurriculumOther;
+                }
+                else
+                {
+                    viewModel.ClassroomCurricula.Add(curriculum.Code, false);
+                }
             }
         }
 
-        private void BuildAssessmentsDictionary()
+        private void BuildAssessmentsDictionary( ClassroomViewModel viewModel)
         {
-            AssessmentsDictionary = new Dictionary<int, bool>();
+            viewModel.ClassroomAssessments = new Dictionary<int, bool>();
             var assessmentList = _context.AssessmentTools.ToList();
+            var assessmentClassSet = _context.ClassroomAssessments.Where(t => t.ClassroomID == viewModel.ID);
             foreach (AssessmentTools assessment in assessmentList)
             {
-                AssessmentsDictionary.Add(assessment.Code, false);
+                if (assessmentClassSet.Select(t => t.AssessmentCode).Contains(assessment.Code))
+                {
+                    viewModel.ClassroomAssessments.Add(assessment.Code, true);
+                    viewModel.AssessmentOther = (assessment.Code == 1) ? (assessmentClassSet.Single(t => t.AssessmentCode == assessment.Code).UserDefined) : viewModel.AssessmentOther;
+                }
+                else
+                {
+                    viewModel.ClassroomAssessments.Add(assessment.Code, false);
+                }
             }
         }
 
-        private void BuildScreeningsDictionary()
+        private void BuildScreeningsDictionary(ClassroomViewModel viewModel)
         {
-            ScreeningsDictionary = new Dictionary<int, bool>();
+            viewModel.ClassroomScreenings = new Dictionary<int, bool>();
             var screeningList = _context.ScreeningTools.ToList();
+            var screeningClassSet = _context.ClassroomScreenings.Where(t => t.ClassroomID == viewModel.ID);
             foreach (ScreeningTools screening in screeningList)
             {
-                ScreeningsDictionary.Add(screening.Code, false);
+                if (screeningClassSet.Select(t => t.ScreeningCode).Contains(screening.Code))
+                {
+                    viewModel.ClassroomScreenings.Add(screening.Code, true);
+                    viewModel.ScreeningOther = (screening.Code == 1) ? (screeningClassSet.Single(t => t.ScreeningCode == screening.Code).UserDefined) : viewModel.ScreeningOther;
+                }
+                else
+                {
+                    viewModel.ClassroomScreenings.Add(screening.Code, false);
+                }
             }
         }
 
@@ -80,12 +100,14 @@ namespace PromiseData.Controllers
                 Services = _context.Services,
                 Facility_ID = facility.ID,
                 Curricula = _context.Curricula,
-                ClassroomCurricula = CurriculaDictionary,
                 AssessmentTools = _context.AssessmentTools,
-                ClassroomAssessments = AssessmentsDictionary,
-                ScreeningTools = _context.ScreeningTools,
-                ClassroomScreenings = ScreeningsDictionary
+                ScreeningTools = _context.ScreeningTools
             };
+
+            BuildCurriculaDictionary( viewModel);
+            BuildAssessmentsDictionary( viewModel);
+            BuildScreeningsDictionary( viewModel);
+
             return View("ClassroomForm", viewModel);
         }
 
@@ -201,25 +223,13 @@ namespace PromiseData.Controllers
                 upsize_ts = classroom.upsize_ts,
                 Description = classroom.Description,
                 Curricula = _context.Curricula,
-                ClassroomCurricula = CurriculaDictionary,
                 AssessmentTools = _context.AssessmentTools,
-                ClassroomAssessments = AssessmentsDictionary,
                 ScreeningTools = _context.ScreeningTools,
-                ClassroomScreenings = ScreeningsDictionary
             };
 
-            var curriculaList = _context.Curricula.ToList();
-
-            viewModel.ClassroomCurricula = new Dictionary<int, bool>();
-
-            var curriculaClassSet = _context.ClassroomCurricula.Where(t => t.ClassroomID == classroom.ID);
-            foreach (Curricula curriculum in curriculaList)
-            {
-                if (curriculaClassSet.Select(t => t.CurriculaCode).Contains(curriculum.Code))
-                    viewModel.ClassroomCurricula.Add(curriculum.Code, true);
-                else
-                    viewModel.ClassroomCurricula.Add(curriculum.Code, false);
-            }
+            BuildCurriculaDictionary(viewModel);
+            BuildAssessmentsDictionary(viewModel);
+            BuildScreeningsDictionary(viewModel);
 
             return View("ClassroomForm", viewModel);
         }
@@ -256,8 +266,8 @@ namespace PromiseData.Controllers
             classroom.Description = viewModel.Description;
 
             UpdateClassCurriculum(classroom.ID, viewModel.ClassroomCurricula, viewModel.CurriculumOther);
-            UpdateClassAssessment(classroom.ID, viewModel.ClassroomCurricula, viewModel.AssessmentOther);
-            UpdateClassScreening(classroom.ID, viewModel.ClassroomCurricula, viewModel.ScreeningOther);
+            UpdateClassAssessment(classroom.ID, viewModel.ClassroomAssessments, viewModel.AssessmentOther);
+            UpdateClassScreening(classroom.ID, viewModel.ClassroomScreenings, viewModel.ScreeningOther);
 
             _context.SaveChanges();
 
@@ -276,7 +286,7 @@ namespace PromiseData.Controllers
                 {
                     ClassroomID = classroomID,
                     CurriculaCode = curriculumCode,
-                    UserDefined = (curriculumCode == 0) ? (CurriculumOther) : String.Empty
+                    UserDefined = (curriculumCode == 1) ? (CurriculumOther) : String.Empty
                 };
 
                 /**
@@ -308,7 +318,7 @@ namespace PromiseData.Controllers
                 {
                     ClassroomID = classroomID,
                     AssessmentCode = assessmentCode,
-                    UserDefined = (assessmentCode == 0) ? (AssessmentOther) : String.Empty
+                    UserDefined = (assessmentCode == 1) ? (AssessmentOther) : String.Empty
                 };
 
                 /**
@@ -340,7 +350,7 @@ namespace PromiseData.Controllers
                 {
                     ClassroomID = classroomID,
                     ScreeningCode = screeningCode,
-                    UserDefined = (screeningCode == 0) ? (ScreeningOther) : String.Empty
+                    UserDefined = (screeningCode == 1) ? (ScreeningOther) : String.Empty
                 };
 
                 /**

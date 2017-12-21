@@ -5,10 +5,10 @@
 @using (Html.BeginForm(Model.Action, "Classroom"))
 {
     @Html.AntiForgeryToken()
-
+    <hr />
     <div class="form-horizontal">
         <h4>Classroom</h4>
-        <hr />
+        
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         @Html.HiddenFor(model => model.ID)
@@ -147,6 +147,7 @@
             </fieldset>
 
         <div class="row">
+            <hr />
             <h4>Classroom Curricula</h4>
             <div class="row col-lg-offset-1">
                 @{var j = 0; }
@@ -175,6 +176,7 @@
 
 
         <div class="row">
+            <hr />
             <h4>Classroom Assessment Tools</h4>
             <div class="row col-lg-offset-1">
                 @{ j = 0; }
@@ -202,6 +204,7 @@
         </div>
 
         <div class="row">
+            <hr />
             <h4>Classroom Screening Tools</h4>
             <div class="row col-lg-offset-1">
                 @{ j = 0; }
