@@ -197,7 +197,7 @@
 <br />
 
 <div>
-    <h4>CLASS Scores</h4>
+    <h4>CLASS Observation</h4>
     @foreach (var classScore in Model.CLASSScores)
     {
         <div class="panel panel-default">
@@ -205,20 +205,26 @@
             <div class="panel-body">
                 @Html.DisplayNameFor(model => classScore.CLASSScore_EmotionalSupport):
                 @classScore.CLASSScore_EmotionalSupport.GetValueOrDefault().ToString()
+                @{var emotionalcent = (100 * (float)classScore.CLASSScore_EmotionalSupport.GetValueOrDefault() / 7);}
+                @emotionalcent
                 <div class="progress">
-                    <div class="progress-bar progress-bar-info" style="width: 60%;"></div>
+                    <div class="progress-bar progress-bar-info" style="width: @emotionalcent%;"></div>
                 </div>
 
                 @Html.DisplayNameFor(model => classScore.CLASSScore_ClassroomOrganization):
                 @classScore.CLASSScore_ClassroomOrganization.GetValueOrDefault().ToString()
+                @{var organizecent = (100 * (float)classScore.CLASSScore_ClassroomOrganization.GetValueOrDefault() / 7);}
+                @organizecent
                 <div class="progress">
-                    <div class="progress-bar progress-bar-success" style="width: 60%;"></div>
+                    <div class="progress-bar progress-bar-success" style="width: @organizecent%;"></div>
                 </div>
 
                 @Html.DisplayNameFor(model => classScore.CLASSScore_InstructionalSupport):
                 @classScore.CLASSScore_InstructionalSupport.GetValueOrDefault().ToString()
+                @{var instructioncent = (100 * (float)classScore.CLASSScore_InstructionalSupport.GetValueOrDefault() / 7);}
+                @instructioncent
                 <div class="progress">
-                    <div class="progress-bar progress-bar-warning" style="width: 60%;"></div>
+                    <div class="progress-bar progress-bar-warning" style="width: @instructioncent%;"></div>
                 </div>
             </div>
         </div>

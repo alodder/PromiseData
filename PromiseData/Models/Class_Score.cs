@@ -15,14 +15,17 @@ namespace PromiseData.Models
 
         public int Classroom_id { get; set; }
 
+        [Range(0,7)]
         [DisplayName("Emotional Support")]
-        public int? CLASSScore_EmotionalSupport { get; set; }
+        public int? CLASSScore_EmotionalSupport { get; set; } = 0;
 
+        [Range(0, 7)]
         [DisplayName("Classroom Organization")]
-        public int? CLASSScore_ClassroomOrganization { get; set; }
+        public int? CLASSScore_ClassroomOrganization { get; set; } = 0;
 
+        [Range(0, 7)]
         [DisplayName("Instructional Support")]
-        public int? CLASSScore_InstructionalSupport { get; set; }
+        public int? CLASSScore_InstructionalSupport { get; set; } = 0;
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
