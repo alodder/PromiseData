@@ -49,7 +49,7 @@ namespace PromiseData.ViewModels
         [StringLength(10)]
         public string ReceivedInfo { get; set; }
 
-        [DisplayName("Received Info")]
+        [DisplayName("Transportation Use")]
         public bool TransportationUse { get; set; }
 
         public Child Child { get; set; }

@@ -40,7 +40,7 @@ namespace PromiseData.Models
         [StringLength(10)]
         public string ReceivedInfo { get; set; }
 
-        [DisplayName("Received Info")]
+        [DisplayName("Transportation Use")]
         public bool TransportationUse { get; set; }
 
         [ForeignKey("ChildID")]
