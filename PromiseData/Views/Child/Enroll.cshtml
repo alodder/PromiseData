@@ -5,93 +5,99 @@
 }
 
 <h2>Enroll</h2>
+@using (Html.BeginForm("Enroll", "Child"))
+{
+    <div>
+        <fieldset class="col-lg-5">
+            <legend>Child</legend>
+            <div class="">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ChildID)
+                    @Html.DropDownListFor(m => m.ChildID, new SelectList(Model.Children, "ID", "FirstName"), new { @class = "form-control" })
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="col-lg-offset-2 col-lg-5">
+            <legend>Classroom</legend> 
+            <div class="">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.FacilityID)
+                    @Html.DropDownListFor(m => m.FacilityID, new SelectList(Model.Sites, "ID", "Description"), new { @class = "form-control" })
+                </div>
+            </div>
 
-<div>
-    <fieldset class="col-lg-5">
-        <legend>Child</legend>
-        <div class="">
-            <div class="form-group">
-                @Html.LabelFor(m => m.ChildID)
-                @Html.DropDownListFor(m => m.ChildID, new SelectList(Model.Children, "ID", "FirstName"), new { @class = "form-control" })
+            <div class="">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ServicesID)
+                    @Html.DropDownListFor(m => m.ServicesID, new SelectList(Model.Services, "ID", "ClassroomId"), new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ClassroomID)
+                    @Html.DropDownListFor(m => m.ClassroomID, new SelectList(Model.Classrooms, "ID", "Description"), new { @class = "form-control" })
+                </div>
+            </div>
+        </fieldset>
+
+
+        <div class="row">
+            <div class="col-lg-4 form-group">
+                @Html.LabelFor(m => m.StartDate)
+                @Html.TextBoxFor(m => m.StartDate, new { @class = "form-control", placeholder = "2010-01-01 ", type = "date" })
+                @Html.ValidationMessageFor(m => m.StartDate)
             </div>
         </div>
-    </fieldset>
-    <fieldset class="col-lg-offset-2 col-lg-5">
-        <legend>Classroom</legend> 
-        <div class="">
+
+        <div class="row">
+            <div class=" col-lg-4 form-group">
+                @Html.LabelFor(m => m.EndDate)
+                @Html.TextBoxFor(m => m.EndDate, new { @class = "form-control", placeholder = "2010-01-01 ", type = "date" })
+                @Html.ValidationMessageFor(m => m.EndDate)
+            </div>
+        </div>
+
+        <div class="row">
             <div class="form-group">
-                @Html.LabelFor(m => m.FacilityID)
-                @Html.DropDownListFor(m => m.FacilityID, new SelectList(Model.Sites, "ID", "Description"), new { @class = "form-control" })
+                @Html.LabelFor(m => m.EndReason)
+                @Html.TextAreaFor(m => m.EndReason, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.EndReason)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class=" col-lg-8">
+                @Html.LabelFor(m => m.MonthlyAttendance)
+                @Html.TextBoxFor(m => m.MonthlyAttendance, new { @class = "form-control", type = "Range", value = "30", min = "0", max = "100" })
+                @Html.ValidationMessageFor(m => m.MonthlyAttendance)
+            </div>
+            <div class="col-lg-offset-1 col-lg-3">
+                <h3>Attendance units: <span class="label label-info" id="attendanceInputLabel"></span></h3>
             </div>
         </div>
 
         <div class="">
             <div class="form-group">
-                @Html.LabelFor(m => m.ServicesID)
-                @Html.DropDownListFor(m => m.ServicesID, new SelectList(Model.Services, "ID", "ClassroomId"), new { @class = "form-control" })
+                @Html.LabelFor(m => m.ReceivedInfo)
+                @Html.TextBoxFor(m => m.ReceivedInfo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ReceivedInfo)
             </div>
         </div>
 
         <div class="">
             <div class="form-group">
-                @Html.LabelFor(m => m.ClassroomID)
-                @Html.DropDownListFor(m => m.ClassroomID, new SelectList(Model.Classrooms, "ID", "Description"), new { @class = "form-control" })
+                @Html.LabelFor(m => m.TransportationUse)
+                @Html.EditorFor(m => m.TransportationUse, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.TransportationUse)
             </div>
         </div>
-    </fieldset>
 
-
-    <div class="row">
-        <div class="col-lg-4 form-group">
-            @Html.LabelFor(m => m.StartDate)
-            @Html.TextBoxFor(m => m.StartDate, new { @class = "form-control", placeholder = "2010-01-01 ", type = "date" })
-            @Html.ValidationMessageFor(m => m.StartDate)
-        </div>
-    </div>
-
-    <div class="row">
-        <div class=" col-lg-4 form-group">
-            @Html.LabelFor(m => m.EndDate)
-            @Html.TextBoxFor(m => m.EndDate, new { @class = "form-control", placeholder = "2010-01-01 ", type = "date" })
-            @Html.ValidationMessageFor(m => m.EndDate)
-        </div>
-    </div>
-
-    <div class="row">
         <div class="form-group">
-            @Html.LabelFor(m => m.EndReason)
-            @Html.TextAreaFor(m => m.EndReason, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.EndReason)
+            <button type="submit" class="btn btn-primary">Enroll</button>
         </div>
     </div>
-
-    <div class="row">
-        <div class=" col-lg-8">
-            @Html.LabelFor(m => m.MonthlyAttendance)
-            @Html.TextBoxFor(m => m.MonthlyAttendance, new { @class = "form-control", type = "Range", value="30", min="0", max="100" })
-            @Html.ValidationMessageFor(m => m.MonthlyAttendance)
-        </div>
-        <div class="col-lg-offset-1 col-lg-3">
-            <h3>Attendance units: <span class="label label-info" id="attendanceInputLabel"></span></h3>
-        </div>
-    </div>
-
-    <div class="">
-        <div class="form-group">
-            @Html.LabelFor(m => m.ReceivedInfo)
-            @Html.TextBoxFor(m => m.ReceivedInfo, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.ReceivedInfo)
-        </div>
-    </div>
-
-    <div class="">
-        <div class="form-group">
-            @Html.LabelFor(m => m.TransportationUse)
-            @Html.EditorFor(m => m.TransportationUse, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.TransportationUse)
-        </div>
-    </div>
-</div>
+}
 
 @section Scripts
 {

@@ -513,27 +513,33 @@ namespace PromiseData.Controllers
             return View(viewModel);
         }
 
+
+        /**
+         *  add row to enrollment table
+         *  point to services table?
+         *  
+         *  classrooms should have default/active session
+         *  classrooms shoe current session
+         *  
+         * */
         [HttpPost]
         [Authorize]
-        public ActionResult Enroll(ChildFormViewModel viewModel)
+        public ActionResult Enroll(ChildEnrollViewModel viewModel)
         {
-            foreach (var raceId in viewModel.RaceDictionary.Keys)
+            Child_Services_Enrollment enrollment = new Child_Services_Enrollment
             {
-                //var truth = false;
-                //viewModel.RaceDictionary.TryGetValue(raceId, out truth);
-                if (viewModel.RaceDictionary[raceId])
-                {
-                    var ChildRace = new ChildRace
-                    {
-                        ChildID = viewModel.ID,
-                        RaceID = raceId
-                    };
-                    _context.ChildRaces.Add(ChildRace);
-                }
-            }
-
+                ChildID = viewModel.ChildID,
+                ServicesID = viewModel.ServicesID,
+                StartDate = viewModel.StartDate,
+                EndDate = viewModel.EndDate,
+                EndReason = viewModel.EndReason,
+                MonthlyAttendance = viewModel.MonthlyAttendance,
+                ReceivedInfo = viewModel.ReceivedInfo,
+                TransportationUse = viewModel.TransportationUse
+            };
+            _context.Child_Services_Enrollment.Add( enrollment);
             _context.SaveChanges();
-            return RedirectToAction("Index", "Child");
+            return RedirectToAction("Detail", "Child");
         }
 
         [HttpPost]
