@@ -248,6 +248,11 @@ namespace PromiseData.Models
                 .WithOptional(e => e.Service)
                 .HasForeignKey(e => e.Program_ID);*/
 
+            modelBuilder.Entity<Classroom>()
+                .HasMany(e => e.Services)
+                .WithOptional(e => e.Classroom)
+                .HasForeignKey(e => e.ClassroomId);
+
             modelBuilder.Entity<Service>()
                 .HasMany(e => e.Child_Services_Enrollment)
                 .WithRequired(e => e.Service)

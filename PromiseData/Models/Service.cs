@@ -12,7 +12,7 @@ namespace PromiseData.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Service()
         {
-            Classrooms = new HashSet<Classroom>();
+            //Classrooms = new HashSet<Classroom>();
             Child_Services_Enrollment = new HashSet<Child_Services_Enrollment>();
         }
 
@@ -41,8 +41,10 @@ namespace PromiseData.Models
         [DisplayName("Classroom")]
         public int? ClassroomId { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Classroom> Classrooms { get; set; }
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        //public virtual ICollection<Classroom> Classrooms { get; set; }
+
+        public virtual Classroom Classroom { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Child_Services_Enrollment> Child_Services_Enrollment { get; set; }
