@@ -243,10 +243,10 @@ namespace PromiseData.Models
                 .WithRequired(e => e.Screening)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Service>()
+            /*modelBuilder.Entity<Service>()
                 .HasMany(e => e.Classrooms)
                 .WithOptional(e => e.Service)
-                .HasForeignKey(e => e.Program_ID);
+                .HasForeignKey(e => e.Program_ID);*/
 
             modelBuilder.Entity<Service>()
                 .HasMany(e => e.Child_Services_Enrollment)

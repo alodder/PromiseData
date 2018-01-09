@@ -537,9 +537,11 @@ namespace PromiseData.Controllers
                 ReceivedInfo = viewModel.ReceivedInfo,
                 TransportationUse = viewModel.TransportationUse
             };
+
             _context.Child_Services_Enrollment.Add( enrollment);
             _context.SaveChanges();
-            return RedirectToAction("Detail", "Child");
+
+            return RedirectToAction("Details", new { id = viewModel.ChildID });
         }
 
         [HttpPost]
