@@ -46,14 +46,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Service.Early_Childhood_Services_Received)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Service.Early_Childhood_Services_Received)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.NewOrExpandedClass)
         </dt>
 
@@ -188,6 +180,18 @@
                         @screening.Screening.Description
                     }
                     @Html.Raw(" ")
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div>
+        <h4>Sessions</h4>
+        <ul>
+            @foreach (var service in Model.Services)
+            {
+                <li>
+                    @service.PP_Program_Enrollment_Year_Start_Date
                 </li>
             }
         </ul>
