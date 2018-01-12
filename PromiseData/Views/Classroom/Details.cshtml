@@ -200,8 +200,8 @@
             <tr>
                 @foreach (var service in Model.Services)
                 {
-                    <td>@service.PP_Program_Enrollment_Year_Start_Date</td>
-                    <td>@service.PP_Exit_Date</td>
+                    <td>@service.PP_Program_Enrollment_Year_Start_Date.ToShortDateString()</td>
+                    <td>@service.PP_Exit_Date.ToShortDateString()</td>
                     <td>@service.Class_Session_Attendance_Quantity @service.Class_Session_Attendance_Units</td>
                 }
             </tr>

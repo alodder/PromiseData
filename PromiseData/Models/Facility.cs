@@ -18,7 +18,7 @@ namespace PromiseData.Models
 
         public int ID { get; set; }
 
-        [DisplayName("Provider Facility Type")]
+        [DisplayName("Operator Facility Type")]
         [StringLength(24)]
         public string ProviderFacilityType { get; set; }
 

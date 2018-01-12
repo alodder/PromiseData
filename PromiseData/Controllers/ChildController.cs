@@ -466,6 +466,19 @@ namespace PromiseData.Controllers
             return Json(classrooms, JsonRequestBehavior.AllowGet);
         }
 
+        //[HttpGet]
+        public JsonResult getServices(int id)
+        {
+            var services = _context.Services
+                .Where(c => c.ClassroomId == id)
+                .Select(c => new {
+                    ID = c.ID,
+                    Description = c.PP_Program_Enrollment_Year_Start_Date.ToShortDateString()
+                })
+                .ToList();
+            return Json(services, JsonRequestBehavior.AllowGet);
+        }
+
         [WebMethod]
         public string confirmRemoveAdult(int id)
         {

@@ -28,15 +28,15 @@
 
             <div class="">
                 <div class="form-group">
-                    @Html.LabelFor(m => m.ServicesID)
-                    @Html.DropDownListFor(m => m.ServicesID, new SelectList(Model.Services, "ID", "ClassroomId"), new { @class = "form-control" })
+                    @Html.LabelFor(m => m.ClassroomID)
+                    @Html.DropDownListFor(m => m.ClassroomID, new SelectList(Model.Classrooms, "ID", "Description"), new { @class = "form-control" })
                 </div>
             </div>
 
             <div class="">
                 <div class="form-group">
-                    @Html.LabelFor(m => m.ClassroomID)
-                    @Html.DropDownListFor(m => m.ClassroomID, new SelectList(Model.Classrooms, "ID", "Description"), new { @class = "form-control" })
+                    @Html.LabelFor(m => m.ServicesID)
+                    @Html.DropDownListFor(m => m.ServicesID, new SelectList(Model.Services, "ID", "ClassroomId"), new { @class = "form-control" })
                 </div>
             </div>
         </fieldset>
@@ -110,6 +110,18 @@
                 classrooms.empty(); // remove any existing options
                 $.each(response, function (index, item) { // item is now an object containing properties ID and Text
                     classrooms.append($('<option></option>').text(item.Description).val(item.ID));
+                });
+            });
+        });
+
+        var servurl = '@Url.Action("getServices", "Child")'; // Don't hard code your url's!
+        var services = $('#ServicesID'); // cache it
+        $("#ClassroomID").change(function () {
+            var id = $(this).val(); // Use $(this) so you don't traverse the DOM again
+            $.getJSON(servurl, { id: id }, function (response) {
+                services.empty(); // remove any existing options
+                $.each(response, function (index, item) { // item is now an object containing properties ID and Text
+                    services.append($('<option></option>').text(item.Description).val(item.ID));
                 });
             });
         });

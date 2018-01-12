@@ -22,7 +22,7 @@ else
                 </span>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.Institutions, "Assigned Provider/Hub", new { @class = "col-md-4 control-label" })
+                @Html.LabelFor(model => model.Institutions, "Assigned Operator/Hub", new { @class = "col-md-4 control-label" })
                 <div class="col-md-8">
                     @Html.DropDownListFor(m => m.InstitutionId, new SelectList(Model.Institutions, "Id", "LegalName"), new { @class = "form-control" })
                 </div>
