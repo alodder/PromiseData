@@ -471,9 +471,9 @@ namespace PromiseData.Controllers
         {
             var services = _context.Services
                 .Where(c => c.ClassroomId == id)
-                .Select(c => new {
-                    ID = c.ID,
-                    Description = c.PP_Program_Enrollment_Year_Start_Date.ToShortDateString()
+                .Select(s => new {
+                    ID = s.ID,
+                    Description = s.PP_Program_Enrollment_Year_Start_Date
                 })
                 .ToList();
             return Json(services, JsonRequestBehavior.AllowGet);
@@ -539,12 +539,21 @@ namespace PromiseData.Controllers
         [Authorize]
         public ActionResult Enroll(ChildEnrollViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                viewModel.Children = _childRepository.GetUserChildren((ClaimsPrincipal)User);
+                viewModel.Services = _servicesRepository.GetUserServices((ClaimsPrincipal)User);
+                viewModel.Sites = _sitesRepository.GetUserSites((ClaimsPrincipal)User);
+                viewModel.Classrooms = _classroomRepository.GetUserClassrooms((ClaimsPrincipal)User);
+                return View("Enroll", viewModel);
+            }
+
             Child_Services_Enrollment enrollment = new Child_Services_Enrollment
             {
                 ChildID = viewModel.ChildID,
                 ServicesID = viewModel.ServicesID,
-                StartDate = viewModel.StartDate,
-                EndDate = viewModel.EndDate,
+                //StartDate = viewModel.StartDate,
+                //EndDate = viewModel.EndDate,
                 EndReason = viewModel.EndReason,
                 MonthlyAttendance = viewModel.MonthlyAttendance,
                 ReceivedInfo = viewModel.ReceivedInfo,

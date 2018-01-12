@@ -16,7 +16,7 @@ namespace PromiseData.ViewModels
         [Required]
         public int ChildID { get; set; }
 
-        [DisplayName("Service")]
+        [DisplayName("Session")]
         [Required]
         public int ServicesID { get; set; }
 
@@ -42,7 +42,7 @@ namespace PromiseData.ViewModels
         public string EndReason { get; set; }
 
         [DisplayName("Monthly Attendance")]
-        [RegularExpression(@"^\d+\.\d{0,2}$")]
+        //[RegularExpression(@"^\d+\.\d{0,2}$")]
         public decimal MonthlyAttendance { get; set; }
 
         [DisplayName("Received Info")]
