@@ -23,9 +23,11 @@ namespace PromiseData.Controllers
 
         [Authorize]
         [HttpGet]
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
-            return View();
+            Service service = new Service();
+            service.ClassroomId = id;
+            return View( service);
         }
 
         [Authorize]
@@ -45,7 +47,8 @@ namespace PromiseData.Controllers
                 Expected_Annual_Attendance_Days = viewModel.Expected_Annual_Attendance_Days,
                 Class_Session_Attendance_Quantity = viewModel.Class_Session_Attendance_Quantity,
                 Class_Session_Attendance_Units = viewModel.Class_Session_Attendance_Units,
-                PP_Exit_Date = DateTime.Parse(Convert.ToString( viewModel.PP_Exit_Date))
+                PP_Exit_Date = DateTime.Parse(Convert.ToString(viewModel.PP_Exit_Date)),
+                ClassroomId = viewModel.ClassroomId
             };
 
             var returnService = _context.Services.Add(service);

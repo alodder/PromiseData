@@ -186,16 +186,27 @@
     </div>
 
     <div>
-        <h4>Sessions</h4>
+        <h4>Class Sessions</h4>
+        <p>
+            @Html.ActionLink("Add Session", "Create", "Service", new { id = Model.ID }, new { @class = "btn btn-success" })
+        </p>
+        <table class="table">
+            <tr>
+                <th>Begin Date</th>
+                <th>End Date</th>
+                <th>Attendance Quantity</th>
+                <th></th>
+            </tr>
+            <tr>
+                @foreach (var service in Model.Services)
+                {
+                    <td>@service.PP_Program_Enrollment_Year_Start_Date</td>
+                    <td>@service.PP_Exit_Date</td>
+                    <td>@service.Class_Session_Attendance_Quantity @service.Class_Session_Attendance_Units</td>
+                }
+            </tr>
+        </table>
         <ul>
-            @foreach (var service in Model.Services)
-            {
-                <li>
-                    @service.PP_Program_Enrollment_Year_Start_Date
-                     - 
-                    @service.PP_Exit_Date
-                </li>
-            }
         </ul>
     </div>
 </div>
@@ -204,6 +215,7 @@
 
 <div>
     <h4>CLASS Observation</h4>
+
     @foreach (var classScore in Model.CLASSScores)
     {
         <div class="panel panel-default">
