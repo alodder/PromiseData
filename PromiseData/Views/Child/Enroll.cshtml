@@ -32,15 +32,7 @@
                     @Html.DropDownListFor(m => m.ClassroomID, new SelectList(Model.Classrooms, "ID", "Description"), new { @class = "form-control" })
                 </div>
             </div>
-
-            <div class="">
-                <div class="form-group">
-                    @Html.LabelFor(m => m.ServicesID)
-                    @Html.DropDownListFor(m => m.ServicesID, new SelectList(Model.Services, "ID", "ID"), new { @class = "form-control" })
-                </div>
-            </div>
         </fieldset>
-
 
         <div class="row">
             <div class="col-lg-4 form-group">
@@ -114,17 +106,6 @@
             });
         });
 
-        var servurl = '@Url.Action("getServices", "Child")'; // Don't hard code your url's!
-        var services = $('#ServicesID'); // cache it
-        $("#ClassroomID").change(function () {
-            var id = $(this).val(); // Use $(this) so you don't traverse the DOM again
-            $.getJSON(servurl, { id: id }, function (response) {
-                services.empty(); // remove any existing options
-                $.each(response, function (index, item) { // item is now an object containing properties ID and Text
-                    services.append($('<option></option>').text(item.Description).val(item.ID));
-                });
-            });
-        });
 
         var attendanceLabel = $('#attendanceInputLabel');
         $('#MonthlyAttendance').mousemove(function () {

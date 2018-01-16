@@ -37,10 +37,9 @@ namespace PromiseData.Models
         public virtual DbSet<Family> Families { get; set; }
         public virtual DbSet<LU_State> LU_State { get; set; }
         public virtual DbSet<Screening> Screenings { get; set; }
-        public virtual DbSet<Service> Services { get; set; }
 
         public virtual DbSet<AdultRace> AdultRaces { get; set; }
-        public virtual DbSet<Child_Services_Enrollment> Child_Services_Enrollment { get; set; }
+        public virtual DbSet<Child_Classroom_Enrollment> Child_Classroom_Enrollments { get; set; }
         public virtual DbSet<ChildRace> ChildRaces { get; set; }
         public virtual DbSet<ChildScreening> ChildScreenings { get; set; }
         public virtual DbSet<Teacher> Teachers { get; set; }
@@ -248,16 +247,12 @@ namespace PromiseData.Models
                 .WithOptional(e => e.Service)
                 .HasForeignKey(e => e.Program_ID);*/
 
-            modelBuilder.Entity<Classroom>()
-                .HasMany(e => e.Services)
-                .WithOptional(e => e.Classroom)
-                .HasForeignKey(e => e.ClassroomId);
+            modelBuilder.Entity<Child_Classroom_Enrollment>()
+                .HasKey(t => new { t.ChildID, t.ClassroomID });
 
-            modelBuilder.Entity<Service>()
-                .HasMany(e => e.Child_Services_Enrollment)
-                .WithRequired(e => e.Service)
-                .HasForeignKey(e => e.ServicesID)
-                .WillCascadeOnDelete(false);
+            //classroom has many enrollments
+
+            //child has many enrollments
 
             modelBuilder.Entity<Teacher>()
                 .Property(e => e.TeacherSalary)

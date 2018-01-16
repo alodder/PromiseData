@@ -16,7 +16,6 @@ namespace PromiseData.Controllers
     {
         private ApplicationDbContext _context;
         private ChildRepository _childRepository;
-        private ServicesRepository _servicesRepository;
         private SitesRepository _sitesRepository;
         private ClassroomRepository _classroomRepository;
 
@@ -25,8 +24,7 @@ namespace PromiseData.Controllers
         public ChildController()
         {
             _context = new ApplicationDbContext();
-            _childRepository = new ChildRepository( _context);
-            _servicesRepository = new ServicesRepository(_context);
+            _childRepository = new ChildRepository(_context);
             _sitesRepository = new SitesRepository(_context);
             _classroomRepository = new ClassroomRepository(_context);
 
@@ -466,19 +464,6 @@ namespace PromiseData.Controllers
             return Json(classrooms, JsonRequestBehavior.AllowGet);
         }
 
-        //[HttpGet]
-        public JsonResult getServices(int id)
-        {
-            var services = _context.Services
-                .Where(c => c.ClassroomId == id)
-                .Select(s => new {
-                    ID = s.ID,
-                    Description = s.PP_Program_Enrollment_Year_Start_Date
-                })
-                .ToList();
-            return Json(services, JsonRequestBehavior.AllowGet);
-        }
-
         [WebMethod]
         public string confirmRemoveAdult(int id)
         {
@@ -519,7 +504,6 @@ namespace PromiseData.Controllers
             };
 
             viewModel.Children = _childRepository.GetUserChildren( (ClaimsPrincipal)User);
-            viewModel.Services = _servicesRepository.GetUserServices( (ClaimsPrincipal)User);
             viewModel.Sites = _sitesRepository.GetUserSites( (ClaimsPrincipal)User);
             viewModel.Classrooms = _classroomRepository.GetUserClassrooms((ClaimsPrincipal)User);
 
@@ -542,25 +526,24 @@ namespace PromiseData.Controllers
             if (!ModelState.IsValid)
             {
                 viewModel.Children = _childRepository.GetUserChildren((ClaimsPrincipal)User);
-                viewModel.Services = _servicesRepository.GetUserServices((ClaimsPrincipal)User);
                 viewModel.Sites = _sitesRepository.GetUserSites((ClaimsPrincipal)User);
                 viewModel.Classrooms = _classroomRepository.GetUserClassrooms((ClaimsPrincipal)User);
                 return View("Enroll", viewModel);
             }
 
-            Child_Services_Enrollment enrollment = new Child_Services_Enrollment
+            Child_Classroom_Enrollment enrollment = new Child_Classroom_Enrollment
             {
                 ChildID = viewModel.ChildID,
-                ServicesID = viewModel.ServicesID,
-                //StartDate = viewModel.StartDate,
-                //EndDate = viewModel.EndDate,
+                ClassroomID = viewModel.ClassroomID,
+                StartDate = viewModel.StartDate,
+                EndDate = viewModel.EndDate,
                 EndReason = viewModel.EndReason,
                 MonthlyAttendance = viewModel.MonthlyAttendance,
                 ReceivedInfo = viewModel.ReceivedInfo,
                 TransportationUse = viewModel.TransportationUse
             };
 
-            _context.Child_Services_Enrollment.Add( enrollment);
+            _context.Child_Classroom_Enrollments.Add( enrollment);
             _context.SaveChanges();
 
             return RedirectToAction("Details", new { id = viewModel.ChildID });

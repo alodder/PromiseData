@@ -112,5 +112,7 @@ namespace PromiseData.Models
 
         public virtual ICollection<Child_IFSP> Child_IFSP { get; set; }
 
+        public virtual ICollection<Child_Classroom_Enrollment> ChildEnrollments { get; set; }
+
     }
 }

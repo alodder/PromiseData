@@ -119,7 +119,5 @@ namespace PromiseData.ViewModels
         public IEnumerable<AssessmentTools> AssessmentTools { get; set; }
 
         public IEnumerable<ScreeningTools> ScreeningTools { get; set; }
-
-        public IEnumerable<Service> Services { get; set; }
     }
 }

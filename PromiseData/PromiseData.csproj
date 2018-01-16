@@ -207,7 +207,6 @@
     <Compile Include="Controllers\FacilityController.cs" />
     <Compile Include="Controllers\FamilyController.cs" />
     <Compile Include="Controllers\InstitutionController.cs" />
-    <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Controllers\AdultController.cs" />
     <Compile Include="Controllers\ChildController.cs" />
@@ -232,7 +231,7 @@
     <Compile Include="Models\ChildScreening.cs" />
     <Compile Include="Models\Special_Needs.cs" />
     <Compile Include="Models\Child_Special_Needs.cs" />
-    <Compile Include="Models\Child_Services_Enrollment.cs" />
+    <Compile Include="Models\Child_Classroom_Enrollment.cs" />
     <Compile Include="Models\Code_AdditionalSupportTypes.cs" />
     <Compile Include="Models\Code_AddressType.cs" />
     <Compile Include="Models\Code_Education.cs" />
@@ -261,7 +260,6 @@
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Screening.cs" />
-    <Compile Include="Models\Service.cs" />
     <Compile Include="Models\Teacher.cs" />
     <Compile Include="Models\Child_Facility.cs" />
     <Compile Include="Models\Child_IFSP.cs" />
@@ -273,7 +271,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ClassroomRepository.cs" />
     <Compile Include="Repositories\InstitutionRepository.cs" />
-    <Compile Include="Repositories\ServicesRepository.cs" />
     <Compile Include="Repositories\SitesRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Startup.cs" />

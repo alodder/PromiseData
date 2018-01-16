@@ -56,7 +56,6 @@ namespace PromiseData.ViewModels
 
         public Facility Facility { get; set; }
 
-        public Service Service { get; set; }
 
         public IEnumerable<Child> Children { get; set; }
 
@@ -64,6 +63,5 @@ namespace PromiseData.ViewModels
 
         public IEnumerable<Classroom> Classrooms { get; set; }
 
-        public IEnumerable<Service> Services { get; set; }
     }
 }

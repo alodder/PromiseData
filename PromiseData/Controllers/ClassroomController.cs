@@ -97,7 +97,6 @@ namespace PromiseData.Controllers
             {
                 Facilities = _context.Facilities,
                 SessionTypes = _context.Code_ProgramSessionType,
-                Services = _context.Services,
                 Facility_ID = facility.ID,
                 Curricula = _context.Curricula,
                 AssessmentTools = _context.AssessmentTools,
@@ -206,7 +205,6 @@ namespace PromiseData.Controllers
                 ID = classroom.ID,
                 Facilities = _context.Facilities,
                 SessionTypes = _context.Code_ProgramSessionType,
-                Services = _context.Services,
                 Facility_ID = classroom.Facility_ID.GetValueOrDefault(),
                 Program_ID = classroom.Program_ID.GetValueOrDefault(),
                 ProgramSessionType_ID = classroom.Program_ID.GetValueOrDefault(),
@@ -243,7 +241,6 @@ namespace PromiseData.Controllers
             {
                 viewModel.Facilities = _context.Facilities;
                 viewModel.SessionTypes = _context.Code_ProgramSessionType;
-                viewModel.Services = _context.Services;
                 return View("ClassroomForm", viewModel);
             }
 

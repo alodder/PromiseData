@@ -185,30 +185,6 @@
         </ul>
     </div>
 
-    <div>
-        <h4>Class Sessions</h4>
-        <p>
-            @Html.ActionLink("Add Session", "Create", "Service", new { id = Model.ID }, new { @class = "btn btn-success" })
-        </p>
-        <table class="table">
-            <tr>
-                <th>Begin Date</th>
-                <th>End Date</th>
-                <th>Attendance Quantity</th>
-                <th></th>
-            </tr>
-            <tr>
-                @foreach (var service in Model.Services)
-                {
-                    <td>@service.PP_Program_Enrollment_Year_Start_Date.ToShortDateString()</td>
-                    <td>@service.PP_Exit_Date.ToShortDateString()</td>
-                    <td>@service.Class_Session_Attendance_Quantity @service.Class_Session_Attendance_Units</td>
-                }
-            </tr>
-        </table>
-        <ul>
-        </ul>
-    </div>
 </div>
 
 <br />
@@ -316,11 +292,56 @@
                 </p>
             </div>
         </div>
-
-
-
     }
+}
 
+@*
+    Table of Students
+*@
+@if (Model.ChildEnrollments != null)
+{
+
+    <h3>@Model.Description Children</h3>
+
+    foreach (var childEnrollment in Model.ChildEnrollments)
+    {
+
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">@Html.DisplayFor(modelItem => childEnrollment.Child.Birthdate)</div>
+                <dl class="panel-body dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(modelItem => childEnrollment.Child.FirstName)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(modelItem => childEnrollment.Child.FirstName)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(modelItem => childEnrollment.Child.LastName)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(modelItem => childEnrollment.Child.LastName)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(modelItem => childEnrollment.Child.Gender)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(modelItem => childEnrollment.Child.Gender)
+                    </dd>
+                </dl>
+                <p class="text-right">
+                    @if (true) //Model.CanEdit
+                    {
+                        @Html.ActionLink("Edit", "Edit", "Child", new { id = childEnrollment.Child.ID }, null)
+                        @Html.Raw(" | ")
+                        @Html.ActionLink("Details", "Details", "Child", new { id = childEnrollment.Child.ID }, null)
+                        @Html.Raw(" | ")
+                        @Html.ActionLink("Remove", "RemoveFromClassroom", "Child", new { id = childEnrollment.ChildID, classroomid = childEnrollment.ClassroomID }, null)
+                    }
+                </p>
+            </div>
+        </div>
+    }
 }
 
 <p>
