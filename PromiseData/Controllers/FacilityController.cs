@@ -57,6 +57,7 @@ namespace PromiseData.Controllers
         [HttpGet]
         public ActionResult Create( int id)
         {
+            //if id  is null, and user is admin, provide list of operators
             var viewModel = new FacilityViewModel
             {
                 Heading = "New Site",
