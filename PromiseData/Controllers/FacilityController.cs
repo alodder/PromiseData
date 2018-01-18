@@ -201,6 +201,12 @@ namespace PromiseData.Controllers
                 SupportDictionary = SupportBoolDictionary
             };
 
+            //if user is admin, provide list of operators
+            if ((User.IsInRole("System Administrator") || User.IsInRole("Administrator")))
+            {
+                viewModel.Institutions = _institutionRepository.GetUserProviders((ClaimsPrincipal)User);
+            }
+
             viewModel.SupportsList = _context.Code_AdditionalSupportTypes.ToList();
 
             viewModel.Classrooms = _context.Classrooms.Where(c => c.ID == id).ToList();

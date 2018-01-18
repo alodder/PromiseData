@@ -301,34 +301,32 @@
 @if (Model.ChildEnrollments != null)
 {
 
-    <h3>@Model.Description Children</h3>
+    <h3>@Model.Description Children: @Model.ChildEnrollments.Count()</h3>
 
-    foreach (var childEnrollment in Model.ChildEnrollments)
+    <table class="table">
+        <tr>
+            <th>First Name</th>
+
+            <th>Last Name</th>
+
+            <th>Gender</th>
+
+            <th>Birthdate</th>
+
+            <th></th>
+        </tr>
+
+
+
+        @foreach (var childEnrollment in Model.ChildEnrollments)
     {
 
-        <div class="col-lg-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">@Html.DisplayFor(modelItem => childEnrollment.Child.Birthdate)</div>
-                <dl class="panel-body dl-horizontal">
-                    <dt>
-                        @Html.DisplayNameFor(modelItem => childEnrollment.Child.FirstName)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(modelItem => childEnrollment.Child.FirstName)
-                    </dd>
-                    <dt>
-                        @Html.DisplayNameFor(modelItem => childEnrollment.Child.LastName)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(modelItem => childEnrollment.Child.LastName)
-                    </dd>
-                    <dt>
-                        @Html.DisplayNameFor(modelItem => childEnrollment.Child.Gender)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(modelItem => childEnrollment.Child.Gender)
-                    </dd>
-                </dl>
+        <tr>
+            <td>@Html.DisplayFor(modelItem => childEnrollment.Child.FirstName)</td>
+            <td>@Html.DisplayFor(modelItem => childEnrollment.Child.LastName)</td>
+            <td>@Html.DisplayFor(modelItem => childEnrollment.Child.Gender.Description)</td>
+            <td>@childEnrollment.Child.Birthdate.GetValueOrDefault().ToShortDateString()</td>
+            <td>
                 <p class="text-right">
                     @if (true) //Model.CanEdit
                     {
@@ -336,14 +334,15 @@
                         @Html.Raw(" | ")
                         @Html.ActionLink("Details", "Details", "Child", new { id = childEnrollment.Child.ID }, null)
                         @Html.Raw(" | ")
-                        @Html.ActionLink("Remove", "RemoveFromClassroom", "Child", new { id = childEnrollment.ChildID, classroomid = childEnrollment.ClassroomID }, null)
+                        @Html.ActionLink("Unenroll", "RemoveFromClassroom", "Child", new { id = childEnrollment.ChildID, classroomid = childEnrollment.ClassroomID }, null)
                     }
                 </p>
-            </div>
-        </div>
+            </td>
+        </tr>
     }
-}
 
+    </table>
+}
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
