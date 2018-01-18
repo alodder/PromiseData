@@ -21,6 +21,33 @@ namespace PromiseData.Repositories
         }
 
         /**
+         * Return Sites (Facility) that a user can see details about or see the Children enrolled
+         **/
+        public IQueryable<Institution> GetUserInstitutions(ClaimsPrincipal User)
+        {
+            var institutions = App_context.Institutions.AsQueryable();
+
+            if (!(User.IsInRole("System Administrator")
+                || User.IsInRole("Administrator")))
+            {
+                int institutionId = _userRepository.GetUserInstitutionID(User);
+                var institution = App_context.Institutions.SingleOrDefault(i => i.Id == institutionId);
+
+                institutions = App_context.Institutions.Where(i => i.ParentHubId == institutionId);
+
+                /*if (institution.IsHub)
+                {
+                    institutions = App_context.Institutions.Where(i => i.ParentHubId == institutionId);
+                }
+                else if (institution.IsProvider)
+                {
+                    institutions = null;
+                }*/
+            }
+            return institutions;
+        }
+
+        /**
          * 
          **/
         public bool IsHub(int institutionId)

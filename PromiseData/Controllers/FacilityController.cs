@@ -17,6 +17,7 @@ namespace PromiseData.Controllers
     {
         private IdentityStoreDbContext _IdentityContext;
         private SitesRepository _sitesRepository;
+        private InstitutionRepository _institutionRepository;
 
         private UserManager<ApplicationUser> UserManager;
         private RoleManager<IdentityRole> RoleManager;
@@ -34,6 +35,7 @@ namespace PromiseData.Controllers
             _context = new ApplicationDbContext();
 
             _sitesRepository = new SitesRepository( _context);
+            _institutionRepository = new InstitutionRepository( _context);
 
             FacilityTypes = new List<string>();
             FacilityTypes.Add("Registered Family");
@@ -55,17 +57,22 @@ namespace PromiseData.Controllers
 
         [Authorize]
         [HttpGet]
-        public ActionResult Create( int id)
+        public ActionResult Create( int? id)
         {
-            //if id  is null, and user is admin, provide list of operators
             var viewModel = new FacilityViewModel
             {
                 Heading = "New Site",
                 FacilityTypes = this.FacilityTypes,
                 SupportTypes = _context.Code_AdditionalSupportTypes,
                 SupportDictionary = SupportBoolDictionary,
-                ProviderId = id
+                ProviderId = id.GetValueOrDefault()
             };
+
+            //if id  is null, and user is admin, provide list of operators
+            if(id == null)
+            {
+                viewModel.Institutions = _institutionRepository.GetUserInstitutions( (ClaimsPrincipal)User);
+            }
 
             viewModel.SupportsList = _context.Code_AdditionalSupportTypes.ToList();
 

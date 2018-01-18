@@ -107,5 +107,7 @@ namespace PromiseData.ViewModels
         public IEnumerable<WaiverRequest> WaiverRequests { get; set; }
 
         public IEnumerable<Classroom> Classrooms { get; set; }
+
+        public IEnumerable<Institution> Institutions { get; set; }
     }
 }
