@@ -83,13 +83,14 @@ namespace PromiseData.Controllers
                 Gender_ID = viewModel.GenderID.ToString()
             };
 
-            String studentId = viewModel.FirstName.Substring(0, 2);
-            studentId += "-";
+            /*String studentId = viewModel.FirstName.Substring(0, 2);
             studentId += viewModel.LastName.Substring(0, 3);
             studentId += "-";
             studentId += viewModel.Date.ToString("yyyyMMdd");
+            studentId += "-";
+            studentId += viewModel.GenderID.ToString();
 
-            child.ELD_ID = studentId;
+            child.ELD_ID = studentId.ToUpper();*/
 
             var returnChild = _context.Children.Add(child);
             _context.SaveChanges();
@@ -141,6 +142,9 @@ namespace PromiseData.Controllers
             viewModel.Languages = _context.CodeLanguage.ToList();
             viewModel.RaceEthnicityList = _context.RaceEthnic.ToList();
             viewModel.Generations = _context.Code_GenerationCode.ToList();
+
+            //viewModel.ChildEnrollments = child.ChildEnrollments;
+            viewModel.ChildEnrollments = _context.Child_Classroom_Enrollments.Where(c => c.ChildID == child.ID).ToList();
 
             viewModel.CanEdit = _childRepository.UserCanUpdateChild( (ClaimsPrincipal)User, child.ID);
 
@@ -388,7 +392,8 @@ namespace PromiseData.Controllers
             }
             
             _context.SaveChanges();
-            return RedirectToAction("Create", "Adult");
+            //return RedirectToAction("Details", new { id = viewModel.ChildID });
+            return RedirectToAction("Create", "Adult", new { id = viewModel.ChildID });
         }
 
         [HttpGet]

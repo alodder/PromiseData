@@ -396,7 +396,15 @@
         <div class="panel-heading">Enrollment</div>
         <div class="panel-body">
             <dl class="dl-horizontal">
-                <dt></dt>
+                @foreach (var enrollment in Model.ChildEnrollments)
+                {
+                    <dt>
+                        @enrollment.Classroom.Facility.Description
+                    </dt>
+                    <dd>
+                        @enrollment.Classroom.Description
+                    </dd>
+                }
 
                 @if (Model.CanEdit)
                 {

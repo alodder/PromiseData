@@ -159,5 +159,7 @@ namespace PromiseData.ViewModels
 
         public IEnumerable<ChildRace> ChildRaces { get; set; }
 
+        public virtual IEnumerable<Child_Classroom_Enrollment> ChildEnrollments { get; set; }
+
     }
 }
