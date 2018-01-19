@@ -16,17 +16,17 @@
     {
         <div class="row">
             <div class="form-group col-md-6">
-                @Html.LabelFor(model => model.ProviderId, htmlAttributes: new { @class = "control-label" })
+                @Html.LabelFor(model => model.OperatorId, htmlAttributes: new { @class = "control-label" })
                 <div class="">
-                    @Html.DropDownListFor(model => model.ProviderId, new SelectList(Model.Institutions, "Id", "LegalName"), new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.ProviderId, "", new { @class = "text-danger" })
+                    @Html.DropDownListFor(model => model.OperatorId, new SelectList(Model.Institutions, "Id", "LegalName"), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.OperatorId, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
     }
     else
     {
-        @Html.HiddenFor(model => model.ProviderId)
+        @Html.HiddenFor(model => model.OperatorId)
     }
 
 
@@ -117,7 +117,7 @@
 
     <br />
     <h4>
-        Monitoring Visits
+        Preschool Promise Program Monitoring Visits
     </h4>
     <div class="row">
         <div class="form-group">
