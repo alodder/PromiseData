@@ -65,7 +65,7 @@ namespace PromiseData.Controllers
                 FacilityTypes = this.FacilityTypes,
                 SupportTypes = _context.Code_AdditionalSupportTypes,
                 SupportDictionary = SupportBoolDictionary,
-                ProviderId = id.GetValueOrDefault()
+                OperatorId = id.GetValueOrDefault()
             };
 
             //if id  is null, and user is admin, provide list of operators
@@ -116,7 +116,7 @@ namespace PromiseData.Controllers
                 MonitoringVisit2Date = viewModel.MonitoringVisit2Date,
                 MonitoringVisit2Result = viewModel.MonitoringVisit2Result,
                 Description = viewModel.Description,
-                ProviderID = viewModel.ProviderId,
+                ProviderID = viewModel.OperatorId,
                 LicenseNumber = viewModel.LicenseNumber,
             };
 
@@ -162,7 +162,7 @@ namespace PromiseData.Controllers
             };
 
             viewModel.Classrooms = _context.Classrooms.Where(c => c.Facility_ID == id).ToList();
-            viewModel.Provider = _context.Institutions.SingleOrDefault(i => i.Id == facility.ProviderID);
+            viewModel.Operator = _context.Institutions.SingleOrDefault(i => i.Id == facility.ProviderID);
             var facilitySupports = _context.FacilitySupports.Where(s=> s.FacilityID == id).Select(s => s.SupportTypesCode).ToList();
             viewModel.Supports = _context.Code_AdditionalSupportTypes.Where(support => facilitySupports.Contains(support.Code)).ToList();
 
@@ -210,7 +210,7 @@ namespace PromiseData.Controllers
             viewModel.SupportsList = _context.Code_AdditionalSupportTypes.ToList();
 
             viewModel.Classrooms = _context.Classrooms.Where(c => c.ID == id).ToList();
-            viewModel.Provider = _context.Institutions.SingleOrDefault(i => i.Id == facility.ProviderID);
+            viewModel.Operator = _context.Institutions.SingleOrDefault(i => i.Id == facility.ProviderID);
 
             var facilitySupports = _context.FacilitySupports.Where(s => s.FacilityID == id).Select(s => s.SupportTypesCode).ToList();
             viewModel.Supports = _context.Code_AdditionalSupportTypes.Where(support => facilitySupports.Contains(support.Code)).ToList();

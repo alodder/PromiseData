@@ -78,7 +78,7 @@ namespace PromiseData.ViewModels
         [DisplayName("Hub")]
         public bool IsHub { get; set; }
 
-        [DisplayName("Provider")]
+        [DisplayName("Operator")]
         public bool IsProvider { get; set; }
 
         [DisplayName("Parent Hub")]
