@@ -158,6 +158,16 @@
                     </div>
                 </div>
 
+            <div class="row">
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(model => model.OperatorType, htmlAttributes: new { @class = "control-label" })
+                    <div class="">
+                        @Html.DropDownListFor(model => model.OperatorType, new SelectList(Model.OperatorTypes), new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.OperatorType, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
 
 </fieldset>
 

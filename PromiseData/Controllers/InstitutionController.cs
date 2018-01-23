@@ -21,7 +21,6 @@ namespace PromiseData.Controllers
         public InstitutionController()
         {
             _context = new ApplicationDbContext();
-            //UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_context));
         }
 
         // GET: Institution

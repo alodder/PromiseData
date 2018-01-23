@@ -8,10 +8,16 @@
 
 <div>
     <h4>Details</h4>
+    <p>
+        @if (Model.CanEdit)
+        {
+            @Html.ActionLink("Edit Details", "Edit", new { id = Model.ID }, new { @class = "btn btn-default" })
+        }
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+    </p>
     <hr />
-
     <div class="row">
-        <div class="panel col-lg-6">
+        <div class="panel col-lg-5">
             <div class="panel-heading">Identification</div>
             <div class="panel-body">
                 <dl class="dl-horizontal">
@@ -20,6 +26,7 @@
                     </dt>
 
                     <dd>
+                        @Html.Raw((Model.ELD_ID == null ? "<i class=\"text-danger\">Missing</i>" : Model.ELD_ID))
                         @Html.DisplayFor(model => model.ELD_ID)
                     </dd>
 
@@ -28,7 +35,7 @@
                     </dt>
 
                     <dd>
-                        @Html.DisplayFor(model => model.SSID)
+                        @Html.Raw((Model.SSID == null ? "<i class=\"text-danger\">Missing</i>" : Model.SSID))
                     </dd>
 
                     <dt>
@@ -36,7 +43,7 @@
                     </dt>
 
                     <dd>
-                        @Html.DisplayFor(model => model.LastName)
+                        @Html.Raw((Model.LastName == null ? "<i class=\"text-danger\">Missing</i>" : Model.LastName))
                     </dd>
 
                     <dt>
@@ -44,7 +51,7 @@
                     </dt>
 
                     <dd>
-                        @Html.DisplayFor(model => model.FirstName)
+                        @Html.Raw((Model.FirstName == null ? "<i class=\"text-danger\">Missing</i>" : Model.FirstName))
                     </dd>
 
                     <dt>
@@ -52,7 +59,7 @@
                     </dt>
 
                     <dd>
-                        @Html.DisplayFor(model => model.MiddleName)
+                        @Html.Raw((Model.MiddleName == null ? "<i class=\"text-danger\">Missing</i>" : Model.MiddleName))
                     </dd>
 
                     <dt>
@@ -60,13 +67,13 @@
                     </dt>
 
                     <dd>
-                        @Html.DisplayFor(model => model.Generation.Description)
+                        @Html.Raw((Model.Generation == null ? "<i class=\"text-danger\">Missing</i>" : Model.Generation.Description))
                     </dd>
                 </dl>
             </div>
         </div>
 
-        <div class="panel col-lg-6">
+        <div class="panel col-lg-offset-1 col-lg-5">
             <div class="panel-heading">Additional Name Information</div>
             <div class="panel-body">
                 <dl class="dl-horizontal">
@@ -105,45 +112,6 @@
             </div>
         </div>
     </div>
-    
-
-    <div class="panel clearfix">
-        <div class="panel-heading">Address</div>
-        <div class="panel-body">
-            <dl class="dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => model.Address_ID)
-                </dt>
-                <dd>
-                    @if (Model.Address_ID >= 0)
-                    {
-                        Html.Raw("<address>");
-                        Model.Address.Address1.ToString();
-                        Model.Address.Address2.ToString();
-                        Model.Address.Address3.ToString();
-
-                        Model.Address.City.ToString();
-                        Model.Address.LU_State.ToString();
-
-                        Model.Address.ZipCode.ToString();
-                        Html.Raw("</address>");
-                    }
-                    else
-                    {
-                        <i>No Address</i>
-                    }
-                </dd>
-
-                @if (Model.CanEdit)
-                {
-                    @Html.Raw("<dt>");
-                    @Html.ActionLink("Change", "ChildAddress", new { id = Model.ID })
-                    @Html.Raw("</dt>");
-                }
-
-            </dl>
-        </div>
-    </div>
 
     <div class="panel">
         <div class="panel-heading">Details</div>
@@ -164,15 +132,16 @@
                 <dd>
                     @Html.DisplayFor(model => model.Gender.Description)
                 </dd>
-
+            </dl>
+            <dl class="dl-horizontal">
                 <dt>
                     Race/Ethnicity
                 </dt>
 
                 <dd>
-                    @foreach(var childrace in Model.ChildRaces)
+                    @foreach (var childrace in Model.ChildRaces)
                     {
-                        @Model.RaceEthnicityList.Single( r=> r.Id == childrace.RaceID).Description
+                        @Model.RaceEthnicityList.Single(r => r.Id == childrace.RaceID).Description
                         @Html.Raw("<br/>")
                     }
                     @if (Model.CanEdit)
@@ -180,6 +149,45 @@
                         @Html.ActionLink("Edit", "EditRace", new { id = Model.ID })
                     }
                 </dd>
+            </dl>
+        </div>
+    </div>
+
+
+    <div class="panel clearfix">
+        <div class="panel-heading">Address</div>
+        <div class="panel-body">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Address_ID)
+                </dt>
+                <dd>
+                    @if (Model.Address != null)
+                    {
+                        String address = (Model.Address.Address1 == null ? "" : Model.Address.Address1);
+                        address += (Model.Address.Address2 == null ? "" : "<br>" + Model.Address.Address2);
+                        address += (Model.Address.Address3 == null ? "" : "<br>" + Model.Address.Address3);
+                        address += (Model.Address.City == null ? "" : "<br>" + Model.Address.City);
+                        address += (Model.Address.LU_State == null ? "" : " " + Model.Address.LU_State.Abbreviation);
+                        address += (Model.Address.ZipCode == null ? "" : " " + Model.Address.ZipCode);
+
+                        @Html.Raw("<address>");
+                        @Html.Raw(address);
+                        @Html.Raw("</address>");
+                    }
+                    else
+                    {
+                        <i>No Address</i>
+                    }
+                </dd>
+
+                @if (Model.CanEdit)
+                {
+                    @Html.Raw("<dt>");
+                    @Html.ActionLink("Change", "ChildAddress", new { id = Model.ID })
+                    @Html.Raw("</dt>");
+                }
+
             </dl>
         </div>
     </div>
@@ -416,16 +424,7 @@
         </div>
     </div>
 
-    </div>
-    <p>
-        @if (Model.CanEdit)
-        {
-            @Html.ActionLink("Edit", "Edit", new { id = Model.ID })
-            @Html.Raw(" | ");
-        }
-        
-        @Html.ActionLink("Back to List", "Index")
-    </p>
+</div>
 
 @section Scripts
 {

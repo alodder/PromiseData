@@ -87,6 +87,26 @@ namespace PromiseData.ViewModels
         [DisplayName("License #")]
         public string LicenseNumber { get; set; }
 
+        [DisplayName("Operator Type")]
+        public string OperatorType { get; set; }
+
+        public List<String> OperatorTypes {
+            get
+            {
+                List < String > types = new List<String>();
+                types.Add("Child care provider(center and home)");
+                types.Add("Community-based organization that provides a preschool program");
+                types.Add("Public School");
+                types.Add("Education Service District");
+                types.Add("Head Start / OPK program");
+                types.Add("Private preschool");
+                types.Add("Public charter school");
+                types.Add("Relief Nursery");
+                types.Add("Other");
+                return types;
+            }
+        }
+
         public IEnumerable<Institution> Providers { get; set; }
 
         public IEnumerable<Facility> Sites { get; set; }

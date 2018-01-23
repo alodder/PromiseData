@@ -55,8 +55,13 @@ namespace PromiseData.Models
         [DisplayName("Parent Hub")]
         public int? ParentHubId { get; set; }
 
+        [StringLength(25)]
         [DisplayName("License #")]
         public string LicenseNumber { get; set; }
+
+        [StringLength(25)]
+        [DisplayName("Operator Type")]
+        public string Type { get; set; }
 
         [ForeignKey("ParentHubId")]
         public virtual Institution ParentHub { get; set; }
