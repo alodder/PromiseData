@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using PromiseData.Models;
 using PromiseData.ViewModels;
+using System.Net;
 
 namespace PromiseData.Controllers
 {
@@ -47,8 +48,26 @@ namespace PromiseData.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        // GET: Family
-        public ActionResult Index()
+        [HttpGet]
+        public ActionResult Edit( int id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var family = _context.Families.Single(a => a.ID == id);
+            if (family == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View( family);
+        }
+
+
+
+// GET: Family
+public ActionResult Index()
         {
             var allTheFamilies = _context.Families;
             return View(allTheFamilies);

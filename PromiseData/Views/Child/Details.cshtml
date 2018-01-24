@@ -368,6 +368,76 @@
     </div>
 
     <div class="panel">
+        <div class="panel-heading">Family Eligibility</div>
+        <div class="panel-body">
+            <dl class="dl-horizontal">                
+                <dt>
+                    @Html.DisplayNameFor(model => model.Family.ChildrenInHome)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Family.ChildrenInHome)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Family.HouseholdSize)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Family.HouseholdSize)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Family.Income)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Family.Income)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Family.MonthlyCostAdditionalServices)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Family.MonthlyCostAdditionalServices)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Family.SNAP)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Family.SNAP)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Family.SSI)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Family.SSI)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Family.TANF)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Family.TANF)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Family.WIC)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Family.WIC)
+                </dd>
+
+                @if (Model.CanEdit)
+                {
+                    @Html.Raw("<dt>");
+                    @Html.ActionLink("Update", "Edit", "Family", new { id = Model.FamilyID })
+                    @Html.Raw("</dt>");
+                }
+            </dl>
+        </div>
+    </div>
+
+    <div class="panel">
         <div class="panel-heading">Adults</div>
         <div class="panel-body">
                 @foreach (var adult in Model.Adults)
