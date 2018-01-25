@@ -48,6 +48,7 @@
                         new List<SelectListItem> {
                         new SelectListItem { Text="Lead Teacher", Value = "Lead Teacher"},
                         new SelectListItem { Text="Assistant Teacher", Value = "Assistant Teacher"},
+                        new SelectListItem { Text="Teacher Aide", Value = "Teacher Aide"},
                         new SelectListItem { Text="Support Staff", Value = "Support Staff"}
                     }, "Value", "Text"), new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.TeacherType, "", new { @class = "text-danger" })
@@ -129,7 +130,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-2">
                 @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", type = "date" } })
                 @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
             </div>
@@ -137,7 +138,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.TeacherSalary, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-2">
                 @Html.EditorFor(model => model.TeacherSalary, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.TeacherSalary, "", new { @class = "text-danger" })
             </div>
@@ -153,7 +154,7 @@
             </div>
 
             <div class="form-group col-md-2">
-                @Html.LabelFor(model => model.CDA, htmlAttributes: new { @class = "control-label col-md-10" })
+                @Html.LabelFor(model => model.CDA, htmlAttributes: new { @class = "control-label" })
                 <div class=" col-md-2">
                     <div class="checkbox">
                         @Html.EditorFor(model => model.CDA)
