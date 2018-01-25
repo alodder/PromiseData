@@ -401,7 +401,7 @@
     <Content Include="Views\Facility\Edit.cshtml" />
     <Content Include="Views\Child\Race.cshtml" />
     <Content Include="Views\Adult\LangRace.cshtml" />
-    <Content Include="Views\Family\Create.cshtml" />
+    <Content Include="Views\Family\FamilyForm.cshtml" />
     <Content Include="Views\Family\Index.cshtml" />
     <Content Include="Views\User\List.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />

@@ -134,6 +134,7 @@ namespace PromiseData.Controllers
             viewModel.Child_IFSP = _context.Child_IFSPs.Where(c => c.ChildID == child.ID).ToList();
             viewModel.Child_Special_Needs = _context.Child_Special_Needs.Where(c => c.ChildID == child.ID).ToList();
 
+            viewModel.FamilyID = child.FamilyID.GetValueOrDefault();
             viewModel.Family = _context.Families.SingleOrDefault( f => f.ID == child.FamilyID);
             viewModel.Adults = _context.Adults.Where( a => a.FamilyID == child.FamilyID);
 

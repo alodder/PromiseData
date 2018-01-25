@@ -6,10 +6,12 @@
 
 <h2>Add Family</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm(Model.Action, "Family"))
 {
     @Html.AntiForgeryToken()
-    
+
+    @Html.HiddenFor(model => model.ID)
+
     <div class="form-horizontal">
         <h4>Family</h4>
         <hr />
@@ -111,7 +113,7 @@
                                 Income Tax Form 1040 or 1040A
                             </th>
                             <td>
-                                <input type="number" class="js-sum"/>
+                                <input type="number" class="js-sum" />
                             </td>
                         </tr>
                         <tr>
@@ -119,7 +121,7 @@
                                 W-2 Form
                             </th>
                             <td>
-                                <input type="number"  class="js-sum"/>
+                                <input type="number" class="js-sum" />
                             </td>
                         </tr>
                         <tr>
@@ -127,7 +129,7 @@
                                 Social Security
                             </th>
                             <td>
-                                <input type="number"  class="js-sum"/>
+                                <input type="number" class="js-sum" />
                             </td>
                         </tr>
                         <tr>
@@ -135,7 +137,7 @@
                                 Unemployment Compensation
                             </th>
                             <td>
-                                <input type="number"  class="js-sum"/>
+                                <input type="number" class="js-sum" />
                             </td>
                         </tr>
                         <tr>
@@ -143,7 +145,7 @@
                                 Paystubs or Vouchers
                             </th>
                             <td>
-                                <input type="number"  class="js-sum"/>
+                                <input type="number" class="js-sum" />
                             </td>
                         </tr>
                         <tr>
@@ -151,7 +153,7 @@
                                 Letter from Employers
                             </th>
                             <td>
-                                <input type="number"  class="js-sum"/>
+                                <input type="number" class="js-sum" />
                             </td>
                         </tr>
                         <tr>
@@ -159,7 +161,7 @@
                                 Other
                             </th>
                             <td>
-                                <input type="number"  class="js-sum"/>
+                                <input type="number" class="js-sum" />
                             </td>
                         </tr>
                     </tbody>
@@ -186,7 +188,7 @@
                 </div>
             </div>
         </div>
-        
+
 
         <div class="form-group">
             <div class="col-md-offset-10 col-md-2">
@@ -203,15 +205,14 @@
 @section scripts
 {
     <script>
-        function sumIncomeWorksheet()
-        {
+        function sumIncomeWorksheet() {
             var sum = 0;
             $(".js-sum").each(function () {
                 if (!isNaN(this.value) && this.value.length != 0) {
                     sum += parseInt(this.value);
                 }
             })
-            
+
             return sum;
         }
 

@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
+using System.Web.Mvc;
+using PromiseData.Controllers;
 using PromiseData.Models;
 
 namespace PromiseData.ViewModels
@@ -11,6 +14,20 @@ namespace PromiseData.ViewModels
     public class FamilyViewModel
     {
         public int ID { get; set; }
+
+        public String Action
+        {
+            get
+            {
+                Expression<Func<FamilyController, ActionResult>> update =
+                    (c => c.Update(this));
+                Expression<Func<FamilyController, ActionResult>> create =
+                    (c => c.Create(this));
+
+                var action = (ID != 0) ? update : create;
+                return (action.Body as MethodCallExpression).Method.Name;
+            }
+        }
 
         [DisplayName("Household Size")]
         public int HouseholdSize { get; set; }

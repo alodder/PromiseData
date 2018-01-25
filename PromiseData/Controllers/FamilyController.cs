@@ -19,9 +19,9 @@ namespace PromiseData.Controllers
         }
 
         [HttpGet]
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
-            return View( );
+            return View("FamilyForm");
         }
 
         [HttpPost]
@@ -61,7 +61,42 @@ namespace PromiseData.Controllers
                 return HttpNotFound();
             }
 
-            return View( family);
+            FamilyViewModel viewModel = new FamilyViewModel
+            {
+                ID = family.ID,
+                HouseholdSize = family.HouseholdSize.GetValueOrDefault(),
+                ChildrenInHome = family.ChildrenInHome.GetValueOrDefault(),
+                Income = family.Income.GetValueOrDefault(),
+                SNAP = family.SNAP,
+                WIC = family.WIC,
+                TANF = family.TANF,
+                SSI = family.SSI,
+                MonthlyCostAdditionalServices = family.MonthlyCostAdditionalServices.GetValueOrDefault()
+            };
+
+            return View("FamilyForm", viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Update(FamilyViewModel viewModel)
+        {
+            var family = _context.Families.Single(a => a.ID == viewModel.ID);
+            if (family == null)
+            {
+                return HttpNotFound();
+            }
+
+            family.HouseholdSize = viewModel.HouseholdSize;
+            family.ChildrenInHome = viewModel.ChildrenInHome;
+            family.Income = viewModel.Income;
+            family.SNAP = viewModel.SNAP;
+            family.WIC = viewModel.WIC;
+            family.TANF = viewModel.TANF;
+            family.SSI = viewModel.SSI;
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Family");
         }
 
 
