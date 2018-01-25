@@ -8,11 +8,11 @@
 
 <div>
     <ul class="breadcrumb">
-        @if (!Model.Provider.IsHub)
+        @if (!Model.Operator.IsHub)
         {
-            <li>@Html.ActionLink(Model.Provider.ParentHub.LegalName, "Details", "Institution", new { id = Model.Provider.ParentHubId }, null)</li>
+            <li>@Html.ActionLink(Model.Operator.ParentHub.LegalName, "Details", "Institution", new { id = Model.Operator.ParentHubId }, null)</li>
         }
-        <li>@Html.ActionLink(Model.Provider.LegalName, "Details", "Institution", new { id = Model.Provider.Id }, null)</li>
+        <li>@Html.ActionLink(Model.Operator.LegalName, "Details", "Institution", new { id = Model.Operator.Id }, null)</li>
 
         <li class="active">@Html.DisplayFor(model => model.Description)</li>
     </ul>
@@ -21,10 +21,20 @@
     <hr />
 
     <ul class="list-group">
-        <li class="list-group-item">
-            @Html.DisplayNameFor(model => model.LicenseNumber)
-            <span class="pull-right">@Html.DisplayFor(model => model.LicenseNumber)</span>
-        </li>
+        @if (Model.Unlicensed)
+        {
+            <li class="list-group-item">
+                @Html.DisplayNameFor(model => model.Unlicensed)
+                <span class="pull-right">Licensing in process</span>
+            </li>
+        }
+        else
+        {
+            <li class="list-group-item">
+                @Html.DisplayNameFor(model => model.LicenseNumber)
+                <span class="pull-right">@Html.DisplayFor(model => model.LicenseNumber)</span>
+            </li>
+        }
         <li class="list-group-item">
             <span class="badge">@Html.DisplayFor(model => model.ProviderFacilityType)</span>
             @Html.DisplayNameFor(model => model.ProviderFacilityType)

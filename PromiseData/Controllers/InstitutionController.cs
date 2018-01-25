@@ -135,7 +135,7 @@ namespace PromiseData.Controllers
             }
 
             var institution = _context.Institutions.Single(i => i.Id == viewModel.Id);
-            institution.LicenseNumber = viewModel.LicenseNumber;
+            institution.LicenseNumber = (viewModel.LicenseNumber == null ? "" : viewModel.LicenseNumber);
             institution.LegalName = viewModel.LegalName;
             institution.Region = viewModel.Region;
             institution.BackboneOrg = viewModel.BackboneOrg;
@@ -144,19 +144,24 @@ namespace PromiseData.Controllers
             institution.IsProvider = viewModel.IsProvider;
             institution.ActiveDate = viewModel.ActiveDate;
 
-            var director = _context.ContactAgents.Single(i => i.AgentId == institution.DirectorAgentId);
+            if (viewModel.IsProvider)
+            {
+                institution.Type = viewModel.OperatorType;
+            }
+
+            /*var director = _context.ContactAgents.Single(i => i.AgentId == institution.DirectorAgentId);
             director.AgentName = viewModel.DirectorAgent.AgentName;
             director.AgentTitle = viewModel.DirectorAgent.AgentTitle;
             director.AgentEmail = viewModel.DirectorAgent.AgentEmail;
             director.AgentPhone = viewModel.DirectorAgent.AgentPhone;
-            director.AgentFax = viewModel.DirectorAgent.AgentFax;
+            director.AgentFax = viewModel.DirectorAgent.AgentFax;*/
 
-            var contact = _context.ContactAgents.Single(i => i.AgentId == institution.ContactAgentId);
+            /*var contact = _context.ContactAgents.Single(i => i.AgentId == institution.ContactAgentId);
             contact.AgentName = viewModel.ContactAgent.AgentName;
             contact.AgentTitle = viewModel.ContactAgent.AgentTitle;
             contact.AgentEmail = viewModel.ContactAgent.AgentEmail;
             contact.AgentPhone = viewModel.ContactAgent.AgentPhone;
-            contact.AgentFax = viewModel.ContactAgent.AgentFax;
+            contact.AgentFax = viewModel.ContactAgent.AgentFax;*/
 
             var location = _context.Addresses.Single(i => i.ID == institution.LocationAddressId);
             location.Address1 = viewModel.AddressPhysical.Address1;
@@ -244,6 +249,7 @@ namespace PromiseData.Controllers
             viewModel.LegalName = institution.LegalName;
             viewModel.Region = institution.Region;
             viewModel.BackboneOrg = institution.BackboneOrg;
+            viewModel.OperatorType = institution.Type;
             viewModel.WebAddress = institution.WebAddress;
             viewModel.ActiveDate = institution.ActiveDate;
             viewModel.EndDate = institution.EndDate;

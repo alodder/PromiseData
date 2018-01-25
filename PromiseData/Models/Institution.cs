@@ -59,7 +59,7 @@ namespace PromiseData.Models
         [DisplayName("License #")]
         public string LicenseNumber { get; set; }
 
-        [StringLength(25)]
+        [StringLength(100)]
         [DisplayName("Operator Type")]
         public string Type { get; set; }
 

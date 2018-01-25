@@ -118,6 +118,7 @@ namespace PromiseData.Controllers
                 Description = viewModel.Description,
                 ProviderID = viewModel.OperatorId,
                 LicenseNumber = viewModel.LicenseNumber,
+                Unlicensed = viewModel.Unlicensed
             };
 
             var facilityId = _context.Facilities.Add(facility).ID;
@@ -158,7 +159,8 @@ namespace PromiseData.Controllers
                 MonitoringVisit2Date = facility.MonitoringVisit2Date,
                 MonitoringVisit2Result = facility.MonitoringVisit2Result,
                 Description = facility.Description,
-                LicenseNumber = facility.LicenseNumber
+                LicenseNumber = facility.LicenseNumber,
+                Unlicensed = facility.Unlicensed
             };
 
             viewModel.Classrooms = _context.Classrooms.Where(c => c.Facility_ID == id).ToList();
@@ -196,6 +198,7 @@ namespace PromiseData.Controllers
                 MonitoringVisit2Result = facility.MonitoringVisit2Result,
                 Description = facility.Description,
                 LicenseNumber = facility.LicenseNumber,
+                Unlicensed = facility.Unlicensed,
                 FacilityTypes = this.FacilityTypes,
                 SupportTypes = _context.Code_AdditionalSupportTypes,
                 SupportDictionary = SupportBoolDictionary
@@ -247,6 +250,7 @@ namespace PromiseData.Controllers
             facility.MonitoringVisit2Result = viewModel.MonitoringVisit2Result;
             facility.Description = viewModel.Description;
             facility.LicenseNumber = viewModel.LicenseNumber;
+            facility.Unlicensed = viewModel.Unlicensed;
 
             _context.FacilitySupports.RemoveRange(_context.FacilitySupports.Where(x => x.FacilityID == facility.ID));
 

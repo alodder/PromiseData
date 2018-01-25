@@ -91,6 +91,9 @@ namespace PromiseData.ViewModels
         [DisplayName("Child Care License")]
         public string LicenseNumber { get; set; }
 
+        [DisplayName("Unlicensed")]
+        public bool Unlicensed { get; set; }
+
         [DisplayName("Operator")]
         public Institution Operator { get; set; }
 

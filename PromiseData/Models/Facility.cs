@@ -67,6 +67,9 @@ namespace PromiseData.Models
         [DisplayName("Child Care License")]
         public string LicenseNumber { get; set; }
 
+        [DisplayName("Unlicensed")]
+        public bool Unlicensed { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Classroom> Classrooms { get; set; }
 

@@ -36,7 +36,14 @@
             @Html.TextBoxFor(m => m.LicenseNumber, new { @class = "form-control", placeholder = "CC123456", autofocus = "autofocus" })
             @Html.ValidationMessageFor(m => m.LicenseNumber)
         </div>
+        <div class="form-group col-md-6">
+            @Html.LabelFor(m => m.Unlicensed)
+            @Html.EditorFor(m => m.Unlicensed, new { @class = "form-control" })
+            <p>Licensing in process</p>
+            @Html.ValidationMessageFor(m => m.Unlicensed)
+        </div>
     </div>
+
     <div class="row">
         <div class="form-group col-md-6">
             @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
