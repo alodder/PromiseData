@@ -15,11 +15,16 @@ namespace PromiseData.Controllers
     {
         private ApplicationDbContext _context;
         private ClassroomRepository _classroomRepository;
+        private InstitutionRepository _institutionRepository;
+        private ProviderRepository _providerRepository;
+
 
         public ClassroomController()
         {
             _context = new ApplicationDbContext();
             _classroomRepository = new ClassroomRepository( _context);
+            _institutionRepository = new InstitutionRepository( _context);
+            _providerRepository = new ProviderRepository( _context);
         }
 
         private void BuildCurriculaDictionary(ClassroomViewModel viewModel)
@@ -83,25 +88,34 @@ namespace PromiseData.Controllers
         [HttpGet]
         public ActionResult Create(int? id)
         {
-            if (id == null)
+            if ((id == null) && !(User.IsInRole("Administrator") || User.IsInRole("System Administrator")))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var facility = _context.Facilities.Single(a => a.ID == id);
-            if (facility == null)
+            var facility = _context.Facilities.SingleOrDefault(a => a.ID == id);
+            if ((facility == null) && !(User.IsInRole("Administrator") || User.IsInRole("System Administrator")))
             {
                 return HttpNotFound();
             }
 
             var viewModel = new ClassroomViewModel
             {
-                Facilities = _context.Facilities,
+                Facilities = _providerRepository.GetUserProviders( (ClaimsPrincipal) User),
+                Operators = _institutionRepository.GetUserProviders( (ClaimsPrincipal)User),
                 SessionTypes = _context.Code_ProgramSessionType,
-                Facility_ID = facility.ID,
                 Curricula = _context.Curricula,
                 AssessmentTools = _context.AssessmentTools,
                 ScreeningTools = _context.ScreeningTools
             };
+
+            if(facility == null)
+            {
+                viewModel.Facility_ID = 0;
+            }
+            else
+            {
+                viewModel.Facility_ID = facility.ID;
+            }
 
             BuildCurriculaDictionary( viewModel);
             BuildAssessmentsDictionary( viewModel);
@@ -203,7 +217,8 @@ namespace PromiseData.Controllers
             var viewModel = new ClassroomViewModel
             {
                 ID = classroom.ID,
-                Facilities = _context.Facilities,
+                Facilities = _providerRepository.GetUserProviders( (ClaimsPrincipal) User),
+                Operators = _institutionRepository.GetUserProviders( (ClaimsPrincipal)User),
                 SessionTypes = _context.Code_ProgramSessionType,
                 Facility_ID = classroom.Facility_ID.GetValueOrDefault(),
                 Program_ID = classroom.Program_ID.GetValueOrDefault(),
@@ -365,6 +380,19 @@ namespace PromiseData.Controllers
                 }
             }
             _context.SaveChanges();
+        }
+
+        //[HttpGet]
+        public JsonResult getProviders(int id)
+        {
+            var providers = _context.Facilities
+                .Where(c => c.ProviderID == id)
+                .Select(c => new {
+                    ID = c.ID,
+                    Description = c.Description
+                })
+                .ToList();
+            return Json(providers, JsonRequestBehavior.AllowGet);
         }
 
         [Authorize]

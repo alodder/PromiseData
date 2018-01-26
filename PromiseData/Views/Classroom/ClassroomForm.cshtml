@@ -13,6 +13,33 @@
 
         @Html.HiddenFor(model => model.ID)
 
+
+        @if (Model.Facility_ID == 0)
+        {
+            <div class="panel panel-default">
+                <div class="panel panel-heading">
+                    Provider
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        @Html.Label("Operator", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-3">
+                            @Html.DropDownList("Operator", new SelectList(Model.Operators, "Id", "LegalName"), new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Facility_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-3">
+                            @Html.DropDownListFor(model => model.Facility_ID, new SelectList(Model.Facilities, "ID", "Description"), new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Facility_ID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+
         <div class="form-group col-md-4">
             @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-6" })
             <div class="col-md-6">
@@ -21,23 +48,15 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Facility_ID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-3">
-                @Html.DropDownListFor(model => model.Facility_ID, new SelectList(Model.Facilities, "ID", "Description"), new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Facility_ID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
         <fieldset class="row">
             @*
-    <div class="form-group col-md-4">
-        @Html.LabelFor(model => model.Program_ID, htmlAttributes: new { @class = "control-label col-md-6" })
-        <div class="col-md-6">
-            @Html.DropDownListFor(model => model.Program_ID, new SelectList(Model.Services, "Code", "Description"), new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Program_ID, "", new { @class = "text-danger" })
-        </div>
-    </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.Program_ID, htmlAttributes: new { @class = "control-label col-md-6" })
+                <div class="col-md-6">
+                    @Html.DropDownListFor(model => model.Program_ID, new SelectList(Model.Services, "Code", "Description"), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Program_ID, "", new { @class = "text-danger" })
+                </div>
+            </div>
             *@
             <div class="form-group col-md-4">
                 @Html.LabelFor(model => model.ProgramSessionType_ID, htmlAttributes: new { @class = "control-label col-md-6" })
@@ -242,3 +261,28 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+
+@section Scripts
+{
+    <script type="text/javascript">
+        var url = '@Url.Action("getProviders", "Classroom")'; // Don't hard code your url's!
+
+        var facilities = $('#Facility_ID'); // cache it
+        $("#Operator").change( ProviderList);
+
+        function ProviderList(jQuery) {
+            var id = $("#Operator").val(); // Use $(this) so you don't traverse the DOM again
+            $.getJSON(url, { id: id }, function (response) {
+                facilities.empty(); // remove any existing options
+                $.each(response, function (index, item) { // item is now an object containing properties ID and Text
+                    facilities.append($('<option></option>').text(item.Description).val(item.ID));
+                });
+            });
+        }
+
+
+        $(document).ready( ProviderList);
+    </script>
+}
+  

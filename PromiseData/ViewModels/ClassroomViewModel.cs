@@ -37,7 +37,7 @@ namespace PromiseData.ViewModels
 
         public string Heading { get; set; }
 
-        [DisplayName("Facility")]
+        [DisplayName("Provider")]
         public int Facility_ID { get; set; }
 
         [DisplayName("Program")]
@@ -85,7 +85,7 @@ namespace PromiseData.ViewModels
         [DisplayName("Upsize")]
         public byte[] upsize_ts { get; set; }
 
-        [DisplayName("Descriptor")]
+        [DisplayName("Name")]
         public string Description { get; set; }
 
         [DisplayName("Classroom Capacity")]
@@ -109,6 +109,8 @@ namespace PromiseData.ViewModels
         public Dictionary<int, bool> ClassroomAssessments { get; set; }
         //dictionary for checkbox values
         public Dictionary<int, bool> ClassroomScreenings { get; set; }
+
+        public IEnumerable<Institution> Operators { get; set; }
 
         public IEnumerable<Facility> Facilities { get; set; }
 

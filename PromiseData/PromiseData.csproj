@@ -198,6 +198,7 @@
     <Compile Include="Models\ClassroomAssessment.cs" />
     <Compile Include="Models\Curricula.cs" />
     <Compile Include="Models\ClassroomCurricula.cs" />
+    <Compile Include="Repositories\ProviderRepository.cs" />
     <Compile Include="Repositories\TeachersRepository.cs" />
     <Compile Include="Repositories\WaiverRepository.cs" />
     <Compile Include="Repositories\ChildRepository.cs" />

@@ -13,6 +13,7 @@ namespace PromiseData.Models
         //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ID { get; set; }
 
+        [DisplayName("Provider")]
         public int? Facility_ID { get; set; }
 
         public int? Program_ID { get; set; }
@@ -67,6 +68,7 @@ namespace PromiseData.Models
         [MaxLength(8)]
         public byte[] upsize_ts { get; set; }
 
+        [DisplayName("Name")]
         public string Description { get; set; }
 
         public virtual Code_ProgramSessionType Code_ProgramSessionType { get; set; }
