@@ -33,6 +33,8 @@ namespace PromiseData.ViewModels
 
         public IEnumerable<Institution> Institutions { get; set; }
 
+        public IEnumerable<Facility> Providers { get; set; }
+
         public IEnumerable<IdentityUserRole> CurrentRoles { get; set; }
 
         public string[] RoleNames { get; set; }

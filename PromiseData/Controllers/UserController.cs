@@ -239,6 +239,55 @@ namespace PromiseData.Controllers
             return View(userAndInstitution);
         }
 
+
+        /**
+         * A function for assiging provider users to a specific provider/Facility/Site id
+         * */
+        [Authorize(Roles = "System Administrator, Administrator, Hub")]
+        [HttpGet]
+        public ActionResult AssignProvider(string id)
+        {
+            var userAndProvider = new UserFormViewModel();
+            var user = new ApplicationUser();
+            try
+            {
+                user = UserManager.Users.Single(a => a.Id == id);
+                var identity = User.Identity as ClaimsIdentity;
+                IdentityUserClaim claim = new IdentityUserClaim();
+
+                if (user.Claims.Any())
+                {
+                    claim = (from c in user.Claims
+                             where c.ClaimType == "Provider"
+                             select c).Single();
+                }
+
+                userAndProvider.User = user;
+
+                //Institution where user claim matches id
+                userAndProvider.InstitutionId = claim.ClaimValue;
+
+                userAndProvider.UserName = user.UserName;
+                userAndProvider.UserId = user.Id;
+                userAndProvider.Institutions = App_context.Institutions.ToList();
+
+                userAndProvider.ListInstitutionNames = new String[userAndProvider.Institutions.ToArray().Length];
+
+                int i = 0;
+                foreach (Institution institution in userAndProvider.Institutions)
+                {
+                    userAndProvider.ListInstitutionNames[i] = institution.LegalName;
+                    i++;
+                }
+            }
+            catch (Exception e)
+            {
+                ViewBag.Error = true;
+                ViewBag.ErrorMessage = e.ToString();
+            }
+            return View(userAndProvider);
+        }
+
         /**
          * remove Institution/ then add selected institution
          */
