@@ -28,7 +28,7 @@ namespace PromiseData.Controllers
             _context = new IdentityStoreDbContext();
 
             RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new IdentityStoreDbContext()));
-            UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_context));
+            UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new IdentityStoreDbContext()));
         }
 
         [HttpPost]
@@ -195,20 +195,20 @@ namespace PromiseData.Controllers
 
 
         /**
+         *  Handle passing null!!
          * combine form for assigning institution(hub or operator) and provider based on user role
          * should first check if user role is assigned, then base form on role
          */
         [Authorize(Roles = "System Administrator, Administrator")]
         [HttpGet]
-        public ActionResult AssignInstitution(string userid)
+        public ActionResult AssignInstitution(string id)
         {
             //var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_context));
             var userAndInstitution = new UserFormViewModel();
             var user = new ApplicationUser();
 
-            try
-            {
-                user = UserManager.Users.Single(a => a.Id == userid);
+
+                user = UserManager.Users.Single(a => a.Id == id);
                 var providerRoleId = RoleManager.Roles.Where(r => r.Name == "Provider").Select(r => r.Id);
                 var hubRoleId = RoleManager.Roles.Where(r => r.Name == "Hub").Select(r => r.Id);
 
@@ -268,12 +268,7 @@ namespace PromiseData.Controllers
                     userAndInstitution.ListProviderNames[i] = provider.Description;
                     i++;
                 }
-            }
-            catch (Exception e)
-            {
-                ViewBag.Error = true;
-                ViewBag.ErrorMessage = e.ToString();
-            }
+
             return View(userAndInstitution);
         }
 
