@@ -49,5 +49,21 @@ namespace PromiseData.Repositories
 
             throw new Exception("No User Institution Claims");
         }
+
+        /**
+         * Retrieve Identity Claim for user for 'Provider' which holds an ID in its value field
+         **/
+        public int GetUserProviderID(ClaimsPrincipal User)
+        {
+            ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
+
+            var claims = (from c in identity.Claims
+                          where c.Type == "Provider"
+                          select c);
+            if (claims != null)
+                return Int32.Parse(claims.FirstOrDefault().Value);
+
+            throw new Exception("No User Provider Claims");
+        }
     }
 }

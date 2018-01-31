@@ -26,6 +26,11 @@ else
                 <div class="col-md-8">
                     @Html.DropDownListFor(m => m.InstitutionId, new SelectList(Model.Institutions, "Id", "LegalName"), new { @class = "form-control" })
                 </div>
+
+                <div class="col-md-8">
+                    @Html.DropDownListFor(m => m.ProviderId, new SelectList(Model.Providers, "Id", "Description"), new { @class = "form-control" })
+                </div>
+
             </div>
             @Html.HiddenFor(m => m.UserId)
             <button type="submit" class="btn btn-primary">Save</button>

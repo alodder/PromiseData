@@ -193,41 +193,79 @@ namespace PromiseData.Controllers
             return RedirectToAction("List", "User");
         }
 
+
+        /**
+         * combine form for assigning institution(hub or operator) and provider based on user role
+         * should first check if user role is assigned, then base form on role
+         */
         [Authorize(Roles = "System Administrator, Administrator")]
         [HttpGet]
-        public ActionResult AssignInstitution(string id)
+        public ActionResult AssignInstitution(string userid)
         {
             //var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_context));
             var userAndInstitution = new UserFormViewModel();
             var user = new ApplicationUser();
+
             try
             {
-                user = UserManager.Users.Single(a => a.Id == id);
+                user = UserManager.Users.Single(a => a.Id == userid);
+                var providerRoleId = RoleManager.Roles.Where(r => r.Name == "Provider").Select(r => r.Id);
+                var hubRoleId = RoleManager.Roles.Where(r => r.Name == "Hub").Select(r => r.Id);
+
+                var roles = RoleManager.Roles;
                 var identity = User.Identity as ClaimsIdentity;
+
                 IdentityUserClaim claim = new IdentityUserClaim();
 
                 if (user.Claims.Any())
                 {
-                    claim = (from c in user.Claims
-                                 where c.ClaimType == "Institution"
+                    
+                    if (user.Roles.Select(r => r.RoleId).Intersect(roles.Select(r => r.Id)).Contains("Hub"))
+                    {
+                        claim = (from c in user.Claims
+                                     where c.ClaimType == "Institution"
+                                     select c).Single();
+                    }
+                    else if (user.Roles.Select(r => r.RoleId).Intersect(roles.Select(r => r.Id)).Contains("Provider"))
+                    {
+                        claim = (from c in user.Claims
+                                 where c.ClaimType == "Provider"
                                  select c).Single();
+                    }
                 }
 
                 userAndInstitution.User = user;
 
                 //Institution where user claim matches id
-                userAndInstitution.InstitutionId = claim.ClaimValue;
+                if( claim.ClaimType == "Institution")
+                {
+                    userAndInstitution.InstitutionId = claim.ClaimValue;
+                }
+                else if (claim.ClaimType == "Provider")
+                {
+                    userAndInstitution.ProviderId = claim.ClaimValue;
+                }
 
                 userAndInstitution.UserName = user.UserName;
                 userAndInstitution.UserId = user.Id;
+
                 userAndInstitution.Institutions = App_context.Institutions.ToList();
+                userAndInstitution.Providers = App_context.Facilities.ToList();
 
                 userAndInstitution.ListInstitutionNames = new String[userAndInstitution.Institutions.ToArray().Length];
+                userAndInstitution.ListProviderNames = new String[userAndInstitution.Providers.ToArray().Length];
 
                 int i = 0;
                 foreach (Institution institution in userAndInstitution.Institutions)
                 {
                     userAndInstitution.ListInstitutionNames[i] = institution.LegalName;
+                    i++;
+                }
+
+                i = 0;
+                foreach (Facility provider in userAndInstitution.Providers)
+                {
+                    userAndInstitution.ListProviderNames[i] = provider.Description;
                     i++;
                 }
             }

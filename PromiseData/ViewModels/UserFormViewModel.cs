@@ -29,9 +29,14 @@ namespace PromiseData.ViewModels
         [DisplayName("Institution")]
         public String InstitutionId { get; set; }
 
+        [DisplayName("Provider")]
+        public String ProviderId { get; set; }
+
         public string[] ListInstitutionNames { get; set; }
 
         public IEnumerable<Institution> Institutions { get; set; }
+
+        public string[] ListProviderNames { get; set; }
 
         public IEnumerable<Facility> Providers { get; set; }
 
