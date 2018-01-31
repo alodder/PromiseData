@@ -256,6 +256,16 @@ namespace PromiseData.Controllers
             userAndInstitution.UserName = user.UserName;
             userAndInstitution.UserId = user.Id;
 
+            userAndInstitution.CurrentRoles = user.Roles;
+            userAndInstitution.RoleNames = new String[user.Roles.Count()];
+
+            int j = 0;
+            foreach (IdentityUserRole role in userAndInstitution.CurrentRoles)
+            {
+                userAndInstitution.RoleNames[j] = roles.Single( r => r.Id == role.RoleId).Name;
+                j++;
+            }
+
             userAndInstitution.Institutions = App_context.Institutions.ToList();
             userAndInstitution.Providers = App_context.Facilities.ToList();
 
@@ -279,53 +289,17 @@ namespace PromiseData.Controllers
             return View(userAndInstitution);
         }
 
-
-        /**
-         * A function for assiging provider users to a specific provider/Facility/Site id
-         * */
-        [Authorize(Roles = "System Administrator, Administrator, Hub")]
-        [HttpGet]
-        public ActionResult AssignProvider(string id)
+        //[HttpGet]
+        public JsonResult GetOperatorProviders(int id)
         {
-            var userAndProvider = new UserFormViewModel();
-            var user = new ApplicationUser();
-            try
-            {
-                user = UserManager.Users.Single(a => a.Id == id);
-                var identity = User.Identity as ClaimsIdentity;
-                IdentityUserClaim claim = new IdentityUserClaim();
-
-                if (user.Claims.Any())
-                {
-                    claim = (from c in user.Claims
-                             where c.ClaimType == "Provider"
-                             select c).Single();
-                }
-
-                userAndProvider.User = user;
-
-                //Institution where user claim matches id
-                userAndProvider.InstitutionId = claim.ClaimValue;
-
-                userAndProvider.UserName = user.UserName;
-                userAndProvider.UserId = user.Id;
-                userAndProvider.Institutions = App_context.Institutions.ToList();
-
-                userAndProvider.ListInstitutionNames = new String[userAndProvider.Institutions.ToArray().Length];
-
-                int i = 0;
-                foreach (Institution institution in userAndProvider.Institutions)
-                {
-                    userAndProvider.ListInstitutionNames[i] = institution.LegalName;
-                    i++;
-                }
-            }
-            catch (Exception e)
-            {
-                ViewBag.Error = true;
-                ViewBag.ErrorMessage = e.ToString();
-            }
-            return View(userAndProvider);
+            var providers = App_context.Facilities
+                .Where(c => c.ProviderID == id)
+                .Select(c => new {
+                    ID = c.ID,
+                    Description = c.Description
+                })
+                .ToList();
+            return Json(providers, JsonRequestBehavior.AllowGet);
         }
 
         /**

@@ -26,7 +26,7 @@ namespace PromiseData.ViewModels
         [Key]
         public String UserId { get; set; }
 
-        [DisplayName("Institution")]
+        [DisplayName("Operator/HUB")]
         public String InstitutionId { get; set; }
 
         [DisplayName("Provider")]

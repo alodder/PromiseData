@@ -17,30 +17,63 @@ else
     {
         <div class="form-horizontal">
             <div class="form-group">
-                <span class="col-md-2 control-label">
-                    @Model.UserName
-                </span>
-                <span class="col-md-2 control-label">
-                    @foreach( var role in Model.User.Roles)
+                <h4 class="col-md-3 text-right text-muted">
+                    User Role:
+                </h4>
+                <h4 class="col-md-3 text">
+                    @foreach( string role in Model.RoleNames)
                     {
-                        role.RoleId.ToString();
+                        @role
                     }
-                </span>
+                </h4>
             </div>
+
             <div class="form-group">
-                @Html.LabelFor(model => model.InstitutionId, "Assigned Operator/Hub", new { @class = "col-md-4 control-label" })
-                <div class="col-md-8">
+                @Html.LabelFor(model => model.InstitutionId, new { @class = "col-md-3 control-label" })
+                <div class="col-md-9">
                     @Html.DropDownListFor(m => m.InstitutionId, new SelectList(Model.Institutions, "Id", "LegalName"), new { @class = "form-control" })
                 </div>
-
-                @Html.LabelFor(model => model.ProviderId, "Assigned Provider", new { @class = "col-md-4 control-label" })
-                <div class="col-md-8">
-                    @Html.DropDownListFor(m => m.ProviderId, new SelectList(Model.Providers, "ID", "Description"), new { @class = "form-control" })
-                </div>
-
             </div>
+
+            @if (Model.RoleNames.Contains("Provider"))
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ProviderId, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(m => m.ProviderId, new SelectList(Model.Providers, "ID", "Description"), new { @class = "form-control" })
+                    </div>
+                </div>
+            }
             @Html.HiddenFor(m => m.UserId)
             <button type="submit" class="btn btn-primary">Save</button>
         </div>
     }
 }
+
+
+@section Scripts
+{
+    <script type="text/javascript">
+        var url = '@Url.Action("GetOperatorProviders", "User")'; // Don't hard code your url's!
+        var providers = $('#ProviderId'); // cache it
+        $("#InstitutionId").change(function () {
+            var id = $(this).val(); // Use $(this) so you don't traverse the DOM again
+            $.getJSON(url, { id: id }, function(response) {
+                providers.empty(); // remove any existing options
+                $.each(response, function (index, item) { // item is now an object containing properties ID and Text
+                    providers.append($('<option></option>').text(item.Description).val(item.ID));
+                });
+                if (providers.children().length < 1)
+                {
+                    providers.append($('<option disabled></option>').text("No Classes").val("0"));
+                }
+            });
+        });
+
+
+        var attendanceLabel = $('#attendanceInputLabel');
+        $('#MonthlyAttendance').mousemove(function () {
+            attendanceLabel.html($(this).val());
+        });
+    </script>
+}  
