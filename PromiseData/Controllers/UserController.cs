@@ -203,71 +203,78 @@ namespace PromiseData.Controllers
         [HttpGet]
         public ActionResult AssignInstitution(string id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             //var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_context));
             var userAndInstitution = new UserFormViewModel();
             var user = new ApplicationUser();
 
+            user = UserManager.Users.Single(a => a.Id == id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            var providerRoleId = RoleManager.Roles.Where(r => r.Name == "Provider").Select(r => r.Id);
+            var hubRoleId = RoleManager.Roles.Where(r => r.Name == "Hub").Select(r => r.Id);
 
-                user = UserManager.Users.Single(a => a.Id == id);
-                var providerRoleId = RoleManager.Roles.Where(r => r.Name == "Provider").Select(r => r.Id);
-                var hubRoleId = RoleManager.Roles.Where(r => r.Name == "Hub").Select(r => r.Id);
+            var roles = RoleManager.Roles;
+            var identity = User.Identity as ClaimsIdentity;
 
-                var roles = RoleManager.Roles;
-                var identity = User.Identity as ClaimsIdentity;
+            IdentityUserClaim claim = new IdentityUserClaim();
 
-                IdentityUserClaim claim = new IdentityUserClaim();
-
-                if (user.Claims.Any())
-                {
+            if (user.Claims.Any())
+            {
                     
-                    if (user.Roles.Select(r => r.RoleId).Intersect(roles.Select(r => r.Id)).Contains("Hub"))
-                    {
-                        claim = (from c in user.Claims
-                                     where c.ClaimType == "Institution"
-                                     select c).Single();
-                    }
-                    else if (user.Roles.Select(r => r.RoleId).Intersect(roles.Select(r => r.Id)).Contains("Provider"))
-                    {
-                        claim = (from c in user.Claims
-                                 where c.ClaimType == "Provider"
-                                 select c).Single();
-                    }
-                }
-
-                userAndInstitution.User = user;
-
-                //Institution where user claim matches id
-                if( claim.ClaimType == "Institution")
+                if (user.Roles.Select(r => r.RoleId).Intersect(roles.Select(r => r.Id)).Contains("Hub"))
                 {
-                    userAndInstitution.InstitutionId = claim.ClaimValue;
+                    claim = (from c in user.Claims
+                                    where c.ClaimType == "Institution"
+                                    select c).Single();
                 }
-                else if (claim.ClaimType == "Provider")
+                else if (user.Roles.Select(r => r.RoleId).Intersect(roles.Select(r => r.Id)).Contains("Provider"))
                 {
-                    userAndInstitution.ProviderId = claim.ClaimValue;
+                    claim = (from c in user.Claims
+                                where c.ClaimType == "Provider"
+                                select c).Single();
                 }
+            }
 
-                userAndInstitution.UserName = user.UserName;
-                userAndInstitution.UserId = user.Id;
+            userAndInstitution.User = user;
 
-                userAndInstitution.Institutions = App_context.Institutions.ToList();
-                userAndInstitution.Providers = App_context.Facilities.ToList();
+            //Institution where user claim matches id
+            if( claim.ClaimType == "Institution")
+            {
+                userAndInstitution.InstitutionId = claim.ClaimValue;
+            }
+            else if (claim.ClaimType == "Provider")
+            {
+                userAndInstitution.ProviderId = claim.ClaimValue;
+            }
 
-                userAndInstitution.ListInstitutionNames = new String[userAndInstitution.Institutions.ToArray().Length];
-                userAndInstitution.ListProviderNames = new String[userAndInstitution.Providers.ToArray().Length];
+            userAndInstitution.UserName = user.UserName;
+            userAndInstitution.UserId = user.Id;
 
-                int i = 0;
-                foreach (Institution institution in userAndInstitution.Institutions)
-                {
-                    userAndInstitution.ListInstitutionNames[i] = institution.LegalName;
-                    i++;
-                }
+            userAndInstitution.Institutions = App_context.Institutions.ToList();
+            userAndInstitution.Providers = App_context.Facilities.ToList();
 
-                i = 0;
-                foreach (Facility provider in userAndInstitution.Providers)
-                {
-                    userAndInstitution.ListProviderNames[i] = provider.Description;
-                    i++;
-                }
+            userAndInstitution.ListInstitutionNames = new String[userAndInstitution.Institutions.ToArray().Length];
+            userAndInstitution.ListProviderNames = new String[userAndInstitution.Providers.ToArray().Length];
+
+            int i = 0;
+            foreach (Institution institution in userAndInstitution.Institutions)
+            {
+                userAndInstitution.ListInstitutionNames[i] = institution.LegalName;
+                i++;
+            }
+
+            i = 0;
+            foreach (Facility provider in userAndInstitution.Providers)
+            {
+                userAndInstitution.ListProviderNames[i] = provider.Description;
+                i++;
+            }
 
             return View(userAndInstitution);
         }
