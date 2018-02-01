@@ -272,20 +272,6 @@ namespace PromiseData.Controllers
             userAndInstitution.ListInstitutionNames = new String[userAndInstitution.Institutions.ToArray().Length];
             userAndInstitution.ListProviderNames = new String[userAndInstitution.Providers.ToArray().Length];
 
-            int i = 0;
-            foreach (Institution institution in userAndInstitution.Institutions)
-            {
-                userAndInstitution.ListInstitutionNames[i] = institution.LegalName;
-                i++;
-            }
-
-            i = 0;
-            foreach (Facility provider in userAndInstitution.Providers)
-            {
-                userAndInstitution.ListProviderNames[i] = provider.Description;
-                i++;
-            }
-
             return View(userAndInstitution);
         }
 
@@ -314,16 +300,20 @@ namespace PromiseData.Controllers
                 var user = UserManager.FindById(userAndInstitution.UserId); //UserManager.Users.Single(a => a.Id == userAndRole.Id);
                 ClaimsIdentity identity = UserManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
 
-                var claims = (from c in identity.Claims
-                             where c.Type == "Institution"
-                             select c);
+                var institutionClaims = (from c in identity.Claims
+                                         where c.Type == "Institution" || c.Type == "Provider"
+                                         select c);
 
-                foreach (Claim claim in claims)
+                foreach (Claim claim in institutionClaims)
                 {
                     UserManager.RemoveClaim(user.Id, claim);
                 }
 
                 UserManager.AddClaim(user.Id, new Claim("Institution", userAndInstitution.InstitutionId));
+                if( userAndInstitution.ProviderId != null)
+                {
+                    UserManager.AddClaim(user.Id, new Claim("Provider", userAndInstitution.ProviderId));
+                }
 
                 UserManager.Update(user);
 
