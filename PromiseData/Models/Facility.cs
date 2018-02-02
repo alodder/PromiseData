@@ -70,6 +70,12 @@ namespace PromiseData.Models
         [DisplayName("Unlicensed")]
         public bool Unlicensed { get; set; }
 
+        [DisplayName("Address")]
+        public int? AddressID { get; set; }
+
+        [DisplayName("Contact Agent")]
+        public int? ContactAgentID { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Classroom> Classrooms { get; set; }
 
@@ -77,6 +83,12 @@ namespace PromiseData.Models
 
         [ForeignKey("ProviderID")]
         public virtual Institution Provider { get; set; }
+
+        [ForeignKey("AddressID")]
+        public virtual Institution Address { get; set; }
+
+        [ForeignKey("ContactAgentID")]
+        public virtual Institution ContactAgent { get; set; }
 
         public virtual ICollection<WaiverCurrent> WaiverCurrents { get; set; }
 

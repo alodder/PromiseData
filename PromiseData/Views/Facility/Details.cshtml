@@ -18,7 +18,12 @@
     </ul>
 
     <h4>@Html.DisplayFor(model => model.Description)</h4>
+    <p>
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }, new { @class = "btn btn-default" })
+    </p>
     <hr />
+
 
     <ul class="list-group">
         @if (Model.Unlicensed)
@@ -70,7 +75,6 @@
     <hr />
 
     <h4>Site Waivers</h4>
-    <h5></h5>
     <div class="panel panel-default">
         <div class="panel-heading">Waiver Requests</div>
         <div class="panel-body">
@@ -105,41 +109,41 @@
     <div class="panel panel-default">
         <div class="panel-heading">Current Waivers</div>
         <div class="panel-body">
-        @foreach (var Waiver in Model.WaiversCurrent)
-        {
-            <dl class="dl-horizontal">
-                <dt>Waiver Type:</dt>
-                <dd>@Waiver.WaiverType</dd>
+            @foreach (var Waiver in Model.WaiversCurrent)
+            {
+                <dl class="dl-horizontal">
+                    <dt>Waiver Type:</dt>
+                    <dd>@Waiver.WaiverType</dd>
 
-                @if (String.Compare(Waiver.WaiverType, "Staff") == 0)
-                {
-                    <dt>Staff: </dt>
-                    <dd>
-                        @Waiver.Staff.NameLast
-                        @Html.Raw(", ")
-                        @Waiver.Staff.NameFirst
-                    </dd>
+                    @if (String.Compare(Waiver.WaiverType, "Staff") == 0)
+                    {
+                        <dt>Staff: </dt>
+                        <dd>
+                            @Waiver.Staff.NameLast
+                            @Html.Raw(", ")
+                            @Waiver.Staff.NameFirst
+                        </dd>
 
-                    <dt>Development:</dt>
-                    <dd>@Waiver.Development</dd>
-                    
-                }
-                else
-                {
-                    <dt>Spark Rating:</dt>
-                    <dd>@Waiver.SparkCurrent</dd>
-                    <dt>Spark Rating:</dt>
-                    <dd>@Waiver.SparkCurrent</dd>
+                        <dt>Development:</dt>
+                        <dd>@Waiver.Development</dd>
 
-                    <dt>Service Hours:</dt>
-                    <dd>@Waiver.NineHundredServiceHours</dd>
+                    }
+                    else
+                    {
+                        <dt>Spark Rating:</dt>
+                        <dd>@Waiver.SparkCurrent</dd>
+                        <dt>Spark Rating:</dt>
+                        <dd>@Waiver.SparkCurrent</dd>
 
-                    <dt>Expiration:</dt>
-                    <dd>@Waiver.Expiration</dd>
-                }
+                        <dt>Service Hours:</dt>
+                        <dd>@Waiver.NineHundredServiceHours</dd>
 
-            </dl>
-        }
+                        <dt>Expiration:</dt>
+                        <dd>@Waiver.Expiration</dd>
+                    }
+
+                </dl>
+            }
         </div>
     </div>
     <hr />
@@ -169,10 +173,6 @@
     </div>
 
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
 
 
 @*
@@ -181,7 +181,7 @@
 <p>
     @if (Model.CanEdit)
     {
-        @Html.ActionLink("Add Classroom", "Create", "Classroom", new { id = Model.ID }, new { @class = "btn btn-success" })
+        @Html.ActionLink("Add Classroom", "Create", "Classroom", new { id = Model.ID }, new { @class = "btn btn-default" })
     }
 </p>
 
@@ -278,7 +278,7 @@
             </td>
             <td>
                 @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |*@
-                @Html.ActionLink("Details", "Details", "Classroom", new { id = classroom.ID }, null)
+                @Html.ActionLink("Details", "Details", "Classroom", new { id = classroom.ID }, new { @class = "btn btn-default btn-xs" })
                 @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
             </td>
         </tr>

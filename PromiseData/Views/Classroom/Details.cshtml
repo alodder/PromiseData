@@ -226,7 +226,7 @@
 
     @if (Model.Facility.Provider.IsProvider)
     {
-        @Html.ActionLink("Add New SCORE", "Create", "CLASS_Score", new { id = Model.ID }, new { @class = "btn btn-success" })
+        @Html.ActionLink("Add New SCORE", "Create", "CLASS_Score", new { id = Model.ID }, new { @class = "btn btn-default" })
     }
 </div>
 
@@ -238,7 +238,7 @@
 
     <h3>@Model.Description Teachers</h3>
         <p>
-            @Html.ActionLink("Add Teacher", "Create", "Teacher", new { id = Model.ID }, new { @class = "btn btn-success" })
+            @Html.ActionLink("Add Teacher", "Create", "Teacher", new { id = Model.ID }, new { @class = "btn btn-default" })
         </p>
 
 
@@ -287,7 +287,7 @@
                         @Html.Raw(" | ")
                         @Html.ActionLink("Details", "Details", "Teacher", new { id = teacherclass.Teacher.ID }, null)
                         @Html.Raw(" | ")
-                        @Html.ActionLink("Remove", "RemoveFromClassroom", "Teacher", new { id = teacherclass.TeacherID, classroomid = teacherclass.ClassroomID}, null)
+                        @Html.ActionLink("Remove", "RemoveFromClassroom", "Teacher", new { id = teacherclass.TeacherID, classroomid = teacherclass.ClassroomID }, null)
                     }
                 </p>
             </div>
@@ -330,20 +330,20 @@
                 <p class="text-right">
                     @if (true) //Model.CanEdit
                     {
-                        @Html.ActionLink("Edit", "Edit", "Child", new { id = childEnrollment.Child.ID }, null)
+                        @Html.ActionLink("Edit", "Edit", "Child", new { id = childEnrollment.Child.ID }, new { @class = "btn btn-default btn-xs" })
                         @Html.Raw(" | ")
-                        @Html.ActionLink("Details", "Details", "Child", new { id = childEnrollment.Child.ID }, null)
+                        @Html.ActionLink("Details", "Details", "Child", new { id = childEnrollment.Child.ID }, new { @class = "btn btn-default btn-xs" })
                         @Html.Raw(" | ")
-                        @Html.ActionLink("Unenroll", "RemoveFromClassroom", "Child", new { id = childEnrollment.ChildID, classroomid = childEnrollment.ClassroomID }, null)
+                        @Html.ActionLink("Unenroll", "RemoveFromClassroom", "Child", new { id = childEnrollment.ChildID, classroomid = childEnrollment.ClassroomID }, new { @class = "btn btn-warning btn-xs" })
                     }
                 </p>
             </td>
         </tr>
-    }
+        }
 
     </table>
 }
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }, new { @class = "btn btn-default" })
 </p>

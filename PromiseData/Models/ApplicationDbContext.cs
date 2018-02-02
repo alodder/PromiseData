@@ -145,8 +145,6 @@ namespace PromiseData.Models
                 .HasForeignKey(c => c.ClassroomID);
 
             /*------------------------------------------------------*/
-
-
             //Child to Facility Many to Many with tertiary table Child_Facility
             /*-------------------------------------------------------*/
             modelBuilder.Entity<Child_Facility>()
@@ -216,7 +214,10 @@ namespace PromiseData.Models
                 .HasForeignKey(e => e.StaffID);
 
             modelBuilder.Entity<Facility>()
-                .HasRequired(e => e.Provider);
+                .HasRequired(e => e.ContactAgent);
+
+            modelBuilder.Entity<Facility>()
+                .HasOptional(e => e.Address);
 
             modelBuilder.Entity<Family>()
                 .Property(e => e.Income)
