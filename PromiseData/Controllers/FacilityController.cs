@@ -38,14 +38,24 @@ namespace PromiseData.Controllers
             _institutionRepository = new InstitutionRepository( _context);
 
             FacilityTypes = new List<string>();
-            FacilityTypes.Add("Registered Family");
+            FacilityTypes.Add("Child care provider(center and home)");
+            FacilityTypes.Add("Community - based organization that provides a preschool program");
+            FacilityTypes.Add("Public School");
+            FacilityTypes.Add("Education Service District");
+            FacilityTypes.Add("Head Start / OPK program");
+            FacilityTypes.Add("Private preschool");
+            FacilityTypes.Add("Public charter school");
+            FacilityTypes.Add("Relief Nursery");
+            FacilityTypes.Add("Other");
+
+            /*FacilityTypes.Add("Registered Family");
             FacilityTypes.Add("Certified Family");
             FacilityTypes.Add("Certified Center");
             FacilityTypes.Add("Relief Nursery");
             FacilityTypes.Add("Private Preschool");
             FacilityTypes.Add("Public School");
             FacilityTypes.Add("ESD");
-            FacilityTypes.Add("CBO w/ preschool");
+            FacilityTypes.Add("CBO w/ preschool");*/
 
             SupportBoolDictionary = new Dictionary<int, bool>();
             var SupportList = _context.Code_AdditionalSupportTypes.ToList();

@@ -32,14 +32,14 @@
 
     <div class="row">
         <div class="form-group col-md-6">
-            @Html.LabelFor(m => m.LicenseNumber)
+            @Html.LabelFor(m => m.LicenseNumber, htmlAttributes: new { @class = "control-label" })
             @Html.TextBoxFor(m => m.LicenseNumber, new { @class = "form-control", placeholder = "CC123456", autofocus = "autofocus" })
             @Html.ValidationMessageFor(m => m.LicenseNumber)
         </div>
         <div class="form-group col-md-6">
-            @Html.LabelFor(m => m.Unlicensed)
+            @Html.LabelFor(m => m.Unlicensed, htmlAttributes: new { @class = "control-label" })
             @Html.EditorFor(m => m.Unlicensed, new { @class = "form-control" })
-            <p>Licensing in process</p>
+            <p class="text text-muted">Licensing in process</p>
             @Html.ValidationMessageFor(m => m.Unlicensed)
         </div>
     </div>
@@ -66,9 +66,9 @@
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group">
-                @Html.LabelFor(model => model.Turnover_NonPPStaff, htmlAttributes: new { @class = "control-label" })
+                @Html.LabelFor(model => model.Turnover_NonPPStaff, htmlAttributes: new { @class = "control-label text text-warning"})
                 <div class="">
-                    @Html.EditorFor(model => model.Turnover_NonPPStaff, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Turnover_NonPPStaff, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
                     @Html.ValidationMessageFor(model => model.Turnover_NonPPStaff, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -76,9 +76,9 @@
 
         <div class="col-sm-6">
             <div class="form-group">
-                @Html.LabelFor(model => model.TurnoverReasons_NonPPStaff, htmlAttributes: new { @class = "control-label" })
+                @Html.LabelFor(model => model.TurnoverReasons_NonPPStaff, htmlAttributes: new { @class = "control-label text text-warning" })
                 <div class="">
-                    @Html.EditorFor(model => model.TurnoverReasons_NonPPStaff, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.TurnoverReasons_NonPPStaff, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
                     @Html.ValidationMessageFor(model => model.TurnoverReasons_NonPPStaff, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -139,7 +139,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.MonitoringVisit1Result, htmlAttributes: new { @class = "control-label col-md-3" })
             <div class="col-md-9">
-                @Html.TextAreaFor(model => model.MonitoringVisit1Result, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.MonitoringVisit1Result, 7, 70, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.MonitoringVisit1Result, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -157,19 +157,15 @@
         <div class="form-group">
             @Html.LabelFor(model => model.MonitoringVisit2Result, htmlAttributes: new { @class = "control-label col-md-3" })
             <div class="col-md-9">
-                @Html.TextAreaFor(model => model.MonitoringVisit2Result, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.MonitoringVisit2Result, 7, 70, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.MonitoringVisit2Result, "", new { @class = "text-danger" })
             </div>
         </div>
     </div>
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
-        </div>
+        @Html.ActionLink("Back to List", "Index", new { @role = "button" }, new { @class = "btn btn-default" })
+        <input type="submit" value="Save" class="btn btn-primary" />
     </div>
 
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+<hr />

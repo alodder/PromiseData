@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Operator Sites</h2>
+<h2>Provider Sites</h2>
 
 <table class="table">
     <tr>
@@ -67,9 +67,9 @@
             @Html.DisplayFor(modelItem => item.MonitoringVisit2Result)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }, new { @class = "btn btn-default btn-xs" }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }, new { @class = "btn btn-default btn-xs" }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID }, new { @class = "btn btn-default btn-xs" })
         </td>
     </tr>
 }

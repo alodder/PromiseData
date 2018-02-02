@@ -3,7 +3,7 @@
 <h2>@Model.Heading</h2>
 
 <p>
-    @Html.ActionLink("Add New", "Add")
+    @Html.ActionLink("Add New", "Add", null, new { @class = "btn btn-default" })
 </p>
 
 @using (Html.BeginForm("Search", "Child"))
@@ -149,12 +149,12 @@
             @Html.DisplayFor(modelItem => child.ExitReason_ID)
         </td>
         <th>
-            @Html.ActionLink("Enroll", "Enroll", new { id = child.ID })
+            @Html.ActionLink("Enroll", "Enroll", new { id = child.ID }, new { @class = "btn btn-info btn-xs" })
         </th>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id= child.ID }) |
-            @Html.ActionLink("Details", "Details", new { id= child.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id= child.ID })
+            @Html.ActionLink("Edit", "Edit", new { id= child.ID }, new { @class = "btn btn-default btn-xs" }) |
+            @Html.ActionLink("Details", "Details", new { id= child.ID }, new { @class = "btn btn-default btn-xs" }) |
+            @Html.ActionLink("Delete", "Delete", new { id= child.ID }, new { @class = "btn btn-default btn-xs" })
         </td>
     </tr>
 }

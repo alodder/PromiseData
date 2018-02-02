@@ -17,10 +17,10 @@ else
     {
         <div class="form-horizontal">
             <div class="form-group">
-                <h4 class="col-md-3 text-right text-muted">
+                <h4 class="col-md-3 text-right">
                     User Role:
                 </h4>
-                <h4 class="col-md-3 text">
+                <h4 class="col-md-3 text text-primary">
                     @foreach( string role in Model.RoleNames)
                     {
                         @role
@@ -45,7 +45,11 @@ else
                 </div>
             }
             @Html.HiddenFor(m => m.UserId)
-            <button type="submit" class="btn btn-primary">Save</button>
+
+            <div class="">
+                @Html.ActionLink("Back to List", "List", new { @role = "button" }, new { @class = "btn btn-default" })
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
         </div>
     }
 }

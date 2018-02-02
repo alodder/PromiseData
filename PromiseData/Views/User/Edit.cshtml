@@ -2,7 +2,7 @@
 
 <h2>Edit</h2>
 
-@Html.ActionLink("Change User's Password", "ChangePassword", "User", new { @id = Model.User.Id }, new { @class = "btn btn-danger" })
+@Html.ActionLink("Change User's Password", "ChangePassword", "User", new { @id = Model.User.Id }, new { @class = "btn btn-info" })
 
 @using (Html.BeginForm("Edit", "User"))
 {
@@ -113,13 +113,12 @@
 
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+
+                @Html.ActionLink("Back to List", "List", new { @role = "button" }, new { @class = "btn btn-default" })
+
+
+                <input type="submit" value="Save" class="btn btn-primary" />
+
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

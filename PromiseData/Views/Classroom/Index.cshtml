@@ -7,7 +7,7 @@
 <h2>Classrooms</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-default" })
 </p>
 <table class="table">
     <tr>
@@ -42,13 +42,13 @@
         </td>
         <td>
             @if (!item.Description.IsEmpty())
-        {
-            @Html.DisplayFor(modelItem => item.Description)
-    }
-    else
-    {
-        @Html.DisplayFor(modelItem => item.ID)
-}
+            {
+                @Html.DisplayFor(modelItem => item.Description)
+            }
+            else
+            {
+                @Html.DisplayFor(modelItem => item.ID)
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Code_ProgramSessionType.Description)
@@ -66,9 +66,9 @@
             @Html.DisplayFor(modelItem => item.ChildEnrollments.Count)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-default btn-xs" }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID }, new { @class = "btn btn-default btn-xs" }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn btn-default btn-xs" })
         </td>
     </tr>
 }

@@ -5,7 +5,7 @@
 <p>
     @if (Model.CanAdd)
     {
-        @Html.ActionLink("Create New", "Create", new { @role = "button" }, new { @class = "btn btn-success" })
+        @Html.ActionLink("Create New", "Create", new { @role = "button" }, new { @class = "btn btn-default" })
     }
 </p>
 
@@ -36,16 +36,8 @@
             Organization
         </th>
         <th>
-            @*@Html.DisplayNameFor(model => model.WebAddress)*@
-            Web Address
-        </th>
-        <th>
             @*@Html.DisplayNameFor(model => model.DirectorAgentId)*@
             Director
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.ContactAgentId)*@
-            Contact
         </th>
         <th>
             @*@Html.DisplayNameFor(model => model.LocationAddressId)*@
@@ -56,13 +48,13 @@
             Active date
         </th>
         <th>
-            @Html.ActionLink("List Hubs", "FilterHubs", new { @role = "button" }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("List Hubs", "FilterHubs", new { @role = "button" }, new { @class = "btn btn-primary btn-sm" })
         </th>
         <th>
-            @Html.ActionLink("List Operators", "FilterProviders", new { @role = "button" }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("List Operators", "FilterProviders", new { @role = "button" }, new { @class = "btn btn-primary btn-sm" })
         </th>
         <th>
-            @Html.ActionLink("Show All", "Index", new { role = "button" }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Show All", "Index", new { role = "button" }, new { @class = "btn btn-primary btn-sm" })
         </th>
     </tr>
 
@@ -77,14 +69,8 @@
         <td>
             @Html.DisplayFor(modelItem => item.BackboneOrg)
         </td>
-        <td class="cell-url">
-            @Html.DisplayFor(modelItem => item.WebAddress)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.ContactAgent1.AgentName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ContactAgent.AgentName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Address.City)
@@ -107,15 +93,15 @@
         <td>
             @if (Model.CanEdit)
             { 
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id });
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-default btn-xs" });
                 @Html.Raw(" | ");
             }
             
-            @Html.ActionLink("Details", "Details", new { id=item.Id })
+            @Html.ActionLink("Details", "Details", new { id=item.Id }, new { @class = "btn btn-default btn-xs" })
             @if (Model.CanDelete)
             {
                 @Html.Raw(" | ");
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id });
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-default btn-xs" });
             }
             
         </td>

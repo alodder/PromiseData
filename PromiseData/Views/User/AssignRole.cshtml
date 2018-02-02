@@ -15,21 +15,21 @@ else
     using (Html.BeginForm())
     {
         <div class="form-horizontal">
-            <div class="form-group">
-                <span class="col-md-2 control-label">
-                    @Model.UserName
-                </span>
-                @Html.HiddenFor(m=> m.UserName)
-                @Html.HiddenFor(m => m.UserId)
-            </div>
+            @Html.HiddenFor(m=> m.UserName)
+            @Html.HiddenFor(m => m.UserId)
+
             <div class="form-group">
                 @Html.LabelFor(model => model.SelectedRoleNames, "User Roles", new { @class = "col-md-2 control-label" })
                 <div class="col-md-10">
                     @Html.ListBoxFor(model => model.SelectedRoleNames,
-                                    new MultiSelectList(Model.Roles, "Name", "Name", Model.RoleNames))
+                                    new MultiSelectList(Model.Roles, "Name", "Name", Model.RoleNames),
+                                    new { @class = "form-control" })
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Save</button>
+            <div class="">
+                @Html.ActionLink("Back to List", "List", new { @role = "button" }, new { @class = "btn btn-default" })
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
         </div>
     }
 }

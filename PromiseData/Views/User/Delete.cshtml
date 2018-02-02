@@ -14,6 +14,9 @@
     <p>@Model.UserName</p>
     <p>@Model.Email</p>
     <p>@Model.PhoneNumber</p>
+    <div class="panel-footer">
+        <input type="submit" value="Delete" class="btn btn-danger" />
+    </div>
 </div>
 
 @using (Html.BeginForm())
@@ -21,7 +24,6 @@
     @Html.AntiForgeryToken()
 
     <div class="form-actions no-color">
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("Back to List", "List", new { @role = "button" }, new { @class = "btn btn-default" })
     </div>
 }

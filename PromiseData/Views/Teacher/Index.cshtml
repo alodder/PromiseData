@@ -3,13 +3,13 @@
 <h2>Staff</h2>
 
 <p>
-    @Html.ActionLink("Add New", "Create")
+    @Html.ActionLink("Add New", "Create", null, new { @class = "btn btn-default" })
 </p>
 
 @using (Html.BeginForm("Search", "Teacher"))
 {
     <div class="form-group">
-        @Html.Label("search", "Teacher Lookup: ")
+        @Html.Label("search", "Staff Lookup: ")
         <div class="input-group col-md-6">
             @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control", placeholder = "Lookup staff by name or ID", value = Model.SearchTerm })
             <span class="input-group-btn">
@@ -81,9 +81,9 @@
             }
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }, new { @class = "btn btn-default btn-xs" }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }, new { @class = "btn btn-default btn-xs" }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID }, new { @class = "btn btn-default btn-xs" })
         </td>
     </tr>
 }

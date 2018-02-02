@@ -80,7 +80,7 @@ namespace PromiseData.ViewModels
         public string MonitoringVisit2Result { get; set; }
 
         [Required]
-        [DisplayName("Description")]
+        [DisplayName("Name")]
         public string Description { get; set; }
 
         [DisplayName("Parent Operator")]

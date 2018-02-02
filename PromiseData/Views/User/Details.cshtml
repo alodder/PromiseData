@@ -60,16 +60,18 @@
     {
         <div class="panel-footer">
             <div class="text-right">
-                @Html.ActionLink("Edit", "Edit", "User", new { id = Model.UserId }, null)
+                @Html.ActionLink("Edit", "Edit", "User", new { id = Model.UserId }, new { @role = "button", @class = "btn btn-default" })
                 @Html.Raw(" | ")
-                @Html.ActionLink("Assign Roles", "AssignRole", "User", new { id = Model.UserId }, null)
+                @Html.ActionLink("Assign Roles", "AssignRole", "User", new { id = Model.UserId }, new { @role = "button", @class = "btn btn-default" })
                 @Html.Raw(" | ")
-                @Html.ActionLink("Change Password", "ChangePassword", "User", new { id = Model.UserId }, null)
+                @Html.ActionLink("Change Password", "ChangePassword", "User", new { id = Model.UserId }, new { @role = "button", @class = "btn btn-default" })
             </div>
-            <div class="text-left">@Html.ActionLink("Back to List", "Index")</div>
         </div>
     }
-    
+</div>
+
+<div class="">
+    @Html.ActionLink("Back to List", "List", new { @role = "button" }, new { @class = "btn btn-default" })
 </div>
 
 

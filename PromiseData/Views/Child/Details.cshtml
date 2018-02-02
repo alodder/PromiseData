@@ -9,111 +9,117 @@
 <div>
     <h4>Details</h4>
     <p>
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
         @if (Model.CanEdit)
         {
             @Html.ActionLink("Edit Details", "Edit", new { id = Model.ID }, new { @class = "btn btn-default" })
         }
-        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
     </p>
     <hr />
+
     <div class="row">
-        <div class="panel col-lg-5">
-            <div class="panel-heading">Identification</div>
-            <div class="panel-body">
-                <dl class="dl-horizontal">
-                    <dt>
-                        @Html.DisplayNameFor(model => model.ELD_ID)
-                    </dt>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">Identification</div>
+                <div class="panel-body">
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.ELD_ID)
+                        </dt>
 
-                    <dd>
-                        @Html.Raw((Model.ELD_ID == null ? "<i class=\"text-danger\">Missing</i>" : Model.ELD_ID))
-                        @Html.DisplayFor(model => model.ELD_ID)
-                    </dd>
+                        <dd>
+                            @Html.Raw((Model.ELD_ID == null ? "<i class=\"text-danger\">Missing</i>" : Model.ELD_ID))
+                            @Html.DisplayFor(model => model.ELD_ID)
+                        </dd>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.SSID)
-                    </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.SSID)
+                        </dt>
 
-                    <dd>
-                        @Html.Raw((Model.SSID == null ? "<i class=\"text-danger\">Missing</i>" : Model.SSID))
-                    </dd>
+                        <dd>
+                            @Html.Raw((Model.SSID == null ? "<i class=\"text-danger\">Missing</i>" : Model.SSID))
+                        </dd>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.LastName)
-                    </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.LastName)
+                        </dt>
 
-                    <dd>
-                        @Html.Raw((Model.LastName == null ? "<i class=\"text-danger\">Missing</i>" : Model.LastName))
-                    </dd>
+                        <dd>
+                            @Html.Raw((Model.LastName == null ? "<i class=\"text-danger\">Missing</i>" : Model.LastName))
+                        </dd>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.FirstName)
-                    </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.FirstName)
+                        </dt>
 
-                    <dd>
-                        @Html.Raw((Model.FirstName == null ? "<i class=\"text-danger\">Missing</i>" : Model.FirstName))
-                    </dd>
+                        <dd>
+                            @Html.Raw((Model.FirstName == null ? "<i class=\"text-danger\">Missing</i>" : Model.FirstName))
+                        </dd>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.MiddleName)
-                    </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.MiddleName)
+                        </dt>
 
-                    <dd>
-                        @Html.Raw((Model.MiddleName == null ? "<i class=\"text-danger\">Missing</i>" : Model.MiddleName))
-                    </dd>
+                        <dd>
+                            @Html.Raw((Model.MiddleName == null ? "<i class=\"text-danger\">Missing</i>" : Model.MiddleName))
+                        </dd>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.GenerationCodeID)
-                    </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.GenerationCodeID)
+                        </dt>
 
-                    <dd>
-                        @Html.Raw((Model.Generation == null ? "<i class=\"text-danger\">Missing</i>" : Model.Generation.Description))
-                    </dd>
-                </dl>
+                        <dd>
+                            @Html.Raw((Model.Generation == null ? "<i class=\"text-danger\">Missing</i>" : Model.Generation.Description))
+                        </dd>
+                    </dl>
+                </div>
             </div>
         </div>
 
-        <div class="panel col-lg-offset-1 col-lg-5">
-            <div class="panel-heading">Additional Name Information</div>
-            <div class="panel-body">
-                <dl class="dl-horizontal">
-                    <dt>
-                        @Html.DisplayNameFor(model => model.OtherNameTypeID)
-                    </dt>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">Additional Name Information</div>
+                <div class="panel-body">
+                    <dl class="dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(model => model.OtherNameTypeID)
+                        </dt>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.OtherNameType.Description)
-                    </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.OtherNameType.Description)
+                        </dd>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.OtherLastName)
-                    </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.OtherLastName)
+                        </dt>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.OtherLastName)
-                    </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.OtherLastName)
+                        </dd>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.OtherFirstName)
-                    </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.OtherFirstName)
+                        </dt>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.OtherFirstName)
-                    </dd>
+                        <dd>
+                            @Html.DisplayFor(model => model.OtherFirstName)
+                        </dd>
 
-                    <dt>
-                        @Html.DisplayNameFor(model => model.OtherMiddleName)
-                    </dt>
+                        <dt>
+                            @Html.DisplayNameFor(model => model.OtherMiddleName)
+                        </dt>
 
-                    <dd>
-                        @Html.DisplayFor(model => model.OtherMiddleName)
-                    </dd>
-                </dl>
+                        <dd>
+                            @Html.DisplayFor(model => model.OtherMiddleName)
+                        </dd>
+                    </dl>
+                </div>
             </div>
         </div>
+        
     </div>
 
-    <div class="panel">
+    <div class="panel panel-default">
         <div class="panel-heading">Details</div>
         <div class="panel-body">
             <dl class="dl-horizontal">
@@ -144,18 +150,22 @@
                         @Model.RaceEthnicityList.Single(r => r.Id == childrace.RaceID).Description
                         @Html.Raw("<br/>")
                     }
-                    @if (Model.CanEdit)
-                    {
-                        @Html.ActionLink("Edit", "EditRace", new { id = Model.ID })
-                    }
                 </dd>
             </dl>
+        </div>
+        <div class="panel-footer">
+            @if (Model.CanEdit)
+            {
+                @Html.ActionLink("Edit", "EditRace", new { id = Model.ID }, new { @class = "btn btn-default btn-xs" })
+            }
         </div>
     </div>
 
 
-    <div class="panel clearfix">
-        <div class="panel-heading">Address</div>
+    <div class="panel panel-default clearfix">
+        <div class="panel-heading">
+            Address
+        </div>
         <div class="panel-body">
             <dl class="dl-horizontal">
                 <dt>
@@ -181,14 +191,13 @@
                     }
                 </dd>
 
-                @if (Model.CanEdit)
-                {
-                    @Html.Raw("<dt>");
-                    @Html.ActionLink("Change", "ChildAddress", new { id = Model.ID })
-                    @Html.Raw("</dt>");
-                }
-
             </dl>
+        </div>
+        <div class="panel-footer">
+            @if (Model.CanEdit)
+            {
+                @Html.ActionLink("Update", "ChildAddress", new { id = Model.ID }, new { @class = "btn btn-default btn-xs" })
+            }
         </div>
     </div>
 
@@ -323,7 +332,7 @@
 
     </dl>
 
-    <div class="panel">
+    <div class="panel panel-default">
         <div class="panel-heading">Special Needs</div>
         <div class="panel-body">
             <dl class="dl-horizontal">
@@ -332,20 +341,18 @@
                     <dt>
                         @special.SpecialNeed.Description
                     </dt>
-
-                }
-
-                @if (Model.CanEdit)
-                {
-                    @Html.Raw("<dt>");
-                    @Html.ActionLink("Change", "UpdateSpecialNeeds", new { id = Model.ID })
-                    @Html.Raw("</dt>");
                 }
             </dl>
         </div>
+        <div class="panel-footer">
+            @if (Model.CanEdit)
+            {
+                @Html.ActionLink("Update", "UpdateSpecialNeeds", new { id = Model.ID }, new { @class = "btn btn-default btn-xs" })
+            }
+        </div>
     </div>
 
-    <div class="panel">
+    <div class="panel panel-default">
         <div class="panel-heading">IFSP</div>
         <div class="panel-body">
             <dl class="dl-horizontal">
@@ -356,20 +363,20 @@
                     </dt>
 
                 }
-
-                @if (Model.CanEdit)
-                {
-                    @Html.Raw("<dt>");
-                    @Html.ActionLink("Change", "UpdateIFSP", new { id = Model.ID })
-                    @Html.Raw("</dt>");
-                }
             </dl>
+                
+            </div>
+        <div class="panel-footer">
+            @if (Model.CanEdit)
+            {
+                @Html.ActionLink("Update", "UpdateIFSP", new { id = Model.ID }, new { @class = "btn btn-default btn-xs" })
+            }
         </div>
     </div>
 
     @if (Model.Family != null)
     {
-        <div class="panel">
+        <div class="panel panel-default">
             <div class="panel-heading">Family Eligibility</div>
             <div class="panel-body">
                 <dl class="dl-horizontal">
@@ -428,19 +435,22 @@
                     <dd>
                         @Html.DisplayFor(model => model.Family.WIC)
                     </dd>
-
-                    @if (Model.CanEdit)
-                    {
-                        @Html.Raw("<dt>");
-                        @Html.ActionLink("Update", "Edit", "Family", new { id = Model.FamilyID }, null)
-                        @Html.Raw("</dt>");
-                    }
                 </dl>
+
+            </div>
+            <div class="panel-footer">
+
+                @if (Model.CanEdit)
+                {
+
+                    @Html.ActionLink("Update", "Edit", "Family", new { id = Model.FamilyID }, new { @class = "btn btn-default btn-xs" })
+
+                }
             </div>
         </div>
     }
 
-    <div class="panel">
+    <div class="panel panel-default">
         <div class="panel-heading">Adults</div>
         <div class="panel-body">
                 @foreach (var adult in Model.Adults)
@@ -450,30 +460,31 @@
                             @adult.NameFirst @adult.NameLast
                         </div>
                         <div class="clearfix">
-                            @Html.ActionLink("View", "Details", "Adult", new { id = adult.ID }, null)
+                            @Html.ActionLink("View", "Details", "Adult", new { id = adult.ID }, new { @class = "btn btn-default btn-xs" })
                             @if (Model.CanEdit)
                             {
                                 @Html.Raw(" | ")
-                                @Html.ActionLink("Update", "Edit", "Adult", new { id = adult.ID }, null)
+                                @Html.ActionLink("Update", "Edit", "Adult", new { id = adult.ID }, new { @class = "btn btn-default btn-xs" })
                                 @Html.Raw(" | ")
-                                <a id="@adult.ID" class="adultRemove">Remove</a>
+                                <a id="@adult.ID" class="adultRemove btn btn-default btn-xs">Remove</a>
                             }
                         </div>
                     </div>
                     
                 }
 
-                @if (Model.CanEdit)
-                {
-                    <div class="col-lg-offset-1">
-                        @Html.ActionLink("Add", "Create", "Adult", new { id = Model.ID }, null)
-                    </div>
-                    
-                }
+        </div>
+        <div class="panel-footer">
+            @if (Model.CanEdit)
+            {
+                <div class="">
+                    @Html.ActionLink("Add Adult", "Create", "Adult", new { id = Model.ID }, new { @class = "btn btn-default btn-xs" })
+                </div>
+            }
         </div>
     </div>
 
-    <div class="panel">
+    <div class="panel panel-default">
         <div class="panel-heading">Enrollment</div>
         <div class="panel-body">
             <dl class="dl-horizontal">
@@ -486,14 +497,16 @@
                         @enrollment.Classroom.Description
                     </dd>
                 }
-
-                @if (Model.CanEdit)
-                {
-                    @Html.Raw("<dt>");
-                    @Html.ActionLink("Enroll", "Enroll", new { id = Model.ID })
-                    @Html.Raw("</dt>");
-                }
             </dl>
+        </div>
+        <div class="panel-footer">
+
+            @if (Model.CanEdit)
+            {
+
+                @Html.ActionLink("Enroll", "Enroll", new { id = Model.ID }, new { @class = "btn btn-default btn-xs" })
+
+            }
         </div>
     </div>
 

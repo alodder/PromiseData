@@ -7,7 +7,7 @@
 <h2>Waiver Requests</h2>
 
 <p>
-    @Html.ActionLink("Add New", "Create")
+    @Html.ActionLink("New Request", "Create", new { @role = "button" }, new { @class = "btn btn-default" })
 </p>
 
 <hr />
@@ -63,12 +63,11 @@
             </td>
             <td>
                 <div>
-                    @Html.ActionLink("Update", "Edit", "WaiverRequests", new { id = item.WaiverRequestID }, null) |
-                    @Html.ActionLink("View", "Details", "WaiverRequests", new { id = item.WaiverRequestID }, null) |
-                    @Html.ActionLink("Cancel", "Delete", "WaiverRequests", new { id = item.WaiverRequestID }, null)
-                </div>
-                <div>
-                    @Html.ActionLink("Process", "Create", new { id = item.WaiverRequestID })
+                    @Html.ActionLink("Update", "Edit", "WaiverRequests", new { id = item.WaiverRequestID }, new { @class = "btn btn-default btn-xs" }) |
+                    @Html.ActionLink("View", "Details", "WaiverRequests", new { id = item.WaiverRequestID }, new { @class = "btn btn-default btn-xs" }) |
+                    @Html.ActionLink("Cancel", "Delete", "WaiverRequests", new { id = item.WaiverRequestID }, new { @class = "btn btn-default btn-xs" }) |
+
+                    @Html.ActionLink("Process", "Create", new { id = item.WaiverRequestID }, new { @class = "btn btn-default btn-xs" })
                 </div>
             </td>
         </tr>
