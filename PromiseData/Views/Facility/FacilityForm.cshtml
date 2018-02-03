@@ -64,28 +64,31 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-6">
+        <h4>Main Office Contact Information</h4>
+        <div class="col-md-4">
             <div class="form-group">
-                @Html.LabelFor(model => model.Turnover_NonPPStaff, htmlAttributes: new { @class = "control-label text text-warning"})
+                @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label"})
                 <div class="">
-                    @Html.EditorFor(model => model.Turnover_NonPPStaff, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
-                    @Html.ValidationMessageFor(model => model.Turnover_NonPPStaff, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control"} })
+                    @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
 
-        <div class="col-sm-6">
+        <div class="col-md-4">
             <div class="form-group">
-                @Html.LabelFor(model => model.TurnoverReasons_NonPPStaff, htmlAttributes: new { @class = "control-label text text-warning" })
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
                 <div class="">
-                    @Html.EditorFor(model => model.TurnoverReasons_NonPPStaff, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
-                    @Html.ValidationMessageFor(model => model.TurnoverReasons_NonPPStaff, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control"} })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
+        <p class="col-md-4">Contact personnel can be assigned after the provider is created</p>
     </div>
 
     <div class="row">
+        <h4>Transportation Services</h4>
         <div class="form-group col-md-4">
             @Html.LabelFor(model => model.Transportation_services_offered, htmlAttributes: new { @class = "control-label col-md-10" })
             <div class="col-md-2">

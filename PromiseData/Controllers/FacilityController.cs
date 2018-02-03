@@ -118,7 +118,9 @@ namespace PromiseData.Controllers
                 Description = viewModel.Description,
                 ProviderID = viewModel.OperatorId,
                 LicenseNumber = viewModel.LicenseNumber,
-                Unlicensed = viewModel.Unlicensed
+                Unlicensed = viewModel.Unlicensed, 
+                Phone = viewModel.Phone,
+                Email = viewModel.Email
             };
 
             var facilityId = _context.Facilities.Add(facility).ID;
@@ -144,7 +146,7 @@ namespace PromiseData.Controllers
         [HttpGet]
         public ActionResult Details(int id)
         {
-            var facility = _context.Facilities.FirstOrDefault(a => a.ID == id);
+            var facility = _context.Facilities.Find( id);
             var viewModel = new FacilityViewModel
             {
                 ID = facility.ID,
@@ -162,7 +164,9 @@ namespace PromiseData.Controllers
                 LicenseNumber = facility.LicenseNumber,
                 Unlicensed = facility.Unlicensed,
                 ContactAgent = facility.ContactAgent,
-                Address = facility.Address
+                Address = facility.Address,
+                Phone = facility.Phone,
+                Email = facility.Email
             };
 
             viewModel.Classrooms = _context.Classrooms.Where(c => c.Facility_ID == id).ToList();
@@ -183,7 +187,7 @@ namespace PromiseData.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var facility = _context.Facilities.FirstOrDefault(a => a.ID == id);
+            var facility = _context.Facilities.Find( id);
             var viewModel = new FacilityViewModel
             {
                 ID = facility.ID,
@@ -201,6 +205,8 @@ namespace PromiseData.Controllers
                 Description = facility.Description,
                 LicenseNumber = facility.LicenseNumber,
                 Unlicensed = facility.Unlicensed,
+                Phone = facility.Phone,
+                Email = facility.Email,
                 FacilityTypes = this.FacilityTypes,
                 SupportTypes = _context.Code_AdditionalSupportTypes,
                 SupportDictionary = SupportBoolDictionary
@@ -239,7 +245,7 @@ namespace PromiseData.Controllers
                 return View("FacilityForm", viewModel);
             }
 
-            var facility = _context.Facilities.FirstOrDefault(i => i.ID == viewModel.ID);
+            var facility = _context.Facilities.Find( viewModel.ID);
             facility.ProviderFacilityType = viewModel.ProviderFacilityType;
             facility.Turnover_NonPPStaff = viewModel.Turnover_NonPPStaff;
             facility.TurnoverReasons_NonPPStaff = viewModel.TurnoverReasons_NonPPStaff;
@@ -253,6 +259,8 @@ namespace PromiseData.Controllers
             facility.Description = viewModel.Description;
             facility.LicenseNumber = viewModel.LicenseNumber;
             facility.Unlicensed = viewModel.Unlicensed;
+            facility.Email = viewModel.Email;
+            facility.Phone = viewModel.Phone;
 
             _context.FacilitySupports.RemoveRange(_context.FacilitySupports.Where(x => x.FacilityID == facility.ID));
 
@@ -277,7 +285,7 @@ namespace PromiseData.Controllers
         [Authorize]
         public ActionResult Delete(int id)
         {
-            var facility = _context.Facilities.FirstOrDefault(a => a.ID == id);
+            var facility = _context.Facilities.Find( id);
             var viewModel = new FacilityViewModel
             {
                 ID = facility.ID,
@@ -301,7 +309,7 @@ namespace PromiseData.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult ConfirmDelete(int id)
         {
-            var facility = _context.Facilities.FirstOrDefault(a => a.ID == id);
+            var facility = _context.Facilities.Find( id);
             _context.Facilities.Remove(facility);
             _context.SaveChanges();
             return RedirectToAction("Index", "Facility");

@@ -94,6 +94,14 @@ namespace PromiseData.ViewModels
         [DisplayName("Unlicensed")]
         public bool Unlicensed { get; set; }
 
+        [StringLength(15)]
+        [DisplayName("Phone")]
+        public string Phone { get; set; }
+
+        [StringLength(50)]
+        [DisplayName("Email")]
+        public string Email { get; set; }
+
         [DisplayName("Operator")]
         public Institution Operator { get; set; }
 

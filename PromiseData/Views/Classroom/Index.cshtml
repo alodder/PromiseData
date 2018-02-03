@@ -9,62 +9,65 @@
 <p>
     @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-default" })
 </p>
-<table class="table">
-    <tr>
-        <th>
-            Site
-        </th>
-        <th>
-            Classroom
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Facility.ProviderFacilityType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PPStudents)
-        </th>
-        <th>
-            Student Enrollment
-        </th>
-        <th></th>
-    </tr>
+<div class="table-responsive">
+    <table class="table">
+        <tr>
+            <th>
+                Site
+            </th>
+            <th>
+                Classroom
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Facility.ProviderFacilityType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PPStudents)
+            </th>
+            <th>
+                Student Enrollment
+            </th>
+            <th></th>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Facility.Description)
-        </td>
-        <td>
-            @if (!item.Description.IsEmpty())
-            {
-                @Html.DisplayFor(modelItem => item.Description)
-            }
-            else
-            {
-                @Html.DisplayFor(modelItem => item.ID)
-            }
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Code_ProgramSessionType.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Facility.ProviderFacilityType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PPStudents)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ChildEnrollments.Count)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-default btn-xs" }) |
-            @Html.ActionLink("Details", "Details", new { id = item.ID }, new { @class = "btn btn-default btn-xs" }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn btn-default btn-xs" })
-        </td>
-    </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Facility.Description)
+                </td>
+                <td>
+                    @if (!item.Description.IsEmpty())
+                    {
+                        @Html.DisplayFor(modelItem => item.Description)
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.ID)
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Code_ProgramSessionType.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Facility.ProviderFacilityType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PPStudents)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ChildEnrollments.Count)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-default btn-xs" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }, new { @class = "btn btn-default btn-xs" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn btn-default btn-xs" })
+                </td>
+            </tr>
+        }
 
-</table>
+    </table>
+</div>

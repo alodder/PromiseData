@@ -45,6 +45,14 @@
             @Html.DisplayNameFor(model => model.ProviderFacilityType)
         </li>
         <li class="list-group-item">
+            <span class="badge">@Html.DisplayFor(model => model.Phone)</span>
+            @Html.DisplayNameFor(model => model.Phone)
+        </li>
+        <li class="list-group-item">
+            <span class="badge">@Html.DisplayFor(model => model.Email)</span>
+            @Html.DisplayNameFor(model => model.Email)
+        </li>
+        <li class="list-group-item">
             <span class="badge">@Html.DisplayFor(model => model.Turnover_NonPPStaff)</span>
             @Html.DisplayNameFor(model => model.Turnover_NonPPStaff)
         </li>
@@ -54,7 +62,7 @@
         </li>
         <li class="list-group-item">
             <span class="badge"><i class="glyphicon glyphicon-ban-circle"></i></span>
-            Trasnportation Services offered
+            Transportation Services offered
         </li>
         <li class="list-group-item">
             <span class="badge">@Html.DisplayFor(model => model.ChildrenReceivingTransportationServices)</span>
@@ -62,74 +70,83 @@
         </li>
     </ul>
 
-    
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            @Html.DisplayNameFor(model => model.Address)
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    @Html.DisplayNameFor(model => model.Address)
+                </div>
+                <div class="panel-body">
+                    @if (Model.Address != null)
+            {
+                        <address>
+                            @Model.Address.Address1
+                            <br />
+                            @Model.Address.Address2
+                            <br />
+                            @Model.Address.Address3
+                            <br />
+                            @Model.Address.City
+                            @Model.Address.LU_State.Abbreviation
+                            @Model.Address.ZipCode
+                        </address>
+                    }
+                    else
+                    {
+                        <p class="text-warning">Missing</p>
+                    }
+                </div>
+                <div class="panel-footer">
+                    @if (Model.Address == null)
+            {
+                        @Html.ActionLink("Add", "CreateForProvider", "Address", new { id = Model.ID }, new { @class = "btn btn-default" })
+                    }
+                    else if (Model.CanEdit)
+                    {
+                        @Html.ActionLink("Update", "Edit", "Address", new { id = Model.Address.ID }, new { @class = "btn btn-default" })
+                    }
+                </div>
+            </div>
+
         </div>
-        <div class="panel-body">
-            @if (Model.Address != null)
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    @Html.DisplayNameFor(model => model.ContactAgent)
+                </div>
+                <div class="panel-body">
+                    @if (Model.ContactAgent != null)
             {
-                <address>
-                    @Model.Address.Address1
-                    <br />
-                    @Model.Address.Address2
-                    <br />
-                    @Model.Address.Address3
-                    <br />
-                    @Model.Address.City
-                    @Model.Address.LU_State.Abbreviation
-                    @Model.Address.ZipCode
-                </address>
-            }
-            else
+                        <address>
+                            @Model.ContactAgent.AgentTitle
+                            <br />
+                            @Model.ContactAgent.AgentName
+                            <br />
+                            @Model.ContactAgent.AgentPhone
+                            <br />
+                            @Model.ContactAgent.AgentEmail
+                        </address>
+                    }
+                    else
+                    {
+                        <p class="text-warning">Missing</p>
+                    }
+                </div>
+                <div class="panel-footer">
+                    @if (Model.ContactAgent == null)
             {
-                <p class="text-warning">Missing</p>
-            }
-        </div>
-        <div class="panel-footer">
-            @if (Model.Address == null)
-            {
-                @Html.ActionLink("Add", "CreateForProvider", "Address", new { id = Model.ID }, new { @class = "btn btn-default" })
-            }
-            else if (Model.CanEdit)
-            {
-                @Html.ActionLink("Update", "Edit", "Address", new { id = Model.Address.ID }, new { @class = "btn btn-default" })
-            }
+                        @Html.ActionLink("Add", "CreateForProvider", "ContactAgents", new { id = Model.ID }, new { @class = "btn btn-default" })
+                    }
+                    else if (Model.CanEdit)
+                    {
+                        @Html.ActionLink("Update", "Edit", "ContactAgents", new { id = Model.ContactAgent.AgentId }, new { @class = "btn btn-default" })
+                    }
+                </div>
+            </div>
+
         </div>
     </div>
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            @Html.DisplayNameFor(model => model.ContactAgent)
-        </div>
-        <div class="panel-body">
-            @if (Model.ContactAgent != null)
-            {
-                <address>
-                    @Model.ContactAgent.AgentName
-                    <br />
-                    @Model.ContactAgent.AgentPhone
-                    <br />
-                    @Model.ContactAgent.AgentEmail
-                </address>
-            }
-            else
-            {
-                <p class="text-warning">Missing</p>
-            }
-        </div>
-        <div class="panel-footer">
-            @if (Model.ContactAgent == null)
-            {
-                @Html.ActionLink("Add", "CreateForProvider", "ContactAgents", new { id = Model.ID }, new { @class = "btn btn-default" })
-            }
-            else if (Model.CanEdit)
-            {
-                @Html.ActionLink("Update", "Edit", "ContactAgents", new { id = Model.ContactAgent.AgentId }, new { @class = "btn btn-default" })
-            }
-        </div>
-    </div>
 
     
     <h4>@Html.DisplayNameFor(model => model.AdditionalChildFamilySupports_ID)</h4>

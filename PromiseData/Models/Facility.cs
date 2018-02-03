@@ -19,7 +19,7 @@ namespace PromiseData.Models
         public int ID { get; set; }
 
         [DisplayName("Operator Facility Type")]
-        [StringLength(24)]
+        [StringLength(100)]
         public string ProviderFacilityType { get; set; }
 
         [DisplayName("Turnover - Non-PPStaff")]
@@ -75,6 +75,14 @@ namespace PromiseData.Models
 
         [DisplayName("Contact Agent")]
         public int? ContactAgentID { get; set; }
+
+        [StringLength(15)]
+        [DisplayName("Phone")]
+        public string Phone { get; set; }
+
+        [StringLength(50)]
+        [DisplayName("Email")]
+        public string Email { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Classroom> Classrooms { get; set; }
