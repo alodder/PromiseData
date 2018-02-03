@@ -87,16 +87,6 @@ namespace PromiseData.Controllers
             viewModel.SupportsList = _context.Code_AdditionalSupportTypes.ToList();
 
             var facilitySupports = _context.FacilitySupports.Select(s => s.SupportTypesCode).ToList();
-            //viewModel.Supports = _context.Code_AdditionalSupportTypes.Where( support => facilitySupports.Contains( support.Code));
-
-            //viewModel.SupportsCodeList = new String[viewModel.Supports.ToArray().Length];
-
-            /*int i = 0;
-            foreach (FacilitySupport fSupport in viewModel.Supports)
-            {
-                viewModel.SupportsCodeList[i] = viewModel.Supports.Single(a => a.SupportTypesCode == role.RoleId).Name;
-                i++;
-            }*/
 
             return View("FacilityForm", viewModel);
         }
@@ -170,7 +160,9 @@ namespace PromiseData.Controllers
                 MonitoringVisit2Result = facility.MonitoringVisit2Result,
                 Description = facility.Description,
                 LicenseNumber = facility.LicenseNumber,
-                Unlicensed = facility.Unlicensed
+                Unlicensed = facility.Unlicensed,
+                ContactAgent = facility.ContactAgent,
+                Address = facility.Address
             };
 
             viewModel.Classrooms = _context.Classrooms.Where(c => c.Facility_ID == id).ToList();
@@ -319,7 +311,7 @@ namespace PromiseData.Controllers
         // GET: Facility
         public ActionResult Index()
         {
-            IEnumerable<Facility> facilities = _sitesRepository.GetUserSites( (ClaimsPrincipal)User);
+            IEnumerable<Facility> facilities = _sitesRepository.GetUserSites( (ClaimsPrincipal)User).ToList();
 
             return View(facilities);
         }

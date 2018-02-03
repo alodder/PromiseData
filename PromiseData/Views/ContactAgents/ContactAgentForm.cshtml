@@ -6,7 +6,7 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm(Model.Action, "ContactAgents"))
 {
     @Html.AntiForgeryToken()
     
@@ -14,6 +14,10 @@
         <h4>ContactAgent</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.AgentId)
+        @Html.HiddenFor(model => model.ProviderID)
+        @Html.HiddenFor(model => model.InstitutionID)
+
         <div class="form-group">
             @Html.LabelFor(model => model.AgentName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -55,17 +59,19 @@
         </div>
 
         <div class="form-group">
-            @Html.HiddenFor(model => model.InstitutionId)
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+            @if (Model.InstitutionID != null)
+            {
+                @Html.ActionLink("Back", "Details", "Institution", new { id = Model.InstitutionID }, new { @class = "btn btn-default" })
+            }
+            else if (Model.ProviderID != null)
+            {
+                @Html.ActionLink("Back", "Details", "Facility", new { id = Model.ProviderID }, new { @class = "btn btn-default" })
+            }
+            else
+            {
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+            }
+            <input type="submit" value="Save" class="btn btn-primary" />
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

@@ -60,6 +60,10 @@ namespace PromiseData.ViewModels
         [DisplayName("County")]
         public string County { get; set; }
 
+        public int? InstitutionID { get; set; }
+
+        public int? ProviderID { get; set; }
+
         public virtual Code_AddressType Code_AddressType { get; set; }
 
         public virtual LU_State LU_State { get; set; }

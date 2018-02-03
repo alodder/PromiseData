@@ -85,10 +85,10 @@ namespace PromiseData.Models
         public virtual Institution Provider { get; set; }
 
         [ForeignKey("AddressID")]
-        public virtual Institution Address { get; set; }
+        public virtual Address Address { get; set; }
 
         [ForeignKey("ContactAgentID")]
-        public virtual Institution ContactAgent { get; set; }
+        public virtual ContactAgent ContactAgent { get; set; }
 
         public virtual ICollection<WaiverCurrent> WaiverCurrents { get; set; }
 

@@ -101,10 +101,10 @@ namespace PromiseData.Controllers
 
 
 
-// GET: Family
-public ActionResult Index()
+        // GET: Family
+        public ActionResult Index()
         {
-            var allTheFamilies = _context.Families;
+            var allTheFamilies = _context.Families.ToList();
             return View(allTheFamilies);
         }
     }

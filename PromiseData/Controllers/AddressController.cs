@@ -27,7 +27,20 @@ namespace PromiseData.Controllers
                 AddressTypes = _context.Code_AddressType.ToList(),
                 States = _context.LU_State.ToList()
             };
-            return View(viewModel);
+            return View("AddressForm", viewModel);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult CreateForProvider(int id)
+        {
+            var viewModel = new AddressViewModel
+            {
+                AddressTypes = _context.Code_AddressType.ToList(),
+                States = _context.LU_State.ToList(),
+                ProviderID = id
+            };
+            return View("AddressForm", viewModel);
         }
 
         [Authorize]
@@ -40,7 +53,7 @@ namespace PromiseData.Controllers
             {
                 viewModel.AddressTypes = _context.Code_AddressType.ToList();
                 viewModel.States = _context.LU_State.ToList();
-                return View("Create", viewModel);
+                return View("AddressForm", viewModel);
             }
 
 
@@ -58,6 +71,14 @@ namespace PromiseData.Controllers
 
             _context.Addresses.Add(address);
             _context.SaveChanges();
+
+            if (viewModel.ProviderID != null)
+            {
+                var facility = _context.Facilities.Single(a => a.ID == viewModel.ProviderID);
+                facility.AddressID = address.ID;
+                _context.SaveChanges();
+                return RedirectToAction("Details", "Facility", new { id = viewModel.ProviderID });
+            }
 
             return RedirectToAction("Index", "Address");
         }
@@ -171,7 +192,7 @@ namespace PromiseData.Controllers
         // GET: Address
         public ActionResult Index()
         {
-            var viewModel = _context.Addresses;
+            var viewModel = _context.Addresses.ToList();
             return View(viewModel);
         }
     }

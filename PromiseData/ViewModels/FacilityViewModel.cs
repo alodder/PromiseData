@@ -97,6 +97,12 @@ namespace PromiseData.ViewModels
         [DisplayName("Operator")]
         public Institution Operator { get; set; }
 
+        [DisplayName("Address")]
+        public Address Address { get; set; }
+
+        [DisplayName("ContactAgent")]
+        public ContactAgent ContactAgent { get; set; }
+
         public IEnumerable<Code_AdditionalSupportTypes> Supports { get; set; }
 
         public IEnumerable<Code_AdditionalSupportTypes> SupportsList { get; set; }
