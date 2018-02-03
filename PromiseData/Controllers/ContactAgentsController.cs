@@ -87,7 +87,7 @@ namespace PromiseData.Controllers
 
             if (viewModel.ProviderID != null)
             {
-                var facility = db.Facilities.Single(a => a.ID == viewModel.ProviderID);
+                var facility = db.Facilities.FirstOrDefault(a => a.ID == viewModel.ProviderID);
                 facility.ContactAgentID = contactAgent.AgentId;
                 db.SaveChanges();
                 return RedirectToAction("Details", "Facility", new { id = viewModel.ProviderID });
@@ -125,7 +125,7 @@ namespace PromiseData.Controllers
                 InstitutionID = contactAgent.InstitutionId
             };
 
-            var provider = db.Facilities.SingleOrDefault(f => f.ContactAgentID == id);
+            var provider = db.Facilities.FirstOrDefault(f => f.ContactAgentID == id);
             viewModel.ProviderID = provider.ProviderID;
 
             return View("ContactAgentForm", viewModel);
@@ -165,7 +165,7 @@ namespace PromiseData.Controllers
             }
             else
             {
-                var provider = db.Facilities.Single(p => p.ContactAgentID == contactAgent.AgentId);
+                var provider = db.Facilities.FirstOrDefault(p => p.ContactAgentID == contactAgent.AgentId);
                 if(provider != null)
                 {
                     return RedirectToAction("Details", "Facility", new { id = provider.ID });

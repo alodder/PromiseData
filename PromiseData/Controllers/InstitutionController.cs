@@ -93,10 +93,10 @@ namespace PromiseData.Controllers
         [Authorize(Roles = "Administrator, System Administrator")]
         public ActionResult Edit(int id)
         {
-            var institution = _context.Institutions.Single(i => i.Id == id);
+            var institution = _context.Institutions.Find( id);
 
-            var mailingAddress = _context.Addresses.SingleOrDefault(c => c.ID == institution.MailingAddressId);
-            var locationAddress = _context.Addresses.SingleOrDefault(c => c.ID == institution.LocationAddressId);
+            var mailingAddress = _context.Addresses.Find( institution.MailingAddressId);
+            var locationAddress = _context.Addresses.Find( institution.LocationAddressId);
 
             var viewModel = new InstitutionFormViewModel {
                 Heading = "Edit Institution",
@@ -134,7 +134,7 @@ namespace PromiseData.Controllers
                 return View("InstitutionForm", viewModel);
             }
 
-            var institution = _context.Institutions.Single(i => i.Id == viewModel.Id);
+            var institution = _context.Institutions.Find( viewModel.Id);
             institution.LicenseNumber = (viewModel.LicenseNumber == null ? "" : viewModel.LicenseNumber);
             institution.LegalName = viewModel.LegalName;
             institution.Region = viewModel.Region;
@@ -149,21 +149,21 @@ namespace PromiseData.Controllers
                 institution.Type = viewModel.OperatorType;
             }
 
-            /*var director = _context.ContactAgents.Single(i => i.AgentId == institution.DirectorAgentId);
+            /*var director = _context.ContactAgents.FirstOrDefault(i => i.AgentId == institution.DirectorAgentId);
             director.AgentName = viewModel.DirectorAgent.AgentName;
             director.AgentTitle = viewModel.DirectorAgent.AgentTitle;
             director.AgentEmail = viewModel.DirectorAgent.AgentEmail;
             director.AgentPhone = viewModel.DirectorAgent.AgentPhone;
             director.AgentFax = viewModel.DirectorAgent.AgentFax;*/
 
-            /*var contact = _context.ContactAgents.Single(i => i.AgentId == institution.ContactAgentId);
+            /*var contact = _context.ContactAgents.FirstOrDefault(i => i.AgentId == institution.ContactAgentId);
             contact.AgentName = viewModel.ContactAgent.AgentName;
             contact.AgentTitle = viewModel.ContactAgent.AgentTitle;
             contact.AgentEmail = viewModel.ContactAgent.AgentEmail;
             contact.AgentPhone = viewModel.ContactAgent.AgentPhone;
             contact.AgentFax = viewModel.ContactAgent.AgentFax;*/
 
-            var location = _context.Addresses.Single(i => i.ID == institution.LocationAddressId);
+            var location = _context.Addresses.Find( institution.LocationAddressId);
             location.Address1 = viewModel.AddressPhysical.Address1;
             location.Address2 = viewModel.AddressPhysical.Address2;
             location.Address3 = viewModel.AddressPhysical.Address3;
@@ -171,7 +171,7 @@ namespace PromiseData.Controllers
             location.State_ID = viewModel.AddressPhysical.State_ID;
             location.ZipCode = viewModel.AddressPhysical.ZipCode;
 
-            var mailing = _context.Addresses.Single(i => i.ID == institution.MailingAddressId);
+            var mailing = _context.Addresses.Find( institution.MailingAddressId);
             mailing.Address1 = viewModel.AddressMail.Address1;
             mailing.Address2 = viewModel.AddressMail.Address2;
             mailing.Address3 = viewModel.AddressMail.Address3;
@@ -233,16 +233,16 @@ namespace PromiseData.Controllers
 
             viewModel = UserRoleCheck(viewModel);                
 
-            var institution = _context.Institutions.SingleOrDefault(i => i.Id == id);
+            var institution = _context.Institutions.Find( id);
             viewModel.DirectorAgentId = institution.DirectorAgentId;
             viewModel.ContactAgentId = institution.ContactAgentId;
             viewModel.LocationAddressId = institution.LocationAddressId;
             viewModel.MailingAddressId = institution.MailingAddressId;
 
-            viewModel.DirectorAgent = _context.ContactAgents.SingleOrDefault(d => d.AgentId == institution.DirectorAgentId);
-            viewModel.ContactAgent = _context.ContactAgents.SingleOrDefault(d => d.AgentId == institution.ContactAgentId);
-            viewModel.AddressPhysical = _context.Addresses.SingleOrDefault(d => d.ID == institution.LocationAddressId);
-            viewModel.AddressMail = _context.Addresses.SingleOrDefault(d => d.ID == institution.MailingAddressId);
+            viewModel.DirectorAgent = _context.ContactAgents.Find( institution.DirectorAgentId);
+            viewModel.ContactAgent = _context.ContactAgents.Find( institution.ContactAgentId);
+            viewModel.AddressPhysical = _context.Addresses.Find( institution.LocationAddressId);
+            viewModel.AddressMail = _context.Addresses.Find( institution.MailingAddressId);
             viewModel.Agents = _context.ContactAgents.Where(a => a.InstitutionId == id).ToList();
 
             viewModel.Id = institution.Id;
@@ -268,7 +268,7 @@ namespace PromiseData.Controllers
             {
                 viewModel.Sites = _context.Facilities.Where(i => i.ProviderID == id).ToList();
                 viewModel.ParentHubId = institution.ParentHubId.GetValueOrDefault();
-                viewModel.ParentHub = _context.Institutions.SingleOrDefault(i => i.Id == viewModel.ParentHubId);
+                viewModel.ParentHub = _context.Institutions.Find( viewModel.ParentHubId);
             }
 
             return View( viewModel);
@@ -280,7 +280,7 @@ namespace PromiseData.Controllers
         { 
             var viewModel = new InstitutionsViewModel();
 
-            //var user = UserManager.FindById( userAndInstitution.UserId); //UserManager.Users.Single(a => a.Id == userAndRole.Id);
+            //var user = UserManager.FindById( userAndInstitution.UserId); //UserManager.Users.FirstOrDefault(a => a.Id == userAndRole.Id);
             ClaimsIdentity identity = (ClaimsIdentity)User.Identity;// UserManager.CreateIdentity(User, DefaultAuthenticationTypes.ApplicationCookie);
 
             var claims = (from c in identity.Claims

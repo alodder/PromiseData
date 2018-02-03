@@ -37,7 +37,7 @@ namespace PromiseData.Controllers
                 if (curriculaClassSet.Select(t => t.CurriculaCode).Contains(curriculum.Code))
                 {
                     viewModel.ClassroomCurricula.Add(curriculum.Code, true);
-                    viewModel.CurriculumOther = (curriculum.Code == 1) ? (curriculaClassSet.Single(t => t.CurriculaCode == curriculum.Code).UserDefined) : viewModel.CurriculumOther;
+                    viewModel.CurriculumOther = (curriculum.Code == 1) ? (curriculaClassSet.FirstOrDefault(t => t.CurriculaCode == curriculum.Code).UserDefined) : viewModel.CurriculumOther;
                 }
                 else
                 {
@@ -56,7 +56,7 @@ namespace PromiseData.Controllers
                 if (assessmentClassSet.Select(t => t.AssessmentCode).Contains(assessment.Code))
                 {
                     viewModel.ClassroomAssessments.Add(assessment.Code, true);
-                    viewModel.AssessmentOther = (assessment.Code == 1) ? (assessmentClassSet.Single(t => t.AssessmentCode == assessment.Code).UserDefined) : viewModel.AssessmentOther;
+                    viewModel.AssessmentOther = (assessment.Code == 1) ? (assessmentClassSet.FirstOrDefault(t => t.AssessmentCode == assessment.Code).UserDefined) : viewModel.AssessmentOther;
                 }
                 else
                 {
@@ -75,7 +75,7 @@ namespace PromiseData.Controllers
                 if (screeningClassSet.Select(t => t.ScreeningCode).Contains(screening.Code))
                 {
                     viewModel.ClassroomScreenings.Add(screening.Code, true);
-                    viewModel.ScreeningOther = (screening.Code == 1) ? (screeningClassSet.Single(t => t.ScreeningCode == screening.Code).UserDefined) : viewModel.ScreeningOther;
+                    viewModel.ScreeningOther = (screening.Code == 1) ? (screeningClassSet.FirstOrDefault(t => t.ScreeningCode == screening.Code).UserDefined) : viewModel.ScreeningOther;
                 }
                 else
                 {
@@ -92,7 +92,7 @@ namespace PromiseData.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var facility = _context.Facilities.SingleOrDefault(a => a.ID == id);
+            var facility = _context.Facilities.Find( id);
             if ((facility == null) && !(User.IsInRole("Administrator") || User.IsInRole("System Administrator")))
             {
                 return HttpNotFound();
@@ -165,14 +165,14 @@ namespace PromiseData.Controllers
         [Authorize]
         public ActionResult Details(int id)
         {
-            var classroom = _context.Classrooms.Single(a => a.ID == id);
+            var classroom = _context.Classrooms.Find( id);
             return View(classroom);
         }
 
         [Authorize]
         public ActionResult Delete(int id)
         {
-            var classroom = _context.Classrooms.Single(a => a.ID == id);
+            var classroom = _context.Classrooms.Find( id);
             var viewModel = new Classroom
             {
                 ID = classroom.ID,
@@ -201,7 +201,7 @@ namespace PromiseData.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult ConfirmDelete(int id)
         {
-            var classroom = _context.Classrooms.Single(a => a.ID == id);
+            var classroom = _context.Classrooms.Find( id);
             _context.Classrooms.Remove(classroom);
             _context.SaveChanges();
             return RedirectToAction("Index", "Classroom");
@@ -212,7 +212,7 @@ namespace PromiseData.Controllers
         [Authorize(Roles = "Administrator, System Administrator")]
         public ActionResult Edit(int id)
         {
-            var classroom = _context.Classrooms.Single(a => a.ID == id);
+            var classroom = _context.Classrooms.Find( id);
 
             var viewModel = new ClassroomViewModel
             {
@@ -259,7 +259,7 @@ namespace PromiseData.Controllers
                 return View("ClassroomForm", viewModel);
             }
 
-            var classroom = _context.Classrooms.Single(a => a.ID == viewModel.ID);
+            var classroom = _context.Classrooms.Find( viewModel.ID);
             classroom.Facility_ID = viewModel.Facility_ID;
             classroom.Program_ID = viewModel.Program_ID;
             //classroom.ProgramSessionType_ID = viewModel.ProgramSessionType_ID;

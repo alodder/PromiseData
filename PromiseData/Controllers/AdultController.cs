@@ -48,7 +48,7 @@ namespace PromiseData.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var child = _context.Children.Single(c => c.ID == id);
+            var child = _context.Children.Find( id);
             if (child == null)
             {
                 return HttpNotFound();
@@ -110,7 +110,7 @@ namespace PromiseData.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var adult = _context.Adults.Single(a => a.ID == id);
+            var adult = _context.Adults.Find( id);
             if (adult == null)
             {
                 return HttpNotFound();
@@ -151,7 +151,7 @@ namespace PromiseData.Controllers
                 return View("AdultForm", viewModel);
             }
 
-            var adult = _context.Adults.Single(a => a.ID == viewModel.id);
+            var adult = _context.Adults.Find( viewModel.id);
 
             adult.Age = viewModel.Age;
             adult.NameFirst = viewModel.NameFirst;
@@ -174,7 +174,7 @@ namespace PromiseData.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var adult = _context.Adults.Single(a => a.ID == id);
+            var adult = _context.Adults.Find( id);
             if (adult == null)
             {
                 return HttpNotFound();
@@ -190,7 +190,7 @@ namespace PromiseData.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var adult = _context.Adults.Single(a => a.ID == id);
+            var adult = _context.Adults.Find( id);
             if (adult == null)
             {
                 return HttpNotFound();
@@ -203,7 +203,7 @@ namespace PromiseData.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult ConfirmDelete(int id)
         {
-            var adult = _context.Adults.Single(a => a.ID == id);
+            var adult = _context.Adults.Find( id);
             _context.Adults.Remove(adult);
             _context.SaveChanges();
             return RedirectToAction("Index", "Adult");
@@ -216,7 +216,7 @@ namespace PromiseData.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var adult = _context.Adults.Single(a => a.ID == id);
+            var adult = _context.Adults.Find( id);
             if (adult == null)
             {
                 return HttpNotFound();

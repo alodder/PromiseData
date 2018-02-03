@@ -144,7 +144,7 @@ namespace PromiseData.Controllers
         [HttpGet]
         public ActionResult Details(int id)
         {
-            var facility = _context.Facilities.Single(a => a.ID == id);
+            var facility = _context.Facilities.FirstOrDefault(a => a.ID == id);
             var viewModel = new FacilityViewModel
             {
                 ID = facility.ID,
@@ -166,7 +166,7 @@ namespace PromiseData.Controllers
             };
 
             viewModel.Classrooms = _context.Classrooms.Where(c => c.Facility_ID == id).ToList();
-            viewModel.Operator = _context.Institutions.SingleOrDefault(i => i.Id == facility.ProviderID);
+            viewModel.Operator = _context.Institutions.FirstOrDefault(i => i.Id == facility.ProviderID);
             var facilitySupports = _context.FacilitySupports.Where(s=> s.FacilityID == id).Select(s => s.SupportTypesCode).ToList();
             viewModel.Supports = _context.Code_AdditionalSupportTypes.Where(support => facilitySupports.Contains(support.Code)).ToList();
 
@@ -183,7 +183,7 @@ namespace PromiseData.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var facility = _context.Facilities.Single(a => a.ID == id);
+            var facility = _context.Facilities.FirstOrDefault(a => a.ID == id);
             var viewModel = new FacilityViewModel
             {
                 ID = facility.ID,
@@ -215,7 +215,7 @@ namespace PromiseData.Controllers
             viewModel.SupportsList = _context.Code_AdditionalSupportTypes.ToList();
 
             viewModel.Classrooms = _context.Classrooms.Where(c => c.ID == id).ToList();
-            viewModel.Operator = _context.Institutions.SingleOrDefault(i => i.Id == facility.ProviderID);
+            viewModel.Operator = _context.Institutions.FirstOrDefault(i => i.Id == facility.ProviderID);
 
             var facilitySupports = _context.FacilitySupports.Where(s => s.FacilityID == id).Select(s => s.SupportTypesCode).ToList();
             viewModel.Supports = _context.Code_AdditionalSupportTypes.Where(support => facilitySupports.Contains(support.Code)).ToList();
@@ -239,7 +239,7 @@ namespace PromiseData.Controllers
                 return View("FacilityForm", viewModel);
             }
 
-            var facility = _context.Facilities.Single(i => i.ID == viewModel.ID);
+            var facility = _context.Facilities.FirstOrDefault(i => i.ID == viewModel.ID);
             facility.ProviderFacilityType = viewModel.ProviderFacilityType;
             facility.Turnover_NonPPStaff = viewModel.Turnover_NonPPStaff;
             facility.TurnoverReasons_NonPPStaff = viewModel.TurnoverReasons_NonPPStaff;
@@ -277,7 +277,7 @@ namespace PromiseData.Controllers
         [Authorize]
         public ActionResult Delete(int id)
         {
-            var facility = _context.Facilities.Single(a => a.ID == id);
+            var facility = _context.Facilities.FirstOrDefault(a => a.ID == id);
             var viewModel = new FacilityViewModel
             {
                 ID = facility.ID,
@@ -301,7 +301,7 @@ namespace PromiseData.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult ConfirmDelete(int id)
         {
-            var facility = _context.Facilities.Single(a => a.ID == id);
+            var facility = _context.Facilities.FirstOrDefault(a => a.ID == id);
             _context.Facilities.Remove(facility);
             _context.SaveChanges();
             return RedirectToAction("Index", "Facility");

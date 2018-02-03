@@ -105,7 +105,7 @@ namespace PromiseData.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var child = _context.Children.Single(a => a.ID == id);
+            var child = _context.Children.FirstOrDefault(a => a.ID == id);
             if (child == null)
             {
                 return HttpNotFound();
@@ -123,19 +123,19 @@ namespace PromiseData.Controllers
             viewModel.GenderID = child.Gender_ID[0];
             viewModel.Address_ID = child.Address_ID;
 
-            viewModel.Address = _context.Addresses.SingleOrDefault( a => a.ID == child.Address_ID);
-            viewModel.Generation = _context.Code_GenerationCode.SingleOrDefault(a => a.Code == child.GenerationCode_ID);
+            viewModel.Address = _context.Addresses.FirstOrDefault( a => a.ID == child.Address_ID);
+            viewModel.Generation = _context.Code_GenerationCode.FirstOrDefault(a => a.Code == child.GenerationCode_ID);
             viewModel.OtherNameType = child.OtherNameType;
-            viewModel.Gender = _context.CodeGender.SingleOrDefault(a => a.Code == child.Gender_ID);
-            viewModel.Language = _context.CodeLanguage.SingleOrDefault(a => a.Code == child.Language_ID);
-            viewModel.ProgramSessionType = _context.Code_ProgramSessionType.SingleOrDefault(a => a.Code == child.Program_ID);
-            viewModel.ExitReason = _context.Code_ExitReason.SingleOrDefault(a => a.Code == child.Language_ID);
+            viewModel.Gender = _context.CodeGender.FirstOrDefault(a => a.Code == child.Gender_ID);
+            viewModel.Language = _context.CodeLanguage.FirstOrDefault(a => a.Code == child.Language_ID);
+            viewModel.ProgramSessionType = _context.Code_ProgramSessionType.FirstOrDefault(a => a.Code == child.Program_ID);
+            viewModel.ExitReason = _context.Code_ExitReason.FirstOrDefault(a => a.Code == child.Language_ID);
 
             viewModel.Child_IFSP = _context.Child_IFSPs.Where(c => c.ChildID == child.ID).ToList();
             viewModel.Child_Special_Needs = _context.Child_Special_Needs.Where(c => c.ChildID == child.ID).ToList();
 
             viewModel.FamilyID = child.FamilyID.GetValueOrDefault();
-            viewModel.Family = _context.Families.SingleOrDefault( f => f.ID == child.FamilyID);
+            viewModel.Family = _context.Families.FirstOrDefault( f => f.ID == child.FamilyID);
             viewModel.Adults = _context.Adults.Where( a => a.FamilyID == child.FamilyID);
 
             viewModel.ChildRaces = _context.ChildRaces.Where( r => r.ChildID == child.ID);
@@ -159,7 +159,7 @@ namespace PromiseData.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var child = _context.Children.Single(a => a.ID == id);
+            var child = _context.Children.FirstOrDefault(a => a.ID == id);
             if (child == null)
             {
                 return HttpNotFound();
@@ -194,7 +194,7 @@ namespace PromiseData.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var child = _context.Children.Single(a => a.ID == id);
+            var child = _context.Children.FirstOrDefault(a => a.ID == id);
             if (child == null)
             {
                 return HttpNotFound();
@@ -263,7 +263,7 @@ namespace PromiseData.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var child = _context.Children.Single(a => a.ID == id);
+            var child = _context.Children.FirstOrDefault(a => a.ID == id);
             if (child == null)
             {
                 return HttpNotFound();
@@ -333,7 +333,7 @@ namespace PromiseData.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var child = _context.Children.Single(a => a.ID == id);
+            var child = _context.Children.FirstOrDefault(a => a.ID == id);
             if (child == null)
             {
                 return HttpNotFound();
@@ -346,7 +346,7 @@ namespace PromiseData.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult ConfirmDelete(int id)
         {
-            var child = _context.Children.Single(a => a.ID == id);
+            var child = _context.Children.FirstOrDefault(a => a.ID == id);
             _context.Children.Remove(child);
             _context.SaveChanges();
             return RedirectToAction("Index", "Child");
@@ -359,7 +359,7 @@ namespace PromiseData.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var child = _context.Children.Single(a => a.ID == id);
+            var child = _context.Children.FirstOrDefault(a => a.ID == id);
             if (child == null)
             {
                 return HttpNotFound();
@@ -404,7 +404,7 @@ namespace PromiseData.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var child = _context.Children.Single(a => a.ID == id);
+            var child = _context.Children.FirstOrDefault(a => a.ID == id);
             if (child == null)
             {
                 return HttpNotFound();
@@ -473,7 +473,7 @@ namespace PromiseData.Controllers
         [WebMethod]
         public string confirmRemoveAdult(int id)
         {
-            var adult = _context.Adults.Single(a => a.ID == id);
+            var adult = _context.Adults.FirstOrDefault(a => a.ID == id);
             string response = "Are you sure you want to remove ";
             response += adult.NameFirst + " " + adult.NameLast;
             response += " from this child's family?";
@@ -483,7 +483,7 @@ namespace PromiseData.Controllers
         [WebMethod]
         public int removeAdult(int id)
         {
-            var adult = _context.Adults.Single(a => a.ID == id);
+            var adult = _context.Adults.FirstOrDefault(a => a.ID == id);
             adult.FamilyID = null;
             var success = _context.SaveChanges();
             return success;
@@ -497,7 +497,7 @@ namespace PromiseData.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var child = _context.Children.Single(a => a.ID == id);
+            var child = _context.Children.FirstOrDefault(a => a.ID == id);
             if (child == null)
             {
                 return HttpNotFound();
