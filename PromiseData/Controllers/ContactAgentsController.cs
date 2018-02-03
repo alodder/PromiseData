@@ -101,7 +101,7 @@ namespace PromiseData.Controllers
             return RedirectToAction("Details", "Institution", new { id = contactAgent.InstitutionId });
         }
 
-        // GET: ContactAgents/Edit/5
+        [HttpGet]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -116,6 +116,7 @@ namespace PromiseData.Controllers
             }
             var viewModel = new ContactAgentViewModel
             {
+                AgentId = contactAgent.AgentId,
                 AgentName = contactAgent.AgentName,
                 AgentEmail = contactAgent.AgentEmail,
                 AgentFax = contactAgent.AgentFax,
@@ -123,6 +124,9 @@ namespace PromiseData.Controllers
                 AgentTitle = contactAgent.AgentTitle,
                 InstitutionID = contactAgent.InstitutionId
             };
+
+            var provider = db.Facilities.SingleOrDefault(f => f.ContactAgentID == id);
+            viewModel.ProviderID = provider.ProviderID;
 
             return View("ContactAgentForm", viewModel);
         }
@@ -154,6 +158,19 @@ namespace PromiseData.Controllers
             
             db.Entry(contactAgent).State = EntityState.Modified;
             db.SaveChanges();
+
+            if(contactAgent.InstitutionId > 0)
+            {
+                return RedirectToAction("Details", "Institution", new { id = contactAgent.InstitutionId });
+            }
+            else
+            {
+                var provider = db.Facilities.Single(p => p.ContactAgentID == contactAgent.AgentId);
+                if(provider != null)
+                {
+                    return RedirectToAction("Details", "Facility", new { id = provider.ID });
+                }
+            }
             return RedirectToAction("Index");
         }
 

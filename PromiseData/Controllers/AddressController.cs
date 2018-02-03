@@ -146,6 +146,12 @@ namespace PromiseData.Controllers
 
             _context.SaveChanges();
 
+            var provider = _context.Facilities.SingleOrDefault(p => p.AddressID == address.ID);
+            if (provider != null)
+            {
+                return RedirectToAction("Details", "Facility", new { id = provider.ID });
+            }
+
             return RedirectToAction("Index", "Address");
         }
 
