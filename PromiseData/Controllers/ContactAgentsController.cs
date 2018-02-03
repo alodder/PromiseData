@@ -126,7 +126,11 @@ namespace PromiseData.Controllers
             };
 
             var provider = db.Facilities.FirstOrDefault(f => f.ContactAgentID == id);
-            viewModel.ProviderID = provider.ProviderID;
+            if(provider != null)
+            {
+                viewModel.ProviderID = provider.ProviderID;
+            }
+            
 
             return View("ContactAgentForm", viewModel);
         }
