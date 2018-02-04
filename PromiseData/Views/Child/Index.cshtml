@@ -18,145 +18,146 @@
         </div>
     </div>
 }
+<div class="table-responsive">
+    <table class="table">
+        <tr>
+            <th>
+                @*Html.DisplayNameFor(model => model.ELD_ID)*@
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.LastName)*@
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.FirstName)*@
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.GenerationCode_ID)*@
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Address_ID)*@
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Birthdate)*@
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Gender_ID)*@
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.HeadStartEligibility)*@
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Language_ID)*@
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.EnglishLanguageLearner)*@
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.ClassroomLanguage_ID)*@
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.SchoolDistrictCode)*@
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.ElementarySchoolCode)*@
+            </th>
+            <th>
+                @* @Html.DisplayNameFor(model => model.PriorEarlyLearningMonths)*@
+            </th>
+            <th>
+                @* @Html.DisplayNameFor(model => model.Program_ID)*@
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.SchoolDistrictCatchment)*@
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.ElementarySchoolCatchment)*@
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Parent_ProviderConsultations)*@
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.TransitionPlanConferenceDate)*@
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.ExitReason_ID)*@
+            </th>
+            <th>
+            </th>
+            <th></th>
+        </tr>
 
-<table class="table">
-    <tr>
-        <th>
-            @*Html.DisplayNameFor(model => model.ELD_ID)*@
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.LastName)*@
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.FirstName)*@
-        </th> 
-        <th>
-            @*@Html.DisplayNameFor(model => model.GenerationCode_ID)*@
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.Address_ID)*@
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.Birthdate)*@
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.Gender_ID)*@
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.HeadStartEligibility)*@
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.Language_ID)*@
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.EnglishLanguageLearner)*@
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.ClassroomLanguage_ID)*@
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.SchoolDistrictCode)*@
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.ElementarySchoolCode)*@
-        </th>
-        <th>
-           @* @Html.DisplayNameFor(model => model.PriorEarlyLearningMonths)*@
-        </th>
-        <th>
-           @* @Html.DisplayNameFor(model => model.Program_ID)*@
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.SchoolDistrictCatchment)*@
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.ElementarySchoolCatchment)*@
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.Parent_ProviderConsultations)*@
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.TransitionPlanConferenceDate)*@
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.ExitReason_ID)*@
-        </th>
-        <th>
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var child in Model.Children) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => child.ELD_ID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => child.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => child.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => child.OtherLastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => child.Address.City)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => child.Birthdate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => child.Gender_ID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => child.HeadStartEligibility)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => child.Language_ID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => child.EnglishLanguageLearner)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => child.ClassroomLanguage_ID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => child.SchoolDistrictCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => child.ElementarySchoolCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => child.PriorEarlyLearningMonths)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => child.Program_ID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => child.SchoolDistrictCatchment)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => child.ElementarySchoolCatchment)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => child.Parent_ProviderConsultations)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => child.TransitionPlanConferenceDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => child.ExitReason_ID)
-        </td>
-        <th>
-            @Html.ActionLink("Enroll", "Enroll", new { id = child.ID }, new { @class = "btn btn-info btn-xs" })
-        </th>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id= child.ID }, new { @class = "btn btn-default btn-xs" }) |
-            @Html.ActionLink("Details", "Details", new { id= child.ID }, new { @class = "btn btn-default btn-xs" }) |
-            @Html.ActionLink("Delete", "Delete", new { id= child.ID }, new { @class = "btn btn-default btn-xs" })
-        </td>
-    </tr>
-}
-
-</table>
+        @foreach (var child in Model.Children)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => child.ELD_ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => child.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => child.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => child.OtherLastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => child.Address.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => child.Birthdate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => child.Gender_ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => child.HeadStartEligibility)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => child.Language_ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => child.EnglishLanguageLearner)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => child.ClassroomLanguage_ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => child.SchoolDistrictCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => child.ElementarySchoolCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => child.PriorEarlyLearningMonths)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => child.Program_ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => child.SchoolDistrictCatchment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => child.ElementarySchoolCatchment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => child.Parent_ProviderConsultations)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => child.TransitionPlanConferenceDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => child.ExitReason_ID)
+                </td>
+                <th>
+                    @Html.ActionLink("Enroll", "Enroll", new { id = child.ID }, new { @class = "btn btn-info btn-xs" })
+                </th>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = child.ID }, new { @class = "btn btn-default btn-xs" })
+                    @Html.ActionLink("Details", "Details", new { id = child.ID }, new { @class = "btn btn-default btn-xs" })
+                    @Html.ActionLink("Delete", "Delete", new { id = child.ID }, new { @class = "btn btn-default btn-xs" })
+                </td>
+            </tr>
+        }
+    </table>
+</div>
