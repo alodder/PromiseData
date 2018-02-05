@@ -46,6 +46,14 @@
 
     <div class="row">
         <div class="form-group col-md-6">
+            @Html.LabelFor(m => m.SparkRating, htmlAttributes: new { @class = "control-label" })
+            @Html.DropDownListFor(model => model.SparkRating, new SelectList(Model.SparkRatingList), new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.SparkRating)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-md-6">
             @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
             <div class="">
                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })

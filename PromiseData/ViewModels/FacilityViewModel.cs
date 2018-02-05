@@ -111,6 +111,25 @@ namespace PromiseData.ViewModels
         [DisplayName("ContactAgent")]
         public ContactAgent ContactAgent { get; set; }
 
+        [DisplayName("Current Spark Rating")]
+        public string SparkRating { get; set; }
+
+        public List<String> SparkRatingList
+        {
+            get
+            {
+                List<String> types = new List<String>();
+                types.Add("Unlicensed");
+                types.Add("Licensed");
+                types.Add("Commitment to Quality status(C2Q)");
+                types.Add("Portfolio Submitted(awaiting star designation)");
+                types.Add("3 Star rated");
+                types.Add("4 Star rated");
+                types.Add("5 Star rated");
+                return types;
+            }
+        }
+
         public IEnumerable<Code_AdditionalSupportTypes> Supports { get; set; }
 
         public IEnumerable<Code_AdditionalSupportTypes> SupportsList { get; set; }

@@ -58,6 +58,7 @@ namespace PromiseData.Models
         public string MonitoringVisit2Result { get; set; }
 
         [StringLength(255)]
+        [DisplayName("Doing-Business-As Name")]
         public string Description { get; set; }
 
         [DisplayName("Parent Provider")]
@@ -83,6 +84,10 @@ namespace PromiseData.Models
         [StringLength(50)]
         [DisplayName("Email")]
         public string Email { get; set; }
+
+        [StringLength(50)]
+        [DisplayName("Current Spark Rating")]
+        public string SparkRating { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Classroom> Classrooms { get; set; }

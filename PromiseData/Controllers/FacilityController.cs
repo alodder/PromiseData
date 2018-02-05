@@ -120,7 +120,8 @@ namespace PromiseData.Controllers
                 LicenseNumber = viewModel.LicenseNumber,
                 Unlicensed = viewModel.Unlicensed, 
                 Phone = viewModel.Phone,
-                Email = viewModel.Email
+                Email = viewModel.Email,
+                SparkRating = viewModel.SparkRating
             };
 
             var facilityId = _context.Facilities.Add(facility).ID;
@@ -166,7 +167,8 @@ namespace PromiseData.Controllers
                 ContactAgent = facility.ContactAgent,
                 Address = facility.Address,
                 Phone = facility.Phone,
-                Email = facility.Email
+                Email = facility.Email,
+                SparkRating = facility.SparkRating
             };
 
             viewModel.Classrooms = _context.Classrooms.Where(c => c.Facility_ID == id).ToList();
@@ -207,6 +209,7 @@ namespace PromiseData.Controllers
                 Unlicensed = facility.Unlicensed,
                 Phone = facility.Phone,
                 Email = facility.Email,
+                SparkRating = facility.SparkRating,
                 FacilityTypes = this.FacilityTypes,
                 SupportTypes = _context.Code_AdditionalSupportTypes,
                 SupportDictionary = SupportBoolDictionary
@@ -261,6 +264,7 @@ namespace PromiseData.Controllers
             facility.Unlicensed = viewModel.Unlicensed;
             facility.Email = viewModel.Email;
             facility.Phone = viewModel.Phone;
+            facility.SparkRating = viewModel.SparkRating;
 
             _context.FacilitySupports.RemoveRange(_context.FacilitySupports.Where(x => x.FacilityID == facility.ID));
 
