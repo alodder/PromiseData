@@ -83,47 +83,76 @@
     </dl>
 
     <h4>Class Composition</h4>
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.PPStudents)
-        </dt>
+    <table>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Capacity)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Capacity)
+            </td>
+        </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.PPStudents)
-        </dd>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.PPStudents)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.PPStudents)
+            </td>
+        </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NonPPStudentsHSOPK)
-        </dt>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.NonPPStudentsHSOPK)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.NonPPStudentsHSOPK)
+            </td>
+        </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.NonPPStudentsHSOPK)
-        </dd>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.NonPPStudentsTitleFunds)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.NonPPStudentsTitleFunds)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.StudentsERDC)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.StudentsERDC)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.NonPPStudentsThirdParty)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.NonPPStudentsThirdParty)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.PPSlots)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.PPSlots)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.PPSlotsUnfilled)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.PPSlotsUnfilled)
+            </td>
+        </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NonPPStudentsThirdParty)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NonPPStudentsThirdParty)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NonPPStudentsParentPay)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NonPPStudentsParentPay)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PPSlotsUnfilled)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PPSlotsUnfilled)
-        </dd>
-    </dl>
+    </table>
 
     <div>
         <h4>Curriculum</h4>

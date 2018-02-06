@@ -33,19 +33,19 @@ namespace PromiseData.Models
         [DisplayName("Session Weeks")]
         public int? SessionWeeks { get; set; }
 
-        [DisplayName("Preschool Promise Students")]
+        [DisplayName("Number of Preschool Promise students")]
         public int? PPStudents { get; set; }
 
-        [DisplayName("HSOPK")]
+        [DisplayName("Number of students funded by HS/OPK/MHS/SHS")]
         public int? NonPPStudentsHSOPK { get; set; }
 
-        [DisplayName("Third Party")]
+        [DisplayName("Number of students funded by other source")]
         public int? NonPPStudentsThirdParty { get; set; }
 
         [DisplayName("Parent Pay")]
         public int? NonPPStudentsParentPay { get; set; }
 
-        [DisplayName("Slots Unfilled")]
+        [DisplayName("Preschool Promise Slots Unfilled")]
         public int? PPSlotsUnfilled { get; set; }
 
         [DisplayName("Emotional Support")]
@@ -62,6 +62,12 @@ namespace PromiseData.Models
 
         [DisplayName("Preschool Promise Slots")]
         public int? PPSlots { get; set; }
+
+        [DisplayName("Number of students funded by Title funds")]
+        public int? NonPPStudentsTitleFunds { get; set; }
+
+        [DisplayName("Number of students receiving ERDC (this could include Preschool Promise children)")]
+        public int? StudentsERDC { get; set; }
 
         [Column(TypeName = "timestamp")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]

@@ -147,7 +147,11 @@ namespace PromiseData.Controllers
                 NonPPStudentsHSOPK = viewModel.NonPPStudentsHSOPK,
                 NonPPStudentsThirdParty = viewModel.NonPPStudentsThirdParty,
                 NonPPStudentsParentPay = viewModel.NonPPStudentsParentPay,
+                NonPPStudentsTitleFunds = viewModel.NonPPStudentsTitleFunds,
+                StudentsERDC = viewModel.StudentsERDC,
+                PPSlots = viewModel.PPSlots,
                 PPSlotsUnfilled = viewModel.PPSlotsUnfilled,
+                Capacity = viewModel.Capacity,
                 upsize_ts = viewModel.upsize_ts,
                 Description = viewModel.Description
             };
@@ -233,6 +237,8 @@ namespace PromiseData.Controllers
                 NonPPStudentsThirdParty = classroom.NonPPStudentsThirdParty.GetValueOrDefault(),
                 NonPPStudentsParentPay = classroom.NonPPStudentsParentPay.GetValueOrDefault(),
                 PPSlotsUnfilled = classroom.PPSlotsUnfilled.GetValueOrDefault(),
+                NonPPStudentsTitleFunds = classroom.NonPPStudentsTitleFunds,
+                StudentsERDC = classroom.StudentsERDC,
                 upsize_ts = classroom.upsize_ts,
                 Description = classroom.Description,
                 Curricula = _context.Curricula,
@@ -275,6 +281,9 @@ namespace PromiseData.Controllers
             classroom.PPSlots = viewModel.PPSlots;
             classroom.Capacity = viewModel.Capacity;
             classroom.PPSlotsUnfilled = viewModel.PPSlotsUnfilled;
+            classroom.StudentsERDC = viewModel.StudentsERDC;
+            classroom.NonPPStudentsTitleFunds = viewModel.NonPPStudentsTitleFunds;
+
             classroom.Description = viewModel.Description;
 
             UpdateClassCurriculum(classroom.ID, viewModel.ClassroomCurricula, viewModel.CurriculumOther);

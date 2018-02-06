@@ -58,20 +58,34 @@ namespace PromiseData.ViewModels
         [DisplayName("Session Weeks")]
         public int SessionWeeks { get; set; }
 
-        [DisplayName("Preschool Promise Students")]
+
+        [DisplayName("Number of Preschool Promise students")]
         public int PPStudents { get; set; }
 
-        [DisplayName("Non-PP HSOPK")]
+        [DisplayName("Number of students funded by HS/OPK/MHS/SHS")]
         public int NonPPStudentsHSOPK { get; set; }
 
-        [DisplayName("Non-PP 3rd Party")]
+        [DisplayName("Number of students funded by other source")]
         public int NonPPStudentsThirdParty { get; set; }
 
-        [DisplayName("Non-PP Parent Pay")]
+        [DisplayName("Number of parent pay students")]
         public int NonPPStudentsParentPay { get; set; }
 
-        [DisplayName("PP Slots Unfilled")]
+        [DisplayName("Preschool Promise Slots")]
+        public int? PPSlots { get; set; }
+
+        [DisplayName("Preschool Promise Slots Unfilled")]
         public int PPSlotsUnfilled { get; set; }
+
+        [DisplayName("Classroom Capacity")]
+        public int? Capacity { get; set; }
+
+        [DisplayName("Number of students funded by Title funds")]
+        public int? NonPPStudentsTitleFunds { get; set; }
+
+        [DisplayName("Number of students receiving ERDC (this could include Preschool Promise children)")]
+        public int? StudentsERDC { get; set; }
+
 
         [DisplayName("CLASSScore Emotional Support")]
         public int CLASSScore_EmotionalSupport { get; set; }
@@ -87,12 +101,6 @@ namespace PromiseData.ViewModels
 
         [DisplayName("Name")]
         public string Description { get; set; }
-
-        [DisplayName("Classroom Capacity")]
-        public int? Capacity { get; set; }
-
-        [DisplayName("Preschool Promise Slots")]
-        public int? PPSlots { get; set; }
 
         [DisplayName("Other Curriculum")]
         public string CurriculumOther { get; set; }
