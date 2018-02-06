@@ -83,13 +83,29 @@
     </dl>
 
     <h4>Class Composition</h4>
-    <table>
+    <table class="table table-striped table-hover">
         <tr>
             <td>
                 @Html.DisplayNameFor(model => model.Capacity)
             </td>
             <td>
                 @Html.DisplayFor(model => model.Capacity)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.PPSlots)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.PPSlots)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.PPSlotsUnfilled)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.PPSlotsUnfilled)
             </td>
         </tr>
 
@@ -135,84 +151,91 @@
                 @Html.DisplayFor(model => model.NonPPStudentsThirdParty)
             </td>
         </tr>
-        <tr>
-            <td>
-                @Html.DisplayNameFor(model => model.PPSlots)
-            </td>
-            <td>
-                @Html.DisplayFor(model => model.PPSlots)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.DisplayNameFor(model => model.PPSlotsUnfilled)
-            </td>
-            <td>
-                @Html.DisplayFor(model => model.PPSlotsUnfilled)
-            </td>
-        </tr>
-
     </table>
 
-    <div>
-        <h4>Curriculum</h4>
-        <ul>
-            @foreach (var curriculum in Model.ClassroomCurricula)
-            {
-                <li>
-                    @if (curriculum.CurriculaCode == 1)
-                    {
-                    @curriculum.UserDefined
-                    }
-                    else
-                    {
-                    @curriculum.Curricula.Description
-                    }
-                    @Html.Raw(" ")
-                </li>
-            }
-        </ul>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <h4>Preschool Promise Program Year</h4>
+            <dl class="dl-horizontal">
+                <dt>Start Date</dt>
+                <dt>End Date</dt>
+                <dt>Anticipated Service Hours in program year</dt>
+            </dl>
+        </div>
     </div>
 
-    <div>
-        <h4>Assessment Tools</h4>
-        <ul>
-            @foreach (var assessment in Model.ClassroomAssessments)
-            {
-                <li>
-                    @if (assessment.AssessmentCode == 1)
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div>
+                <h4>Curriculum</h4>
+                <ul>
+                    @foreach (var curriculum in Model.ClassroomCurricula)
                     {
-                        @assessment.UserDefined
+                        <li>
+                            @if (curriculum.CurriculaCode == 1)
+                            {
+                                @curriculum.UserDefined
+                            }
+                            else
+                            {
+                                @curriculum.Curricula.Description
+                            }
+                            @Html.Raw(" ")
+                        </li>
                     }
-                    else
-                    {
-                        @assessment.Assessment.Description
-                    }
-                    @Html.Raw(" ")
-                </li>
-            }
-        </ul>
+                </ul>
+            </div>
+        </div>
     </div>
 
-    <div>
-        <h4>Screening</h4>
-        <ul>
-            @foreach (var screening in Model.ClassroomScreenings)
-            {
-                <li>
-                    @if (screening.ScreeningCode == 1)
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div>
+                <h4>Assessment Tools</h4>
+                <ul>
+                    @foreach (var assessment in Model.ClassroomAssessments)
                     {
-                        @screening.UserDefined
+                        <li>
+                            @if (assessment.AssessmentCode == 1)
+                            {
+                                @assessment.UserDefined
+                            }
+                            else
+                            {
+                                @assessment.Assessment.Description
+                            }
+                            @Html.Raw(" ")
+                        </li>
                     }
-                    else
-                    {
-                        @screening.Screening.Description
-                    }
-                    @Html.Raw(" ")
-                </li>
-            }
-        </ul>
+                </ul>
+            </div>
+        </div>
     </div>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div>
+                <h4>Screening</h4>
+                <ul>
+                    @foreach (var screening in Model.ClassroomScreenings)
+                    {
+                        <li>
+                            @if (screening.ScreeningCode == 1)
+                            {
+                                @screening.UserDefined
+                            }
+                            else
+                            {
+                                @screening.Screening.Description
+                            }
+                            @Html.Raw(" ")
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    
 
 </div>
 

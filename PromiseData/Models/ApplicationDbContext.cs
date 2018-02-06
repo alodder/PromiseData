@@ -72,6 +72,8 @@ namespace PromiseData.Models
 
         public virtual DbSet<CLASS_Score> ClassScores { get; set; }
 
+        public virtual DbSet<ProgramYear> ProgramYears { get; set; }
+
         public virtual DbSet<InstitutionUser> InstitutionUsers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -161,6 +163,11 @@ namespace PromiseData.Models
                 .HasForeignKey(c => c.ChildID);
 
             /*------------------------------------------------------*/
+
+            modelBuilder.Entity<Facility>()
+                .HasMany(c => c.ProgramYears)
+                .WithRequired()
+                .HasForeignKey(c => c.ProviderID);
 
             modelBuilder.Entity<Code_AdditionalSupportTypes>()
                 .HasMany(e => e.Facilities)

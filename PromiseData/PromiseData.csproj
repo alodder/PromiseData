@@ -193,6 +193,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Models\ClassroomScreening.cs" />
+    <Compile Include="Models\ProgramYear.cs" />
     <Compile Include="Models\ScreeningTools.cs" />
     <Compile Include="Models\AssessmentTools.cs" />
     <Compile Include="Models\ClassroomAssessment.cs" />
