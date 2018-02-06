@@ -168,7 +168,8 @@ namespace PromiseData.Controllers
                 Address = facility.Address,
                 Phone = facility.Phone,
                 Email = facility.Email,
-                SparkRating = facility.SparkRating
+                SparkRating = facility.SparkRating,
+                ProgramYears = facility.ProgramYears
             };
 
             viewModel.Classrooms = _context.Classrooms.Where(c => c.Facility_ID == id).ToList();

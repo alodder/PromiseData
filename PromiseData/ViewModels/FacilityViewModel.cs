@@ -145,5 +145,7 @@ namespace PromiseData.ViewModels
         public IEnumerable<Classroom> Classrooms { get; set; }
 
         public IEnumerable<Institution> Institutions { get; set; }
+
+        public IEnumerable<ProgramYear> ProgramYears { get; set; }
     }
 }
