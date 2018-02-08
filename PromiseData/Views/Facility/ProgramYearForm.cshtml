@@ -1,0 +1,32 @@
+﻿
+@model PromiseData.Models.ProgramYear
+
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm())
+{
+    <div >
+        @Html.HiddenFor(m => m.ID)
+        @Html.HiddenFor(m => m.ProviderID)
+        <div class="form-group">
+            @Html.LabelFor(m => m.StartDate)
+            @Html.TextBoxFor(m => m.StartDate, new { @class = "form-control", type = "date" })
+            @Html.ValidationMessageFor(m => m.StartDate)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.EndDate)
+            @Html.TextBoxFor(m => m.EndDate, new { @class = "form-control", placeholder = "2010-01-01 ", type = "date" })
+            @Html.ValidationMessageFor(m => m.EndDate)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.ServiceHours)
+            @Html.EditorFor(m => m.ServiceHours, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.ServiceHours)
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+}

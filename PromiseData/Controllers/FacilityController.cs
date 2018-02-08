@@ -10,9 +10,11 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Security.Claims;
 using PromiseData.Repositories;
+using System.Threading.Tasks;
 
 namespace PromiseData.Controllers
 {
+    [Authorize(Roles = "Administrator, System Administrator, Hub")]
     public class FacilityController : Controller
     {
         private IdentityStoreDbContext _IdentityContext;
@@ -65,7 +67,6 @@ namespace PromiseData.Controllers
             }
         }
 
-        [Authorize]
         [HttpGet]
         public ActionResult Create( int? id)
         {
@@ -144,6 +145,7 @@ namespace PromiseData.Controllers
             return RedirectToAction("Index", "Facility");
         }
 
+        [Authorize(Roles = "Administrator,System Administrator,Hub,Provider,View")]
         [HttpGet]
         public ActionResult Details(int id)
         {
@@ -318,6 +320,21 @@ namespace PromiseData.Controllers
             _context.Facilities.Remove(facility);
             _context.SaveChanges();
             return RedirectToAction("Index", "Facility");
+        }
+
+        public async Task<ActionResult> AddProgramYear( int id)
+        {
+            var ProgramYear = await GetPartialViewModel(id);
+            return PartialView("ProgramYearForm", ProgramYear);
+        }
+
+        private async Task<ProgramYear> GetPartialViewModel( int id)
+        {
+            var ProgramYear = new ProgramYear
+            {
+                ProviderID = id
+            };
+            return ProgramYear;
         }
 
         [Authorize]

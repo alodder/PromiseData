@@ -82,7 +82,7 @@
                 </div>
                 <div class="panel-body">
                     @if (Model.Address != null)
-            {
+                    {
                         <address>
                             @Model.Address.Address1
                             <br />
@@ -123,7 +123,7 @@
                 </div>
                 <div class="panel-body">
                     @if (Model.ContactAgent != null)
-            {
+                    {
                         <address>
                             @Model.ContactAgent.AgentTitle
                             <br />
@@ -166,20 +166,35 @@
                     <p class="text-warning">
                         None
                     </p>
-                } else
+                }
+                else
                 {
-                    foreach(var program in Model.ProgramYears)
+                    foreach (var program in Model.ProgramYears)
                     {
                         program.StartDate.ToShortDateString();
                         program.EndDate.ToShortDateString();
                         program.ServiceHours.ToString();
                     }
                 }
+                @Ajax.ActionLink("Add Program Year", "AddProgramYear", new { id = Model.ID }, new AjaxOptions()
+                {
+                    HttpMethod = "GET",
+                    AllowCache = false,
+                    InsertionMode = InsertionMode.InsertAfter,
+                    UpdateTargetId = "programwrapper"
+                }) 
+                <div id="programwrapper"></div>
+
+                <button id="2ndaddme">Addmetoo</button>
+                <div id="dvCategoryResults">
+                    
+                </div>
             </div>
 
             @if (Model.CanEdit)
             {
                 <div class="panel-footer">
+
                     @if (Model.ProgramYears.Count() < 1)
                     {
                         @Html.ActionLink("Add", "CreateForProvider", "Address", new { id = Model.ID }, new { @class = "btn btn-default" })
@@ -417,3 +432,15 @@
     }
 
 </table>
+
+@section Scripts
+{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#2ndaddme").click(function () {
+               $("#dvCategoryResults").load('@(Url.Action("AddProgramYear", "Facility", new { id = Model.ID }, Request.Url.Scheme))');
+            });
+        });
+    </script>  
+}  
