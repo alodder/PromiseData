@@ -337,6 +337,28 @@ namespace PromiseData.Controllers
             return ProgramYear;
         }
 
+        [HttpPost]
+        public ActionResult AddProgramYear(ProgramYear programYear)
+        {
+            _context.ProgramYears.Add(programYear);
+            _context.SaveChanges();
+            string message = "SUCCESS";
+            return Json(new { Message = message, JsonRequestBehavior.AllowGet});
+        }
+
+        public JsonResult GetPrograms(int id)
+        {
+            var programs = _context.ProgramYears
+                .Where(i => i.ProviderID == id)
+                .Select(i => new ProgramYear{
+                                    StartDate = i.StartDate,
+                                    EndDate = i.EndDate,
+                                    ServiceHours = i.ServiceHours
+                    }
+                ).ToList();
+            return Json(programs, JsonRequestBehavior.AllowGet);
+        }
+
         [Authorize]
         // GET: Facility
         public ActionResult Index()
