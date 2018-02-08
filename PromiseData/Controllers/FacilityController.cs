@@ -350,12 +350,13 @@ namespace PromiseData.Controllers
         {
             var programs = _context.ProgramYears
                 .Where(i => i.ProviderID == id)
-                .Select(i => new ProgramYear{
-                                    StartDate = i.StartDate,
-                                    EndDate = i.EndDate,
-                                    ServiceHours = i.ServiceHours
-                    }
-                ).ToList();
+                .ToList()
+                .Select(x => new {
+                    ID = x.ID,
+                    StartDate = x.StartDate.ToShortDateString(),
+                    EndDate = x.EndDate.ToShortDateString(),
+                    ServiceHours = x.ServiceHours
+                });
             return Json(programs, JsonRequestBehavior.AllowGet);
         }
 

@@ -162,23 +162,23 @@
             <div class="panel-body">
                 <h4>Preschool Promise Program Year</h4>
                 @if (Model.ProgramYears.Count() < 1)
-    {
-            <p class="text-warning">
-                None
-            </p>
-}
-else
-{
-    <table id="tblProgram" class="table table-bordered table-striped table-responsive table-hover">
-        <thead>
-            <tr>
-                <th align="left" class="productth">Start Date</th>
-                <th align="left" class="productth">End Date</th>
-                <th align="left" class="productth">Service Hours</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+                {
+                    <p class="text-warning">
+                        None
+                    </p>
+                }
+                else
+                {
+                    <table id="tblProgram" class="table table-bordered table-striped table-responsive table-hover">
+                    <thead>
+                        <tr>
+                            <th align="left" class="productth">Start Date</th>
+                            <th align="left" class="productth">End Date</th>
+                            <th align="left" class="productth">Service Hours</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                    </table>
 
                     foreach (var program in Model.ProgramYears)
                     {
@@ -187,22 +187,17 @@ else
                         program.ServiceHours.ToString();
                     }
                 }
+
+                <div id="dvProgramYearForm">
+
+                </div>
             </div>
 
             @if (Model.CanEdit)
             {
-            <div class="panel-footer">
-
-                @if (Model.ProgramYears.Count() < 1)
-                {
+                <div class="panel-footer">
                     <button id="AddProgramYearButton" class="btn btn-default">Add</button>
-                    @Html.ActionLink("Add", "CreateForProvider", "Address", new { id = Model.ID }, new { @class = "btn btn-default" })
-                }
-                else
-                {
-                    @Html.ActionLink("Update", "Edit", "Address", new { id = Model.Address.ID }, new { @class = "btn btn-default" })
-                }
-            </div>
+                </div>
             }
 
         </div>
@@ -439,42 +434,41 @@ else
     $(document).ready(function () {
         LoadData();
         $("#AddProgramYearButton").click(function () {
-            $("#dvCategoryResults").load('@(Url.Action("AddProgramYear", "Facility", new { id = Model.ID }, Request.Url.Scheme))');
+            $("#dvProgramYearForm").load('@(Url.Action("AddProgramYear", "Facility", new { id = Model.ID }, Request.Url.Scheme))');
         });
     });
 
-        $(function () {
-        LoadData();
-        $("#btnSave").click(function () {
-            //alert("");
-            var std = {};
-            std.studentName = $("#StudentName").val();
-            std.studentAddress = $("#StudentAddress").val();
-            $.ajax({
-                type: "POST",
-                url: '@Url.Action("createStudent")',
-                data: '{std: ' + JSON.stringify(std) + '}',
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                success: function () {
-                   // alert("Data has been added successfully.");
-                    LoadData();
-                },
-                error: function () {
-                    alert("Error while inserting data");
-                }
-            });
-            return false;
+    function SaveProgramYearData() {
+        var program = {};
+        program.StartDate = $("#StartDate").val();
+        program.EndDate = $("#EndDate").val();
+        program.ServiceHours = $("#ServiceHours").val();
+        program.ProviderID = @Model.ID;
+        //alert(program.ProviderID);
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("AddProgramYear")',
+            data: '{programYear: ' + JSON.stringify(program) + '}',
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function () {
+                // alert("Data has been added successfully.");
+                LoadData();
+            },
+            error: function () {
+                alert("Error while inserting data");
+            }
         });
-    });
+        return false;
+    }
 
     function LoadData() {
         $("#tblProgram tbody tr").remove();
         $.ajax({
-            type: 'GET',
+            type: 'POST',
             url: '@Url.Action("GetPrograms", new { id = Model.ID})',
             dataType: 'json',
-            data: {  },
+            //data: {  },
             success: function (data) {
                 var items = '';
                 $.each(data, function (i, item) {
@@ -483,7 +477,7 @@ else
                     + "<td class='prtoducttd'>" + item.EndDate + "</td>"
                     + "<td class='prtoducttd'>" + item.ServiceHours + "</td>"
                     + "</tr>";
-                    $('#tblStudent tbody').append(rows);
+                    $('#tblProgram tbody').append(rows);
                 });
             },
             error: function (ex) {
