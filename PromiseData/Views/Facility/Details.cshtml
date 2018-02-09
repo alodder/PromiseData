@@ -161,15 +161,7 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <h4>Preschool Promise Program Year</h4>
-                @if (Model.ProgramYears.Count() < 1)
-                {
-                    <p class="text-warning">
-                        None
-                    </p>
-                }
-                else
-                {
-                    <table id="tblProgram" class="table table-bordered table-striped table-responsive table-hover">
+                <table id="tblProgram" class="table table-bordered table-striped table-responsive table-hover">
                     <thead>
                         <tr>
                             <th align="left" class="productth">Start Date</th>
@@ -177,16 +169,10 @@
                             <th align="left" class="productth">Service Hours</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
-                    </table>
+                    <tbody>
+                    </tbody>
+                </table>
 
-                    foreach (var program in Model.ProgramYears)
-                    {
-                        program.StartDate.ToShortDateString();
-                        program.EndDate.ToShortDateString();
-                        program.ServiceHours.ToString();
-                    }
-                }
 
                 <div id="dvProgramYearForm">
 
