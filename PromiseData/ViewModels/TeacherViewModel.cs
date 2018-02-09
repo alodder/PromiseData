@@ -69,15 +69,21 @@ namespace PromiseData.ViewModels
         public Dictionary<int, bool> RaceDictionary { get; set; }
 
         //List of possible languages
-        public IEnumerable<Code_Language> Languages { get; set; }
+        public List<Code_Language> Languages { get; set; }
 
         [DisplayName("Classroom Languages")]
         //dictionary for checkbox values
         public Dictionary<int, bool> ClassroomLanguages { get; set; }
 
+        [DisplayName("Other Classroom Language")]
+        public String OtherClassroomLanguage { get; set; }
+
         [DisplayName("Fluent Languages")]
         //dictionary for checkbox values
         public Dictionary<int, bool> FluentLanguages { get; set; }
+
+        [DisplayName("Other Fluent Language")]
+        public String OtherFluentLanguage { get; set; }
 
         [DisplayName("Start Date")]
         [DataType(DataType.Date)]

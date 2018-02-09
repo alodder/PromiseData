@@ -15,6 +15,7 @@ namespace PromiseData.Controllers
     {
         private ApplicationDbContext _context;
         private List<String> types;
+        private List<Code_Language> Languages;
         private Dictionary<int, bool> LangBoolDictionary;
         private TeachersRepository _teacherRepository;
         private ClassroomRepository _classroomRepository;
@@ -31,8 +32,8 @@ namespace PromiseData.Controllers
             types.Add("Support");
 
             LangBoolDictionary = new Dictionary<int, bool>();
-            var langList = _context.CodeLanguage.ToList();
-            foreach (Code_Language language in langList)
+            Languages = _context.CodeLanguage.ToList();
+            foreach (Code_Language language in Languages)
             {
                 LangBoolDictionary.Add(language.Code, false);
             }
@@ -273,6 +274,11 @@ namespace PromiseData.Controllers
                     TeacherID = teacher.ID,
                     LanguageID = languageId
                 };
+
+                if (Languages[languageId].Description == "Other")
+                {
+                    teacherLangClass.UserDefined = viewModel.OtherClassroomLanguage;
+                }
 
                 /**
                  * If the language wasn't checked, remove from table,

@@ -16,14 +16,14 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
         <div class="row">
-            <div class="form-group col-lg-6">
+            <div class="form-group col-md-6">
                 @Html.LabelFor(model => model.NameFirst, htmlAttributes: new { @class = "control-label col-md-3" })
                 <div class="col-md-9">
                     @Html.EditorFor(model => model.NameFirst, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.NameFirst, "", new { @class = "text-danger" })
                 </div>
             </div>
-            <div class="form-group col-lg-6">
+            <div class="form-group col-md-6">
                 @Html.LabelFor(model => model.NameLast, htmlAttributes: new { @class = "control-label col-md-3" })
                 <div class="col-md-9">
                     @Html.EditorFor(model => model.NameLast, new { htmlAttributes = new { @class = "form-control" } })
@@ -33,7 +33,7 @@
         </div>
 
         <div class="row">
-            <div class="form-group col-lg-6">
+            <div class="form-group col-md-6">
                 @Html.LabelFor(model => model.ClassroomId, htmlAttributes: new { @class = "control-label col-md-3" })
                 <div class="col-md-9">
                     @Html.DropDownListFor(model => model.ClassroomId, new SelectList(Model.Classrooms, "ID", "Description"), new { @class = "form-control" })
@@ -41,15 +41,15 @@
                 </div>
             </div>
 
-            <div class="form-group col-lg-6">
+            <div class="form-group col-md-6">
                 @Html.LabelFor(model => model.TeacherType, htmlAttributes: new { @class = "control-label col-md-6" })
                 <div class="col-md-6">
                     @Html.DropDownListFor(model => model.TeacherType, new SelectList(
                         new List<SelectListItem> {
                         new SelectListItem { Text="Lead Teacher", Value = "Lead Teacher"},
                         new SelectListItem { Text="Assistant Teacher", Value = "Assistant Teacher"},
-                        new SelectListItem { Text="Teacher Aide", Value = "Teacher Aide"},
-                        new SelectListItem { Text="Support Staff", Value = "Support Staff"}
+                        new SelectListItem { Text="Classroom Aide", Value = "Classroom Aide"},
+                        new SelectListItem { Text="Support", Value = "Support"}
                     }, "Value", "Text"), new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.TeacherType, "", new { @class = "text-danger" })
                 </div>
@@ -57,7 +57,7 @@
         </div>
 
         <div class="row">
-            <div class="form-group col-lg-6">
+            <div class="form-group col-md-6">
                 @Html.LabelFor(model => model.TeacherIDNumber, htmlAttributes: new { @class = "control-label col-md-3" })
                 <div class="col-md-9">
                     @Html.EditorFor(model => model.TeacherIDNumber, new { htmlAttributes = new { @class = "form-control" } })
@@ -67,7 +67,7 @@
         </div>
 
         <div class="row">
-            <div class="form-group col-lg-4">
+            <div class="form-group col-md-4">
                 @Html.LabelFor(model => model.TeacherBirthdate, htmlAttributes: new { @class = "control-label col-md-6" })
                 <div class="col-md-6">
                     @Html.EditorFor(model => model.TeacherBirthdate, new { htmlAttributes = new { @class = "form-control", type = "date" } })
@@ -75,7 +75,7 @@
                 </div>
             </div>
 
-            <div class="form-group col-lg-3">
+            <div class="form-group col-md-3">
                 @Html.LabelFor(model => model.GenderId, htmlAttributes: new { @class = "control-label col-md-6" })
                 <div class="col-md-6">
                     @Html.DropDownListFor(model => model.GenderId, new SelectList(Model.Genders, "Code", "Description"), new { @class = "form-control" })
@@ -83,7 +83,7 @@
                 </div>
             </div>
 
-            <div class="form-group col-lg-5">
+            <div class="form-group col-md-5">
                 @Html.LabelFor(model => model.RaceEthnicityIdentity, htmlAttributes: new { @class = "control-label col-md-6" })
                 <div class="col-md-6">
                     @Html.DropDownListFor(model => model.RaceEthnicityIdentity, new SelectList(Model.RaceEthnicityList, "ID", "Description"), new { @class = "form-control" })
@@ -94,37 +94,77 @@
 
         <div class="row">
             <h4>Classroom languages</h4>
-            <div class="row col-lg-offset-1">
+            <div class="row col-md-offset-1">
                 @{var i = 0; }
                 @foreach (KeyValuePair<int, bool> langCheck in Model.ClassroomLanguages)
                 {
-                    <div class="col-lg-4">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <input type="hidden" name="@String.Format("ClassroomLanguages[{0}].Key", i)" value="@langCheck.Key" />
-                            @Html.CheckBox(String.Format("ClassroomLanguages[{0}].Value", i), langCheck.Value)
-                            <label class="categoryLabel" for="@String.Format("ClassroomLanguages_{0}__Value", i)">@Model.Languages.Single(r => r.Code == langCheck.Key).Description</label>
+                            <input type="hidden" 
+                                   name="@String.Format("ClassroomLanguages[{0}].Key", i)" 
+                                   value="@langCheck.Key" />
+                            @if (@Model.Languages[i].Description == "Other")
+                            {
+                                @Html.CheckBox(String.Format("ClassroomLanguages[{0}].Value", i), langCheck.Value, new { onchange = "ShowOtherLanguage( this, $('#dvOtherClassroomLanguage'))" })
+                            }
+                            else
+                            {
+                                @Html.CheckBox(String.Format("ClassroomLanguages[{0}].Value", i), langCheck.Value)
+                            }
+                            <label class="categoryLabel" 
+                                   for="@String.Format("ClassroomLanguages_{0}__Value", i)">
+                                @Model.Languages[i].Description
+                                @*Model.Languages.First(r => r.Code == langCheck.Key).Description*@
+                            </label>
                             @{i++;}
                         </div>
                     </div>
                 }
             </div>
+            <div id="dvOtherClassroomLanguage" class="form-group col-md-6" hidden>
+                @Html.LabelFor(model => model.OtherClassroomLanguage, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    @Html.EditorFor(model => model.OtherClassroomLanguage, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.OtherClassroomLanguage, "", new { @class = "text-danger" })
+                </div>
+            </div>
         </div>
 
         <div class="row">
             <h4>Fluent Languages</h4>
-             <div class="row col-lg-offset-1">
+             <div class="row col-md-offset-1">
                 @{var j = 0; }
                 @foreach (KeyValuePair<int, bool> langCheck in Model.FluentLanguages)
                 {
-                    <div class="col-lg-4">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <input type="hidden" name="@String.Format("FluentLanguages[{0}].Key", j)" value="@langCheck.Key" />
-                            @Html.CheckBox(String.Format("FluentLanguages[{0}].Value", j), langCheck.Value)
-                            <label class="categoryLabel" for="@String.Format("FluentLanguages_{0}__Value", j)">@Model.Languages.Single(r => r.Code == langCheck.Key).Description</label>
+                            <input type="hidden" 
+                                   name="@String.Format("FluentLanguages[{0}].Key", j)" 
+                                   value="@langCheck.Key" />
+                            @if (@Model.Languages[j].Description == "Other")
+                            {
+                                @Html.CheckBox(String.Format("FluentLanguages[{0}].Value", i), langCheck.Value, new { onchange = "ShowOtherLanguage( this, $('#dvOtherFluentLanguage'))" })
+                            }
+                            else
+                            {
+                                @Html.CheckBox(String.Format("FluentLanguages[{0}].Value", i), langCheck.Value)
+                            }
+  
+                            <label class="categoryLabel" 
+                                   for="@String.Format("FluentLanguages_{0}__Value", j)">
+                                @Model.Languages.First(r => r.Code == langCheck.Key).Description
+                            </label>
                             @{j++;}
                         </div>
                     </div>
                 }
+            </div>
+            <div id="dvOtherFluentLanguage" class="form-group col-md-6" hidden>
+                @Html.LabelFor(model => model.OtherFluentLanguage, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    @Html.EditorFor(model => model.OtherFluentLanguage, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.OtherFluentLanguage, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
@@ -227,3 +267,20 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        function ShowOtherLanguage(check, hidden) {
+            console.log("check");
+            if ($(check).is(":checked")) {
+                console.log("show");
+                $(hidden).show();
+            } else {
+                console.log("hide");
+                $(hidden).hide();
+            }
+            return false;
+        }
+    </script>
+}
