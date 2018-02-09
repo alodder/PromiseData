@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace PromiseData.Controllers
 {
-    [Authorize(Roles = "Administrator, System Administrator, Hub")]
+    [Authorize]
     public class FacilityController : Controller
     {
         private IdentityStoreDbContext _IdentityContext;
@@ -67,6 +67,7 @@ namespace PromiseData.Controllers
             }
         }
 
+        [Authorize(Roles = "Administrator, System Administrator, Hub")]
         [HttpGet]
         public ActionResult Create( int? id)
         {
@@ -92,7 +93,7 @@ namespace PromiseData.Controllers
             return View("FacilityForm", viewModel);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator, System Administrator, Hub")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(FacilityViewModel viewModel)
@@ -145,7 +146,7 @@ namespace PromiseData.Controllers
             return RedirectToAction("Index", "Facility");
         }
 
-        [Authorize(Roles = "Administrator,System Administrator,Hub,Provider,View")]
+        [Authorize]
         [HttpGet]
         public ActionResult Details(int id)
         {
@@ -188,7 +189,7 @@ namespace PromiseData.Controllers
             return View(viewModel);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator, System Administrator, Hub")]
         [HttpGet]
         public ActionResult Edit(int id)
         {
@@ -240,7 +241,7 @@ namespace PromiseData.Controllers
             return View("FacilityForm", viewModel);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator, System Administrator, Hub")]
         [HttpPost]
         public ActionResult Update(FacilityViewModel viewModel)
         {
@@ -289,7 +290,7 @@ namespace PromiseData.Controllers
             return RedirectToAction("Index", "Facility");
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator, System Administrator")]
         public ActionResult Delete(int id)
         {
             var facility = _context.Facilities.Find( id);
@@ -311,7 +312,7 @@ namespace PromiseData.Controllers
             return View(viewModel);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator, System Administrator")]
         [HttpPost, ActionName("Delete")]
         //[ValidateAntiForgeryToken]
         public ActionResult ConfirmDelete(int id)
