@@ -323,12 +323,14 @@ namespace PromiseData.Controllers
             return RedirectToAction("Index", "Facility");
         }
 
+        [Authorize(Roles = "Administrator, System Administrator, Hub")]
         public async Task<ActionResult> AddProgramYear( int id)
         {
             var ProgramYear = await GetPartialViewModel(id);
             return PartialView("ProgramYearForm", ProgramYear);
         }
 
+        [Authorize(Roles = "Administrator, System Administrator, Hub")]
         private async Task<ProgramYear> GetPartialViewModel( int id)
         {
             var ProgramYear = new ProgramYear
@@ -338,6 +340,7 @@ namespace PromiseData.Controllers
             return ProgramYear;
         }
 
+        [Authorize(Roles = "Administrator, System Administrator, Hub")]
         [HttpPost]
         public ActionResult AddProgramYear(ProgramYear programYear)
         {
@@ -347,6 +350,7 @@ namespace PromiseData.Controllers
             return Json(new { Message = message, JsonRequestBehavior.AllowGet});
         }
 
+        [Authorize]
         public JsonResult GetPrograms(int id)
         {
             var programs = _context.ProgramYears
