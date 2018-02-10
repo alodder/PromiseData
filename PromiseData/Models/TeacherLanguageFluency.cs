@@ -18,5 +18,9 @@ namespace PromiseData.Models
         [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int LanguageCode { get; set; }
+
+        [Column(Order = 2)]
+        [StringLength(255)]
+        public string UserDefined { get; set; }
     }
 }

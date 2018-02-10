@@ -275,11 +275,6 @@ namespace PromiseData.Controllers
                     LanguageID = languageId
                 };
 
-                if (Languages[languageId].Description == "Other")
-                {
-                    teacherLangClass.UserDefined = viewModel.OtherClassroomLanguage;
-                }
-
                 /**
                  * If the language wasn't checked, remove from table,
                  * else if it was both checked and doesn't yet exist, add it
@@ -291,6 +286,10 @@ namespace PromiseData.Controllers
                 else if (viewModel.ClassroomLanguages[languageId] &&
                         !langClassSet.Select(t => t.TeacherID).Contains(teacherLangClass.TeacherID))
                 {
+                    if (Languages[languageId].Description == "Other")
+                    {
+                        teacherLangClass.UserDefined = viewModel.OtherClassroomLanguage;
+                    }
                     _context.TeacherLanguageClassrooms.Add(teacherLangClass);
                 }
             }
@@ -318,7 +317,10 @@ namespace PromiseData.Controllers
                 else if (viewModel.FluentLanguages[languageId] &&
                             !TeacherLanguageSet.Select(t => t.LanguageCode).Contains(teacherLangFluent.LanguageCode))
                 {
-
+                    if (Languages[languageId].Description == "Other")
+                    {
+                        teacherLangFluent.UserDefined = viewModel.OtherFluentLanguage;
+                    }
                     _context.TeacherLanguageFluencies.Add(teacherLangFluent);
                 }
             }
@@ -411,7 +413,9 @@ namespace PromiseData.Controllers
                     viewModel.ClassroomLanguages.Add(language.Code, false);
 
                 if (langFluentSet.Select(t => t.LanguageCode).Contains( language.Code))
+                {
                     viewModel.FluentLanguages.Add(language.Code, true);
+                }
                 else
                     viewModel.FluentLanguages.Add(language.Code, false);
             }

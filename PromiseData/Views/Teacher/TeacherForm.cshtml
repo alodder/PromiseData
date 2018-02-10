@@ -143,11 +143,11 @@
                                    value="@langCheck.Key" />
                             @if (@Model.Languages[j].Description == "Other")
                             {
-                                @Html.CheckBox(String.Format("FluentLanguages[{0}].Value", i), langCheck.Value, new { onchange = "ShowOtherLanguage( this, $('#dvOtherFluentLanguage'))" })
+                                @Html.CheckBox(String.Format("FluentLanguages[{0}].Value", j), langCheck.Value, new { onchange = "ShowOtherLanguage( this, $('#dvOtherFluentLanguage'))" })
                             }
                             else
                             {
-                                @Html.CheckBox(String.Format("FluentLanguages[{0}].Value", i), langCheck.Value)
+                                @Html.CheckBox(String.Format("FluentLanguages[{0}].Value", j), langCheck.Value)
                             }
   
                             <label class="categoryLabel" 
