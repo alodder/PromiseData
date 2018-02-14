@@ -29,7 +29,7 @@ namespace PromiseData.Controllers
 
         private void BuildCurriculaDictionary(ClassroomViewModel viewModel)
         {
-            var curriculaList = _context.Curricula.ToList();
+            var curriculaList = _context.Curricula.OrderByDescending(c => c.Code).ToList();
             viewModel.ClassroomCurricula = new Dictionary<int, bool>();
             var curriculaClassSet = _context.ClassroomCurricula.Where(t => t.ClassroomID == viewModel.ID);
             foreach (Curricula curriculum in curriculaList)
@@ -49,7 +49,7 @@ namespace PromiseData.Controllers
         private void BuildAssessmentsDictionary( ClassroomViewModel viewModel)
         {
             viewModel.ClassroomAssessments = new Dictionary<int, bool>();
-            var assessmentList = _context.AssessmentTools.ToList();
+            var assessmentList = _context.AssessmentTools.OrderByDescending(c => c.Code).ToList();
             var assessmentClassSet = _context.ClassroomAssessments.Where(t => t.ClassroomID == viewModel.ID);
             foreach (AssessmentTools assessment in assessmentList)
             {
@@ -68,7 +68,7 @@ namespace PromiseData.Controllers
         private void BuildScreeningsDictionary(ClassroomViewModel viewModel)
         {
             viewModel.ClassroomScreenings = new Dictionary<int, bool>();
-            var screeningList = _context.ScreeningTools.ToList();
+            var screeningList = _context.ScreeningTools.OrderByDescending(c => c.Code).ToList();
             var screeningClassSet = _context.ClassroomScreenings.Where(t => t.ClassroomID == viewModel.ID);
             foreach (ScreeningTools screening in screeningList)
             {
@@ -102,10 +102,9 @@ namespace PromiseData.Controllers
             {
                 Facilities = _providerRepository.GetUserProviders( (ClaimsPrincipal) User),
                 Operators = _institutionRepository.GetUserProviders( (ClaimsPrincipal)User),
-                SessionTypes = _context.Code_ProgramSessionType,
-                Curricula = _context.Curricula,
-                AssessmentTools = _context.AssessmentTools,
-                ScreeningTools = _context.ScreeningTools
+                Curricula = _context.Curricula.OrderByDescending(c => c.Code).ToList(),
+                AssessmentTools = _context.AssessmentTools.OrderByDescending(c => c.Code).ToList(),
+                ScreeningTools = _context.ScreeningTools.OrderByDescending(c => c.Code).ToList()
             };
 
             if(facility == null)
@@ -162,6 +161,18 @@ namespace PromiseData.Controllers
             UpdateClassCurriculum(classroom.ID, viewModel.ClassroomCurricula, viewModel.CurriculumOther);
             UpdateClassAssessment(classroom.ID, viewModel.ClassroomCurricula, viewModel.AssessmentOther);
             UpdateClassScreening(classroom.ID, viewModel.ClassroomCurricula, viewModel.ScreeningOther);
+
+            var score = new CLASS_Score()
+            {
+                Classroom_id = classroom.ID,
+                CLASSScore_EmotionalSupport = viewModel.CLASSScore_EmotionalSupport,
+                CLASSScore_ClassroomOrganization = viewModel.CLASSScore_ClassroomOrganization,
+                CLASSScore_InstructionalSupport = viewModel.CLASSScore_InstructionalSupport,
+                Score_date = DateTime.Today
+            };
+
+            _context.ClassScores.Add(score);
+            _context.SaveChanges();
 
             return RedirectToAction("Index", "Classroom");
         }
@@ -223,10 +234,9 @@ namespace PromiseData.Controllers
                 ID = classroom.ID,
                 Facilities = _providerRepository.GetUserProviders( (ClaimsPrincipal) User),
                 Operators = _institutionRepository.GetUserProviders( (ClaimsPrincipal)User),
-                SessionTypes = _context.Code_ProgramSessionType,
                 Facility_ID = classroom.Facility_ID.GetValueOrDefault(),
                 Program_ID = classroom.Program_ID.GetValueOrDefault(),
-                ProgramSessionType_ID = classroom.Program_ID.GetValueOrDefault(),
+                ProgramSessionType = classroom.Program_ID.GetValueOrDefault().ToString(),
                 NewOrExpandedClass = classroom.NewOrExpandedClass,
                 SessionHours = classroom.SessionHours.GetValueOrDefault(),
                 SessionWeeks = classroom.SessionWeeks.GetValueOrDefault(),
@@ -241,9 +251,9 @@ namespace PromiseData.Controllers
                 StudentsERDC = classroom.StudentsERDC,
                 upsize_ts = classroom.upsize_ts,
                 Description = classroom.Description,
-                Curricula = _context.Curricula,
-                AssessmentTools = _context.AssessmentTools,
-                ScreeningTools = _context.ScreeningTools,
+                Curricula = _context.Curricula.OrderByDescending(c => c.Code).ToList(),
+                AssessmentTools = _context.AssessmentTools.OrderByDescending(c => c.Code).ToList(),
+                ScreeningTools = _context.ScreeningTools.OrderByDescending(c => c.Code).ToList(),
             };
 
             BuildCurriculaDictionary(viewModel);
@@ -261,7 +271,6 @@ namespace PromiseData.Controllers
             if (!ModelState.IsValid)
             {
                 viewModel.Facilities = _context.Facilities;
-                viewModel.SessionTypes = _context.Code_ProgramSessionType;
                 return View("ClassroomForm", viewModel);
             }
 

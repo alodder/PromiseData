@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Linq.Expressions;
 using PromiseData.Controllers;
 using System.Web.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace PromiseData.ViewModels
 {
@@ -44,22 +45,21 @@ namespace PromiseData.ViewModels
         public int Program_ID { get; set; }
 
         [DisplayName("Program Session Type")]
-        public int ProgramSessionType_ID { get; set; }
+        public string ProgramSessionType { get; set; }
 
         [DisplayName("New or Expanded Class")]
         public string NewOrExpandedClass { get; set; }
 
-        [DisplayName("Session Hours")]
+        [DisplayName("Session Hours per Year")]
         public double SessionHours { get; set; }
 
-        [DisplayName("Session Days")]
+        [DisplayName("Session Days per Year")]
         public int SessionDays { get; set; }
 
-        [DisplayName("Session Weeks")]
+        [DisplayName("Session Weeks per Year")]
         public int SessionWeeks { get; set; }
 
-
-        [DisplayName("Number of Preschool Promise students")]
+        [DisplayName("Number of Preschool Promise Students")]
         public int PPStudents { get; set; }
 
         [DisplayName("Number of students funded by HS/OPK/MHS/SHS")]
@@ -86,21 +86,14 @@ namespace PromiseData.ViewModels
         [DisplayName("Number of students receiving ERDC (this could include Preschool Promise children)")]
         public int? StudentsERDC { get; set; }
 
-
-        [DisplayName("CLASSScore Emotional Support")]
-        public int CLASSScore_EmotionalSupport { get; set; }
-
-        [DisplayName("CLASSScore Classroom Organization")]
-        public int CLASSScore_ClassroomOrganization { get; set; }
-
-        [DisplayName("CLASSScore Instructional Support")]
-        public int CLASSScore_InstructionalSupport { get; set; }
-
         [DisplayName("Upsize")]
         public byte[] upsize_ts { get; set; }
 
         [DisplayName("Name")]
         public string Description { get; set; }
+
+        [DisplayName("Total Students")]
+        public int? StudentsTotal { get; set; }
 
         [DisplayName("Other Curriculum")]
         public string CurriculumOther { get; set; }
@@ -110,6 +103,18 @@ namespace PromiseData.ViewModels
 
         [DisplayName("Other Screening Tool")]
         public string ScreeningOther { get; set; }
+
+        [Range(0, 7)]
+        [DisplayName("Emotional Support")]
+        public int? CLASSScore_EmotionalSupport { get; set; } = 0;
+
+        [Range(0, 7)]
+        [DisplayName("Classroom Organization")]
+        public int? CLASSScore_ClassroomOrganization { get; set; } = 0;
+
+        [Range(0, 7)]
+        [DisplayName("Instructional Support")]
+        public int? CLASSScore_InstructionalSupport { get; set; } = 0;
 
         //dictionary for checkbox values
         public Dictionary<int, bool> ClassroomCurricula { get; set; }
@@ -122,12 +127,21 @@ namespace PromiseData.ViewModels
 
         public IEnumerable<Facility> Facilities { get; set; }
 
-        public IEnumerable<Code_ProgramSessionType> SessionTypes { get; set; }
+        public List<String> SessionTypes
+        {
+            get
+            {
+                List<String> types = new List<String>();
+                types.Add("Half Day");
+                types.Add("Full Day");
+                return types;
+            }
+        }
 
-        public IEnumerable<Curricula> Curricula { get; set; }
+        public List<Curricula> Curricula { get; set; }
 
-        public IEnumerable<AssessmentTools> AssessmentTools { get; set; }
+        public List<AssessmentTools> AssessmentTools { get; set; }
 
-        public IEnumerable<ScreeningTools> ScreeningTools { get; set; }
+        public List<ScreeningTools> ScreeningTools { get; set; }
     }
 }

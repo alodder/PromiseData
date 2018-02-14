@@ -77,6 +77,9 @@ namespace PromiseData.Models
         [DisplayName("Name")]
         public string Description { get; set; }
 
+        [DisplayName("Total Students")]
+        public int? StudentsTotal { get; set; }
+
         public virtual Code_ProgramSessionType Code_ProgramSessionType { get; set; }
 
         public virtual Facility Facility { get; set; }
