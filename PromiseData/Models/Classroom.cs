@@ -24,13 +24,13 @@ namespace PromiseData.Models
         [StringLength(10)]
         public string NewOrExpandedClass { get; set; }
 
-        [DisplayName("Session Hours")]
+        [DisplayName("Session Hours per Year")]
         public double? SessionHours { get; set; }
 
-        [DisplayName("Session Days")]
+        [DisplayName("Session Days per Year")]
         public int? SessionDays { get; set; }
 
-        [DisplayName("Session Weeks")]
+        [DisplayName("Session Weeks per Year")]
         public int? SessionWeeks { get; set; }
 
         [DisplayName("Number of Preschool Promise students")]
