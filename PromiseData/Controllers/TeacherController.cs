@@ -71,7 +71,7 @@ namespace PromiseData.Controllers
                 viewModel.Genders = _context.CodeGender.ToList();
                 viewModel.RaceEthnicityList = _context.RaceEthnic.ToList();
                 viewModel.EducationTypes = _context.Code_Education.ToList();
-                viewModel.Classrooms = _context.Classrooms;
+                viewModel.Classrooms = _context.Classrooms.ToList();
                 viewModel.TeacherTypes = types;
                 viewModel.Languages = _context.CodeLanguage.ToList();
                 viewModel.ClassroomLanguages = LangBoolDictionary;
@@ -155,7 +155,7 @@ namespace PromiseData.Controllers
         [Authorize(Roles = "Provider, Hub, Administrator, System Administrator")]
         public ActionResult Edit(int id)
         {
-            var teacher = _context.Teachers.Single(i => i.ID == id);
+            var teacher = _context.Teachers.Find( id);
 
             var viewModel = new TeacherViewModel {
                 Id = teacher.ID,
@@ -227,7 +227,7 @@ namespace PromiseData.Controllers
             }
 
             //get teacher object from db
-            var teacher = _context.Teachers.Single(i => i.ID == viewModel.Id);
+            var teacher = _context.Teachers.Find( viewModel.Id);
 
             //Update values from viewmodel
             teacher.TeacherIDNumber = viewModel.TeacherIDNumber;
@@ -333,11 +333,45 @@ namespace PromiseData.Controllers
         [HttpGet]
         [Audit(AuditingLevel = 1)]
         [Authorize(Roles = "Provider, Hub, Administrator, System Administrator")]
+        public ActionResult AssignToClassroom(int classroomid)
+        {
+            var viewModel = new TeacherClassViewModel()
+            {
+                classroomid = classroomid,
+                Teachers = _teacherRepository.GetUserTeachers((ClaimsPrincipal) User)
+            };
+            viewModel.classroom = _context.Classrooms.Find( classroomid);
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [Audit(AuditingLevel = 1)]
+        [Authorize(Roles = "Provider, Hub, Administrator, System Administrator")]
+        public ActionResult AssignToClassroom(TeacherClassViewModel viewModel)
+        {
+            var teacherClassroom = new TeacherClass()
+            {
+                TeacherID = viewModel.teacherid,
+                ClassroomID = viewModel.classroomid,
+                DateAssigned = viewModel.DateAssigned,
+                MonthsInClassroom = viewModel.MonthsInClassroom
+            };
+
+            _context.TeacherClasses.Add( teacherClassroom);
+            _context.SaveChanges();
+
+            return RedirectToAction("Details", "Classroom", new { id = viewModel.classroomid });
+        }
+
+        [HttpGet]
+        [Audit(AuditingLevel = 1)]
+        [Authorize(Roles = "Provider, Hub, Administrator, System Administrator")]
         public ActionResult RemoveFromClassroom(int id, int classroomid)
         {
-            var teacher = _context.Teachers.Single(t => t.ID == id);
-            var classroom = _context.Classrooms.Single(t => t.ID == classroomid);
-            var teacherClass = _context.TeacherClasses.Single(tc => tc.TeacherID == id && tc.ClassroomID == classroomid);
+            var teacher = _context.Teachers.Find( id);
+            var classroom = _context.Classrooms.Find(classroomid);
+            var teacherClass = _context.TeacherClasses.First(tc => tc.TeacherID == id && tc.ClassroomID == classroomid);
             var teacherClassView = new TeacherClassViewModel {
                 teacher = teacher,
                 classroom = classroom,
@@ -361,7 +395,7 @@ namespace PromiseData.Controllers
         [Authorize]
         public ActionResult Details(int id)
         {
-            var teacher = _context.Teachers.Single(i => i.ID == id);
+            var teacher = _context.Teachers.Find( id);
 
             var viewModel = new TeacherViewModel
             {
@@ -427,7 +461,7 @@ namespace PromiseData.Controllers
         [Authorize(Roles = "Administrator, System Administrator")]
         public ActionResult Delete(int id)
         {
-            var teacher = _context.Teachers.Single(t => t.ID == id);
+            var teacher = _context.Teachers.Find( id);
             return View( teacher);
         }
 
@@ -437,7 +471,7 @@ namespace PromiseData.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult ConfirmDelete(int id)
         {
-            var teacher = _context.Teachers.Single(t => t.ID == id);
+            var teacher = _context.Teachers.Find( id);
             _context.Teachers.Remove(teacher);
             _context.SaveChanges();
             return RedirectToAction("Index", "Teacher");

@@ -450,6 +450,7 @@
     <Content Include="Views\Child\UpdateSpecialNeeds.cshtml" />
     <Content Include="Views\WaiverCurrents\Archived.cshtml" />
     <Content Include="Views\Facility\ProgramYearForm.cshtml" />
+    <Content Include="Views\Teacher\AssignToClassroom.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

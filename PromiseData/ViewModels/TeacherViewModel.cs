@@ -109,7 +109,7 @@ namespace PromiseData.ViewModels
         [DisplayName("PD Step?")]
         public int PDStep { get; set; }  //?
 
-        [DisplayName("Years Experience")]
+        [DisplayName("Number of years in Early Childhood Education")]
         public int YearsExperience { get; set; }
 
         [DisplayName("End Date")]

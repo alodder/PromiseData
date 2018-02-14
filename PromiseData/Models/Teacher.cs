@@ -56,7 +56,7 @@
 
         public int? PDStep { get; set; }
 
-        [DisplayName("Years of Experience")]
+        [DisplayName("Number of years in Early Childhood Education")]
         public int? YearsExperience { get; set; }
 
         [DisplayName("End Date")]
@@ -73,6 +73,9 @@
         [DisplayName("Last Name")]
         [StringLength(50)]
         public string NameLast { get; set; }
+
+        [DisplayName("Full Name")]
+        public string FullName { get; set; }
 
         [DisplayName("Current Waivers")]
         public virtual ICollection<WaiverCurrent> WaiverCurrents { get; set; }
