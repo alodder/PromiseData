@@ -13,7 +13,8 @@ namespace PromiseData.Models
         public int ID { get; set; }
 
         [StringLength(20)]
-        public string ELD_ID { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public string ELD_ID { get; private set; }
 
         [StringLength(20)]
         public string SSID { get; set; }
