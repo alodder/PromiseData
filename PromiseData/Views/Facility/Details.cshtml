@@ -18,7 +18,7 @@
     </ul>
 
     <h4>@Html.DisplayFor(model => model.Description)</h4>
-    <p>
+    <p class="text-right">
         @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
         @if (Model.CanEdit)
         {
@@ -29,6 +29,18 @@
 
 
     <ul class="list-group">
+        <li class="list-group-item">
+            <span class="badge">@Html.DisplayFor(model => model.Description)</span>
+            @Html.DisplayNameFor(model => model.Description)
+        </li>
+        <li class="list-group-item">
+            <span class="badge">@Html.DisplayFor(model => model.Phone)</span>
+            @Html.DisplayNameFor(model => model.Phone)
+        </li>
+        <li class="list-group-item">
+            <span class="badge">@Html.DisplayFor(model => model.Email)</span>
+            @Html.DisplayNameFor(model => model.Email)
+        </li>
         @if (Model.Unlicensed)
         {
             <li class="list-group-item">
@@ -44,36 +56,16 @@
             </li>
         }
         <li class="list-group-item">
-            <span class="badge">@Html.DisplayFor(model => model.ProviderFacilityType)</span>
-            @Html.DisplayNameFor(model => model.ProviderFacilityType)
-        </li>
-        <li class="list-group-item">
             <span class="badge">@Html.DisplayFor(model => model.SparkRating)</span>
             @Html.DisplayNameFor(model => model.SparkRating)
         </li>
         <li class="list-group-item">
-            <span class="badge">@Html.DisplayFor(model => model.Phone)</span>
-            @Html.DisplayNameFor(model => model.Phone)
-        </li>
-        <li class="list-group-item">
-            <span class="badge">@Html.DisplayFor(model => model.Email)</span>
-            @Html.DisplayNameFor(model => model.Email)
-        </li>
-        <li class="list-group-item">
-            <span class="badge">@Html.DisplayFor(model => model.Turnover_NonPPStaff)</span>
-            @Html.DisplayNameFor(model => model.Turnover_NonPPStaff)
-        </li>
-        <li class="list-group-item">
-            <span class="list-group-item-heading">@Html.DisplayNameFor(model => model.TurnoverReasons_NonPPStaff)</span>
-            <p>@Html.DisplayFor(model => model.TurnoverReasons_NonPPStaff)</p>
+            <span class="badge">@Html.DisplayFor(model => model.ProviderFacilityType)</span>
+            @Html.DisplayNameFor(model => model.ProviderFacilityType)
         </li>
         <li class="list-group-item">
             <span class="badge"><i class="glyphicon glyphicon-ban-circle"></i></span>
             Transportation Services offered
-        </li>
-        <li class="list-group-item">
-            <span class="badge">@Html.DisplayFor(model => model.ChildrenReceivingTransportationServices)</span>
-            @Html.DisplayNameFor(model => model.ChildrenReceivingTransportationServices)
         </li>
     </ul>
 
