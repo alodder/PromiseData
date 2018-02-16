@@ -42,8 +42,10 @@ namespace PromiseData.Models
         public virtual DbSet<Child_Classroom_Enrollment> Child_Classroom_Enrollments { get; set; }
         public virtual DbSet<ChildRace> ChildRaces { get; set; }
         public virtual DbSet<ChildScreening> ChildScreenings { get; set; }
+
         public virtual DbSet<Teacher> Teachers { get; set; }
         public virtual DbSet<TeacherClass> TeacherClasses { get; set; }
+        public virtual DbSet<TeacherRace> TeacherRaces { get; set; }
 
         public virtual DbSet<Child_Facility> ChildFacilities { get; set; }
 

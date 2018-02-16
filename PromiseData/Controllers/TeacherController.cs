@@ -20,11 +20,20 @@ namespace PromiseData.Controllers
         private TeachersRepository _teacherRepository;
         private ClassroomRepository _classroomRepository;
 
+        private Dictionary<int, bool> RaceBoolDictionary;
+
         public TeacherController()
         {
             _context = new ApplicationDbContext();
             _teacherRepository = new TeachersRepository(_context);
             _classroomRepository = new ClassroomRepository(_context);
+
+            RaceBoolDictionary = new Dictionary<int, bool>();
+            var raceList = _context.RaceEthnic.ToList();
+            foreach (RaceEthnicity race in raceList)
+            {
+                RaceBoolDictionary.Add(race.Id, false);
+            }
 
             types = new List<string>();
             types.Add("Lead");
@@ -48,6 +57,7 @@ namespace PromiseData.Controllers
             {
                 Genders = _context.CodeGender.ToList(),
                 RaceEthnicityList = _context.RaceEthnic.ToList(),
+                RaceDictionary = RaceBoolDictionary,
                 EducationTypes = _context.Code_Education.ToList(),
                 //Classrooms = _context.Classrooms,
                 TeacherTypes = types,
@@ -144,6 +154,19 @@ namespace PromiseData.Controllers
                     });
             }
 
+            foreach (var raceId in viewModel.RaceDictionary.Keys)
+            {
+                if (viewModel.RaceDictionary[raceId])
+                {
+                    var TeacherRace = new TeacherRace
+                    {
+                        TeacherID = teacher.ID,
+                        RaceID = raceId
+                    };
+                    _context.TeacherRaces.Add( TeacherRace);
+                }
+            }
+
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Teacher");
@@ -163,6 +186,7 @@ namespace PromiseData.Controllers
                 TeacherType = teacher.TeacherType,
                 TeacherBirthdate = teacher.TeacherBirthdate.GetValueOrDefault(),
                 RaceEthnicityIdentity = teacher.TeacherRaceEthnicity,
+                RaceDictionary = RaceBoolDictionary,
                 StartDate = teacher.StartDate.GetValueOrDefault(),
                 EndDate = teacher.EndDate,
                 ReasonForLeaving = teacher.ReasonForleaving,
@@ -203,6 +227,14 @@ namespace PromiseData.Controllers
                     viewModel.FluentLanguages.Add(language.Code, true);
                 else
                     viewModel.FluentLanguages.Add(language.Code, false);
+            }
+
+            var teacherRaces = _context.TeacherRaces.Where(r => r.TeacherID == teacher.ID).Select(r => r.RaceID);
+
+            foreach (var def in viewModel.RaceDictionary.ToList())
+            {
+                if (teacherRaces.Contains(def.Key))
+                    viewModel.RaceDictionary[def.Key] = true;
             }
 
             return View("TeacherForm", viewModel);
@@ -325,6 +357,26 @@ namespace PromiseData.Controllers
                 }
             }
 
+            var teacherRaces = _context.TeacherRaces.Where(r => r.TeacherID == viewModel.Id);
+            foreach (var raceId in viewModel.RaceDictionary.Keys)
+            {
+                var TeacherRace = new TeacherRace
+                {
+                    TeacherID = viewModel.Id,
+                    RaceID = raceId
+                };
+
+                if (viewModel.RaceDictionary[raceId] && !teacherRaces.Select(r => r.RaceID).Contains(raceId))
+                {
+                    _context.TeacherRaces.Add(TeacherRace);
+                }
+                if (!viewModel.RaceDictionary[raceId] && teacherRaces.Select(r => r.RaceID).Contains(raceId))
+                {
+                    _context.TeacherRaces.RemoveRange(teacherRaces.Where(r => r.RaceID == raceId));
+                }
+
+            }
+
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Teacher");
@@ -421,6 +473,7 @@ namespace PromiseData.Controllers
             viewModel.Genders = _context.CodeGender.ToList();
             viewModel.RaceEthnicityList = _context.RaceEthnic.ToList();
             viewModel.EducationTypes = _context.Code_Education.ToList();
+            viewModel.TeacherRaces = _context.TeacherRaces.Where(r => r.TeacherID == id);
 
             //List of classrooms limited to classrooms assigned to user
             var classIDs = teacher.TeacherClasses.Select(tc => tc.ClassroomID);

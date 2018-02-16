@@ -75,7 +75,8 @@
         public string NameLast { get; set; }
 
         [DisplayName("Full Name")]
-        public string FullName { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public string FullName { get; private set; }
 
         [DisplayName("Current Waivers")]
         public virtual ICollection<WaiverCurrent> WaiverCurrents { get; set; }

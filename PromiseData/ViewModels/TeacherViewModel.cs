@@ -36,7 +36,7 @@ namespace PromiseData.ViewModels
 
         }
 
-        [DisplayName("Teacher ID Number")]
+        [DisplayName("Teacher CBR Number")]
         public String TeacherIDNumber { get; set; }
 
         [Required]
@@ -65,6 +65,8 @@ namespace PromiseData.ViewModels
 
         public IEnumerable<RaceEthnicity> RaceEthnicityList { get; set; }
 
+        public IEnumerable<TeacherRace> TeacherRaces { get; set; }
+
         //dictionary for checkbox values
         public Dictionary<int, bool> RaceDictionary { get; set; }
 
@@ -90,7 +92,7 @@ namespace PromiseData.ViewModels
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime StartDate { get; set; }
 
-        [DisplayName("Salary")]
+        [DisplayName("Gross Monthly Salary")]
         public Decimal TeacherSalary { get; set; }
 
         [DisplayName("Education")]

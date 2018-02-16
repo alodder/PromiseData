@@ -48,6 +48,18 @@
                     <dd>
                         @Model.Genders.Single(r => r.Code == Model.GenderId.ToString()).Description
                     </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.RaceEthnicityIdentity)
+                    </dt>
+
+                    <dd>
+                        @foreach (var Race in Model.TeacherRaces)
+                        {
+                            @Model.RaceEthnicityList.First(r => r.Id == Race.RaceID).Description.ToString();
+                            @Html.Raw(" ")
+                        }
+                    </dd>
                 </dl>
             </div>
         </div>
@@ -75,6 +87,7 @@
                             if (lang.Value)
                             {
                                 @Model.Languages.Single(r => r.Code == lang.Key).Description
+                                @Html.Raw(" ")
                             }
                         }
                     </dd>
