@@ -64,6 +64,8 @@ namespace PromiseData.ViewModels
 
         public int? ProviderID { get; set; }
 
+        public int? ChildID { get; set; }
+
         public virtual Code_AddressType Code_AddressType { get; set; }
 
         public virtual LU_State LU_State { get; set; }

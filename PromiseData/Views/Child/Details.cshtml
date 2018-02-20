@@ -196,7 +196,15 @@
         <div class="panel-footer">
             @if (Model.CanEdit)
             {
-                @Html.ActionLink("Update", "ChildAddress", new { id = Model.ID }, new { @class = "btn btn-default btn-xs" })
+                if(Model.Address != null)
+                {
+                    @Html.ActionLink("Update", "Edit", "Address", new { id = Model.Address_ID }, new { @class = "btn btn-default btn-xs" })
+                }
+                else
+                {
+                    @Html.ActionLink("Add", "CreateForChild", "Address", new { id = Model.ID }, new { @class = "btn btn-default btn-xs" })
+                }
+
             }
         </div>
     </div>

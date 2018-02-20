@@ -32,6 +32,23 @@ namespace PromiseData.Controllers
 
         [Authorize]
         [HttpGet]
+        public ActionResult CreateForChild(int id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var viewModel = new AddressViewModel
+            {
+                AddressTypes = _context.Code_AddressType.ToList(),
+                States = _context.LU_State.ToList(),
+                ChildID = id
+            };
+            return View("AddressForm", viewModel);
+        }
+
+        [Authorize]
+        [HttpGet]
         public ActionResult CreateForProvider(int id)
         {
             var viewModel = new AddressViewModel
@@ -78,6 +95,14 @@ namespace PromiseData.Controllers
                 facility.AddressID = address.ID;
                 _context.SaveChanges();
                 return RedirectToAction("Details", "Facility", new { id = viewModel.ProviderID });
+            }
+
+            if (viewModel.ChildID != null)
+            {
+                var child = _context.Children.Find( viewModel.ChildID);
+                child.Address_ID = address.ID;
+                _context.SaveChanges();
+                return RedirectToAction("Details", "Child", new { id = viewModel.ChildID });
             }
 
             return RedirectToAction("Index", "Address");
