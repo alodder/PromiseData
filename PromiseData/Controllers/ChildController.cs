@@ -12,6 +12,7 @@ using PromiseData.Repositories;
 
 namespace PromiseData.Controllers
 {
+    [Authorize]
     public class ChildController : Controller
     {
         private ApplicationDbContext _context;
@@ -113,6 +114,7 @@ namespace PromiseData.Controllers
 
             var viewModel = new ChildDetailsViewModel();
             viewModel.ID = child.ID;
+            viewModel.ELD_ID = child.ELD_ID;
             viewModel.LastName = child.LastName;
             viewModel.FirstName = child.FirstName;
             viewModel.GenerationCodeID = child.GenerationCode_ID.GetValueOrDefault();
@@ -122,6 +124,7 @@ namespace PromiseData.Controllers
             viewModel.Birthdate = child.Birthdate.GetValueOrDefault();
             viewModel.GenderID = child.Gender_ID[0];
             viewModel.Address_ID = child.Address_ID;
+            viewModel.InFosterCare = child.InFosterCare;
 
             viewModel.Address = _context.Addresses.FirstOrDefault( a => a.ID == child.Address_ID);
             viewModel.Generation = _context.Code_GenerationCode.FirstOrDefault(a => a.Code == child.GenerationCode_ID);
@@ -152,6 +155,7 @@ namespace PromiseData.Controllers
             return View(viewModel);
         }
 
+        [HttpGet]
         [Authorize]
         public ActionResult Edit(int? id)
         {
@@ -165,14 +169,14 @@ namespace PromiseData.Controllers
                 return HttpNotFound();
             }
 
-            var viewModel = new ChildFormViewModel
+            var viewModel = new ChildDetailsViewModel
             {
                 LastName = child.LastName,
                 OtherLastName = child.OtherLastName,
                 FirstName = child.FirstName,
                 MiddleName = child.MiddleName,
                 OtherMiddleName = child.OtherMiddleName,
-                Date = child.Birthdate.GetValueOrDefault(),
+                Birthdate = child.Birthdate.GetValueOrDefault(),
                 GenerationCodeID = child.GenerationCode_ID.GetValueOrDefault(),
                 LanguageID = child.Language_ID.GetValueOrDefault(),
                 GenderID = child.Gender_ID.ToCharArray()[0],
@@ -548,6 +552,11 @@ namespace PromiseData.Controllers
                 ReceivedInfo = viewModel.ReceivedInfo,
                 TransportationUse = viewModel.TransportationUse
             };
+
+            if(viewModel.EndReason == "Other")
+            {
+                enrollment.EndReason = viewModel.OtherEndReason;
+            }
 
             _context.Child_Classroom_Enrollments.Add( enrollment);
             _context.SaveChanges();

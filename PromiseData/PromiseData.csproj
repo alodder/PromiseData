@@ -445,13 +445,13 @@
     <Content Include="Views\WaiverCurrents\Details.cshtml" />
     <Content Include="Views\WaiverCurrents\Edit.cshtml" />
     <Content Include="Views\WaiverCurrents\Index.cshtml" />
-    <Content Include="Views\Child\Edit.cshtml" />
     <Content Include="Views\Child\Enroll.cshtml" />
     <Content Include="Views\Child\UpdateIFSP.cshtml" />
     <Content Include="Views\Child\UpdateSpecialNeeds.cshtml" />
     <Content Include="Views\WaiverCurrents\Archived.cshtml" />
     <Content Include="Views\Facility\ProgramYearForm.cshtml" />
     <Content Include="Views\Teacher\AssignToClassroom.cshtml" />
+    <Content Include="Views\Child\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

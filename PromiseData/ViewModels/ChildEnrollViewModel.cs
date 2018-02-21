@@ -41,13 +41,15 @@ namespace PromiseData.ViewModels
         [DisplayName("Reason for End")]
         public string EndReason { get; set; }
 
+        [DisplayName("Specify Reason for End")]
+        public string OtherEndReason { get; set; }
+
         [DisplayName("Monthly Attendance")]
         //[RegularExpression(@"^\d+\.\d{0,2}$")]
         public decimal MonthlyAttendance { get; set; }
 
-        [DisplayName("Received Info")]
-        [StringLength(10)]
-        public string ReceivedInfo { get; set; }
+        [DisplayName("Did child/family receive or attend transition services or information?")]
+        public bool ReceivedInfo { get; set; }
 
         [DisplayName("Transportation Use")]
         public bool TransportationUse { get; set; }
@@ -56,6 +58,17 @@ namespace PromiseData.ViewModels
 
         public Facility Facility { get; set; }
 
+        public List<String> ExitReasonList
+        {
+            get
+            {
+                List<String> reasons = new List<String>();
+                reasons.Add("Transition to kindergarten");
+                reasons.Add("Moved out of the area");
+                reasons.Add("Other");
+                return reasons;
+            }
+        }
 
         public IEnumerable<Child> Children { get; set; }
 

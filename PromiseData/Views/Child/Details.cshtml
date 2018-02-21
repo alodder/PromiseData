@@ -29,7 +29,6 @@
 
                         <dd>
                             @Html.Raw((Model.ELD_ID == null ? "<i class=\"text-danger\">Missing</i>" : Model.ELD_ID))
-                            @Html.DisplayFor(model => model.ELD_ID)
                         </dd>
 
                         <dt>
@@ -210,6 +209,21 @@
     </div>
 
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ChildTransportation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChildTransportation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InFosterCare)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InFosterCare)
+        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.Homeless)
@@ -495,16 +509,38 @@
     <div class="panel panel-default">
         <div class="panel-heading">Enrollment</div>
         <div class="panel-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Provider</th>
+                        <th scope="col">Classroom</th>
+                        <th scope="col">Start</th>
+                        <th scope="col">End</th>
+                    </tr>
+                </thead>
+                <tr>
+                    @foreach (var enrollment in Model.ChildEnrollments)
+                    {
+                        <td>
+                            @enrollment.Classroom.Facility.Description
+                        </td>
+                        <td>
+                            @enrollment.Classroom.Description
+                        </td>
+                        <td>
+                            @enrollment.StartDate.Value.ToShortDateString()
+                        </td>
+                        <td>
+                            @enrollment.EndDate.Value.ToShortDateString()
+                        </td>
+                        <td>
+                            @enrollment.EndReason
+                        </td>
+                    }
+                </tr>
+            </table>
             <dl class="dl-horizontal">
-                @foreach (var enrollment in Model.ChildEnrollments)
-                {
-                    <dt>
-                        @enrollment.Classroom.Facility.Description
-                    </dt>
-                    <dd>
-                        @enrollment.Classroom.Description
-                    </dd>
-                }
+
             </dl>
         </div>
         <div class="panel-footer">

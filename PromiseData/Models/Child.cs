@@ -85,6 +85,11 @@ namespace PromiseData.Models
 
         public int? FamilyID { get; set; }
 
+        public bool? InFosterCare { get; set; }
+
+        [Column("Child_Transportation")]
+        public bool? ChildTransportation { get; set; }
+
         [ForeignKey("FamilyID")]
         public virtual Family Family { get; set; }
 

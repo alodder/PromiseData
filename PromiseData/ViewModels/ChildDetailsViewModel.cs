@@ -108,6 +108,10 @@ namespace PromiseData.ViewModels
         [DisplayName("Exit Reason")]
         public int? ExitReason_ID { get; set; }
 
+        public bool? InFosterCare { get; set; }
+
+        public bool? ChildTransportation { get; set; }
+
         [DisplayName("Family")]
         public int FamilyID { get; set; }
 
@@ -156,6 +160,8 @@ namespace PromiseData.ViewModels
         public int LanguageID { get; set; }
 
         public IEnumerable<Code_Language> Languages { get; set; }
+
+        public IEnumerable<Code_Gender> Genders { get; set; }
 
         public IEnumerable<ChildRace> ChildRaces { get; set; }
 

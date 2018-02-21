@@ -38,9 +38,8 @@ namespace PromiseData.Models
         //[RegularExpression(@"^\d+\.\d{0,2}$")]
         public decimal? MonthlyAttendance { get; set; }
 
-        [DisplayName("Received Info")]
-        [StringLength(10)]
-        public string ReceivedInfo { get; set; }
+        [DisplayName("Child/family received or attended transition services or information?")]
+        public bool? ReceivedInfo { get; set; }
 
         [DisplayName("Transportation Use")]
         public bool? TransportationUse { get; set; }

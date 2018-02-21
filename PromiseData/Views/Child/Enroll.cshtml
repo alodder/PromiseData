@@ -8,7 +8,7 @@
 @using (Html.BeginForm("Enroll", "Child"))
 {
     <div>
-        <fieldset class="col-lg-5">
+        <fieldset class="col-md-5">
             <legend>Child</legend>
             <div class="">
                 <div class="form-group">
@@ -17,7 +17,7 @@
                 </div>
             </div>
         </fieldset>
-        <fieldset class="col-lg-offset-2 col-lg-5">
+        <fieldset class="col-md-offset-2 col-md-5">
             <legend>Classroom</legend> 
             <div class="">
                 <div class="form-group">
@@ -35,15 +35,13 @@
         </fieldset>
 
         <div class="row">
-            <div class="col-lg-4 form-group">
+            <div class="col-md-3 form-group">
                 @Html.LabelFor(m => m.StartDate)
                 @Html.TextBoxFor(m => m.StartDate, new { @class = "form-control", placeholder = "2010-01-01 ", type = "date" })
                 @Html.ValidationMessageFor(m => m.StartDate)
             </div>
-        </div>
 
-        <div class="row">
-            <div class=" col-lg-4 form-group">
+            <div class=" col-md-3 form-group">
                 @Html.LabelFor(m => m.EndDate)
                 @Html.TextBoxFor(m => m.EndDate, new { @class = "form-control", placeholder = "2010-01-01 ", type = "date" })
                 @Html.ValidationMessageFor(m => m.EndDate)
@@ -51,20 +49,25 @@
         </div>
 
         <div class="row">
-            <div class="form-group">
+            <div class="form-group col-md-3">
                 @Html.LabelFor(m => m.EndReason)
-                @Html.TextAreaFor(m => m.EndReason, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.EndReason)
+                @Html.DropDownListFor(m => m.EndReason, new SelectList(Model.ExitReasonList), new { @class = "form-control" })
+            </div>
+
+            <div class="form-group col-md-4">
+                @Html.LabelFor(m => m.OtherEndReason)
+                @Html.TextAreaFor(m => m.OtherEndReason, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.OtherEndReason)
             </div>
         </div>
 
         <div class="row">
-            <div class=" col-lg-8">
+            <div class="col-md-8">
                 @Html.LabelFor(m => m.MonthlyAttendance)
                 @Html.TextBoxFor(m => m.MonthlyAttendance, new { @class = "form-control", type = "Range", value = "30", min = "0", max = "100" })
                 @Html.ValidationMessageFor(m => m.MonthlyAttendance)
             </div>
-            <div class="col-lg-offset-1 col-lg-3">
+            <div class="col-md-offset-1 col-md-3">
                 <h3>Attendance units: <span class="label label-info" id="attendanceInputLabel"></span></h3>
             </div>
         </div>
