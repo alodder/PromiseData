@@ -7,21 +7,22 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PromiseData.Models;
+using Advanced_Auditing.Models;
 
 namespace PromiseData.Controllers
 {
+    [Authorize]
+    [Audit]
     public class CLASS_ScoreController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: CLASS_Score
         public ActionResult Index()
         {
             var classScores = db.ClassScores.Include(c => c.Classroom);
             return View(classScores.ToList());
         }
 
-        // GET: CLASS_Score/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,7 +37,8 @@ namespace PromiseData.Controllers
             return View(cLASS_Score);
         }
 
-        // GET: CLASS_Score/Create
+        [HttpGet]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         public ActionResult Create(int? id)
         {
             if (id == null)
@@ -56,6 +58,7 @@ namespace PromiseData.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Score_id,Classroom_id,CLASSScore_EmotionalSupport,CLASSScore_ClassroomOrganization,CLASSScore_InstructionalSupport,Score_date")] CLASS_Score cLASS_Score)
         {
@@ -70,7 +73,8 @@ namespace PromiseData.Controllers
             return View(cLASS_Score);
         }
 
-        // GET: CLASS_Score/Edit/5
+        [HttpGet]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -90,6 +94,7 @@ namespace PromiseData.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Score_id,Classroom_id,CLASSScore_EmotionalSupport,CLASSScore_ClassroomOrganization,CLASSScore_InstructionalSupport,Score_date")] CLASS_Score cLASS_Score)
         {
@@ -103,7 +108,8 @@ namespace PromiseData.Controllers
             return View(cLASS_Score);
         }
 
-        // GET: CLASS_Score/Delete/5
+        [HttpGet]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -120,6 +126,7 @@ namespace PromiseData.Controllers
 
         // POST: CLASS_Score/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {

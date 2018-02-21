@@ -8,9 +8,12 @@ using PromiseData.ViewModels;
 using System.Net;
 using System.Security.Claims;
 using PromiseData.Repositories;
+using Advanced_Auditing.Models;
 
 namespace PromiseData.Controllers
 {
+    [Authorize]
+    [Audit]
     public class ClassroomController : Controller
     {
         private ApplicationDbContext _context;
@@ -84,7 +87,7 @@ namespace PromiseData.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         [HttpGet]
         public ActionResult Create(int? id)
         {
@@ -123,7 +126,7 @@ namespace PromiseData.Controllers
             return View("ClassroomForm", viewModel);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(ClassroomViewModel viewModel)
@@ -177,14 +180,13 @@ namespace PromiseData.Controllers
             return RedirectToAction("Index", "Classroom");
         }
 
-        [Authorize]
         public ActionResult Details(int id)
         {
             var classroom = _context.Classrooms.Find( id);
             return View(classroom);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         public ActionResult Delete(int id)
         {
             var classroom = _context.Classrooms.Find( id);
@@ -211,7 +213,7 @@ namespace PromiseData.Controllers
             return View( viewModel);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         [HttpPost, ActionName("Delete")]
         //[ValidateAntiForgeryToken]
         public ActionResult ConfirmDelete(int id)
@@ -222,9 +224,9 @@ namespace PromiseData.Controllers
             return RedirectToAction("Index", "Classroom");
         }
 
-        // GET: Institution
+
         [HttpGet]
-        [Authorize(Roles = "Administrator, System Administrator")]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         public ActionResult Edit(int id)
         {
             var classroom = _context.Classrooms.Find( id);
@@ -263,9 +265,8 @@ namespace PromiseData.Controllers
             return View("ClassroomForm", viewModel);
         }
 
-        //POST: Institution update/edit
         [HttpPost]
-        [Authorize(Roles = "Administrator, System Administrator")]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         public ActionResult Update(ClassroomViewModel viewModel)
         {
             if (!ModelState.IsValid)
@@ -413,8 +414,6 @@ namespace PromiseData.Controllers
             return Json(providers, JsonRequestBehavior.AllowGet);
         }
 
-        [Authorize]
-        // GET: Classroom
         public ActionResult Index()
         {
             IEnumerable<Classroom> classrooms = _classroomRepository.GetUserClassrooms( (ClaimsPrincipal)User).ToList();

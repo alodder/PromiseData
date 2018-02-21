@@ -13,6 +13,7 @@ using PromiseData.Repositories;
 namespace PromiseData.Controllers
 {
     [Authorize]
+    [Audit]
     public class ChildController : Controller
     {
         private ApplicationDbContext _context;
@@ -42,7 +43,7 @@ namespace PromiseData.Controllers
          * Create Child form
          * Possibbly add Classroom here?
          */
-        [Authorize]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         [HttpGet]
         public ActionResult Add()
         {
@@ -56,7 +57,7 @@ namespace PromiseData.Controllers
             return View(viewModel);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Add(ChildFormViewModel viewModel)
@@ -99,7 +100,7 @@ namespace PromiseData.Controllers
             return RedirectToAction("Race", new { id = returnChild.ID});
         }
 
-        [Authorize]
+        [HttpGet]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -156,7 +157,7 @@ namespace PromiseData.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -191,6 +192,7 @@ namespace PromiseData.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         public ActionResult Edit( ChildDetailsViewModel viewModel)
         {
             if (!ModelState.IsValid)
@@ -241,7 +243,7 @@ namespace PromiseData.Controllers
             return RedirectToAction("Details", new { id = viewModel.ID });
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         [HttpGet]
         public ActionResult UpdateIFSP(int? id)
         {
@@ -276,7 +278,7 @@ namespace PromiseData.Controllers
             return View(viewModel);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         [HttpPost]
         public ActionResult UpdateIFSP(ChildSpecialViewModel viewModel)
         {
@@ -310,7 +312,7 @@ namespace PromiseData.Controllers
             return RedirectToAction("Details", new { id = viewModel.ChildID });
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         [HttpGet]
         public ActionResult UpdateSpecialNeeds(int? id)
         {
@@ -345,7 +347,7 @@ namespace PromiseData.Controllers
             return View(viewModel);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         [HttpPost]
         public ActionResult UpdateSpecialNeeds(ChildSpecialViewModel viewModel)
         {
@@ -381,7 +383,7 @@ namespace PromiseData.Controllers
             return RedirectToAction("Details", new { id = viewModel.ChildID });
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -396,7 +398,7 @@ namespace PromiseData.Controllers
             return View(child);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         [HttpPost, ActionName("Delete")]
         //[ValidateAntiForgeryToken]
         public ActionResult ConfirmDelete(int id)
@@ -408,6 +410,7 @@ namespace PromiseData.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         public ActionResult Race(int id)
         {
             if (id == null)
@@ -430,6 +433,7 @@ namespace PromiseData.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         public ActionResult Race(ChildRaceViewModel viewModel)
         {
             foreach (var raceId in viewModel.RaceDictionary.Keys)
@@ -453,6 +457,7 @@ namespace PromiseData.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         public ActionResult EditRace(int id)
         {
             if (id == null)
@@ -485,6 +490,7 @@ namespace PromiseData.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         public ActionResult UpdateRace(ChildRaceViewModel viewModel)
         {
             var childRaces = _context.ChildRaces.Where(r => r.ChildID == viewModel.ChildID);
@@ -512,7 +518,6 @@ namespace PromiseData.Controllers
         }
 
 
-        //[HttpGet]
         public JsonResult getClassrooms(int id)
         {
             var classrooms = _context.Classrooms
@@ -526,6 +531,7 @@ namespace PromiseData.Controllers
         }
 
         [WebMethod]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         public string confirmRemoveAdult(int id)
         {
             var adult = _context.Adults.FirstOrDefault(a => a.ID == id);
@@ -536,6 +542,7 @@ namespace PromiseData.Controllers
         }
 
         [WebMethod]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         public int removeAdult(int id)
         {
             var adult = _context.Adults.FirstOrDefault(a => a.ID == id);
@@ -545,7 +552,7 @@ namespace PromiseData.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         public ActionResult Enroll(int id)
         {
             if (id == null)
@@ -581,7 +588,7 @@ namespace PromiseData.Controllers
          *  
          * */
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         public ActionResult Enroll(ChildEnrollViewModel viewModel)
         {
             if (!ModelState.IsValid)
@@ -616,6 +623,7 @@ namespace PromiseData.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         public ActionResult UpdateEnrollment(int id, int classid)
         {
             if (id == null)
@@ -649,14 +657,12 @@ namespace PromiseData.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public ActionResult Search(ChildrenListViewModel viewModel)
         {
             return RedirectToAction("Index", "Child", new { query = viewModel.SearchTerm });
         }
 
         [HttpGet]
-        [Authorize]
         public ActionResult Index(string query = null)
         {
             var viewModel = new ChildrenListViewModel();

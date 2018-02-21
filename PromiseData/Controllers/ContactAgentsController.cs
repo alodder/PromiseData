@@ -8,9 +8,12 @@ using System.Web;
 using System.Web.Mvc;
 using PromiseData.Models;
 using PromiseData.ViewModels;
+using Advanced_Auditing.Models;
 
 namespace PromiseData.Controllers
 {
+    [Authorize]
+    [Audit]
     public class ContactAgentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -37,7 +40,7 @@ namespace PromiseData.Controllers
             return View(contactAgent);
         }
 
-        // GET: ContactAgents/Create
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         public ActionResult Create(int? id)
         {
             if (id == null)
@@ -49,7 +52,7 @@ namespace PromiseData.Controllers
             return View("ContactAgentForm", view);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         [HttpGet]
         public ActionResult CreateForProvider(int id)
         {
@@ -64,6 +67,7 @@ namespace PromiseData.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         [ValidateAntiForgeryToken]
         public ActionResult Create(ContactAgentViewModel viewModel)
         {
@@ -102,6 +106,7 @@ namespace PromiseData.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -139,6 +144,7 @@ namespace PromiseData.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         [ValidateAntiForgeryToken]
         public ActionResult Update(ContactAgentViewModel viewModel)
         {
@@ -179,6 +185,7 @@ namespace PromiseData.Controllers
         }
 
         // GET: ContactAgents/Delete/5
+        [Authorize(Roles = "Administrator, System Administrator, Hub")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -195,6 +202,7 @@ namespace PromiseData.Controllers
 
         // POST: ContactAgents/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Administrator, System Administrator, Hub")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {

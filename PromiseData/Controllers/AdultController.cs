@@ -6,9 +6,12 @@ using System.Web.Mvc;
 using PromiseData.Models;
 using PromiseData.ViewModels;
 using System.Net;
+using Advanced_Auditing.Models;
 
 namespace PromiseData.Controllers
 {
+    [Authorize]
+    [Audit]
     public class AdultController : Controller
     {
         private ApplicationDbContext _context;
@@ -41,7 +44,8 @@ namespace PromiseData.Controllers
 
 
         //Take FamilyID passed from Child?
-        [Authorize]
+        [HttpGet]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         public ActionResult Create(int? id)
         {
             if (id == null)
@@ -72,7 +76,7 @@ namespace PromiseData.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         public ActionResult Create( AdultFormViewModel viewModel)
         {
             if (!ModelState.IsValid)
@@ -103,7 +107,7 @@ namespace PromiseData.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -140,7 +144,7 @@ namespace PromiseData.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         public ActionResult Update(AdultFormViewModel viewModel)
         {
             if (!ModelState.IsValid)
@@ -167,7 +171,6 @@ namespace PromiseData.Controllers
             return RedirectToAction("Details", "Adult", new { id = adult.ID});
         }
 
-        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -183,7 +186,7 @@ namespace PromiseData.Controllers
             return View(adult);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -198,7 +201,7 @@ namespace PromiseData.Controllers
             return View( adult);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         [HttpPost, ActionName("Delete")]
         //[ValidateAntiForgeryToken]
         public ActionResult ConfirmDelete(int id)
@@ -210,6 +213,7 @@ namespace PromiseData.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         public ActionResult LangRace(int? id)
         {
             if (id == null)
@@ -225,8 +229,8 @@ namespace PromiseData.Controllers
             var viewModel = new AdultFormViewModel
             {
                 id = adult.ID,
-                NameFirst = "Anon",
-                NameLast = "Jones",
+                NameFirst = adult.NameFirst,
+                NameLast = adult.NameLast,
                 RaceEthnicityList = _context.RaceEthnic.ToList(),
                 RaceDictionary = RaceBoolDictionary
             };
@@ -234,6 +238,7 @@ namespace PromiseData.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
         public ActionResult LangRace(AdultFormViewModel viewModel)
         {
             foreach (var raceId in viewModel.RaceDictionary.Keys)
@@ -254,7 +259,6 @@ namespace PromiseData.Controllers
         }
 
         [Authorize]
-        // GET: Adult
         public ActionResult Index()
         {
             var viewModel = _context.Adults;

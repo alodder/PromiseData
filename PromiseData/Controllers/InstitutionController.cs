@@ -13,6 +13,8 @@ using System.Web.Mvc;
 
 namespace PromiseData.Controllers
 {
+    [Authorize]
+    [Audit]
     public class InstitutionController : Controller
     {
         private ApplicationDbContext _context;
@@ -25,7 +27,6 @@ namespace PromiseData.Controllers
 
         // GET: Institution
         [HttpGet]
-        [Audit]
         [Authorize(Roles = "Administrator, System Administrator")]
         public ActionResult Create()
         {
@@ -185,13 +186,11 @@ namespace PromiseData.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public ActionResult Search(InstitutionFormViewModel viewModel)
         {
             return RedirectToAction("Index", "Institution", new { query = viewModel.SearchTerm});
         }
 
-        [Authorize]
         public ActionResult FilterHubs(string query = null)
         {
             var viewModel = new InstitutionsViewModel();
@@ -208,7 +207,6 @@ namespace PromiseData.Controllers
             return View("Index", viewModel);
         }
 
-        [Authorize]
         public ActionResult FilterProviders(string query = null)
         {
             var viewModel = new InstitutionsViewModel();
@@ -226,7 +224,6 @@ namespace PromiseData.Controllers
         }
 
         //GET: Institution Details
-        [Authorize]
         public ActionResult Details(int id)
         {
             var viewModel = new InstitutionFormViewModel();
@@ -271,11 +268,12 @@ namespace PromiseData.Controllers
                 viewModel.ParentHub = _context.Institutions.Find( viewModel.ParentHubId);
             }
 
+            UserRoleCheck( viewModel);
+
             return View( viewModel);
         }
 
         [HttpGet]
-        [Authorize(Roles = "Administrator, System Administrator")]
         public ActionResult Index(string query = null)
         { 
             var viewModel = new InstitutionsViewModel();

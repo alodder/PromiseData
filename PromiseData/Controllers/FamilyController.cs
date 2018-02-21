@@ -6,9 +6,12 @@ using System.Web.Mvc;
 using PromiseData.Models;
 using PromiseData.ViewModels;
 using System.Net;
+using Advanced_Auditing.Models;
 
 namespace PromiseData.Controllers
 {
+    [Authorize]
+    [Audit]
     public class FamilyController : Controller
     {
         private ApplicationDbContext _context;
@@ -19,12 +22,14 @@ namespace PromiseData.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrator, System Administrator, Hub")]
         public ActionResult Create(int? id)
         {
             return View("FamilyForm");
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator, System Administrator, Hub")]
         public ActionResult Create(FamilyViewModel viewModel)
         {
             if (!ModelState.IsValid)
@@ -49,6 +54,7 @@ namespace PromiseData.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrator, System Administrator, Hub")]
         public ActionResult Edit( int id)
         {
             if (id == null)
@@ -78,6 +84,7 @@ namespace PromiseData.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator, System Administrator, Hub")]
         public ActionResult Update(FamilyViewModel viewModel)
         {
             var family = _context.Families.Single(a => a.ID == viewModel.ID);
@@ -99,9 +106,6 @@ namespace PromiseData.Controllers
             return RedirectToAction("Family");
         }
 
-
-
-        // GET: Family
         public ActionResult Index()
         {
             var allTheFamilies = _context.Families.ToList();

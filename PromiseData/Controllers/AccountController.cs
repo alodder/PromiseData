@@ -9,10 +9,12 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using PromiseData.Models;
+using Advanced_Auditing.Models;
 
 namespace PromiseData.Controllers
 {
     [Authorize]
+    [Audit]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;

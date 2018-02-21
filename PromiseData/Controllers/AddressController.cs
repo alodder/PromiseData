@@ -6,9 +6,12 @@ using System.Web.Mvc;
 using PromiseData.Models;
 using PromiseData.ViewModels;
 using System.Net;
+using Advanced_Auditing.Models;
 
 namespace PromiseData.Controllers
 {
+    [Authorize]
+    [Audit]
     public class AddressController : Controller
     {
         private ApplicationDbContext _context;
@@ -18,7 +21,6 @@ namespace PromiseData.Controllers
             _context = new ApplicationDbContext();
         }
 
-        [Authorize]
         [HttpGet]
         public ActionResult Create()
         {
@@ -30,7 +32,6 @@ namespace PromiseData.Controllers
             return View("AddressForm", viewModel);
         }
 
-        [Authorize]
         [HttpGet]
         public ActionResult CreateForChild(int id)
         {
@@ -47,7 +48,6 @@ namespace PromiseData.Controllers
             return View("AddressForm", viewModel);
         }
 
-        [Authorize]
         [HttpGet]
         public ActionResult CreateForProvider(int id)
         {
@@ -60,7 +60,6 @@ namespace PromiseData.Controllers
             return View("AddressForm", viewModel);
         }
 
-        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(AddressViewModel viewModel)
@@ -108,7 +107,7 @@ namespace PromiseData.Controllers
             return RedirectToAction("Index", "Address");
         }
 
-        [Authorize]
+        [HttpGet]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -127,7 +126,6 @@ namespace PromiseData.Controllers
         /**
          * Take id, retreive address, build and pass viewmodel
          * */
-        [Authorize]
         [HttpGet]
         public ActionResult Edit(int id)
         {
@@ -153,7 +151,6 @@ namespace PromiseData.Controllers
         /**
          * Take viewmodel, retreive address, update and SaveChanges
          * */
-        [Authorize]
         [HttpPost]
         public ActionResult Update(AddressViewModel viewModel)
         {
@@ -180,7 +177,7 @@ namespace PromiseData.Controllers
             return RedirectToAction("Index", "Address");
         }
 
-        [Authorize]
+        [HttpGet]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -208,7 +205,6 @@ namespace PromiseData.Controllers
             return View(viewModel);
         }
 
-        [Authorize]
         [HttpPost, ActionName("Delete")]
         //[ValidateAntiForgeryToken]
         public ActionResult ConfirmDelete(int id)
@@ -219,7 +215,6 @@ namespace PromiseData.Controllers
             return RedirectToAction("Index", "Address");
         }
 
-        [Authorize]
         // GET: Address
         public ActionResult Index()
         {

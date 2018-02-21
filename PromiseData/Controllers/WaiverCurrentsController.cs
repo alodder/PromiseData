@@ -8,14 +8,20 @@ using System.Web;
 using System.Web.Mvc;
 using PromiseData.Models;
 using PromiseData.ViewModels;
+using Advanced_Auditing.Models;
 
 namespace PromiseData.Controllers
 {
+    [Authorize]
+    [Audit]
     public class WaiverCurrentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: WaiverCurrents
+        /**
+         * GET: WaiverCurrents
+         * Should use repositories to retrieve only waivers related to user
+         * */
         public ActionResult Index()
         {
             WaiversProcessViewModel viewModel = new WaiversProcessViewModel();
@@ -24,10 +30,13 @@ namespace PromiseData.Controllers
                 .Include(w => w.Site)
                 .Include(w => w.Staff);
 
-            return View( viewModel);
+            return View(viewModel);
         }
 
-        // GET: WaiverCurrents
+        /**
+         * GET: WaiverCurrents pasrt valid date (Expiration)
+         * Should use repositories to retrieve only waivers related to user
+         * */
         public ActionResult Archived()
         {
             WaiversProcessViewModel viewModel = new WaiversProcessViewModel();
@@ -54,7 +63,7 @@ namespace PromiseData.Controllers
             return View(waiverCurrent);
         }
 
-        // GET: WaiverCurrents/Create
+        [Authorize(Roles = "Administrator, System Administrator")]
         public ActionResult Create(int? id)
         {
             WaiverCurrentViewModel viewModel = new WaiverCurrentViewModel();
@@ -88,6 +97,8 @@ namespace PromiseData.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Audit(AuditingLevel = 2)]
+        [Authorize(Roles = "Administrator, System Administrator")]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "WaiverCurrentID,WaiverType,SiteID,SparkCurrent,StaffID,Qualification,Development,Credits,TrainingHours,NineHundredServiceHours,ServiceHourImpact,ServiceHourImpactOther,ServiceHourCount,AdditionalComments,Unsatisfied")] WaiverCurrent waiverCurrent)
         {
@@ -103,7 +114,8 @@ namespace PromiseData.Controllers
             return View(waiverCurrent);
         }
 
-        // GET: WaiverCurrents/Edit/5
+        [HttpGet]
+        [Authorize(Roles = "Administrator, System Administrator")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -124,6 +136,8 @@ namespace PromiseData.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Audit(AuditingLevel = 2)]
+        [Authorize(Roles = "Administrator, System Administrator")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "WaiverCurrentID,WaiverType,SiteID,SparkCurrent,StaffID,Qualification,Development,Credits,TrainingHours,NineHundredServiceHours,ServiceHourImpact,ServiceHourImpactOther,ServiceHourCount,AdditionalComments,Unsatisfied")] WaiverCurrent waiverCurrent)
         {
@@ -138,7 +152,9 @@ namespace PromiseData.Controllers
             return View(waiverCurrent);
         }
 
-        // GET: WaiverCurrents/Delete/5
+        [HttpGet]
+        [Audit(AuditingLevel = 2)]
+        [Authorize(Roles = "Administrator, System Administrator")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -154,6 +170,8 @@ namespace PromiseData.Controllers
         }
 
         // POST: WaiverCurrents/Delete/5
+        [Audit(AuditingLevel = 2)]
+        [Authorize(Roles = "Administrator, System Administrator")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

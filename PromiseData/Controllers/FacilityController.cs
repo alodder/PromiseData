@@ -11,10 +11,12 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System.Security.Claims;
 using PromiseData.Repositories;
 using System.Threading.Tasks;
+using Advanced_Auditing.Models;
 
 namespace PromiseData.Controllers
 {
     [Authorize]
+    [Audit]
     public class FacilityController : Controller
     {
         private IdentityStoreDbContext _IdentityContext;
@@ -146,7 +148,6 @@ namespace PromiseData.Controllers
             return RedirectToAction("Index", "Facility");
         }
 
-        [Authorize]
         [HttpGet]
         public ActionResult Details(int id)
         {
@@ -350,7 +351,6 @@ namespace PromiseData.Controllers
             return Json(new { Message = message, JsonRequestBehavior.AllowGet});
         }
 
-        [Authorize]
         public JsonResult GetPrograms(int id)
         {
             var programs = _context.ProgramYears
@@ -365,8 +365,6 @@ namespace PromiseData.Controllers
             return Json(programs, JsonRequestBehavior.AllowGet);
         }
 
-        [Authorize]
-        // GET: Facility
         public ActionResult Index()
         {
             IEnumerable<Facility> facilities = _sitesRepository.GetUserSites( (ClaimsPrincipal)User).ToList();

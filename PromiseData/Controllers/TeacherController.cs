@@ -11,6 +11,8 @@ using PromiseData.Repositories;
 
 namespace PromiseData.Controllers
 {
+    [Authorize]
+    [Audit]
     public class TeacherController : Controller
     {
         private ApplicationDbContext _context;
@@ -49,8 +51,8 @@ namespace PromiseData.Controllers
         }
 
         [HttpGet]
-        [Audit(AuditingLevel = 1)]
-        [Authorize(Roles = "Hub, Provider, Administrator, System Administrator")]
+        [Audit]
+        [Authorize(Roles = "Provider, Hub, Administrator, System Administrator")]
         public ActionResult Create(int? id)
         {
             var viewModel = new TeacherViewModel
@@ -174,7 +176,6 @@ namespace PromiseData.Controllers
 
         // GET: Teacher
         [HttpGet]
-        [Audit(AuditingLevel = 1)]
         [Authorize(Roles = "Provider, Hub, Administrator, System Administrator")]
         public ActionResult Edit(int id)
         {
@@ -383,7 +384,6 @@ namespace PromiseData.Controllers
         }
 
         [HttpGet]
-        [Audit(AuditingLevel = 1)]
         [Authorize(Roles = "Provider, Hub, Administrator, System Administrator")]
         public ActionResult AssignToClassroom(int classroomid)
         {
@@ -398,7 +398,7 @@ namespace PromiseData.Controllers
         }
 
         [HttpPost]
-        [Audit(AuditingLevel = 1)]
+        [Audit(AuditingLevel = 2)]
         [Authorize(Roles = "Provider, Hub, Administrator, System Administrator")]
         public ActionResult AssignToClassroom(TeacherClassViewModel viewModel)
         {
@@ -417,7 +417,6 @@ namespace PromiseData.Controllers
         }
 
         [HttpGet]
-        [Audit(AuditingLevel = 1)]
         [Authorize(Roles = "Provider, Hub, Administrator, System Administrator")]
         public ActionResult RemoveFromClassroom(int id, int classroomid)
         {
@@ -444,7 +443,6 @@ namespace PromiseData.Controllers
             return RedirectToAction("Details", "Classroom", new { id = teacherClassView.classroomid } );
         }
 
-        [Authorize]
         public ActionResult Details(int id)
         {
             var teacher = _context.Teachers.Find( id);
@@ -511,7 +509,7 @@ namespace PromiseData.Controllers
         }
 
         [Audit(AuditingLevel = 2)]
-        [Authorize(Roles = "Administrator, System Administrator")]
+        [Authorize(Roles = "Provider, Hub, Administrator, System Administrator")]
         public ActionResult Delete(int id)
         {
             var teacher = _context.Teachers.Find( id);
@@ -519,7 +517,7 @@ namespace PromiseData.Controllers
         }
 
         [Audit(AuditingLevel = 2)]
-        [Authorize(Roles = "Administrator, System Administrator")]
+        [Authorize(Roles = "Provider, Hub, Administrator, System Administrator")]
         [HttpPost, ActionName("Delete")]
         //[ValidateAntiForgeryToken]
         public ActionResult ConfirmDelete(int id)
@@ -531,13 +529,11 @@ namespace PromiseData.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public ActionResult Search(TeacherListViewModel viewModel)
         {
             return RedirectToAction("Index", "Teacher", new { query = viewModel.SearchTerm });
         }
 
-        [Authorize]
         public ActionResult Index(string query = null)
         {
             var viewModel = new TeacherListViewModel();

@@ -14,6 +14,8 @@ using PromiseData.Repositories;
 
 namespace PromiseData.Controllers
 {
+    [Authorize]
+    [Audit]
     public class WaiverRequestsController : Controller
     {
         private ApplicationDbContext db;
@@ -31,8 +33,6 @@ namespace PromiseData.Controllers
 
 
 
-
-        [Authorize]
         public ActionResult Index()
         {
             WaiversProcessViewModel viewModel = new WaiversProcessViewModel();
@@ -48,7 +48,6 @@ namespace PromiseData.Controllers
             return View( viewModel);
         }
 
-        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -63,8 +62,8 @@ namespace PromiseData.Controllers
             return View(waiverRequest);
         }
 
-        [Authorize]
         [Audit(AuditingLevel = 2)]
+        [Authorize(Roles = "Provider, Hub, Administrator, System Administrator")]
         public ActionResult Create()
         {
             ViewBag.WaiverType = new SelectList(new List<SelectListItem>
@@ -90,8 +89,8 @@ namespace PromiseData.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
         [Audit(AuditingLevel = 2)]
+        [Authorize(Roles = "Provider, Hub, Administrator, System Administrator")]
         public ActionResult Create([Bind(Include = "WaiverRequestID,waiverType,SiteID,SparkCurrent,StaffID,Qualification,AdditionalComments")] WaiverRequest waiverRequest)
         {
             if (ModelState.IsValid)
@@ -109,7 +108,7 @@ namespace PromiseData.Controllers
 
         // GET: WaiverRequests/Edit/5
         [Authorize]
-        [Audit(AuditingLevel = 2)]
+        [Authorize(Roles = "Provider, Hub, Administrator, System Administrator")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -131,8 +130,8 @@ namespace PromiseData.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
         [Audit(AuditingLevel = 2)]
+        [Authorize(Roles = "Provider, Hub, Administrator, System Administrator")]
         public ActionResult Edit([Bind(Include = "WaiverRequestID,waiverType,SiteID,SparkCurrent,StaffID,Qualification,AdditionalComments")] WaiverRequest waiverRequest)
         {
             if (ModelState.IsValid)
@@ -150,6 +149,7 @@ namespace PromiseData.Controllers
         // GET: WaiverRequests/Delete/5
         [Authorize]
         [Audit(AuditingLevel = 2)]
+        [Authorize(Roles = "Provider, Hub, Administrator, System Administrator")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -167,8 +167,8 @@ namespace PromiseData.Controllers
         // POST: WaiverRequests/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize]
         [Audit(AuditingLevel = 2)]
+        [Authorize(Roles = "Provider, Hub, Administrator, System Administrator")]
         public ActionResult DeleteConfirmed(int id)
         {
             WaiverRequest waiverRequest = db.WaiverRequests.Find(id);
