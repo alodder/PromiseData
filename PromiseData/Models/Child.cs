@@ -2,6 +2,7 @@ namespace PromiseData.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -85,9 +86,11 @@ namespace PromiseData.Models
 
         public int? FamilyID { get; set; }
 
+        [DisplayName("In Foster Care")]
         public bool? InFosterCare { get; set; }
 
         [Column("Child_Transportation")]
+        [DisplayName("Received Transportation Services")]
         public bool? ChildTransportation { get; set; }
 
         [ForeignKey("FamilyID")]

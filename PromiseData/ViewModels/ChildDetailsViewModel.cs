@@ -108,8 +108,10 @@ namespace PromiseData.ViewModels
         [DisplayName("Exit Reason")]
         public int? ExitReason_ID { get; set; }
 
+        [DisplayName("In Foster Care")]
         public bool? InFosterCare { get; set; }
 
+        [DisplayName("Received Transportation Services")]
         public bool? ChildTransportation { get; set; }
 
         [DisplayName("Family")]
