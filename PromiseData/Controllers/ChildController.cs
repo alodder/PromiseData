@@ -190,6 +190,57 @@ namespace PromiseData.Controllers
             return View(viewModel);
         }
 
+        [HttpPost]
+        public ActionResult Edit( ChildDetailsViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                viewModel.Genders = _context.CodeGender.ToList();
+                viewModel.Languages = _context.CodeLanguage.ToList();
+                viewModel.RaceEthnicityList = _context.RaceEthnic.ToList();
+                viewModel.Generations = _context.Code_GenerationCode.ToList();
+                return View("Edit", viewModel);
+            }
+            var child = _context.Children.Find( viewModel.ID);
+            if (child == null)
+            {
+                return HttpNotFound();
+            }
+
+            child.SSID = viewModel.SSID;
+            child.LastName = viewModel.LastName;
+            child.FirstName = viewModel.FirstName;
+            child.GenerationCode_ID = viewModel.GenerationCodeID;
+            child.MiddleName = viewModel.MiddleName;
+            child.OtherMiddleName = viewModel.OtherMiddleName;
+            child.OtherFirstName = viewModel.OtherFirstName;
+            child.OtherLastName = viewModel.OtherLastName;
+            child.OtherNameType_ID = viewModel.OtherNameTypeID;
+
+            child.Birthdate = viewModel.Birthdate;
+            child.Gender_ID = viewModel.GenderID.ToString();
+            child.Homeless = viewModel.Homeless;
+            child.Migrant = viewModel.Migrant;
+
+            child.HeadStartEligibility = viewModel.HeadStartEligibility;
+            child.Language_ID = viewModel.LanguageID;
+            child.EnglishLanguageLearner = viewModel.EnglishLanguageLearner;
+            child.ClassroomLanguage_ID = viewModel.ClassroomLanguage_ID;
+            child.SchoolDistrictCode = viewModel.SchoolDistrictCode;
+            child.ElementarySchoolCode = viewModel.ElementarySchoolCode;
+            child.PriorEarlyLearningMonths = viewModel.PriorEarlyLearningMonths;
+            child.SchoolDistrictCatchment = viewModel.ElementarySchoolCatchment;
+            child.ElementarySchoolCatchment = viewModel.ElementarySchoolCatchment;
+            child.Parent_ProviderConsultations = viewModel.Parent_ProviderConsultations;
+            child.TransitionPlanConferenceDate = viewModel.TransitionPlanConferenceDate;
+            child.InFosterCare = viewModel.InFosterCare;
+            child.ChildTransportation = viewModel.ChildTransportation;
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Details", new { id = viewModel.ID });
+        }
+
         [Authorize]
         [HttpGet]
         public ActionResult UpdateIFSP(int? id)

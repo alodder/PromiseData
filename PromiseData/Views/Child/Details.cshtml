@@ -208,151 +208,198 @@
         </div>
     </div>
 
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ChildTransportation)
-        </dt>
+    <table class="table table-hover table-responsive">
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.ChildTransportation)
+            </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.ChildTransportation)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.ChildTransportation)
+            </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.InFosterCare)
-        </dt>
+        </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.InFosterCare)
-        </dd>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.InFosterCare)
+            </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Homeless)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.InFosterCare)
+            </td>
+        </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.Homeless)
-        </dd>
+        <tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Migrant)
-        </dt>
+            <td>
+                @Html.DisplayNameFor(model => model.Homeless)
+            </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.Migrant)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.Homeless)
+            </td>
+        </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.HeadStartEligibility)
-        </dt>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Migrant)
+            </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.HeadStartEligibility)
-        </dd>
-    </dl>
+            <td>
+                @Html.DisplayFor(model => model.Migrant)
+            </td>
+        </tr>
 
-    <dl class="dl-horizontal">
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.HeadStartEligibility)
+            </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Language_ID)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.HeadStartEligibility)
+            </td>
+        </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.Language.Description)
-        </dd>
+    </table>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.EnglishLanguageLearner)
-        </dt>
+    <table class="table table-hover table-responsive">
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Language_ID)
+            </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.EnglishLanguageLearner)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.Language.Description)
+            </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ClassroomLanguage_ID)
-        </dt>
+        </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.Language.Description)
-        </dd>
-    </dl>
+        <tr>
 
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.SchoolDistrictCode)
-        </dt>
+            <td>
+                @Html.DisplayNameFor(model => model.EnglishLanguageLearner)
+            </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.SchoolDistrictCode)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.EnglishLanguageLearner)
+            </td>
+        </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ElementarySchoolCode)
-        </dt>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.ClassroomLanguage_ID)
+            </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.ElementarySchoolCode)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.Language.Description)
+            </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PriorEarlyLearningMonths)
-        </dt>
+        </tr>
+    </table>
 
-        <dd>
-            @Html.DisplayFor(model => model.PriorEarlyLearningMonths)
-        </dd>
+    <table class="table table-hover table-responsive">
+        <tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Program_ID)
-        </dt>
+            <td>
+                @Html.DisplayNameFor(model => model.SchoolDistrictCode)
+            </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.ProgramSessionType)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.SchoolDistrictCode)
+            </td>
+        </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SchoolDistrictCatchment)
-        </dt>
+        <tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.SchoolDistrictCatchment)
-        </dd>
+            <td>
+                @Html.DisplayNameFor(model => model.ElementarySchoolCode)
+            </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ElementarySchoolCatchment)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.ElementarySchoolCode)
+            </td>
+        </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.ElementarySchoolCatchment)
-        </dd>
-    </dl>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.PriorEarlyLearningMonths)
+            </td>
 
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Parent_ProviderConsultations)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.PriorEarlyLearningMonths)
+            </td>
 
-        <dd>
-            @Html.DisplayFor(model => model.Parent_ProviderConsultations)
-        </dd>
+        </tr>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TransitionPlanConferenceDate)
-        </dt>
+        <tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.TransitionPlanConferenceDate)
-        </dd>
+            <td>
+                @Html.DisplayNameFor(model => model.Program_ID)
+            </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ExitReason_ID)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.ProgramSessionType)
+            </td>
+        </tr>
+        <tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.ExitReason)
-        </dd>
+            <td>
+                @Html.DisplayNameFor(model => model.SchoolDistrictCatchment)
+            </td>
 
-    </dl>
+            <td>
+                @Html.DisplayFor(model => model.SchoolDistrictCatchment)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.ElementarySchoolCatchment)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.ElementarySchoolCatchment)
+            </td>
+
+        </tr>
+    </table>
+
+    <table class="table table-hover table-responsive">
+        <tr>
+
+            <td>
+                @Html.DisplayNameFor(model => model.Parent_ProviderConsultations)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.Parent_ProviderConsultations)
+            </td>
+        </tr>
+
+        <tr>
+
+            <td>
+                @Html.DisplayNameFor(model => model.TransitionPlanConferenceDate)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.TransitionPlanConferenceDate)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.ExitReason_ID)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.ExitReason)
+            </td>
+
+        </tr>
+
+    </table>
 
     <div class="panel panel-default">
         <div class="panel-heading">Special Needs</div>
