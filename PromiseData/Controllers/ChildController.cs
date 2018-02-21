@@ -615,6 +615,39 @@ namespace PromiseData.Controllers
             return RedirectToAction("Details", new { id = viewModel.ChildID });
         }
 
+        [HttpGet]
+        public ActionResult UpdateEnrollment(int id, int classid)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var child = _context.Children.Find( id);
+            if (child == null)
+            {
+                return HttpNotFound();
+            }
+
+            var enrollment = _context.Child_Classroom_Enrollments.First(e => e.ChildID == id && e.ClassroomID == classid);
+
+            var viewModel = new ChildEnrollViewModel
+            {
+                Child = child,
+                ChildID = child.ID,
+                ClassroomID = classid,
+                StartDate = enrollment.StartDate.GetValueOrDefault(),
+                EndDate = enrollment.EndDate.GetValueOrDefault(),
+                EndReason = enrollment.EndReason,
+                MonthlyAttendance = enrollment.MonthlyAttendance.GetValueOrDefault()
+            };
+
+            viewModel.Children = _childRepository.GetUserChildren((ClaimsPrincipal)User);
+            viewModel.Sites = _sitesRepository.GetUserSites((ClaimsPrincipal)User);
+            viewModel.Classrooms = _classroomRepository.GetUserClassrooms((ClaimsPrincipal)User);
+
+            return View( viewModel);
+        }
+
         [HttpPost]
         [Authorize]
         public ActionResult Search(ChildrenListViewModel viewModel)

@@ -563,6 +563,7 @@
                         <th scope="col">Classroom</th>
                         <th scope="col">Start</th>
                         <th scope="col">End</th>
+                        <th>&nbsp;</th>
                     </tr>
                 </thead>
                 <tr>
@@ -582,6 +583,12 @@
                         </td>
                         <td>
                             @enrollment.EndReason
+                        </td>
+                        <td>
+                            @if (Model.CanEdit)
+                            {
+                                @Html.ActionLink("Update", "UpdateEnrollment", "Child", new { id = enrollment.ChildID, classid= enrollment.ClassroomID }, new { @class = "btn btn-default btn-xs" })
+                            }
                         </td>
                     }
                 </tr>
