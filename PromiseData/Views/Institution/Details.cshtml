@@ -16,17 +16,17 @@
 
     <h4>
         @Html.DisplayFor(model => model.LegalName)
-        <div>
+        <span>
             @if (@Model.IsHub)
             {
-                <div class="label label-default">Hub</div>
+                <span class="label label-default">Hub</span>
             }
 
             @if (@Model.IsProvider)
             {
-                <div class="label label-info">Operator</div>
+                <span class="label label-info">Operator</span>
             }
-        </div>
+        </span>
     </h4>
     <hr />
     <p>
@@ -139,71 +139,71 @@
     *@
     @if (Model.Agents != null)
     {
+        <div class="row">
+            <h3>@Model.LegalName Agents</h3>
+            <p>
+                @if (Model.CanEdit)
+                {
+                    @Html.ActionLink("Add Agent", "Create", "ContactAgents", new { id = Model.Id }, new { @class = "btn btn-primary" })
+                }
+            </p>
 
-        <h3>@Model.LegalName Agents</h3>
-        <p>
-            @if (Model.CanEdit)
+
+            @foreach (var agent in Model.Agents)
             {
-                @Html.ActionLink("Add Agent", "Create", "ContactAgents", new { id = Model.Id }, new { @class = "btn btn-primary" })
-            }
-        </p>
 
-
-        foreach (var agent in Model.Agents)
-        {
-
-                <div class="col-lg-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">@Html.DisplayFor(modelItem => agent.AgentTitle)</div>
-                        <dl class="panel-body dl-horizontal">
-                            <dt>
-                                @Html.DisplayNameFor(modelItem => agent.AgentName)
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(modelItem => agent.AgentName)
-                            </dd>
-                            <dt>
-                                @Html.DisplayNameFor(modelItem => agent.AgentTitle)
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(modelItem => agent.AgentTitle)
-                            </dd>
-                            <dt>
-                                @Html.DisplayNameFor(modelItem => agent.AgentEmail)
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(modelItem => agent.AgentEmail)
-                            </dd>
-                            <dt>
-                                @Html.DisplayNameFor(odelItem => agent.AgentPhone)
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(odelItem => agent.AgentPhone)
-                            </dd>
-                            <dt>
-                                @Html.DisplayNameFor(odelItem => agent.AgentFax)
-                            </dt>
-                            <dd>
-                                @Html.DisplayFor(modelItem => agent.AgentFax)
-                            </dd>
-                        </dl>
-                        <p class="text-right">
-                            @if (Model.CanEdit)
-                            {
-                                @Html.ActionLink("Edit", "Edit", "ContactAgents", new { id = agent.AgentId }, new { @class = "btn btn-default btn-xs" })
-                                @Html.Raw(" | ")
-                                @Html.ActionLink("Details", "Details", "ContactAgents", new { id = agent.AgentId }, new { @class = "btn btn-default btn-xs" })
-                                @Html.Raw(" | ")
-                                @Html.ActionLink("Delete", "Delete", "ContactAgents", new { id = agent.AgentId }, new { @class = "btn btn-default btn-xs" })
-                            }
-                        </p>
-                    </div>
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">@Html.DisplayFor(modelItem => agent.AgentTitle)</div>
+                    <dl class="panel-body dl-horizontal">
+                        <dt>
+                            @Html.DisplayNameFor(modelItem => agent.AgentName)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(modelItem => agent.AgentName)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(modelItem => agent.AgentTitle)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(modelItem => agent.AgentTitle)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(modelItem => agent.AgentEmail)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(modelItem => agent.AgentEmail)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(odelItem => agent.AgentPhone)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(odelItem => agent.AgentPhone)
+                        </dd>
+                        <dt>
+                            @Html.DisplayNameFor(odelItem => agent.AgentFax)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(modelItem => agent.AgentFax)
+                        </dd>
+                    </dl>
+                    <p class="text-right">
+                        @if (Model.CanEdit)
+                        {
+                            @Html.ActionLink("Edit", "Edit", "ContactAgents", new { id = agent.AgentId }, new { @class = "btn btn-default btn-xs" })
+                            @Html.Raw(" | ")
+                            @Html.ActionLink("Details", "Details", "ContactAgents", new { id = agent.AgentId }, new { @class = "btn btn-default btn-xs" })
+                            @Html.Raw(" | ")
+                            @Html.ActionLink("Delete", "Delete", "ContactAgents", new { id = agent.AgentId }, new { @class = "btn btn-default btn-xs" })
+                        }
+                    </p>
                 </div>
+            </div>
 
-                    
+
 
             }
-
+        </div>
     }
 </div>
 
@@ -213,115 +213,119 @@
 *@
 @if (Model.IsHub)
 {
+    <div class="row">
 
-    <h3>@Model.LegalName Operators</h3>
-    <table class="table table-hover">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.LegalName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Region)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BackboneOrg)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.WebAddress)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DirectorAgentId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ContactAgentId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LocationAddressId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MailingAddressId)
-            </th>
-            <th>
-                  @Html.DisplayNameFor(model => model.ActiveDate)              
-            </th>
-            <th>
-                <div class="nav nav-pills">
-                    <div class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Show All</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Active</a><br />
-                            <a class="dropdown-item" href="#">Inactive</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Show All</a>
+
+
+        <h3>@Model.LegalName Operators</h3>
+        <table class="table table-hover">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.LegalName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Region)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BackboneOrg)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.WebAddress)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DirectorAgentId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ContactAgentId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LocationAddressId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MailingAddressId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ActiveDate)
+                </th>
+                <th>
+                    <div class="nav nav-pills">
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Show All</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Active</a><br />
+                                <a class="dropdown-item" href="#">Inactive</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Show All</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </th>
-            <th>
-                
-            </th>
-            <th>
-                
-            </th>
-            <th>
-                
-            </th>
-        </tr>
+                </th>
+                <th>
 
-        @foreach (var item in Model.Providers)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LegalName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Region)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BackboneOrg)
-                </td>
-                <td class="cell-url">
-                    @Html.DisplayFor(modelItem => item.WebAddress)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ContactAgent1.AgentName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ContactAgent.AgentName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Address.City)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Address1.City)
-                </td>
-                <td>
-                    @item.ActiveDate.ToShortDateString()
-                </td>
-                <td>
-                    @item.EndDate.ToString()
-                </td>
-                <td>
-                    @if (item.IsHub)
-                    {
-                        <div class="label label-default">Hub</div>
-                    }
-                </td>
-                <td>
-                    @if (item.IsProvider)
-                    {
-                        <div class="label label-info">Provider</div>
-                    }
-                </td>
-                <td>
-                    @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |*@
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-default btn-xs" })
-                    @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
-                </td>
+                </th>
+                <th>
+
+                </th>
+                <th>
+
+                </th>
             </tr>
-        }
 
-    </table>
+            @foreach (var item in Model.Providers)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LegalName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Region)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BackboneOrg)
+                    </td>
+                    <td class="cell-url">
+                        @Html.DisplayFor(modelItem => item.WebAddress)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ContactAgent1.AgentName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ContactAgent.AgentName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address.City)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address1.City)
+                    </td>
+                    <td>
+                        @item.ActiveDate.ToShortDateString()
+                    </td>
+                    <td>
+                        @item.EndDate.ToString()
+                    </td>
+                    <td>
+                        @if (item.IsHub)
+                    {
+                            <div class="label label-default">Hub</div>
+                        }
+                    </td>
+                    <td>
+                        @if (item.IsProvider)
+                    {
+                            <div class="label label-info">Provider</div>
+                        }
+                    </td>
+                    <td>
+                        @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |*@
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-default btn-xs" })
+                        @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
 }
 
 
@@ -330,68 +334,70 @@
 *@
 @if (Model.IsProvider)
 {
-    <p>
-        @if (Model.CanEdit)
-        {
-            @Html.ActionLink("Add Site", "Create", "Facility", new { id = Model.Id }, new { @class = "btn btn-success" })
-        }
-    </p>
+    <div class="row">
 
 
-    <h3>@Model.LegalName Provider Sites</h3>
-    <table class="table table-hover">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.LegalName)
-            </th>
-            <th>
-                Facility Type
-            </th>
-            <th>
-                Monitoring Visit #1
-            </th>
-            <th>
-                Monitoring Visit #2
-            </th>
-            <th>
-                Classrooms
-            </th>
-            <th>
-                
-            </th>
-            <th>
+        <p>
+            @if (Model.CanEdit)
+            {
+                @Html.ActionLink("Add Site", "Create", "Facility", new { id = Model.Id }, new { @class = "btn btn-success" })
+            }
+        </p>
 
-            </th>
-        </tr>
 
-        @foreach (var site in Model.Sites)
-        {
+        <h3>@Model.LegalName Provider Sites</h3>
+        <table class="table table-hover">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => site.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => site.ProviderFacilityType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => site.MonitoringVisit1Date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => site.MonitoringVisit2Date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => site.Classrooms.Count)
-                </td>
-                <td>
-                    
-                </td>
-                <td>
-                    @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |*@
-                    @Html.ActionLink("Details", "Details", "Facility", new { id = site.ID }, null)
-                    @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
-                </td>
-            </tr>
-        }
+                <th>
+                    @Html.DisplayNameFor(model => model.LegalName)
+                </th>
+                <th>
+                    Facility Type
+                </th>
+                <th>
+                    Monitoring Visit #1
+                </th>
+                <th>
+                    Monitoring Visit #2
+                </th>
+                <th>
+                    Classrooms
+                </th>
+                <th>
 
-    </table>
+                </th>
+                <th>
+
+                </th>
+            </tr>
+
+            @foreach (var site in Model.Sites)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => site.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => site.ProviderFacilityType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => site.MonitoringVisit1Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => site.MonitoringVisit2Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => site.Classrooms.Count)
+                    </td>
+                    <td></td>
+                    <td>
+                        @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |*@
+                        @Html.ActionLink("Details", "Details", "Facility", new { id = site.ID }, null)
+                        @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
 }

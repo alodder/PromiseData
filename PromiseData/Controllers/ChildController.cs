@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using System.Security.Claims;
 using System.Web.Services;
 using PromiseData.Repositories;
+using Advanced_Auditing.Models;
 
 namespace PromiseData.Controllers
 {
