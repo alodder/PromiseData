@@ -29,6 +29,11 @@ namespace PromiseData.Models
         [StringLength(255)]
         public string MiddleName { get; set; }
 
+        public string FullName
+        {
+            get { return FirstName + " " + MiddleName + " " + LastName; }
+        }
+
         public int? GenerationCode_ID { get; set; }
 
         public int? OtherNameType_ID { get; set; }

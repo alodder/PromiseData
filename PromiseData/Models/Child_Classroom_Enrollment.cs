@@ -10,14 +10,11 @@ namespace PromiseData.Models
     public partial class Child_Classroom_Enrollment
     {
         [Key]
-        [Column(Order = 0)]
         public int ID { get; set; }
 
-        [Column(Order = 1)]
         [DisplayName("Child")]
         public int ChildID { get; set; }
 
-        [Column(Order = 2)]
         [DisplayName("Classroom")]
         public int ClassroomID { get; set; }
 

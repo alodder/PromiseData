@@ -623,38 +623,74 @@ namespace PromiseData.Controllers
             return RedirectToAction("Details", new { id = viewModel.ChildID });
         }
 
+        /**
+         *  Action to retrieve Enrollment row by ID
+         *  
+         *  Added ID to Enrollment table for easier updating/retrieval
+         **/
         [HttpGet]
         [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
-        public ActionResult UpdateEnrollment(int id, int classid)
+        public ActionResult UpdateEnrollment(int id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var child = _context.Children.Find( id);
-            if (child == null)
+            var enrollment = _context.Child_Classroom_Enrollments.Find( id);
+            if (enrollment == null)
             {
                 return HttpNotFound();
             }
 
-            var enrollment = _context.Child_Classroom_Enrollments.First(e => e.ChildID == id && e.ClassroomID == classid);
+            //var enrollment = _context.Child_Classroom_Enrollments.First(e => e.ChildID == id && e.ClassroomID == classid);
 
             var viewModel = new ChildEnrollViewModel
             {
-                Child = child,
-                ChildID = child.ID,
-                ClassroomID = classid,
+                ID = enrollment.ID,
+                Child = enrollment.Child,
+                ChildID = enrollment.ChildID,
+                ClassroomID = enrollment.ClassroomID,
                 StartDate = enrollment.StartDate.GetValueOrDefault(),
                 EndDate = enrollment.EndDate.GetValueOrDefault(),
                 EndReason = enrollment.EndReason,
-                MonthlyAttendance = enrollment.MonthlyAttendance.GetValueOrDefault()
+                MonthlyAttendance = enrollment.MonthlyAttendance.GetValueOrDefault(),
+                ReceivedInfo = enrollment.ReceivedInfo.GetValueOrDefault(),
+                TransportationUse = enrollment.TransportationUse.GetValueOrDefault()
             };
 
             viewModel.Children = _childRepository.GetUserChildren((ClaimsPrincipal)User);
             viewModel.Sites = _sitesRepository.GetUserSites((ClaimsPrincipal)User);
             viewModel.Classrooms = _classroomRepository.GetUserClassrooms((ClaimsPrincipal)User);
 
-            return View( viewModel);
+            return View("Enroll", viewModel);
+            //return View( viewModel);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Administrator, System Administrator, Hub, Provider")]
+        public ActionResult UpdateEnrollment(ChildEnrollViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                viewModel.Children = _childRepository.GetUserChildren((ClaimsPrincipal)User);
+                viewModel.Sites = _sitesRepository.GetUserSites((ClaimsPrincipal)User);
+                viewModel.Classrooms = _classroomRepository.GetUserClassrooms((ClaimsPrincipal)User);
+                return View("Enroll", viewModel);
+            }
+
+            Child_Classroom_Enrollment enrollment = _context.Child_Classroom_Enrollments.Find( viewModel.ID);
+            enrollment.ChildID = viewModel.ChildID;
+            enrollment.ClassroomID = viewModel.ClassroomID;
+            enrollment.StartDate = viewModel.StartDate;
+            enrollment.EndDate = viewModel.EndDate;
+            enrollment.EndReason = viewModel.EndReason;
+            enrollment.MonthlyAttendance = viewModel.MonthlyAttendance;
+            enrollment.ReceivedInfo = viewModel.ReceivedInfo;
+            enrollment.TransportationUse = viewModel.TransportationUse;
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Details", new { id = viewModel.ChildID });
         }
 
         [HttpPost]

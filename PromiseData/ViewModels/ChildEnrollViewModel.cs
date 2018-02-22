@@ -7,11 +7,31 @@ using System.Linq;
 using System.Web;
 using PromiseData.Models;
 using static System.DateTime;
+using System.Linq.Expressions;
+using PromiseData.Controllers;
+using System.Web.Mvc;
 
 namespace PromiseData.ViewModels
 {
     public class ChildEnrollViewModel
     {
+        public int ID { get; set; }
+
+        public String Action
+        {
+            get
+            {
+                Expression<Func<ChildController, ActionResult>> update =
+                    (c => c.UpdateEnrollment(this));
+                Expression<Func<ChildController, ActionResult>> create =
+                    (c => c.Enroll(this));
+
+                var action = (ID != 0) ? update : create;
+                return (action.Body as MethodCallExpression).Method.Name;
+            }
+
+        }
+
         [DisplayName("Child")]
         [Required]
         public int ChildID { get; set; }
@@ -49,10 +69,10 @@ namespace PromiseData.ViewModels
         public decimal MonthlyAttendance { get; set; }
 
         [DisplayName("Did child/family receive or attend transition services or information?")]
-        public bool ReceivedInfo { get; set; }
+        public bool? ReceivedInfo { get; set; }
 
         [DisplayName("Transportation Use")]
-        public bool TransportationUse { get; set; }
+        public bool? TransportationUse { get; set; }
 
         public Child Child { get; set; }
 

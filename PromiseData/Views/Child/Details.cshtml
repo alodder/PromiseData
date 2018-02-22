@@ -587,7 +587,7 @@
                         <td>
                             @if (Model.CanEdit)
                             {
-                                @Html.ActionLink("Update", "UpdateEnrollment", "Child", new { id = enrollment.ChildID, classid= enrollment.ClassroomID }, new { @class = "btn btn-default btn-xs" })
+                                @Html.ActionLink("Update", "UpdateEnrollment", "Child", new { id = enrollment.ID }, new { @class = "btn btn-default btn-xs" })
                             }
                         </td>
                     }

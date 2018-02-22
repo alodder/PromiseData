@@ -46,11 +46,12 @@
                 <div class="col-md-6">
                     @Html.DropDownListFor(model => model.TeacherType, new SelectList(
                         new List<SelectListItem> {
-                        new SelectListItem { Text="Lead Teacher", Value = "Lead Teacher"},
-                        new SelectListItem { Text="Assistant Teacher", Value = "Assistant Teacher"},
-                        new SelectListItem { Text="Classroom Aide", Value = "Classroom Aide"},
-                        new SelectListItem { Text="Support", Value = "Support"}
-                    }, "Value", "Text"), new { @class = "form-control" })
+                            new SelectListItem { Text="Lead Teacher", Value = "Lead Teacher"},
+                            new SelectListItem { Text="Assistant Teacher", Value = "Assistant Teacher"},
+                            new SelectListItem { Text="Classroom Aide", Value = "Classroom Aide"},
+                            new SelectListItem { Text="Support", Value = "Support"}
+                        }, "Value", "Text"), new { @class = "form-control" }
+                    )
                     @Html.ValidationMessageFor(model => model.TeacherType, "", new { @class = "text-danger" })
                 </div>
             </div>
