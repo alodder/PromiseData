@@ -11,12 +11,13 @@ namespace PromiseData.Models
     {
         [Key]
         [Column(Order = 0)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int ID { get; set; }
+
+        [Column(Order = 1)]
         [DisplayName("Child")]
         public int ChildID { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
+        [Column(Order = 2)]
         [DisplayName("Classroom")]
         public int ClassroomID { get; set; }
 
