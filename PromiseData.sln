@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26228.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PromiseData", "PromiseData\PromiseData.csproj", "{01E24B49-05AD-44BD-BAE9-550D70C56694}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PromiseData.UnitTests", "PromiseData.UnitTests\PromiseData.UnitTests.csproj", "{718C483F-A2BC-4D83-AB59-E8330CC74D38}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,8 +17,15 @@ Global
 		{01E24B49-05AD-44BD-BAE9-550D70C56694}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01E24B49-05AD-44BD-BAE9-550D70C56694}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01E24B49-05AD-44BD-BAE9-550D70C56694}.Release|Any CPU.Build.0 = Release|Any CPU
+		{718C483F-A2BC-4D83-AB59-E8330CC74D38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{718C483F-A2BC-4D83-AB59-E8330CC74D38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{718C483F-A2BC-4D83-AB59-E8330CC74D38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{718C483F-A2BC-4D83-AB59-E8330CC74D38}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5ED21C95-9C83-48B9-B284-F5C35FB52107}
 	EndGlobalSection
 EndGlobal
